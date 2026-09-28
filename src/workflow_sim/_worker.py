@@ -51,7 +51,7 @@ def execute(request, attempt, project, scratch):
         from .context import Context
         from .ledger import canonical
         start = datetime(2099, 1, 1, tzinfo=timezone.utc)
-        engine = Engine(start=start, seed=request['seed'], max_steps=request['max_steps'])
+        engine = Engine(start=start, seed=request['seed'], max_steps=request['max_steps'], strict_lifecycle=True)
         with engine:
             module_name, function_name = request['adapter'].split(':')
             module = importlib.import_module(module_name)
@@ -63,10 +63,14 @@ def execute(request, attempt, project, scratch):
                 raise TypeError('adapter must configure the context and return None')
             report = engine.run_until(start + timedelta(seconds=request['duration']))
             checks = context._evaluate()
+            # Assertions are adapter code too: incorporate failures or work they
+            # create before freezing the evidence (without running it implicitly).
+            report = engine._report(report.stop_reason, report.started_at,
+                                    engine._steps - report.steps)
         # Include violations from setup, execution, assertions, and teardown.
         evidence = {'report': canonical(asdict(report)), 'checks': checks,
                     'ledger': engine.ledger.records(), 'violations': violations,
-                    'unsupported': engine.unsupported + engine.celery.unsupported}
+                    'unsupported': engine.unsupported}
         result.update(evidence=evidence, evidence_sha256=digest(evidence), outcome=verdict(evidence))
     except BaseException as exc:
         result.update(outcome='UNSUPPORTED' if violations or type(exc).__name__ in ('UnsupportedFeature', 'UnsupportedCeleryFeature', 'ClockRangeError') else 'HARNESS_ERROR',

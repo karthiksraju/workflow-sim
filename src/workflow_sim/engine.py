@@ -114,20 +114,19 @@ class WorkItem:
         return self.run.task_id if self.run is not None else f"{self.kind}:{self.label}"
 
     def loop_ids(self) -> set:
-        return {i for i in (self.thread_id, self.loop_thread_id) if i}
+        # Thread IDs can be reused once the entry body returns. A descendant can
+        # outlive that body; fencing its former ID would freeze an unrelated later
+        # execution (including the callback requesting this crash).
+        return {thread.ident for thread in (self.thread, self.loop_thread)
+                if thread is not None and thread.is_alive() and thread.ident is not None}
 
     def retired(self) -> bool:
-        """Nothing of this execution can run any more: it was abandoned, or its body
-        returned and every pool call it submitted has closed."""
-        return self.abandoned or (self.finished and not self.executor_calls)
+        """The body, owned pool work and private loop descendants have finished."""
+        return self.abandoned or (self.finished and not self.executor_calls
+                                  and (self.loop is None or self.loop_retired))
 
     def settled(self) -> bool:
-        """Retired, and nothing can submit work on its behalf any more: the
-        private loop, which keeps running what the body left scheduled (a task
-        not yet started can still make a pool call), has retired too. The engine
-        keeps an unsettled execution among those it waits for; one that is
-        retired but not settled is not in flight."""
-        return self.abandoned or (self.retired() and (self.loop is None or self.loop_retired))
+        return self.retired()
 
     def is_parked(self, scheduler) -> bool:
         """Parked = nothing of this execution can run until the engine acts.
@@ -211,7 +210,10 @@ class RunReport:
 class Engine:
     def __init__(self, *, start: datetime, seed: int = 0, max_steps: int = 200_000,
                  max_real_seconds: float = 600.0, concurrency: Optional[int] = None,
-                 clock_seam=None, asyncio_bridge=None, log_module=None):
+                 clock_seam=None, asyncio_bridge=None, log_module=None, strict_lifecycle=False):
+        self.strict_lifecycle = strict_lifecycle
+        self._async_futures = []
+        self._async_failures = []
         self.start = start if start.tzinfo else start.replace(tzinfo=timezone.utc)
         self.seed = int(seed)
         self.asyncio_bridge = asyncio_bridge or asyncio_compat
@@ -226,7 +228,7 @@ class Engine:
         self.active: list[WorkItem] = []
         self.concurrency = concurrency
         self.abandoned: list[WorkItem] = []
-        self.unsupported: list[str] = []
+        self.unsupported = self.celery.unsupported
         self._installed = False
         self._stages: list[Callable[[], None]] = []
         self._orig_run_coro_sync = None
@@ -260,6 +262,8 @@ class Engine:
             self._stages.append(self.celery.uninstall)
             self._patch_run_coro_sync()
             self._stages.append(self._unpatch_run_coro_sync)
+            self._patch_async_tracking()
+            self._stages.append(self._unpatch_async_tracking)
             self._patch_uuid()
             self._stages.append(self._unpatch_uuid)
             self._patch_run_in_executor()
@@ -413,6 +417,60 @@ class Engine:
             if getattr(mod, "run_coro_sync", None) is self._orig_run_coro_sync:
                 setattr(mod, "run_coro_sync", sim_run_coro_sync)
 
+    def _patch_async_tracking(self):
+        # Retain tasks/futures until the evidence snapshot: collection timing must
+        # not determine whether an unobserved error or pending task is detectable.
+        engine = self
+        self._orig_create_task = asyncio.BaseEventLoop.create_task
+        self._orig_create_future = asyncio.BaseEventLoop.create_future
+        self._orig_exception_handler = asyncio.BaseEventLoop.call_exception_handler
+
+        def track(loop, future):
+            owner = current_item.get(None) or getattr(loop, "_sim_item", None)
+            engine._async_futures.append((future, owner))
+            return future
+
+        def create_task(loop, coro, *args, **kwargs):
+            return track(loop, engine._orig_create_task(loop, coro, *args, **kwargs))
+
+        def create_future(loop):
+            return track(loop, engine._orig_create_future(loop))
+
+        def exception_handler(loop, context):
+            future = context.get("future") or context.get("task")
+            owner = next((w for f, w in engine._async_futures if f is future), None)
+            owner = owner or current_item.get(None) or getattr(loop, "_sim_item", None)
+            if owner is None or not owner.abandoned:
+                exc = context.get("exception")
+                error = f"{type(exc).__name__}: {exc}" if exc is not None else context.get("message", "asyncio error")
+                engine._async_failures.append({"kind": "asyncio", "label": owner.label if owner else "unowned",
+                                               "error": error})
+            # Preserve the application's handler, including its normal context.
+            engine._orig_exception_handler(loop, context)
+
+        asyncio.BaseEventLoop.create_task = create_task
+        asyncio.BaseEventLoop.create_future = create_future
+        asyncio.BaseEventLoop.call_exception_handler = exception_handler
+
+    def _observe_async_errors(self):
+        for future, owner in list(self._async_futures):
+            if owner is not None and owner.abandoned:
+                continue
+            # CPython 3.12 Future records whether result()/exception()/await has
+            # consumed the exception. Looking at done() alone misclassifies caught
+            # exceptions; waiting for __del__ misses deliberately retained tasks.
+            if future.done() and getattr(future, "_log_traceback", False):
+                exc = future._exception
+                future._log_traceback = False
+                future.get_loop().call_exception_handler({
+                    "message": f"{type(future).__name__} exception was never retrieved",
+                    "exception": exc, "future": future})
+
+    def _unpatch_async_tracking(self):
+        asyncio.BaseEventLoop.create_task = self._orig_create_task
+        asyncio.BaseEventLoop.create_future = self._orig_create_future
+        asyncio.BaseEventLoop.call_exception_handler = self._orig_exception_handler
+
     def _patch_run_in_executor(self) -> None:
         """An execution owns the thread-pool calls it makes (``loop.run_in_executor``,
         and ``asyncio.to_thread`` through it).
@@ -564,12 +622,12 @@ class Engine:
 
         def sim_submit(pool_self, fn, /, *args, **kwargs):
             item = current_item.get(None) or _pool_owner.get(None)
-            if item is not None and self.clock.scheduler.engine is self and not _owned_pool_submit.get():
-                reason = (f"direct ThreadPoolExecutor.submit in {item.label}: the submitted function "
+            if (item is not None or self.strict_lifecycle) and self.clock.scheduler.engine is self and not _owned_pool_submit.get():
+                reason = (f"direct ThreadPoolExecutor.submit in {item.label if item else 'adapter lifecycle'}: the submitted function "
                           "has no execution ownership; use loop.run_in_executor or asyncio.to_thread")
                 self.unsupported.append(reason)
-                self.ledger.add("fault", "unsupported_pool_submit", data={"execution": item.id,
-                                                                            "label": item.label})
+                self.ledger.add("fault", "unsupported_pool_submit", data={"execution": item.id if item else None,
+                                                                            "label": item.label if item else "adapter lifecycle"})
                 raise UnsupportedFeature(reason)
             with critical:
                 return orig_submit(pool_self, fn, *args, **kwargs)
@@ -587,13 +645,13 @@ class Engine:
 
         def sim_start(thread_self, *args, **kwargs):
             item = current_item.get(None) or _pool_owner.get(None)
-            if (item is not None and self.clock.scheduler.engine is self
+            if ((item is not None or self.strict_lifecycle) and self.clock.scheduler.engine is self
                     and not _managed_thread_start.get() and not _owned_pool_submit.get()):
-                reason = (f"direct Thread.start in {item.label}: the new thread has no execution "
+                reason = (f"direct Thread.start in {item.label if item else 'adapter lifecycle'}: the new thread has no execution "
                           "ownership; use loop.run_in_executor or asyncio.to_thread")
                 self.unsupported.append(reason)
-                self.ledger.add("fault", "unsupported_thread_start", data={"execution": item.id,
-                                                                            "label": item.label})
+                self.ledger.add("fault", "unsupported_thread_start", data={"execution": item.id if item else None,
+                                                                            "label": item.label if item else "adapter lifecycle"})
                 raise UnsupportedFeature(reason)
             return orig(thread_self, *args, **kwargs)
 
@@ -786,7 +844,11 @@ class Engine:
         work.thread = thread
         self.executions.append(work)
         self.active.append(work)
-        thread.start()
+        token = _managed_thread_start.set(True)
+        try:
+            thread.start()
+        finally:
+            _managed_thread_start.reset(token)
         return work
 
     def _run_item(self, item: Item) -> WorkItem:
@@ -955,6 +1017,7 @@ class Engine:
         return report
 
     def _report(self, stop: str, started: datetime, steps_before: int) -> RunReport:
+        self._observe_async_errors()
         sched = self.clock.scheduler
         with sched.cv:
             in_flight = [{"id": w.id, "kind": w.kind, "label": w.label,
@@ -974,7 +1037,7 @@ class Engine:
             callback_failures=[{"kind": w.kind, "label": w.label,
                                 "error": f"{type(w.error).__name__}: {w.error}"}
                                for w in self.executions if w.run is None and w.error is not None
-                               and not w.abandoned],
+                               and not w.abandoned] + list(self._async_failures),
             crashes=[{"id": w.id, "label": w.label, "abandoned": w.abandoned} for w in self.executions if w.crashed],
             dropped_timers=list(self.clock.scheduler.dropped_timers),
             budget={"max_steps": self.max_steps, "max_real_seconds": self.max_real_seconds,

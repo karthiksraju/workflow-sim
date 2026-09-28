@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.1.0a2 — adversarial review corrections
+
+- Keep asynchronous descendants in flight after their entry coroutine returns;
+  fence only live thread identities when a descendant is crashed.
+- Include unhandled callback and unretrieved task/future errors in execution health,
+  including retained tasks and errors created while evaluating assertions.
+- Preserve Celery retry continuations, signature options and original message
+  contents across duplicate/crash deliveries. Record completion-hook/publication
+  failures and caught unsupported operations; disarm completed task limits.
+- Reject unowned threads and pool submissions throughout the public worker lifecycle.
+- Invalidate explicit CLI output on argument-parsing errors and return exit 4.
+- Include the contributor dependency lock in source archives and verify its bytes.
+
+Result schema remains 1. Previously misleading PASS/INCOMPLETE results can change;
+rerun evidence rather than reclassify archived results. See [migration and regression
+coverage](docs/alpha2.md). Version 0.1.0a1 is retained for historical reproduction.
+
 ## 0.1.0a1 — internal alpha
 
 - Extracted the virtual clock, scheduler, Celery driver, execution fencing and

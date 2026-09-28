@@ -87,6 +87,30 @@ fencing and graceful cancellation are distinct behaviors, covered by separate te
 This is one controlled scheduling model. It does not explore every possible
 interleaving or reproduce a real broker's distribution and acknowledgement behavior.
 
+## Completion belongs to the whole execution
+
+```mermaid
+flowchart TD
+    Body["Entry coroutine returns"] --> Children{"Children, timers or<br/>pool work still active?"}
+    Children -- Yes --> Owned["Keep execution owned<br/>advance or report INCOMPLETE"]
+    Owned --> Children
+    Children -- No --> Errors{"Unhandled callback or<br/>unretrieved task error?"}
+    Errors -- Yes --> Failed["Record execution failure<br/>HARNESS_ERROR"]
+    Errors -- No --> Done["Execution complete<br/>evaluate business assertions"]
+    Crash["Injected hard crash"] --> Fence["Fence live owned threads<br/>including descendants"]
+    Owned --> Crash
+```
+
+The runtime retains created tasks/futures through evidence collection so garbage
+collection cannot hide an unobserved exception. CPython 3.12's exception-retrieval
+flag distinguishes handled errors from unhandled ones; application loop handlers
+still run. Final health is refreshed after assertions. Celery retries preserve
+continuation metadata at signature production, while the simulator owns exactly
+one continuation dispatch. Each delivery decodes the saved serialized message.
+
+[Alpha 2 corrections](alpha2.md) map the adversarial findings to their regression
+checks and describe changed evidence semantics.
+
 ## Extraction and the first consumer
 
 ```mermaid

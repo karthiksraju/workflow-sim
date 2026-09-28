@@ -73,3 +73,101 @@ def build(c):
         c.at(0, 'enqueue', enqueue)
         expected = [] if mode == 'celery_caught_unsupported' else ['payload','expired-link'] if mode == 'celery_link_expiry' else ['payload']
         c.expect('deliveries', lambda: state, expected)
+
+
+def async_ownership(c):
+    mode = c.inputs['mode']
+    state, retained = [], []
+
+    async def broken():
+        raise RuntimeError('retained task failed')
+
+    async def parent():
+        loop = asyncio.get_running_loop()
+        if mode in ('retained_error', 'handled_error'):
+            task = asyncio.create_task(broken())
+            retained.append(task)
+            if mode == 'handled_error':
+                try:
+                    await task
+                except RuntimeError:
+                    state.append('handled')
+            else:
+                await asyncio.sleep(0)
+        elif mode in ('retained_future', 'handled_future'):
+            future = loop.create_future()
+            retained.append(future)
+            future.set_exception(ValueError('retained future failed'))
+            if mode == 'handled_future':
+                try:
+                    await future
+                except ValueError:
+                    state.append('handled')
+        elif mode == 'cancelled_timer':
+            timer = loop.call_later(100, state.append, 'cancelled effect')
+            timer.cancel()
+        else:
+            async def child():
+                await asyncio.sleep(2)
+                state.append('child-finished')
+            asyncio.create_task(child())
+        state.append('parent-returned')
+
+    c.at(0, 'parent', parent)
+    expected = ['handled', 'parent-returned'] if mode.startswith('handled_') else [
+        'parent-returned', 'child-finished'] if mode == 'completed_child' else ['parent-returned']
+    c.expect('observable state', lambda: state, expected)
+
+
+def setup_guard(c):
+    mode = c.inputs['mode']
+    from concurrent.futures import ThreadPoolExecutor
+    state = []
+
+    def attempt():
+        try:
+            if mode == 'pool':
+                ThreadPoolExecutor().submit(state.append, 'escaped')
+            else:
+                threading.Thread(target=lambda: state.append('escaped'), daemon=True).start()
+        except RuntimeError as exc:
+            c.record('caught-unowned-work', error=str(exc))
+        return list(state)
+
+    if mode == 'assertion':
+        c.expect('assertion cannot start a thread', attempt, [])
+    else:
+        attempt()
+        c.expect('no unowned work started', lambda: state, [])
+
+
+def assertion_error(c):
+    async def fail():
+        raise ValueError('assertion-stage task error')
+
+    async def inspect():
+        asyncio.create_task(fail())
+        await asyncio.sleep(0)
+        return 'matching value'
+
+    c.expect('matching value does not conceal task error', lambda: asyncio.run(inspect()), 'matching value')
+
+
+def descendant_crash(c):
+    state = []
+
+    async def parent():
+        async def child():
+            await asyncio.sleep(20)
+            state.append('escaped')
+        asyncio.create_task(child())
+        await asyncio.sleep(0)
+        state.append('parent-returned')
+
+    def crash():
+        owner = next(w for w in c.engine.executions if w.label == 'parent')
+        state.append(c.engine.crash_execution(owner, reason='child crash'))
+    c.at(0, 'parent', parent)
+    c.at(1, 'crash', crash)
+    c.at(30, 'after original deadline', lambda: state.append('later'))
+    c.expect('returned parent still owns its child', lambda: state, ['parent-returned', True, 'later'])

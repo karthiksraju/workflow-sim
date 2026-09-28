@@ -38,9 +38,20 @@ non-Python environment variables are inherited, including credentials if present
   compatibility promise during alpha; ordinary adapters should use the methods above.
 
 No checks means INCOMPLETE. Outstanding future tasks/items, in-flight executions,
-dropped timers or exhausted budgets also prevent PASS. A callback exception is
+dropped timers or exhausted budgets also prevent PASS. An unhandled asyncio callback error or an unretrieved task/future exception is
+HARNESS_ERROR, including retained task objects. Exceptions consumed by application
+code through await/result()/exception() do not become harness failures. A callback exception is
 HARNESS_ERROR even if every registered assertion matches. A blocked operation
-prevents PASS even if adapter code catches its exception.
+prevents PASS even if adapter code catches its exception. This includes unsupported
+Celery options on direct, retry and continuation publication paths.
+
+The public worker rejects raw `Thread.start` and direct `ThreadPoolExecutor.submit`
+during import, setup, callbacks and assertion evaluation. Put asynchronous work in
+`ctx.at`; use `asyncio.to_thread` or `loop.run_in_executor` within that execution.
+An entry coroutine returning does not finish its child tasks or timers. Pending
+children remain owned, reported and subject to crash fencing. The experimental
+in-process engine defaults to permitting coordinator-owned setup threads; public
+runs enable `strict_lifecycle=True` and always terminate their worker process.
 
 ## Ordering and time
 
@@ -75,7 +86,11 @@ null evidence and an error string. Completed evidence contains `report`, `checks
 The parent verifies request/attempt identity, evidence digest, required report
 fields and collection types, check uniqueness and the recomputed verdict. Atomic
 child publication avoids partial records. CLI output replaces an existing result;
-invalid CLI input removes the prior output instead of leaving an old PASS behind.
+invalid CLI input removes the prior output instead of leaving an old PASS behind,
+including argument-parsing failures. This applies when an explicit `--output PATH`
+or `--output=PATH` can be resolved unambiguously; missing output values and options
+after `--` are not guessed. Option abbreviations are disabled. Help/version requests
+do not run a simulation or remove an output file.
 
 `evidence_sha256` excludes the fresh attempt ID and host provenance, so repetitions
 can be compared. Provenance includes library version, hashes of installed Python

@@ -20,6 +20,8 @@ with tarfile.open(source) as archive:
     names = archive.getnames()
     assert any(n.endswith('/docs/architecture.md') for n in names), 'source distribution must include architecture docs'
     assert any(n.endswith('/CONTRIBUTING.md') for n in names)
+    lock, = (n for n in names if n.endswith('/requirements-dev.lock'))
+    assert archive.extractfile(lock).read() == Path('requirements-dev.lock').read_bytes(), 'source archive contributor lock must match the tested checkout'
 with tempfile.TemporaryDirectory() as directory:
     root = Path(directory)
     subprocess.run([sys.executable, '-m', 'venv', str(root / 'env')], check=True)

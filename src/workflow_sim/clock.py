@@ -267,7 +267,8 @@ class _VirtualSelector:
             # (its thread exits). Until then the execution is not settled: this
             # loop may still run what the body left scheduled.
             with sched.cv:
-                retire = owner.finished and not owner.abandoned and not owner.executor_calls
+                retire = (owner.finished and not owner.abandoned and not owner.executor_calls
+                          and not asyncio.all_tasks(self._loop))
                 if retire:
                     owner.loop_retired = True
                     sched.cv.notify_all()
