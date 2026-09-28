@@ -113,6 +113,14 @@ Tag `v0.1.0a1` points to `5bd5eea7ee39de10934a4b5b584cd6a70584e9ca`.
 passed both platform jobs. The
 [draft-release workflow](https://github.com/karthiksraju/workflow-sim/actions/runs/36437037368)
 succeeded and promoted the tested wheel, source archive and both platform test
-reports into a private draft prerelease. Downloaded assets passed all SHA256SUMS
+reports into a draft, then promoted it to the
+[private internal prerelease](https://github.com/karthiksraju/workflow-sim/releases/tag/v0.1.0a1)
+after verification. Downloaded assets passed all SHA256SUMS
 checks. The wheel SHA256 is
 `d04e0d5daa14839be3994e8600177b3b784067188b62cd4edc97820de58b569a`.
+
+A fresh environment installed directly from the personal GitHub `v0.1.0a1` tag.
+Running the installed CLI outside the checkout returned version `0.1.0a1`, a
+`PASS` verdict and exactly one invoice (`invoice-42`, amount 1200) in the retry
+example. This checks the private GitHub installation path as well as the released
+workflow behavior; it requires repository access.
