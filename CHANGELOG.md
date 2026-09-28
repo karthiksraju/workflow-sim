@@ -3,7 +3,8 @@
 ## 0.1.0a2 — adversarial review corrections
 
 - Keep asynchronous descendants in flight after their entry coroutine returns;
-  fence only live thread identities when a descendant is crashed.
+  fence only live thread identities when a descendant is crashed. Async bridges
+  inherit pool ownership and publish work atomically with blocking the caller.
 - Include unhandled callback and unretrieved task/future errors in execution health,
   including retained tasks and errors created while evaluating assertions.
 - Preserve Celery retry continuations, signature options and original message

@@ -1,0 +1,128 @@
+{
+  "version": "0.1.0a2",
+  "python": "3.12.13 (main, Apr  7 2026, 21:09:58) [Clang 22.1.1 ]",
+  "cases": [
+    {
+      "case": "async_error",
+      "before": "PASS",
+      "after": "HARNESS_ERROR",
+      "evidence_sha256": "9fd342074109189eccd808a8b2990e4db9ae4838cd9e6ce703a7aa4ec5e00be9"
+    },
+    {
+      "case": "callback_error",
+      "before": "PASS",
+      "after": "HARNESS_ERROR",
+      "evidence_sha256": "4f66038572aefd987e23422ad0f57a1764fc1eb212378d68233bc8f7150334e3"
+    },
+    {
+      "case": "future_task",
+      "before": "PASS",
+      "after": "INCOMPLETE",
+      "evidence_sha256": "8d94f0aa798f94f431c59f64fd7c1a4cd3615a5c15e75539e199703a69f5ad69"
+    },
+    {
+      "case": "future_timer",
+      "before": "PASS",
+      "after": "INCOMPLETE",
+      "evidence_sha256": "228c56ed1c2daac56c3ee4e6462bccfe6499fe7a3bf31acde932d3f494173b7b"
+    },
+    {
+      "case": "blocked_task",
+      "before": "PASS",
+      "after": "INCOMPLETE",
+      "evidence_sha256": "d739c4b877bbc4d75ea74f5806ce6c119c42b1fcb4c107d9cc947844ae3fc7e4"
+    },
+    {
+      "case": "setup_thread",
+      "before": "PASS",
+      "after": "UNSUPPORTED",
+      "evidence_sha256": null
+    },
+    {
+      "case": "celery_caught_unsupported",
+      "before": "PASS",
+      "after": "UNSUPPORTED",
+      "evidence_sha256": "c69533fae98653ef421175ca8aaa3e0544419eb4fcba8cf04cb7b33ceb87590b"
+    },
+    {
+      "case": "celery_limit",
+      "before": "INCOMPLETE",
+      "after": "PASS",
+      "evidence_sha256": "85614902de2b49e12ab30ef02cd4d7efe9c5bc2d4815573fa7fd176adfb7e1aa"
+    },
+    {
+      "case": "awaited_error",
+      "before": "HARNESS_ERROR",
+      "after": "HARNESS_ERROR",
+      "evidence_sha256": "d5eb90835e4a9ae61e91589f8988b94bd680593873919cdab7c180065a8e9c21"
+    },
+    {
+      "case": "awaited_future",
+      "before": "INCOMPLETE",
+      "after": "INCOMPLETE",
+      "evidence_sha256": "a6cb07e20b5603022e5745279dd63551c74d05162e4803deba1a69d92b023583"
+    },
+    {
+      "case": "celery_plain",
+      "before": "PASS",
+      "after": "PASS",
+      "evidence_sha256": "85614902de2b49e12ab30ef02cd4d7efe9c5bc2d4815573fa7fd176adfb7e1aa"
+    },
+    {
+      "case": "retry_link",
+      "before": "ASSERTION_FAILED",
+      "after": "PASS",
+      "evidence_sha256": "45c2987174503055bdd04145519e7aa418f6529e4a2b0f351d78d9c6c902ddd1"
+    },
+    {
+      "case": "retry_chain",
+      "before": "ASSERTION_FAILED",
+      "after": "PASS",
+      "evidence_sha256": "807bc5fed355d34ba2dd5492aeb34b14a7f09dcafd87b6ef66163044c585075b"
+    },
+    {
+      "case": "link_expiry",
+      "before": "ASSERTION_FAILED",
+      "after": "PASS",
+      "evidence_sha256": "62acc730834ed3470d06f92e244c9fc604f72a89e21f98827183dceb4b278458"
+    },
+    {
+      "case": "link_unsupported",
+      "before": "PASS",
+      "after": "UNSUPPORTED",
+      "evidence_sha256": "2632f9dd2b957b9bbe770756c2a0d2f92fab23476d9100d807eb543f213bee53"
+    },
+    {
+      "case": "broken_link_payload",
+      "before": "PASS",
+      "after": "HARNESS_ERROR",
+      "evidence_sha256": "1465488b82eabede99a117bb10e37a603cfcccc31f622459a2ccf5b91f56d045"
+    },
+    {
+      "case": "plain_chain",
+      "before": "PASS",
+      "after": "PASS",
+      "evidence_sha256": "c72f7be4a090451514b119326d40ed5017241ccdcb5bc34d6e6118d80d177d29"
+    },
+    {
+      "case": "direct_expiry",
+      "before": "PASS",
+      "after": "PASS",
+      "evidence_sha256": "09154803c885c7f43e09432b566d60f147c805d868689c459ca4b4d9556d4e72"
+    },
+    {
+      "case": "crash-redelivery",
+      "before": "HARNESS_ERROR",
+      "after": "HARNESS_ERROR",
+      "evidence_sha256": "07e16adb9050cb5f393a45522da62f2c72079231225ad2b2db90305b8f322d04"
+    }
+  ],
+  "adapters": {
+    "review_adapter": "542bdd7f5ff25361e1eb4e2e3499b15caf29bf40bacfd319574fa82a869b44e4",
+    "celery_adapter": "8ed3204c954f435c62fdf6b850c00708ab21efd0392143cd39254a12618e13f8",
+    "crash_adapter": "573016b6ccb876621701702136326c5aaf7bc338b73192cac6a9663323ea84c1"
+  },
+  "library_revision": "c9ba673c373bffc7b076753d86815560719117df",
+  "wheel_sha256": "0f51138469c61acb78aec4eb04859447d338d4b7fc859d0b2a4a4250e27b2315",
+  "ci_run": "https://github.com/karthiksraju/workflow-sim/actions/runs/36448361137"
+}

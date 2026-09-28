@@ -24,6 +24,10 @@ flowchart LR
 The runtime controls execution; your adapter supplies the external contracts and
 business assertions. [See the architecture](https://github.com/karthiksraju/workflow-sim/blob/main/docs/architecture.md).
 
+Upgrade existing alpha installations to `v0.1.0a2` and rerun their scenarios.
+[Adversarial review corrections and migration](docs/alpha2.md) explain the changed
+execution accounting. Prior alpha 1 verdicts cannot establish the corrected checks.
+
 ## Try the installed package
 
 Use a Python 3.12 virtual environment. Repository access is required:
@@ -31,7 +35,7 @@ Use a Python 3.12 virtual environment. Repository access is required:
 ```sh
 python3.12 -m venv .venv
 . .venv/bin/activate
-python -m pip install 'git+ssh://git@github.com/karthiksraju/workflow-sim.git@v0.1.0a1'
+python -m pip install 'git+ssh://git@github.com/karthiksraju/workflow-sim.git@v0.1.0a2'
 workflow-sim workflow_sim.examples.retry:build --duration 10 --output result.json
 ```
 

@@ -1,23 +1,17 @@
-# Alpha 2 adversarial fixes
+# Alpha 2 verification record
 
-Target: the 11 verified findings in the independent review of 8ef93ca.
-Original release v0.1.0a1 remains immutable. Corrections will ship as v0.1.0a2.
+All eleven review findings are implemented; source and tests are pushed. The
+original `v0.1.0a1` remains immutable. Corrections target `v0.1.0a2`.
 
-- Celery F03–F07, F09: completion/publication failures affect task state; one signature publication path preserves options; retry signatures retain continuations; every delivery decodes the original serialized message; unsupported options remain visible when caught; completed/crashed executions disarm limits. Regression and existing conformance/property selection: 46 passed across two runs.
-- Async F01–F02 and setup F08: descendant ownership, retained/unhandled errors, assertion-stage health refresh, lifecycle thread guards, live-thread crash fencing. Controls include caught exceptions, successful children and cancelled timers.
-- CLI F10 and source archive F11: parsing errors invalidate explicit output and exit 4; safe-path controls avoid guessed targets; source archives contain the tested dependency lock.
-- 311 library tests pass locally, plus the added frozen-signature identity control. All 312 installed-wheel tests pass on Linux and macOS CI (45 new regressions/controls). Wheel/sdist strict metadata and fresh minimal-install checks pass. All 19 original independent reviewer probes/controls pass their corrected expectations against the CI wheel.
-- Meeting consumer validation is running against CI wheel `ba539ae206700709a7bae29bd302c8ccc5b7c37dd4e157f09e2724e58bf7cba5` from `c7aadfc`: full self-tests at consumer `89dd7a07` and 102 scenarios at candidate `5fe5055d`. Established and pending outcomes are preserved; the calendar corpus is still running.
-- Remaining: complete consumer checks, record intentional evidence changes, final documentation and private alpha release.
+Final runtime revision: `c9ba673c373bffc7b076753d86815560719117df`.
+All 316 library tests pass locally and in installed-wheel Linux/macOS CI. All
+19 original independent reviewer witnesses and controls pass their corrected
+expectations against that wheel. Strict packaging, minimal-install examples and
+the source-archive dependency-lock check pass.
 
-Baseline against old code: 22 new assertions failed, two controls passed. Reproducers use synthetic observable state and Celery's installed 5.6.3 producer API, not mocks of runtime internals. Full evidence will replace this working progress note before release.
-
-Final bridge checks exposed two sibling false-PASS cases (setup and raw-pool async
-descendants) and an existing non-atomic coroutine-post/block handoff. The bridge
-now inherits pool ownership, rejects unowned public setup calls, and posts under
-the scheduler condition before a blocked caller can appear idle. A real-thread
-stress control reproduced a t=6 callback running at t=8 on the preceding wheel.
-All 316 library tests now pass locally. The first 102-case comparison completed
-with identical outcomes, business assertions, health verdicts and application state;
-its known runtime differences are cancelled deadline events and preserved linked
-task IDs. Final bridge code still needs platform CI and a repeated consumer comparison.
+The first 102-case consumer comparison preserved every outcome, business check,
+health verdict and application state. Completed-task deadline events disappear
+and frozen continuation IDs are now preserved. The final bridge correction is
+being checked through a repeat comparison and focused consumer modules; the full
+consumer suite also remains in progress. See [validation](validation.md) for
+completed evidence and [migration](alpha2.md) before replacing old alpha results.

@@ -51,4 +51,6 @@ The old-code regression baseline produced 22 failures and two passing controls.
 Additional controls cover retained versus consumed exceptions, completed child
 work, cancelled timers, late child crashes, sync-to-async bridges from setup and raw pool threads, assertions that create async failures,
 retry/error-link composition, duplicate payloads, and CLI path interpretation.
-Current run and release evidence is tracked in [alpha delivery progress](alpha2-progress.md).
+The final runtime passes 316 tests locally and on Linux/macOS installed-wheel CI.
+All 19 original reviewer witnesses/controls pass their corrected expectations.
+See [validation](validation.md) for exact revisions, consumer checks and release evidence.

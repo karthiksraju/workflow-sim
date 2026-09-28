@@ -14,10 +14,11 @@ Public visibility and licensing await the owner's decision. Do not publish a
 package or make the repository public by assuming a license.
 
 
-Runtime and packaging implementation is complete. Final evidence: 267 library
-tests on both Linux/macOS CI, 102 unchanged meeting scenario results, nine caught
-policy mutations, and passing targeted checks for the consumer issues found.
-See [validation](validation.md) for exact results and [architecture](architecture.md)
-for the illustrated runtime/adapter boundary. Version `v0.1.0a1` is available as a
-private internal prerelease, and installation from its GitHub tag has been verified.
+The extracted runtime has now received an independent adversarial review and
+corrections for all eleven reproduced defects. Its 316 library tests pass on both
+Linux/macOS CI, including 49 additional regressions/controls. All 19 original
+review probes pass their corrected expectations against the final runtime wheel.
+See [validation](validation.md) for consumer evidence and [architecture](architecture.md)
+for the illustrated runtime/adapter boundary. Alpha 2 migration instructions are
+in [the correction notes](alpha2.md); alpha 1 remains available for reproduction.
 Public visibility and licensing remain owner decisions.
