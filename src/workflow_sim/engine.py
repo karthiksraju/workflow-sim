@@ -338,13 +338,18 @@ class Engine:
             execution, on the shared background loop). The worker thread is
             accounted as blocked while it waits; an abandoned execution never
             gets its result back."""
-            item = current_item.get(None)
+            item = current_item.get(None) or _pool_owner.get(None)
+            if item is None and engine.strict_lifecycle:
+                reason = "run_coro_sync outside an owned execution; schedule adapter work with ctx.at"
+                engine.unsupported.append(reason)
+                coro.close()
+                raise UnsupportedFeature(reason)
             if item is not None:
+                # Raw run_in_executor workers do not copy current_item. Their
+                # async descendants still belong to the pool call's execution.
                 loop = item.ensure_loop()
             else:
-                # A raw run_in_executor worker has no copied current_item, but
-                # _pool_owner still identifies it for the direct-thread guard.
-                # The compat helper's background loop is harness-owned.
+                # Coordinator use of the experimental in-process kernel only.
                 token = _managed_thread_start.set(True)
                 try:
                     loop = self.asyncio_bridge._ensure_background_loop()
@@ -386,21 +391,22 @@ class Engine:
                     _release()
                     gate.release()
 
-            with sched.cv:
-                sched.block_thread(tid, 1, loop)
-                if worker:
-                    item.sync_blocked += 1
-                sched.cv.notify_all()
-            if worker:
-                if item.crash_at_first_park:
-                    # An armed "crash at the first scheduling point" fires at the
-                    # first handoff, even when the coroutine would never wait:
-                    # the worker blocks here, the engine sees it parked and
-                    # abandons it. ``coro`` is never started.
+            try:
+                with sched.cv:
+                    sched.block_thread(tid, 1, loop)
+                    if worker:
+                        item.sync_blocked += 1
+                    armed = worker and item.crash_at_first_park
+                    if not armed:
+                        # Posting and marking the caller blocked are one scheduler
+                        # transition. Otherwise it can observe an idle loop in the
+                        # gap and advance to the horizon before this coroutine runs.
+                        loop.call_soon_threadsafe(lambda: loop.create_task(_wrapped(), context=ctx))
+                    sched.cv.notify_all()
+                if armed:
+                    # An armed first-park crash must never start the coroutine.
                     coro.close()
                     _freeze_forever()
-            try:
-                loop.call_soon_threadsafe(lambda: loop.create_task(_wrapped(), context=ctx))
                 gate.acquire()
                 if item is not None and item.abandoned:
                     _freeze_forever()    # guarded frame: an abandoned worker never continues

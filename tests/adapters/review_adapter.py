@@ -171,3 +171,51 @@ def descendant_crash(c):
     c.at(1, 'crash', crash)
     c.at(30, 'after original deadline', lambda: state.append('later'))
     c.expect('returned parent still owns its child', lambda: state, ['parent-returned', True, 'later'])
+
+
+def bridge_descendant(c):
+    from workflow_sim import runtime
+    state = []
+
+    async def child():
+        state.append('child-started')
+        await asyncio.sleep(2 if c.inputs['mode'] == 'raw_pool_complete' else 100)
+        state.append('child-finished')
+
+    async def spawn():
+        asyncio.create_task(child())
+        await asyncio.sleep(0)
+
+    if c.inputs['mode'] == 'setup':
+        runtime.run_coro_sync(spawn())
+    else:
+        async def parent():
+            await asyncio.get_running_loop().run_in_executor(None, lambda: runtime.run_coro_sync(spawn()))
+        c.at(0, 'parent', parent)
+    c.expect('child state', lambda: state, ['child-started', 'child-finished']
+             if c.inputs['mode'] == 'raw_pool_complete' else ['child-started'])
+
+
+def handoff_stress(c):
+    """Exercise real CPython thread handoffs, with no scheduler mocks."""
+    import sys
+    from datetime import datetime, timezone
+    sys.setswitchinterval(0.000001)
+    start = datetime(2099, 1, 1, tzinfo=timezone.utc)
+    state = []
+    async def abandoned():
+        await asyncio.sleep(1000)
+    c.at(0, 'abandoned', abandoned)
+    def crash():
+        owner = next(w for w in c.engine.executions if w.label == 'abandoned')
+        c.engine.crash_execution(owner)
+    c.at(1, 'crash', crash)
+    for index in range(40):
+        async def work(i=index):
+            state.append([i, 'start', (datetime.now(timezone.utc) - start).total_seconds()])
+            await asyncio.sleep(1)
+            state.append([i, 'end', (datetime.now(timezone.utc) - start).total_seconds()])
+        c.at(index * 2 + 2, 'work-' + str(index), work)
+    c.expect('handoff precedes advancing virtual time', lambda: state,
+             [[i, stage, float(i * 2 + 2 + offset)] for i in range(40)
+              for stage, offset in [('start', 0), ('end', 1)]])

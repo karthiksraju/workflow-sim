@@ -11,3 +11,13 @@ Original release v0.1.0a1 remains immutable. Corrections will ship as v0.1.0a2.
 - Remaining: complete consumer checks, record intentional evidence changes, final documentation and private alpha release.
 
 Baseline against old code: 22 new assertions failed, two controls passed. Reproducers use synthetic observable state and Celery's installed 5.6.3 producer API, not mocks of runtime internals. Full evidence will replace this working progress note before release.
+
+Final bridge checks exposed two sibling false-PASS cases (setup and raw-pool async
+descendants) and an existing non-atomic coroutine-post/block handoff. The bridge
+now inherits pool ownership, rejects unowned public setup calls, and posts under
+the scheduler condition before a blocked caller can appear idle. A real-thread
+stress control reproduced a t=6 callback running at t=8 on the preceding wheel.
+All 316 library tests now pass locally. The first 102-case comparison completed
+with identical outcomes, business assertions, health verdicts and application state;
+its known runtime differences are cancelled deadline events and preserved linked
+task IDs. Final bridge code still needs platform CI and a repeated consumer comparison.

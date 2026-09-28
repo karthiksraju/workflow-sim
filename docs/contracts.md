@@ -48,6 +48,8 @@ Celery options on direct, retry and continuation publication paths.
 The public worker rejects raw `Thread.start` and direct `ThreadPoolExecutor.submit`
 during import, setup, callbacks and assertion evaluation. Put asynchronous work in
 `ctx.at`; use `asyncio.to_thread` or `loop.run_in_executor` within that execution.
+The sync-to-async bridge also requires an owned execution in public runs; raw
+`run_in_executor` workers inherit their pool owner when bridging back to async.
 An entry coroutine returning does not finish its child tasks or timers. Pending
 children remain owned, reported and subject to crash fencing. The experimental
 in-process engine defaults to permitting coordinator-owned setup threads; public

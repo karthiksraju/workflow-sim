@@ -111,3 +111,24 @@ def test_cli_invalid_numeric_before_output_still_invalidates(tmp_path):
                         '--duration', 'oops', '--output', str(output)], capture_output=True)
     assert p.returncode == 4, p.stderr
     assert not output.exists()
+
+
+@pytest.mark.parametrize('mode', ['setup', 'raw_pool', 'raw_pool_complete'])
+def test_sync_async_bridge_cannot_detach_child_ownership(mode):
+    result = run('review_adapter:bridge_descendant', inputs={'mode': mode}, duration=10,
+                 wall_timeout=5, project_dir=ADAPTERS)
+    assert result['outcome'] == {'setup': 'UNSUPPORTED', 'raw_pool': 'INCOMPLETE', 'raw_pool_complete': 'PASS'}[mode], result
+    if mode == 'raw_pool':
+        assert result['evidence']['report']['in_flight']
+    if mode != 'setup':
+        check = result['evidence']['checks'][0]
+        assert check['actual'] == check['expected']
+
+
+def test_coroutine_post_and_worker_block_are_an_atomic_handoff():
+    result = run('review_adapter:handoff_stress', duration=83, wall_timeout=15,
+                 project_dir=ADAPTERS)
+    assert result['outcome'] == 'PASS', result
+    check = result['evidence']['checks'][0]
+    assert check['actual'] == check['expected']
+    assert result['evidence']['report']['in_flight'] == []

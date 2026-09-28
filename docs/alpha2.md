@@ -8,7 +8,7 @@ approval gate.
 
 | Finding | Corrected behavior | Permanent regression |
 | --- | --- | --- |
-| F01: async descendants disappear | Child tasks, timers and external waits remain in flight after the parent returns. Crash fencing uses live thread identities. | `test_async_descendants_remain_in_flight`, `test_crash_after_parent_returns_fences_async_descendant` |
+| F01: async descendants disappear | Child tasks, timers and external waits remain in flight after the parent returns, including calls through a raw-pool async bridge. Crash fencing uses live thread identities. Coroutine publication and blocking form one atomic scheduler transition. | `test_async_descendants_remain_in_flight`, `test_crash_after_parent_returns_fences_async_descendant`, bridge/handoff controls |
 | F02: unhandled asyncio errors disappear | Unhandled callbacks and unretrieved task/future exceptions affect health, including retained objects. Caught errors remain valid. | `test_unhandled_async_failures_veto_matching_checks`, `test_async_error_observation_and_descendant_completion` |
 | F03: continuation publication looks successful | Serialization and completion-hook failures enter task failure evidence. | `test_continuation_serialization_failure_is_execution_failure`, `test_completion_hook_failure_is_not_swallowed_by_future_callback` |
 | F04: retry loses continuations | Retry signatures preserve links, error links and remaining chain metadata without double publication. | `test_continuations_deliver_after_retry`, `test_retry_compositions_preserve_payload_order_identity_and_errbacks` |
@@ -49,6 +49,6 @@ these concrete corrections, not universal workflow correctness.
 
 The old-code regression baseline produced 22 failures and two passing controls.
 Additional controls cover retained versus consumed exceptions, completed child
-work, cancelled timers, late child crashes, assertions that create async failures,
+work, cancelled timers, late child crashes, sync-to-async bridges from setup and raw pool threads, assertions that create async failures,
 retry/error-link composition, duplicate payloads, and CLI path interpretation.
 Current run and release evidence is tracked in [alpha delivery progress](alpha2-progress.md).
