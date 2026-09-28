@@ -1,16 +1,109 @@
 # workflow-sim
 
-An internal alpha of a deterministic test runtime for asynchronous Python workflows.
-Use it to reproduce retries, delayed tasks and worker failures against observable
-state. Runs execute in disposable child processes with virtual time.
+Test an asynchronous Python workflow against virtual time, retries and failures,
+then inspect what it actually wrote or delivered. Each run uses a fresh process.
 
-Extraction is in progress. The first release targets CPython 3.12 on Linux and
-macOS. This is a simulator for testing production code, not a production task
-orchestrator or a security sandbox for untrusted Python.
+**Internal alpha · CPython 3.12 · Linux and macOS.** The package is privately hosted
+on [Karthik's GitHub](https://github.com/karthiksraju/workflow-sim). Licensing and
+public distribution are pending. Do not redistribute it yet.
 
-The repository is private while licensing and public distribution are settled.
-No open-source license is granted yet. Package publication is deliberately blocked.
+This is a testing library. You supply the real workflow code, controlled external
+boundaries and assertions about observable state. A passing simulation says those
+assertions held in that model; it does not certify the live system.
 
-See [the extraction decision](docs/adr/0001-alpha-boundary.md) and
-[the implementation checklist](docs/implementation.md).
+## Try the installed package
 
+Use a Python 3.12 virtual environment. Repository access is required:
+
+```sh
+python3.12 -m venv .venv
+. .venv/bin/activate
+python -m pip install 'git+ssh://git@github.com/karthiksraju/workflow-sim.git@v0.1.0a1'
+workflow-sim workflow_sim.examples.retry:build --duration 10 --output result.json
+```
+
+The example commits a delivery, loses its acknowledgement, then retries five
+virtual seconds later. Its checks require one durable delivery with the exact
+payload and two attempts. It should return `PASS` without waiting five seconds.
+
+Try the deliberate bug:
+
+```sh
+printf '{"broken": true}\n' > broken.json
+workflow-sim workflow_sim.examples.retry:build --inputs broken.json --duration 10
+```
+
+This returns `ASSERTION_FAILED` (exit 1), with two deliveries in `actual` and one
+in `expected`. A Celery example is included too:
+
+```sh
+workflow-sim workflow_sim.examples.celery_retry:build --duration 10
+```
+
+## Connect a workflow
+
+Create `my_adapter.py` in your project:
+
+```python
+import asyncio
+
+
+def build(ctx):
+    stored = []
+
+    async def process():
+        await asyncio.sleep(120)
+        stored.append({"job": "42", "status": "complete"})
+
+    ctx.at(0, "process-job", process)
+    ctx.expect("stored result", lambda: stored,
+               [{"job": "42", "status": "complete"}])
+```
+
+Run it from that project directory:
+
+```python
+from workflow_sim import run
+
+result = run("my_adapter:build", duration=180, seed=42)
+assert result["outcome"] == "PASS", result
+```
+
+Replace `process` with your application entrypoint and `stored` with a boundary
+fake that records real writes. Import application code inside `build` when it
+needs patched time or boundaries. Seed realistic existing state, including old
+completion markers or a previous failed attempt. Assert final content and absence
+of duplicate effects. See [adapter authoring](docs/adapters.md).
+
+## What a result means
+
+| Outcome | Meaning |
+| --- | --- |
+| `PASS` | Work completed within the horizon; every registered check matched. |
+| `ASSERTION_FAILED` | Execution completed but at least one value differed. |
+| `INCOMPLETE` | Timeout, budget, outstanding work, dropped timers or no checks. |
+| `UNSUPPORTED` | A blocked boundary or unsupported runtime feature was encountered. |
+| `HARNESS_ERROR` | Adapter exception, task/callback failure or invalid worker result. |
+
+The result contains actual/expected values, a causal event ledger, an execution
+report, content hashes and runtime provenance. No results or telemetry are uploaded.
+CLI exit codes are 0, 1, 2, 3 and 4 respectively; invalid input exits 4.
+
+## Boundaries
+
+- Trusted Python adapters only. Process isolation and socket/subprocess guards are
+  **not a security sandbox**. Run without production credentials or mounted
+  production data. Filesystem writes and C extensions are not isolated.
+- The scheduler models asyncio timers, supported thread-pool ownership and a
+  Celery task heap. It does not simulate a real broker, database transaction engine,
+  OS scheduler, multiple machines, or every possible interleaving.
+- CPython 3.12 is deliberate: crash fencing relies on its monitoring and thread-pool
+  internals. Windows, alternate loops such as uvloop, and Python 3.13+ are not supported.
+- The default wall timeout is 30 seconds. The runtime does not impose a memory or
+  filesystem quota. A timeout cannot undo an external effect already started.
+- An assertion can be trivial or an adapter can be wrong. The library cannot infer
+  the right business invariant; negative controls and real contract fixtures matter.
+
+[API and evidence contract](docs/contracts.md) · [Architecture](docs/adr/0001-alpha-boundary.md) ·
+[Contributing](CONTRIBUTING.md) · [Release process](docs/releases.md) ·
+[Validation and remaining limits](docs/validation.md) · [Security](SECURITY.md)

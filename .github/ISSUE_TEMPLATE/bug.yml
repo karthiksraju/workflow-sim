@@ -1,0 +1,27 @@
+name: Simulator bug or unexpected verdict
+description: Report a minimal, sanitized reproduction.
+body:
+  - type: textarea
+    attributes:
+      label: Expected and observed behavior
+      description: Include the state or content that differs, not just the outcome label.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Reproduction
+      description: Small adapter, inputs, seed, duration, package version, Python version and OS. Remove credentials and customer data.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Evidence
+      description: Sanitized checks, report, evidence hash and provenance. Do not upload raw production artifacts.
+  - type: dropdown
+    attributes:
+      label: Scope
+      options:
+        - Runtime or containment
+        - Adapter boundary or assertion
+        - Installation or documentation
+        - Unsure

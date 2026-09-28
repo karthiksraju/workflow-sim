@@ -95,6 +95,18 @@ def validate_result(result, request, attempt):
             raise ValueError('invalid evidence')
         if not all(type(evidence[k]) is list for k in ('checks', 'ledger', 'violations', 'unsupported')):
             raise ValueError('invalid evidence collections')
+        report = evidence['report']
+        list_fields = ('in_flight', 'pending_tasks', 'pending_items', 'task_failures',
+                       'callback_failures', 'crashes', 'dropped_timers')
+        if type(report) is not dict or set(report) != set(list_fields) | {
+                'stop_reason', 'started_at', 'ended_at', 'steps', 'budget'}:
+            raise ValueError('invalid engine report')
+        if any(type(report[k]) is not list for k in list_fields):
+            raise ValueError('invalid engine report collections')
+        if any(type(report[k]) is not str for k in ('stop_reason', 'started_at', 'ended_at')):
+            raise ValueError('invalid engine report times or stop reason')
+        if type(report['steps']) is not int or report['steps'] < 0 or type(report['budget']) is not dict:
+            raise ValueError('invalid engine report budget')
         names = set()
         for check in evidence['checks']:
             if set(check) != {'name', 'actual', 'expected'} or not isinstance(check['name'], str) or not check['name'] or check['name'] in names:

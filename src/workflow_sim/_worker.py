@@ -14,16 +14,9 @@ import sys
 from dataclasses import asdict
 from datetime import datetime, timedelta, timezone
 
-from . import __version__
+from .provenance import provenance
 from .contracts import SCHEMA_VERSION, MAX_RESULT_BYTES, digest, encode, validate_request, verdict
 
-
-def provenance():
-    root = Path(__file__).parent
-    files = {p.relative_to(root).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(root.rglob('*.py'))}
-    return {'version': __version__, 'library_sha256': digest(files), 'library_files': files,
-            'python': platform.python_version(), 'platform': platform.platform(),
-            'dependencies': {name: importlib.metadata.version(name) for name in ('celery', 'kombu', 'billiard', 'time-machine')}}
 
 
 def guard(violations):
@@ -76,7 +69,7 @@ def execute(request, attempt, project, scratch):
                     'unsupported': engine.unsupported}
         result.update(evidence=evidence, evidence_sha256=digest(evidence), outcome=verdict(evidence))
     except BaseException as exc:
-        result.update(outcome='UNSUPPORTED' if violations else 'HARNESS_ERROR',
+        result.update(outcome='UNSUPPORTED' if violations or type(exc).__name__ in ('UnsupportedFeature', 'UnsupportedCeleryFeature', 'ClockRangeError') else 'HARNESS_ERROR',
                       error=f'{type(exc).__name__}: {exc}')
     return result
 

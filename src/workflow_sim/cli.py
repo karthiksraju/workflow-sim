@@ -19,6 +19,8 @@ def main(argv=None):
     parser.add_argument('--output', type=Path)
     args = parser.parse_args(argv)
     try:
+        if args.output:
+            args.output.unlink(missing_ok=True)
         result = run(args.adapter, inputs=json.loads(args.inputs.read_text()) if args.inputs else {},
                      duration=args.duration, seed=args.seed, max_steps=args.max_steps,
                      wall_timeout=args.wall_timeout, project_dir=args.project_dir)

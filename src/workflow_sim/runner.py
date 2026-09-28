@@ -14,6 +14,7 @@ import tempfile
 import time
 import uuid
 
+from .provenance import provenance
 from .contracts import (SCHEMA_VERSION, MAX_OUTPUT_BYTES, MAX_RESULT_BYTES,
                         digest, encode, validate_request, validate_result)
 
@@ -39,7 +40,7 @@ def run(adapter: str, *, inputs: dict | None = None, duration: float = 60,
     attempt = str(uuid.uuid4())
     base = {'schema_version': SCHEMA_VERSION, 'attempt': attempt, 'request_sha256': digest(request),
             'outcome': 'HARNESS_ERROR', 'evidence': None, 'evidence_sha256': None,
-            'provenance': {}, 'error': None}
+            'provenance': provenance(), 'error': None}
     with tempfile.TemporaryDirectory(prefix='workflow-sim-') as directory:
         root = Path(directory)
         (root / 'request.json').write_bytes(encode(request))

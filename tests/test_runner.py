@@ -155,3 +155,38 @@ def test_output_flood_is_bounded_and_next_run_works(tmp_path):
     assert result['outcome'] == 'INCOMPLETE'
     assert result['error'] == 'worker output budget exhausted'
     assert run('workflow_sim.examples.retry:build', duration=10)['outcome'] == 'PASS'
+
+
+def test_cli_invalid_input_removes_previous_pass(tmp_path):
+    output = tmp_path / 'result.json'
+    output.write_text('{"outcome":"PASS"}')
+    p = subprocess.run([sys.executable, '-m', 'workflow_sim.cli', 'bad-format', '--output', str(output)], capture_output=True)
+    assert p.returncode == 4
+    assert not output.exists()
+
+
+def test_monitoring_slot_conflict_does_not_replace_other_tool(tmp_path):
+    code = '''import sys
+from datetime import datetime, timezone
+from workflow_sim.clock import _FENCE_TOOL, fence
+sys.monitoring.use_tool_id(_FENCE_TOOL, 'another-tool')
+try:
+ fence(object(), [])
+except RuntimeError as exc:
+ assert 'occupied' in str(exc)
+else:
+ raise AssertionError('silently replaced another monitoring tool')
+assert sys.monitoring.get_tool(_FENCE_TOOL) == 'another-tool'
+'''
+    p = subprocess.run([sys.executable, '-c', code], capture_output=True, text=True, timeout=10)
+    assert p.returncode == 0, p.stderr
+
+
+def test_subprocess_attempt_is_explicitly_unsupported(tmp_path):
+    result = adapter(tmp_path, '''import subprocess
+def build(c):
+ subprocess.run(['true'])
+ c.expect('ok', lambda: 1, 1)
+''')
+    assert result['outcome'] == 'UNSUPPORTED'
+    assert 'blocks subprocess' in result['error']

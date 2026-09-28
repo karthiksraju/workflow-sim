@@ -695,13 +695,18 @@ def _install_fence() -> None:
     try:
         mon.use_tool_id(_FENCE_TOOL, "sim-fence")
     except ValueError:
-        pass
+        if mon.get_tool(_FENCE_TOOL) != "sim-fence":
+            raise RuntimeError("CPython monitoring slot required by workflow-sim is occupied")
 
-    def on_start(code, offset):
+    def on_start(code, offset, _finalizing=sys.is_finalizing):
+        if _finalizing():
+            return None
         _freeze_if_fenced(code)
         return None
 
-    def on_instruction(code, offset):
+    def on_instruction(code, offset, _finalizing=sys.is_finalizing):
+        if _finalizing():
+            return None
         tid = threading.get_ident()
         if tid not in _FENCED_THREADS or getattr(_freezing, "on", False):
             return None
