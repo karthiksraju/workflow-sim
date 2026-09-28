@@ -22,7 +22,7 @@ flowchart LR
 ```
 
 The runtime controls execution; your adapter supplies the external contracts and
-business assertions. [See the architecture](docs/architecture.md).
+business assertions. [See the architecture](https://github.com/karthiksraju/workflow-sim/blob/main/docs/architecture.md).
 
 ## Try the installed package
 
@@ -86,7 +86,7 @@ Replace `process` with your application entrypoint and `stored` with a boundary
 fake that records real writes. Import application code inside `build` when it
 needs patched time or boundaries. Seed realistic existing state, including old
 completion markers or a previous failed attempt. Assert final content and absence
-of duplicate effects. See [adapter authoring](docs/adapters.md).
+of duplicate effects. See [adapter authoring](https://github.com/karthiksraju/workflow-sim/blob/main/docs/adapters.md).
 
 ## What a result means
 
@@ -117,6 +117,6 @@ CLI exit codes are 0, 1, 2, 3 and 4 respectively; invalid input exits 4.
 - An assertion can be trivial or an adapter can be wrong. The library cannot infer
   the right business invariant; negative controls and real contract fixtures matter.
 
-[API and evidence contract](docs/contracts.md) · [Architecture](docs/adr/0001-alpha-boundary.md) ·
-[Contributing](CONTRIBUTING.md) · [Release process](docs/releases.md) ·
-[Validation and remaining limits](docs/validation.md) · [Security](SECURITY.md)
+[API and evidence contract](https://github.com/karthiksraju/workflow-sim/blob/main/docs/contracts.md) · [Architecture](https://github.com/karthiksraju/workflow-sim/blob/main/docs/adr/0001-alpha-boundary.md) ·
+[Contributing](https://github.com/karthiksraju/workflow-sim/blob/main/CONTRIBUTING.md) · [Release process](https://github.com/karthiksraju/workflow-sim/blob/main/docs/releases.md) ·
+[Validation and remaining limits](https://github.com/karthiksraju/workflow-sim/blob/main/docs/validation.md) · [Security](https://github.com/karthiksraju/workflow-sim/blob/main/SECURITY.md)

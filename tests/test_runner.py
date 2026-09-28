@@ -214,3 +214,17 @@ def build(c):
     time.sleep(1.2)
     assert not marker.exists()
     assert result['provenance']['configuration']['seed'] == 0
+
+
+def test_result_configuration_and_error_keep_their_json_types():
+    request = {'schema_version': 1, 'adapter': 'workflow_sim.examples.retry:build', 'inputs': {},
+               'duration': 10, 'seed': 1, 'max_steps': 100000}
+    result = run(request['adapter'], duration=10, seed=1)
+    wrong_seed = copy.deepcopy(result)
+    wrong_seed['provenance']['configuration']['seed'] = True  # Python equality alone accepts True == 1
+    with pytest.raises(ValueError, match='configuration'):
+        validate_result(wrong_seed, request, result['attempt'])
+    wrong_error = copy.deepcopy(result)
+    wrong_error.update(outcome='HARNESS_ERROR', evidence=None, evidence_sha256=None, error={'message': 'bad'})
+    with pytest.raises(ValueError):
+        validate_result(wrong_error, request, result['attempt'])

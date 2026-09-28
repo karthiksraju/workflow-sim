@@ -118,7 +118,7 @@ def validate_result(result, request, attempt):
             raise ValueError('verdict contradicts evidence')
         if result['error'] is not None:
             raise ValueError('completed result contains an error')
-    elif result['outcome'] == 'PASS' or result['evidence_sha256'] is not None or not result['error']:
+    elif result['outcome'] == 'PASS' or result['evidence_sha256'] is not None or type(result['error']) is not str or not result['error']:
         raise ValueError('result has no evidence')
     if not isinstance(result['provenance'], dict) or not result['provenance'].get('library_sha256'):
         raise ValueError('missing runtime provenance')
@@ -126,7 +126,7 @@ def validate_result(result, request, attempt):
     files = source.get('library_files')
     if type(files) is not dict or not files or source['library_sha256'] != digest(files):
         raise ValueError('runtime provenance digest mismatch')
-    if source.get('configuration') != configuration(request):
+    if encode(source.get('configuration')) != encode(configuration(request)):
         raise ValueError('runtime configuration mismatch')
     return result
 
