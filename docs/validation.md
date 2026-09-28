@@ -30,7 +30,38 @@ in-process engine retains its explicit opt-in lifecycle guard for compatibility.
 This release does not extend the support matrix or claim every possible thread
 interleaving.
 
-Consumer comparison and final artifact delivery are recorded below after completion.
+### Consumer regression checks
+
+The final runtime wheel passed **192 consumer tests** in clock/Celery execution,
+engine conformance, pool ownership, evidence, harness provenance and historical
+proof modules. This includes real historical before-fail/after-pass execution and
+rejection of altered runtime/proof evidence. The
+[consumer check index](validation/alpha2-consumer-targeted.json) records the exact
+library and application revisions and wheel hashes.
+
+The final 102-scenario comparison at application `232666fd` uses that same runtime
+wheel. **All 102 outcomes, complete business checks, health verdicts and application
+state match** the prior alpha 1 candidate. All runs are execution-healthy.
+
+| Scenario set | Alpha 1 and alpha 2 | Gate |
+| --- | --- | --- |
+| Established, 31 | 28 PASS / 3 declared counterexamples | PASS |
+| Pending fixes, 32 | 23 PASS / 9 unresolved application failures | FAIL, preserved |
+| Calendar corpus, 39 | 22 PASS / 17 declared counterexamples | PASS |
+
+[Comparison index](validation/alpha2-meeting-comparison.json) records artifact and
+source identities, per-case assertion failures and raw-record hashes. The nine
+pending failures concern ASR fallback retry generations and reschedule CRM/email
+carryover; this library release does not fix those application policies.
+
+Execution records deliberately differ. Completed tasks cancel their deadline
+callbacks, reducing steps and clock jumps and removing stale pending limits.
+Three recorder cases' Celery records differ only in task IDs, because frozen
+continuation IDs now survive publication. Only seven ledger hashes are identical;
+we retain the original records rather than normalize away execution differences.
+
+The full 982-test consumer run on the initial alpha 2 wheel remains in progress.
+The 192-test rerun and 102-case comparison above use the final bridge correction.
 
 The [alpha 1 extraction record](validation-alpha1.md) remains available for
 provenance. Its passing tests preceded the defects found by the independent review.

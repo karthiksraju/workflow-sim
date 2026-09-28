@@ -1,0 +1,2374 @@
+{
+  "candidate": "232666fde4ef5c9e08f18fc714d75c1899afc84d",
+  "baseline": "b375dc70eae5da753f5242cbb1f8ce28f73ad294",
+  "cases": 102,
+  "outcomes": {
+    "established": {
+      "PASS": 28,
+      "ASSERTION_FAILED": 3
+    },
+    "pending": {
+      "PASS": 23,
+      "ASSERTION_FAILED": 9
+    },
+    "corpus": {
+      "ASSERTION_FAILED": 17,
+      "PASS": 22
+    }
+  },
+  "identical_ledgers": 7,
+  "rows": [
+    {
+      "group": "established",
+      "file": "calendar_ucancel_ubefore_ustart.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "b40f77739a8380926c7f921e59bf7e110ef0e452d6fa2744f37f853c2733c987",
+      "after_record_sha256": "25d263408d914bbf45b39f125e64b8be1ac46f35ee4cdf87de3c05fe8cf6f7b9",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 267,
+      "steps_after": 199
+    },
+    {
+      "group": "established",
+      "file": "calendar_ucancel_uepoch_ustart.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "ac7fcbb7957c3c1666115518671360261d24def14486116c899ec1288d15d76b",
+      "after_record_sha256": "bc4be488bee834cb39f2edcb689cbb876aebb33616cfadab2b2b1fffbae79ef9",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 267,
+      "steps_after": 199
+    },
+    {
+      "group": "established",
+      "file": "calendar_upush_udebounce_uduplicates.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "6a373bbccca903811fa322a8cc09ebfec4b36f2f75c478bdfaca86ec965fe3ce",
+      "after_record_sha256": "37741aabf28e3b1eec9bb39939ae3263224e82aba5a67b4fa37f4bb9dcced786",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 14,
+      "steps_after": 12
+    },
+    {
+      "group": "established",
+      "file": "calendar_upush_ugraph_ureschedule.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "be082a3b5f84bc846ca645683f5c3110a488e310be37a4a8c108d480594624c2",
+      "after_record_sha256": "c530d56d44dc3c98eb0a836bb3a8b06b20d98d526cf64afb3d491de6ce530dce",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 12,
+      "steps_after": 10
+    },
+    {
+      "group": "established",
+      "file": "calendar_upush_ureschedule.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "8e649b09d8f67fdbbc4385be2dfb56b921f5aedd813e79b5dbb14f98ef6fc1ee",
+      "after_record_sha256": "d0a26f927ddbadc605c05ab2932e7f0606c5137d4f11a10bb4bff7ea3895e1d9",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 12,
+      "steps_after": 10
+    },
+    {
+      "group": "established",
+      "file": "fault_upost_ucall_uduplicate_udelivery.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "104835e39a59166c634d5c7dcf012d5f67fc5507bc10d95ef7f61c1bac9490da",
+      "after_record_sha256": "5d380f32a76d02b9bf1dc51245fbaeeb6ac348bdc32ad05fe5bdf73dbe696f61",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 178,
+      "steps_after": 136
+    },
+    {
+      "group": "established",
+      "file": "fault_uredis_uoutage_uduring_uimport.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "47d18a695337eb6585bbf48730801e2cc92b12f211c6e86cd272baa55c1e55be",
+      "after_record_sha256": "53209b072401435106d6bac08a1e6d7d246a4d2a7b41db432da010114a012f61",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 240,
+      "steps_after": 180
+    },
+    {
+      "group": "established",
+      "file": "fault_uredis_urestart_uloses_uleases.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "e985827b3e3f5ce8ae49f9e9136f2c2a80d806820f5cfc1b5061d8bb6ab275d9",
+      "after_record_sha256": "f62ec48c7bd240f6db7032ff20da905f382087d838863b9579bcd4e037b817bb",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 243,
+      "steps_after": 181
+    },
+    {
+      "group": "established",
+      "file": "fault_ureplica_uper_urequest.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "23de3d5544d1bbb074f1adbe9e2723b228e6c1d20a82fa9f0852da880ab22e0a",
+      "after_record_sha256": "5671de2a4958e2a711313566e38720e61ea7fe08725dfee036c184e20df1aaf7",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 247,
+      "steps_after": 181
+    },
+    {
+      "group": "established",
+      "file": "fault_uworker_ucrash_uduring_upoll.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "05d19fa901b93af5d561ca6fe2857b8185292bf5e023a7afdec7a1bb32f73ed4",
+      "after_record_sha256": "c6a0a9b18e3078f3a61e3fe2d92c5bf738473fa4e7b8faa8737dd673c9b7010a",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 242,
+      "steps_after": 180
+    },
+    {
+      "group": "established",
+      "file": "gong_usingle_umeeting.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "ba7033d5789c148a579b6df8c223e531408185c113a03c238c2df93e48450654",
+      "after_record_sha256": "d6497b9ecf773010d10de6934cc4be3f4a55930805523a2f312d729ce7cec30c",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 116,
+      "steps_after": 96
+    },
+    {
+      "group": "established",
+      "file": "granola_usingle_unote.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "38202b8066e2482d3e5af09b56b603a449d716a2d78b17bfab207aba01081c0d",
+      "after_record_sha256": "1ff494fdc0865be00b1cc1238794eb1f17786740f9bdcb6d0cc76059f445a103",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 192,
+      "steps_after": 145
+    },
+    {
+      "group": "established",
+      "file": "meet_uearly_ujoin_u16m.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "40b24a0f20e5c4fbd767381d608dd4f852eb6e11ed41e98bd375d2babfc23d22",
+      "after_record_sha256": "05f3b3d1ac8cd74ca6c86f1933dbca19e43222ea61db3c5590bdce0f55e6101f",
+      "failed_checks": [
+        "meetings[0] where {'meeting_id': 'evt-e'}: bot_status == 'summary_generated'",
+        "meetings[0] where {'meeting_id': 'evt-e'}: transcript_contains == 'early'",
+        "ledger never post_call_native_give_up"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 267,
+      "steps_after": 199
+    },
+    {
+      "group": "established",
+      "file": "meet_ulink_uadded_ulate.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "7784b995c5876ffd97f211cfa49a9769fcaf590ebf7be6c3a0d704319ec86da0",
+      "after_record_sha256": "3a3bd5e29f11f8989c4f0af688929f9216a09e9ffabe06f15f157e358bad6444",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 268,
+      "steps_after": 200
+    },
+    {
+      "group": "established",
+      "file": "meet_ureschedule_uafter_ucompletion.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "ca489ec2befe0d53f56ada136496d52e5a94f9cd17270258417642601c845e5f",
+      "after_record_sha256": "b345fb28e0dcc13f60938fb9e8446fd49b6c9d9e9f122b1deda0343fa5d884ec",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 1139,
+      "steps_after": 797
+    },
+    {
+      "group": "established",
+      "file": "meet_usingle_urecording.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "ddb9e6e0d0f884041ed0b27eda2faa254d680cda95b1560634b494913acd7829",
+      "after_record_sha256": "d14b9440a7d32ce1723ce3bd6fd2dbb413085e2e64a29750726c5e19659b1d3a",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 174,
+      "steps_after": 134
+    },
+    {
+      "group": "established",
+      "file": "meet_usingle_urecording_ucontent.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "87d191564ffb285c556523746eb2d326d1d4cd2179a0dddc46758ec2a9b1e8ef",
+      "after_record_sha256": "1152f01623ccad44f92eb2dc5173becdc2f0a1250e7ee49f5ca229a4e5185e08",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 183,
+      "steps_after": 137
+    },
+    {
+      "group": "established",
+      "file": "meet_usplit_urecording.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "a3262c9dc4ac0432486be9509f6037c6cab2978aa7edb9a300efd8f3f7e21157",
+      "after_record_sha256": "8e03be0d8191b28bb71c4bdfd34421e4341430a705cd25691e00278d3524ce2e",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 239,
+      "steps_after": 179
+    },
+    {
+      "group": "established",
+      "file": "meet_utranscript_ubefore_umedia.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "609ce97c74cea1fe4f460faaca12b94f3d9caa483213bc67a868a1223ff0bb20",
+      "after_record_sha256": "1ebb16279ad098a2d0160805e6158c51fa145e665184ef00d787bfe184b13aa2",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 270,
+      "steps_after": 200
+    },
+    {
+      "group": "established",
+      "file": "plaud_usingle_urecording.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "462cdd356509226e78c0c5bb82c46352b9a04cd946b618445514a1f5c7f904d2",
+      "after_record_sha256": "5995b3f81ab6f876250f6c57d9af09f980e83f7d9563f0ae95feb6590710adef",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 160,
+      "steps_after": 126
+    },
+    {
+      "group": "established",
+      "file": "recall_udone_uafter_upost_ucall.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "59f475a9cddc32cca907dd953096233677caf91b861e8529001d9378136a3375",
+      "after_record_sha256": "db9570b706e117f6ebf55d699caf192b9898e87eea709ea5c91cceef64823320",
+      "failed_checks": [
+        "meetings[0] where {'meeting_id': 'evt-p'}: bot_status == 'summary_generated'"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 200,
+      "steps_after": 146
+    },
+    {
+      "group": "established",
+      "file": "recall_uduplicate_ustatus_udelivery.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "61d92f87fb56e7f37b7228d4bf348ddc44dc0b0c978dcfcc87b8e78c3a538c38",
+      "after_record_sha256": "ed64fc6371a812a78ecb564f236e0650b7e26af741b1c1682226a14053fc3ac0",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 204,
+      "steps_after": 148
+    },
+    {
+      "group": "established",
+      "file": "recall_uoptout_uremove_ureadd.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "c2bc73c75ebb40ca71fa89d698f6d1a0ee3fe3aae8da99b341b0259c16bec580",
+      "after_record_sha256": "f350302681c699a153ad2310ae8b615605ecf6bc93cfdc693d3d26549582850a",
+      "failed_checks": [
+        "meetings[0] where {'meeting_id': 'evt-o'}: bot_id == 'sim-recall-bot-2'",
+        "ledger never post_call_complete",
+        "ledger bot_readd_via_link == 1",
+        "recall bots created == 2"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 129,
+      "steps_after": 101
+    },
+    {
+      "group": "established",
+      "file": "recall_usingle_urecording.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "e4ba869f17c2d855ec63a4c14e6d80833a7db1e9a7eb3bde7b67ba77c9666e73",
+      "after_record_sha256": "0007ab6550bce01c9314366f22dc8588395bb473f5377a6eccbf91047a5a2ce7",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 205,
+      "steps_after": 149
+    },
+    {
+      "group": "established",
+      "file": "recorder_uback_uto_uback_uafter_uno_ushow.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "celery",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "bc3e0a938effe8e21261d8e20396aacd41d49d27773d18eb590eb2e4bd74d285",
+      "after_record_sha256": "3ae969966a618c182e6751424b426a8e22c08018a9f1526d983af390bc5880f6",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 275,
+      "steps_after": 204
+    },
+    {
+      "group": "established",
+      "file": "recorder_ufast_upass_ufinalize.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "celery",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "1b0b0ca290d95271031e15deaa2226e7e3b2492e63140e099ae52cd8c9b66b83",
+      "after_record_sha256": "f30f7f185946f4833e55b00bfe6c00ca873c14ba66b6a6dfdba9acc41d4a57d2",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 181,
+      "steps_after": 139
+    },
+    {
+      "group": "established",
+      "file": "recorder_utime_uwindow_uearly_ustart.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "celery",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "990a874bdbdc81fdd336db91797e5b7d30145727d591b514e0bdd43f5a49c408",
+      "after_record_sha256": "9876bca45416a157431f0396dd26d20fdd094cc15220e13b9db66b3f015c2fb1",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 180,
+      "steps_after": 138
+    },
+    {
+      "group": "established",
+      "file": "teams_usingle_urecording.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "6292e11d4d77cd11f5218487abfcabe8f276b5b26550e1db916602303d2aa561",
+      "after_record_sha256": "a31c206175017bae2b8f671a40ec92ecb0209351096d59564ac10a5e44759f0c",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 238,
+      "steps_after": 178
+    },
+    {
+      "group": "established",
+      "file": "zoom_uno_uvtt_uasr.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "d67de4da50e290f3c6e71dbf497cee7bda75584b295d2db620b546971af2737c",
+      "after_record_sha256": "e61991cf027df49bc5b663f0f3e0a2dbdec09ad1ebd4102fd1bddf3efaba6b99",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 270,
+      "steps_after": 200
+    },
+    {
+      "group": "established",
+      "file": "zoom_usingle_urecording.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "b681c31c1ed8c08b06c5a4bd346c106956bc0f5488505c2543df2760b5c72838",
+      "after_record_sha256": "70700c5e4c5b564ff66871ead051a4cd2520db2806bee37864f31f2aed3cad40",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 238,
+      "steps_after": 178
+    },
+    {
+      "group": "established",
+      "file": "zoom_usplit_urecording_ustrands.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "55340b379150a9ccfacb0721cb13b355eaa7d667898cd34386a85275f331ca87",
+      "after_record_sha256": "e1700dbe60988c277475657a5ec0d1afb9bc21d37b358774f3633f2c9cd1aed3",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 431,
+      "steps_after": 311
+    },
+    {
+      "group": "pending",
+      "file": "pending__coverage__pr2596_ubound_uteams.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "report",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": true,
+      "before_record_sha256": "c7e913c803012bcfebb971679751f80f07aa9c6d0d75872e9a725aecc2021096",
+      "after_record_sha256": "dbe153280ab00ccc87585573d752a6a6a9b64db7233b6796d215540cb100fe13",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 12,
+      "steps_after": 12
+    },
+    {
+      "group": "pending",
+      "file": "pending__coverage__pr2596_ubound_uzoom.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "report",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": true,
+      "before_record_sha256": "7cd800ebaff0015d58e8e92361c2029038e04e798952bc77b59d9e1fd1595ed6",
+      "after_record_sha256": "7fe3d9acb222a3489e10698f8460c0ce4c39c137649338fb1394bf63b63a65f6",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 12,
+      "steps_after": 12
+    },
+    {
+      "group": "pending",
+      "file": "pending__coverage__pr2596_uempty_uwinner.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "a65575fa620ff62b1578c1e819d752c4aacfe4b5ae8aa5b03702b48f29eae49b",
+      "after_record_sha256": "1461094217f81c5dc7f874ea5ee20db1def32b8d45f663a52b1c4810111aebc8",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 6,
+      "steps_after": 4
+    },
+    {
+      "group": "pending",
+      "file": "pending__coverage__pr2596_uhalf_ucommit.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "12805296195e53e54394205b4da1457cbe634b82b1e4beba169023d02533315e",
+      "after_record_sha256": "3fa790865796aba13ed9216b2ba12cbc0353989669b831e163a8c8366000cff6",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 27,
+      "steps_after": 15
+    },
+    {
+      "group": "pending",
+      "file": "pending__coverage__pr2596_ujunk_uforced.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "a1422e63a2054397fc5f6d322495fef3bfd87e86916229bca6da4fc6fed538fa",
+      "after_record_sha256": "9d78e918bc679df6d275e6a6318a285c900ad22769b306c938fedf95599c857f",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 15,
+      "steps_after": 7
+    },
+    {
+      "group": "pending",
+      "file": "pending__coverage__pr2596_ujunk_uordinary.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "92ac522b8552eeb253e26f627f0ff8fec5982770644579f1106ebfe40cb14e40",
+      "after_record_sha256": "18e4e32b0e44604be347a79c306c6c2f8f86cd3eecef90dbf3a84b781b018668",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 15,
+      "steps_after": 7
+    },
+    {
+      "group": "pending",
+      "file": "pending__coverage__pr2600_ulease.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "63342414c6fe81e077e3bd92e6ebcabce8ffd5e2fec82cc5fd330867e87273e9",
+      "after_record_sha256": "4de5e6fe620ca10f1b65696ac67f980a8aec8d0b79ef7f45f9a9ef79f6f82d17",
+      "failed_checks": [
+        "effects[1] emails: count and payload",
+        "effects[3] crm_calls: count and payload"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 804,
+      "steps_after": 572
+    },
+    {
+      "group": "pending",
+      "file": "pending__coverage__pr2600_uqueued.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "109b76a96f86ed8fe55f96f4c02d7be0bc36b6a16f52376e6f70b495e599f10f",
+      "after_record_sha256": "c7e558fe26497dee25252fd1c16b4d71c3df37dc81c8bbfea37868f654c90163",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 780,
+      "steps_after": 544
+    },
+    {
+      "group": "pending",
+      "file": "pending__coverage__pr2600_ustale_usnapshot.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "cce9b62356007a61fe3faa6797811e6517a87238e4e0b56f60c32b31263700a9",
+      "after_record_sha256": "02457a015aed844479d0e0ac13f4aaccc6736d9c8a37bbfdef574d2e56a44526",
+      "failed_checks": [
+        "effects[1] emails: count and payload",
+        "effects[3] crm_calls: count and payload"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 776,
+      "steps_after": 544
+    },
+    {
+      "group": "pending",
+      "file": "pending__coverage__pr2648_uobject_uchanged.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "8bcc2e45ce6f0238117c82e7c27af4d47ddb5e40e230c1c4e8aecac72af29dc0",
+      "after_record_sha256": "b4547309c28318eb79bc9755b911377eb65425dcc7ae7394754589c4aaa14502",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 25,
+      "steps_after": 11
+    },
+    {
+      "group": "pending",
+      "file": "pending__coverage__pr2648_uobject_usame.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "f5915888819f4dc3a75fb3d1b655c82e9d7aaf61d02d4c7f958a16b8469010f8",
+      "after_record_sha256": "0b8d241671c32deca29bf21800880880c6dbabc4a9638b28064ac8891cc551db",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 25,
+      "steps_after": 11
+    },
+    {
+      "group": "pending",
+      "file": "pending__coverage__pr2648_upresign_uafter.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "e0f5b7c2397ecc98d58d7f937c358baf94a3be2473513e3f2f2c65f188f6a37b",
+      "after_record_sha256": "fea32579d31bb3cb1111a6fe52550e445ee17232b449c7f4bb573a9aea685c1f",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 18,
+      "steps_after": 10
+    },
+    {
+      "group": "pending",
+      "file": "pending__coverage__pr2648_upresign_ubefore.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "9875821e78b736f3a46c0388db22866c25a3c84c344fbe94ea40d7596cddacc3",
+      "after_record_sha256": "6b843527ba37a106743527681d2cfd849f0a3163bdd3b7897789fcf01ebe017e",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 18,
+      "steps_after": 10
+    },
+    {
+      "group": "pending",
+      "file": "pending__coverage__pr2653_udry_urun.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [],
+      "ledger_identical": true,
+      "before_record_sha256": "cf30243f53076146f0d9ff54b61271a493357bf6cdf9dbe1f4b407cd755eaf86",
+      "after_record_sha256": "32e5e217638cf9ac91750ab13d9af2fb5617d4022357bdd01e1b6a2c0d2ebcad",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 3,
+      "steps_after": 3
+    },
+    {
+      "group": "pending",
+      "file": "pending__coverage__pr2653_uingress_uerror.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "3e40fd28ad43edf0718aa2eb735cf3407458a80a5f96fa8ec90a545f6b436584",
+      "after_record_sha256": "245869e9dc15e00696744ce911e3e2baa969acb44f8ec12cc01862f57a6c4dbd",
+      "failed_checks": [
+        "meetings[0] where {'meeting_id': 'evt-z'}: bot_status == 'summary_generated'",
+        "meetings[0] where {'meeting_id': 'evt-z'}: transcript_contains == 'asr-job-3'",
+        "post-call ok runs == 1",
+        "quiescent: no row left in a non-terminal status"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 108,
+      "steps_after": 90
+    },
+    {
+      "group": "pending",
+      "file": "pending__coverage__pr2653_uingress_uprocessing.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "922c4c2a1787d40e020144be4dd8441a070a32b1edc135c62d7ce50155eea819",
+      "after_record_sha256": "6a067dab48be2dad660dd7489a0fdd19e353869142e2e5b5f992bfbfc9c5d391",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 113,
+      "steps_after": 95
+    },
+    {
+      "group": "pending",
+      "file": "pending__coverage__pr2653_uingress_usample_ufailure.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "f4be06032d405bcb2e48f1304059b728833742cbd3464f3e2f2578a594154336",
+      "after_record_sha256": "1b4beda30bfbd71f8c91c2514780814a1c3756d4d55cf2fca4f4689e2d0df601",
+      "failed_checks": [
+        "meetings[0] where {'meeting_id': 'evt-z'}: bot_status == 'summary_generated'",
+        "meetings[0] where {'meeting_id': 'evt-z'}: transcript_contains == 'asr-job-2'",
+        "post-call ok runs == 1",
+        "quiescent: no row left in a non-terminal status"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 108,
+      "steps_after": 90
+    },
+    {
+      "group": "pending",
+      "file": "pending__coverage__pr2653_uingress_utransport.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "814db0da909f2c6b8b0095a7f3cda74110de58b7380785a62677de32ebadc220",
+      "after_record_sha256": "a8956606a4c7cae6b5fe25bc1f27b424861e80f70f09d43acef9d8250a650dac",
+      "failed_checks": [
+        "meetings[0] where {'meeting_id': 'evt-z'}: bot_status == 'summary_generated'",
+        "meetings[0] where {'meeting_id': 'evt-z'}: transcript_contains == 'asr-job-2'",
+        "post-call ok runs == 1",
+        "quiescent: no row left in a non-terminal status"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 108,
+      "steps_after": 90
+    },
+    {
+      "group": "pending",
+      "file": "pending__coverage__pr2653_uinvalidates_ubytes.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "f34039f36441aa3d5a13354d2e7bbd02cd34d9d50386e7ea064ec0edc316e739",
+      "after_record_sha256": "0794e6f96d31d9ccde50b9f2e64ccf4e26a7759368d12b8e56898df21fc323ba",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 25,
+      "steps_after": 11
+    },
+    {
+      "group": "pending",
+      "file": "pending__coverage__pr2653_uinvalidates_us3_ukey.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "5da8c37f6c941d33de8904b066a3c3bf8f2af2afa67e013ffde4fa25795a232f",
+      "after_record_sha256": "089b99b15e4c57d0184d3d9d70205afd28fe43af03b3d61f321db8edf730f3bf",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 25,
+      "steps_after": 11
+    },
+    {
+      "group": "pending",
+      "file": "pending__coverage__pr2653_uinvalidates_usnippets.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "4d21455d3c06614b8f60e5f6947244a0989d237c1f5c5fbab454fe0acdeadf9d",
+      "after_record_sha256": "6da53c8fc1829f0e3c7a6e134a34b31efa1624f327d53592468c72f4d6c9df18",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 25,
+      "steps_after": 11
+    },
+    {
+      "group": "pending",
+      "file": "pending__coverage__pr2653_ureal_ujudge_ucompleted.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "b9dfc20ab23670c62d5c5a7a7eebbee271433fc3da4d3878295503e5f43d020a",
+      "after_record_sha256": "91ea8f5b10ee9b64511dd4ff5f147807d74158de3499c459e79b18d8baec3c87",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 17,
+      "steps_after": 9
+    },
+    {
+      "group": "pending",
+      "file": "pending__coverage__pr2653_ureal_ujudge_uerror.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [],
+      "ledger_identical": true,
+      "before_record_sha256": "8e648bc1221a5517db172d51706f92fd67b15df483764488579ab090c67741e5",
+      "after_record_sha256": "5089051b674205b1a76d07e87c662260a900f913faceb80eaef27d2f2dff4e19",
+      "failed_checks": [
+        "meetings[0] where {'meeting_id': 'evt'}: bot_status == 'summary_generated'",
+        "meetings[0] where {'meeting_id': 'evt'}: transcript_contains == 'asr-job-3'",
+        "effects[0] credits: count and payload",
+        "effects[1] crm_calls: count and payload",
+        "effects[2] emails: count and payload",
+        "effects[3] drafts: count and payload",
+        "quiescent: no row left in a non-terminal status"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 5,
+      "steps_after": 5
+    },
+    {
+      "group": "pending",
+      "file": "pending__coverage__pr2653_ureal_ujudge_uprocessing.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [],
+      "ledger_identical": true,
+      "before_record_sha256": "8f4d447b76f0d97020791591b458b5f699292f41bccb1ef2c6158530bb66abed",
+      "after_record_sha256": "c17806557ff2c826d60c1c5db4b2568fd8fef0a73e801228f3b7f0cf82860c38",
+      "failed_checks": [
+        "meetings[0] where {'meeting_id': 'evt'}: bot_status == 'summary_generated'",
+        "meetings[0] where {'meeting_id': 'evt'}: transcript_contains == 'asr-job-2'",
+        "effects[0] credits: count and payload",
+        "effects[1] crm_calls: count and payload",
+        "effects[2] emails: count and payload",
+        "effects[3] drafts: count and payload",
+        "quiescent: no row left in a non-terminal status"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 5,
+      "steps_after": 5
+    },
+    {
+      "group": "pending",
+      "file": "pending__coverage__pr2653_ureal_ujudge_utransport.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [],
+      "ledger_identical": true,
+      "before_record_sha256": "ad367cee34105a216c4db515d1aa8f6dcdbf89511b93b95b104435f315ea983d",
+      "after_record_sha256": "05faa7a39c38b16a0051fc86ff8cc0f4bd38b8f4f50b3f1ef558c01fbb564f91",
+      "failed_checks": [
+        "meetings[0] where {'meeting_id': 'evt'}: bot_status == 'summary_generated'",
+        "meetings[0] where {'meeting_id': 'evt'}: transcript_contains == 'asr-job-2'",
+        "effects[0] credits: count and payload",
+        "effects[1] crm_calls: count and payload",
+        "effects[2] emails: count and payload",
+        "effects[3] drafts: count and payload",
+        "quiescent: no row left in a non-terminal status"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 5,
+      "steps_after": 5
+    },
+    {
+      "group": "pending",
+      "file": "pending__coverage__pr2653_usample_ufailure.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [],
+      "ledger_identical": true,
+      "before_record_sha256": "6127e5464ddc751c914b507b4d099f8009066ef9bf7ee4bf0718f719b8da0402",
+      "after_record_sha256": "f294e4a6ab91b1c6160939f72d141871b6310461591bf45b7da6e4d584cf8195",
+      "failed_checks": [
+        "meetings[0] where {'meeting_id': 'evt'}: bot_status == 'summary_generated'",
+        "effects[0] credits: count and payload",
+        "effects[1] crm_calls: count and payload",
+        "effects[2] emails: count and payload",
+        "effects[3] drafts: count and payload",
+        "quiescent: no row left in a non-terminal status"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 6,
+      "steps_after": 6
+    },
+    {
+      "group": "pending",
+      "file": "pending__coverage__pr2653_uunsaved_ujob_uid.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "b3f387fb33e1587c76d6c0fae2f2393edd163435b076b6588d0a11007e20eadb",
+      "after_record_sha256": "5318cdbe5973f02c46827353810104ced1530f1d8950013848ad5a01c80fe4dd",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 18,
+      "steps_after": 10
+    },
+    {
+      "group": "pending",
+      "file": "pending__coverage__pr2653_uunsaved_uverdict.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "66cfbf5e3f6029623a5772a4f660d0cfa383344b0325b8ec121ca649bffa2ae5",
+      "after_record_sha256": "53a20ce4a78d940fd158edd4af855f27487c602600d7fa58d98d41e106256ffc",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 18,
+      "steps_after": 10
+    },
+    {
+      "group": "pending",
+      "file": "pending__pr2596_uinvalid_unative_uquality.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "20de0278ebfa47f8bb38e2093be0b7ae3662bc54173dd8d75e0ffd88cb7358fc",
+      "after_record_sha256": "87717e3bd71c4c18eaaacd6265c8b457b15b67f299f8239f213bef7fb4568fc0",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 108,
+      "steps_after": 90
+    },
+    {
+      "group": "pending",
+      "file": "pending__pr2600_upending_uimport_ureschedule.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "7a6b32c994b53ac14a519b492d92e12e5cd0dbfc1c0af8cdc2a690b861b5881d",
+      "after_record_sha256": "0462697eacc81f26993327fe0334b1bf824055f894f6efe55dd719045c2b9c10",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 425,
+      "steps_after": 360
+    },
+    {
+      "group": "pending",
+      "file": "pending__pr2648_urotating_upresign_uretry.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "9b98874c91bf919d17855509a6f6f994f02236994d7d4c2bdabab685bdf346e7",
+      "after_record_sha256": "25f1d47ac97c871be6bd5d08c320b1f9e171389456d99a54081cc41e106fd75d",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 109,
+      "steps_after": 91
+    },
+    {
+      "group": "pending",
+      "file": "pending__pr2653_ujudge_uand_uasr_uretry.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "c71a504f8d8d2086e50b2b656262aaa28af04eeb68cf153cf8cc7fbd18c2d0d4",
+      "after_record_sha256": "9c2a1e9354777c5034cd852c839e50dd0c9fbc84583c740d2765c235f7f8a193",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 109,
+      "steps_after": 91
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitcancels__00-non-recurring-delete--organizer.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "eff5b77d1fb18a83af997b7f0a578af150bf581f7fb82da007ef914341d59602",
+      "after_record_sha256": "aa84d96ec54c1d92c14a83822e786a7207363e78c7d22cbd77a84e85cf6db739",
+      "failed_checks": [
+        "...drntnrclkv742r7m cancelled: row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 1007,
+      "steps_after": 707
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitcancels__01-recurring-delete-all--organizer.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "eec776b3780967ae7bf2dc053d0670a49ab79792e18286b67c89856239ae2e2a",
+      "after_record_sha256": "440a1cfd64d635d80e4d7b2d88d39291b6b5088f0bf2fef77e7f66a54af48324",
+      "failed_checks": [
+        "...20270101T150000Z cancelled: row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 1008,
+      "steps_after": 708
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitcancels__05-non-recurring-remove--organizer.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "49ee10860cd7e187cbc5552e0ac3baba7e84ae37793d202307330b142b44c159",
+      "after_record_sha256": "f22cfa3a42f11e145874249c6f4b63b610ae5024a0a6cc55d952426374a50d08",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 1010,
+      "steps_after": 708
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitcancels__07-recurring-remove-some--attendee-user02.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "dbe4cffdebab3f2f62d07c7f45aac3fd6bb2a038a340076ca322fb31039df84a",
+      "after_record_sha256": "d4af6ebb0b9e000162db188f78e35c321626233a8da849cf18b09c3bd56ce916",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 2546,
+      "steps_after": 1764
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitcancels__07-recurring-remove-some--organizer.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "b658bdd6639d83e5ed718309ea17ec43ef0096673a8cefa2f26ea2f42723c676",
+      "after_record_sha256": "c0c9e9e135515f1656ce953fdfa5170615fc3556cc82a14eacd259a6e37d1141",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 2547,
+      "steps_after": 1765
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitcancels__08-recurring-remove-twice--attendee-user02.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "b9ac7cf3f20eb4bf579bcdf0f25a3a8ad4d53226927659d098ecc32539de6b95",
+      "after_record_sha256": "7d69a9a08c94197f3ffa92b39647c3eb46299db81d6ca05c65c9a9e6e1b27cc2",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 17141,
+      "steps_after": 11799
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitcancels__08-recurring-remove-twice--organizer.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "a5b64d0d3e03a43297ed54593d58b56ab5cd896e131f1b08cdf17f0fed376683",
+      "after_record_sha256": "a0a04ef7511bc6dfb7342f7a18b49abc67858b70373552a0f6f3fb3b567695b7",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 17141,
+      "steps_after": 11799
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitcancels__13-non-recurring-with-time-shift-remove--attendee-user02.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "e17f9f05f3bd43118c67b692b017d24d6f2f34bf1a9c08b6bb2e99a57baf3f5a",
+      "after_record_sha256": "cd1cffb2e44e6a4da84612820021c6126eb5d07e25b1e28e8bf3b3b460c6a86d",
+      "failed_checks": [
+        "...drntnrclkv742r7m cancelled: row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 1007,
+      "steps_after": 707
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitcancels__13-non-recurring-with-time-shift-remove--organizer.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "17a011c177a0804ab3ad69bd0a1d3c4bf496f52abef1497638bb248363f80b3b",
+      "after_record_sha256": "edd5f0d1ac40d9a680e512d9a9a5993130ce6f02d320e1a868be9864c26c126d",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 2547,
+      "steps_after": 1765
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitcancels__14-recurring-with-time-shift-remove--attendee-user03.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "bc9f855c94328ccdc84793c076bcae6f70fe99345e27daa137e796bb50013754",
+      "after_record_sha256": "aa02e6799cd9c6c7acb33eab3b09f3b0b06c590bbb9067928e163b1ed5bb8409",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 6385,
+      "steps_after": 4403
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitcancels__14-recurring-with-time-shift-remove--organizer.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "ea4c5a40711b93c374e4b8d0cec58154a56d44b76253f6409672f5a6adfb2a30",
+      "after_record_sha256": "44468cfd024f187b07c1c8167233a8737ddc46fb1368d73c65e2382a00d49c99",
+      "failed_checks": [
+        "...20270101T150000Z cancelled: row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 2548,
+      "steps_after": 1766
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitcancels__18-non-recurring-add-only-status-cancelled--organizer.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "4c4cc7a9d3406cf3cbc7e154688a3d83977b22a5e3ea4b26b163b06c92aea18e",
+      "after_record_sha256": "8d6124e741ba9086e22a1d595320ffb914c00edf2652106a2b427c3008fb7942",
+      "failed_checks": [
+        "...drntnrclkv742r7m cancelled: row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 1008,
+      "steps_after": 708
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitcancels__20-recurring-add-only-status-cancelled-to-override--attendee-user02.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "612f5bfc850fb79ba6697544d6601213e832e53f884c4158665b5142079e7158",
+      "after_record_sha256": "0d4f7290aff3aa33e2e1465840468a31dbe0a139bc85f1ac4bf1ae096d92ab61",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 1012,
+      "steps_after": 710
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitcancels__20-recurring-add-only-status-cancelled-to-override--organizer.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "87326a2a65ace5f087139d1bb758c236bcdc310c917e91e816ec20b92d811cd0",
+      "after_record_sha256": "c40fbdcc786e10f1fdde3718088a07e2f82f70c759fb403e11e06210f96e80a4",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 1012,
+      "steps_after": 710
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitcancels__22-recurring-cancelled-override-remains-at-override-time--attendee-user02.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "a4899f60ae08ec9d3435a3e748a71098f1ba3a616e9fba3dda87546ecd37d5ed",
+      "after_record_sha256": "5fedbaf9e1bab357d06c5ae23e9aa93195bd804f0485f621e2a0aa8a06b70aef",
+      "failed_checks": [
+        "...20260926T120000Z at its final corpus time (did not take place: no session): title == 'event 1 changed'",
+        "...20260928T120000Z at its final corpus time: title == 'event 1 - override 2'"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 2582,
+      "steps_after": 1790
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitcancels__22-recurring-cancelled-override-remains-at-override-time--organizer.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "e4c9a85d5600a5200110ae987d5d8ca5a4b1bad4c8bd9aba14e4bdcd15b2ffd3",
+      "after_record_sha256": "1770ea026829acb4ad71d66991842dad586147b089ca9f0bd97a69a9b7c9714e",
+      "failed_checks": [
+        "...20260926T120000Z at its final corpus time (did not take place: no session): title == 'event 1 changed'",
+        "...20260928T120000Z at its final corpus time: title == 'event 1 - override 2'"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 2582,
+      "steps_after": 1790
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitcancels__23-organzier-delete-attendee-exdate--attendee-user02.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "b9cc2ff16bd4001dbcbd68914f4b60d81b15f247e7516fbdec5e3fe7c290044e",
+      "after_record_sha256": "eaf7e7389217dff9ff0e0119037d1e26ab5b6a3d84225dc236675cebd8808ea5",
+      "failed_checks": [
+        "...20260926T120000Z cancelled: row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 1009,
+      "steps_after": 709
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitcancels__24-organizer-re-invite-after-attendee-exdate--attendee-user02.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "63819f8c0e1ecae5340d1b15c708e11f371e087e90f98e61d2900730c9f1effa",
+      "after_record_sha256": "4b5af097206b9ebb8bf7c6a061edc78028f9666659a47f70b5bf7df0b308da19",
+      "failed_checks": [
+        "...20260927T120000Z at its final corpus time",
+        "recordings count == 1",
+        "post-call ok runs == 1"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 1779,
+      "steps_after": 1239
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitcancels__25-organizer-add-attendee-to-instance-they-were-initially-not-part-of--attendee-user02.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "d2a4abfc7f69b3d76a237786a9edc6ce57520bc2307b37a85372636229421264",
+      "after_record_sha256": "2a3397189828cf0d58643c15fa3e67964c8b45a9f1f16134a9f4bbe66b65a8ae",
+      "failed_checks": [
+        "...20260927T120000Z at its final corpus time (did not take place: no session)"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 1782,
+      "steps_after": 1240
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitrecur1__00-override-only-in-request--organizer.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "7d5e916210605cf032693d9759a316dfc62791c3e82635ddd36c291c2599ebb9",
+      "after_record_sha256": "4ae2991bcc41568f73503194368786a7f529eec7b0ed6623b280b5ba258ac46b",
+      "failed_checks": [
+        "...20270101T150000Z at its final corpus time (did not take place: no session): title == 'event 1 - master'",
+        "...20270103T150000Z at its final corpus time (did not take place: no session): title == 'event 1 - master'"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 2550,
+      "steps_after": 1768
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitrecur1__01-cancel-override--attendee-user02.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "f51673586764f31dbe09a51aac9bf49f0759b5ffe44a8c5e9fe5d2affa695c19",
+      "after_record_sha256": "f93e064e69cf177d197d6fb5f989f73fac38dbffcb89ee93e2924cdc17307796",
+      "failed_checks": [
+        "...20270102T150000Z cancelled: row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 1007,
+      "steps_after": 707
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitrecur1__03-all-day-override--organizer.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "072cff113e1af27f067d54480288c7e0360625e4b9e4774e7755a8d697feff8d",
+      "after_record_sha256": "363a75add46102700d72a2f2880916f5817225c72662b689606ae7a0ca709c3f",
+      "failed_checks": [
+        "...0s2egud_20270101 all-day (not a timed meeting): row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'",
+        "...0s2egud_20270102 all-day (not a timed meeting): row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 1774,
+      "steps_after": 1234
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitrecur1__04-attendee-instance-delete--attendee-user02.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "1c170d63693e979749395b7be3822c5194590b2831be4501c24f93e647c2f5d7",
+      "after_record_sha256": "fc2296cfde9a95f0e82862f8f83e066a6957879d78c15495fd59dfe56cde17ba",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 1780,
+      "steps_after": 1238
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitrecur1__05-rrule-truncation--organizer.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "c0f10b2941562c0641107e26f1693a2a449db20255a801a25a1aa79fee77980b",
+      "after_record_sha256": "1ea98d19e8d8cb5b1dc69d8288f6d5203dfebc1d1b10395f6c07f7a0f5653790",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 2548,
+      "steps_after": 1766
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitrecur1__06-rrule-with-dtstart-change--organizer.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "65a116a80a664f9f60c50718a579269ad35b7d65926a47ed558808d659546cde",
+      "after_record_sha256": "6c1d434cff3707cae4fdca8b7a5992089a10f7abc3bdff00751d78039d1095af",
+      "failed_checks": [
+        "...20270101T150000Z cancelled: not recorded: has_transcript == False",
+        "...20270101T150000Z cancelled: row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'",
+        "post-call ok runs == 1"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 1849,
+      "steps_after": 1285
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitrecur1__07-rrule-addition-removal--organizer.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "54a38953edf4f621643822d547cdbc9ccb8437ecb9f0c14f7edc2e5dbcb49975",
+      "after_record_sha256": "2722dde6a9ff7fce7b4a00cf0ab9b275bc2ce213334c31a53c75094e19d543f9",
+      "failed_checks": [
+        "...20270101T150000Z cancelled: not recorded: has_transcript == False",
+        "...20270101T150000Z cancelled: row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'",
+        "post-call ok runs == 1"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 1022,
+      "steps_after": 718
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitrecur2__01-organizer-invites-other-attendee-to-one-instance-only--attendee-user03.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "8fa95249668dbfd96100f9023e90b496482f8b8f9046269d23fbc613e8153f08",
+      "after_record_sha256": "c6dd421a20103b61cab8175439a40e49302d61f223c87984196275e1448be5aa",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 1010,
+      "steps_after": 708
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitrecur2__02-organizer-truncate--organizer.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "35c457040230f5c2b1646067f628d89564f51bbe86b58638226394e8337cbf39",
+      "after_record_sha256": "b0d6ccf4a0b847ac0aa1e5967e9ba01fe785eef7902f3c5dcdce463a8dfcfd3e",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 1011,
+      "steps_after": 709
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitrecur2__03-organizer-override-remove--organizer.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "461dfbe62685cb93d3ea2b28bf3f30740cd8d75a79a9acc0680dcc839867d654",
+      "after_record_sha256": "5790aad95350407e1afa24412199fba49e8345f238296eb7c21cf04b0890f9ef",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 1781,
+      "steps_after": 1239
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitrecur2__04-attendee-decline-instance-then-organizer-cancel--attendee-user02.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "f5753497be6ce1eff51338358e64faabfc93bef222fd8ab298555e65bc146f67",
+      "after_record_sha256": "be98ec7ef454bdc8482917bcce9131d42988d7265d1b483f6643c03af3447971",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 1012,
+      "steps_after": 710
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitreschedule__00-non-recurring--attendee-user02.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "eb1cf2e96ec0b70720639355b7adf23d6e945e7e0a2fc7565e4349485647eea2",
+      "after_record_sha256": "e2b6954b94b6d83d08c1b41e76d1554a15a915467a10e521b92bbe903500834e",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 1044,
+      "steps_after": 732
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitreschedule__00-non-recurring--organizer.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "7c2ae2a263696c828eba05876918602e57291a90c97c50b87b4a38883e736d0d",
+      "after_record_sha256": "9214adf379a0af76ccc8e408cbffe54920be491f04ab10ad88e404e5db9793cd",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 1045,
+      "steps_after": 733
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitreschedule__01-recurring-overridden--attendee-user02.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "e79cda5596e7f20fc23300064b272fec5b7709a6bfa26e9cf03d2ada5935614b",
+      "after_record_sha256": "e4c73c7540eb362bc6ca3227dd1649354fcf5f407934f7737b2707facf9737d0",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 2612,
+      "steps_after": 1810
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitreschedule__01-recurring-overridden--organizer--after-first-occurrence.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "16e3e2703fe14a746f482a47df9f5aaf7fc6c05d92a3ecade5f6e5541b69755d",
+      "after_record_sha256": "89fa371877252f5877b79a21c3c9c8a9405950d2741f694551b0f889640bbdf5",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 2617,
+      "steps_after": 1813
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitreschedule__01-recurring-overridden--organizer.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "d14ca97f2c080b6f060255413a967c6caaa9300e0233363e4d35fa061757cfdc",
+      "after_record_sha256": "75695f30a4302d2676177e00ebb7bc3c5dbbbe411fa904eb1d7ab7d4a4e45065",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 2613,
+      "steps_after": 1811
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitschedulechanges__00-organizer-changes--organizer.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "3de7508dd5375ae73d607ec127491a451fe1afd7eeb49e9a60f6a1758c602152",
+      "after_record_sha256": "c9f4fdd30fa2bf5a8fc59d961809779f07c4c47754d8b39e6561b84fce4f7136",
+      "failed_checks": [
+        "...j6ocjv8g7hn3m06v all-day (not a timed meeting): row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 1010,
+      "steps_after": 710
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitschedulechanges__03-multi-instance-change--organizer.result.json",
+      "before": "ASSERTION_FAILED",
+      "after": "ASSERTION_FAILED",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "05475966632a2ac351d832eb0077a11fd4d6d6335ae06a7adca6fd6f7fcdc4d4",
+      "after_record_sha256": "eac635897d08f15f8202c7f0d27b47c54d84ea9eaea176a31d8955b81981bc1f",
+      "failed_checks": [
+        "...20270101T150000Z at its final corpus time (did not take place: no session): title == 'event 1-changed'"
+      ],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 3379,
+      "steps_after": 2337
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__implicitschedulechanges__05-master-override-cancel--organizer.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "f59c70c1895eab962df32c9460b3fdba43cc91d42ca34c5fee5320cd220397aa",
+      "after_record_sha256": "2d77ac627be14969d5ee328d0e417f651a32eb0b0e8e5b81bd7052a56edda819",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 1011,
+      "steps_after": 709
+    },
+    {
+      "group": "corpus",
+      "file": "corpus__sync-report__03-simple-reports-diff-token-no-props-calendar-depth-1--user01.result.json",
+      "before": "PASS",
+      "after": "PASS",
+      "changed_fields": [
+        "health",
+        "report",
+        "clock_jumps_list",
+        "snapshot_except_ledger"
+      ],
+      "ledger_identical": false,
+      "before_record_sha256": "1ec59cd0ad2ce226716e708f530f0ffe7cfb567c75517e2fb114c59adba4a7ef",
+      "after_record_sha256": "d9395d60d50a826d7358e2685bba00f209f9f23ec94ef12da3e398d84499ced8",
+      "failed_checks": [],
+      "health_pass": true,
+      "health_verdicts_unchanged": true,
+      "application_state_unchanged": true,
+      "pending_nonlimit_items_unchanged": true,
+      "steps_before": 1111,
+      "steps_after": 777
+    }
+  ],
+  "artifact": {
+    "version": "0.1.0a2",
+    "filename": "workflow_sim-0.1.0a2-py3-none-any.whl",
+    "sha256": "0f51138469c61acb78aec4eb04859447d338d4b7fc859d0b2a4a4250e27b2315",
+    "repository": "https://github.com/karthiksraju/workflow-sim",
+    "source_revision": "c9ba673c373bffc7b076753d86815560719117df",
+    "ci_run": "https://github.com/karthiksraju/workflow-sim/actions/runs/36448361137",
+    "kernel_files": {
+      "workflow_sim/__init__.py": "22b2dfcbb0f9f0c73af1b77252c98dd56cbe4eed81d8f59ed8bf631a6a723fa0",
+      "workflow_sim/clock.py": "a8380471e7eab950212afffeca6c0c6a9bf696426b00540c3a28ade2b17ce8b3",
+      "workflow_sim/engine.py": "082007993e7d217c8d3ae6af6d125130f7e856799749f3d5dd23da98c16b70db",
+      "workflow_sim/celery_driver.py": "66cf4555a00cb27e1aea86b331eaef199558624e3261c8a619ca0fe11774ee22",
+      "workflow_sim/ledger.py": "7ec7e5423aaa46ab58940ff90a90ffa2e1181d225340345f3382f224e59d2a08",
+      "workflow_sim/runtime.py": "d25292d61365ea66c6b65d3b44e3c5504707f799f3fc14069d54b63bf124acec",
+      "workflow_sim/time.py": "0d62e44fd6d49efe85dbafaf267d56c7b382cea6967e6a027175edcc84e788f8"
+    }
+  },
+  "gates": {
+    "established": 0,
+    "pending": 1,
+    "corpus": 0
+  },
+  "intentional_differences": [
+    "Successful task completion cancels owned deadlines: fewer steps, clock jumps and no stale pending limits.",
+    "Three recorder cases preserve frozen continuation task IDs; their Celery records otherwise match.",
+    "Seven causal ledger hashes match; retained originals are not normalized."
+  ]
+}
