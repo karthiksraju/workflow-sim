@@ -92,3 +92,12 @@ def test_completion_hook_failure_is_not_swallowed_by_future_callback():
     assert result['outcome'] == 'HARNESS_ERROR', result
     assert 'completion hook broke' in str(result['evidence']['report']['task_failures'])
 
+
+
+def test_link_preserves_frozen_task_identity_and_priority():
+    result = run('celery_adapter:link_identity', duration=10, project_dir=ADAPTERS)
+    assert result['outcome'] == 'PASS', result
+    check = result['evidence']['checks'][0]
+    assert check['actual'] == check['expected']
+    assert any(e['kind'] == 'task' and e['data']['task_id'] == 'frozen-child-id'
+               for e in result['evidence']['ledger'])

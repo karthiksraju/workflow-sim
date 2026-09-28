@@ -112,3 +112,21 @@ def completion_hook(c):
     c.engine.celery.on_run_end = broken
     c.at(0, 'start', lambda: first.delay())
     c.expect('task body succeeded', lambda: state, ['delivered'])
+
+
+def link_identity(c):
+    app = Celery('link_identity', broker='memory://', backend='cache+memory://')
+    state = []
+
+    @app.task(name='link_identity.first')
+    def first():
+        return {'id': 'payload-42'}
+
+    @app.task(bind=True, name='link_identity.last')
+    def last(self, payload):
+        state.append({'task_id': self.request.id, 'priority': self.request.delivery_info['priority'],
+                      'payload': payload})
+
+    c.at(0, 'start', lambda: first.apply_async(link=last.s().set(task_id='frozen-child-id', priority=7)))
+    c.expect('signature identity and options survive publication', lambda: state,
+             [{'task_id': 'frozen-child-id', 'priority': 7, 'payload': {'id': 'payload-42'}}])
