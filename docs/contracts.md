@@ -57,7 +57,7 @@ and refuses coarser representations. Public requests use the smaller bound above
 
 The seed controls Python `random`, UUID4 and hash iteration order. It does not
 control cryptographic randomness, provider output, filesystem enumeration, all
-thread scheduling, or arbitrary native extensions. Repeated matching evidence is
+thread scheduling, real elapsed-performance metrics, or arbitrary native extensions. Repeated matching evidence is
 a useful check, not a proof of universal determinism.
 
 Hard-abandoned Python executions are fenced, including owned pool work. A C call

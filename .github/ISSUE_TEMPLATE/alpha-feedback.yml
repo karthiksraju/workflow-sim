@@ -1,0 +1,31 @@
+name: Alpha workflow feedback
+description: Tell us what you tried and what made the simulator useful or difficult.
+body:
+  - type: textarea
+    attributes:
+      label: Workflow and expected failure
+      description: What does your workflow do, and what bug were you trying to expose? Use synthetic examples.
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Environment
+      description: Package version, Python version and OS.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Setup and adapter work
+      description: Time to first useful assertion, boundaries you replaced, fixture sources and confusing steps.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Evidence and surprises
+      description: Did a deliberately broken version fail? Did the same seed reproduce? Include sanitized checks/provenance and any unexpected verdict.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Most useful next change
+      description: Describe the concrete workflow behavior you could not express, rather than proposing a generic plugin system.

@@ -1,0 +1,1294 @@
+{
+  "schema_version": 1,
+  "application_before": "f2ad1a81ca18819048ef6b3e4ac30e187c4d8cf4",
+  "application_after": "b375dc70eae5da753f5242cbb1f8ce28f73ad294",
+  "groups": {
+    "established": {
+      "count": 31,
+      "outcomes": {
+        "PASS": 28,
+        "ASSERTION_FAILED": 3
+      }
+    },
+    "pending": {
+      "count": 32,
+      "outcomes": {
+        "PASS": 23,
+        "ASSERTION_FAILED": 9
+      }
+    },
+    "corpus": {
+      "count": 39,
+      "outcomes": {
+        "ASSERTION_FAILED": 17,
+        "PASS": 22
+      }
+    }
+  },
+  "records": [
+    {
+      "scenario": "established/calendar_ucancel_ubefore_ustart.result",
+      "outcome": "PASS",
+      "checks": 11,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "8b5fd7e4010a2fc67fce7a97f7f2eebe7a8c3c4453ad92c4020f2d6a4057effd",
+      "after_record_sha256": "b40f77739a8380926c7f921e59bf7e110ef0e452d6fa2744f37f853c2733c987",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "established/calendar_ucancel_uepoch_ustart.result",
+      "outcome": "PASS",
+      "checks": 14,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "e09595001324839b56df88ac81e031f1a8606351e7e106b3324fd3e30a964924",
+      "after_record_sha256": "ac7fcbb7957c3c1666115518671360261d24def14486116c899ec1288d15d76b",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "established/calendar_upush_udebounce_uduplicates.result",
+      "outcome": "PASS",
+      "checks": 19,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "f6e03c89799420f63d72ae602d44fd5ef42fc50efacb46cd3ae9de2821cb24d4",
+      "after_record_sha256": "6a373bbccca903811fa322a8cc09ebfec4b36f2f75c478bdfaca86ec965fe3ce",
+      "ledger_identical": false
+    },
+    {
+      "scenario": "established/calendar_upush_ugraph_ureschedule.result",
+      "outcome": "PASS",
+      "checks": 21,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "0846b316dd6fcb33ac36e7280e2cf5f64fcc30cb5082f06dbff5529b11962162",
+      "after_record_sha256": "be082a3b5f84bc846ca645683f5c3110a488e310be37a4a8c108d480594624c2",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "established/calendar_upush_ureschedule.result",
+      "outcome": "PASS",
+      "checks": 22,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "d9af48ceed5bef71f9b018bc2d926cef8da6ff017a271a5dcfacc1aecdfef979",
+      "after_record_sha256": "8e649b09d8f67fdbbc4385be2dfb56b921f5aedd813e79b5dbb14f98ef6fc1ee",
+      "ledger_identical": false
+    },
+    {
+      "scenario": "established/fault_upost_ucall_uduplicate_udelivery.result",
+      "outcome": "PASS",
+      "checks": 14,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "dde6dd0679eaf677e9535f4f84c53b1e82cef8456f660b620a7f6d0971c84d7a",
+      "after_record_sha256": "104835e39a59166c634d5c7dcf012d5f67fc5507bc10d95ef7f61c1bac9490da",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "established/fault_uredis_uoutage_uduring_uimport.result",
+      "outcome": "PASS",
+      "checks": 13,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "391733fce0f0b48acc6aa427d5acf857e56ecad747d512926a0b5f8c10f86d81",
+      "after_record_sha256": "47d18a695337eb6585bbf48730801e2cc92b12f211c6e86cd272baa55c1e55be",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "established/fault_uredis_urestart_uloses_uleases.result",
+      "outcome": "PASS",
+      "checks": 12,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "25a2321a8b043409fa0eeeffa9b0ae3486712dc2ac47fb95f784a1c9d449ea79",
+      "after_record_sha256": "e985827b3e3f5ce8ae49f9e9136f2c2a80d806820f5cfc1b5061d8bb6ab275d9",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "established/fault_ureplica_uper_urequest.result",
+      "outcome": "PASS",
+      "checks": 11,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "8f261f973c45739b2d02871dff38017c8238c7e3addf05ba96b560b5f037d263",
+      "after_record_sha256": "23de3d5544d1bbb074f1adbe9e2723b228e6c1d20a82fa9f0852da880ab22e0a",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "established/fault_uworker_ucrash_uduring_upoll.result",
+      "outcome": "PASS",
+      "checks": 11,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "1f676710df6accc09bc97de9d63ebbe97691e50c44c4569643f84c0bbc3ca87f",
+      "after_record_sha256": "05d19fa901b93af5d561ca6fe2857b8185292bf5e023a7afdec7a1bb32f73ed4",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "established/gong_usingle_umeeting.result",
+      "outcome": "PASS",
+      "checks": 15,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "4aedda31b9a681464aec75ab93a136a2844265d894faaf88d43ae066a0fdd7cb",
+      "after_record_sha256": "ba7033d5789c148a579b6df8c223e531408185c113a03c238c2df93e48450654",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "established/granola_usingle_unote.result",
+      "outcome": "PASS",
+      "checks": 25,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "c7e57788bd3751d616593ac3fe32c883f4ab84ba56755ff7e901dd58ef63b376",
+      "after_record_sha256": "38202b8066e2482d3e5af09b56b603a449d716a2d78b17bfab207aba01081c0d",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "established/meet_uearly_ujoin_u16m.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 8,
+      "failed_checks": [
+        "meetings[0] where {'meeting_id': 'evt-e'}: bot_status == 'summary_generated'",
+        "meetings[0] where {'meeting_id': 'evt-e'}: transcript_contains == 'early'",
+        "ledger never post_call_native_give_up"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "060bdc7836f77c4961565ae217b5ff1f7c9272802918cbb856fd93c5c6eef46c",
+      "after_record_sha256": "40b24a0f20e5c4fbd767381d608dd4f852eb6e11ed41e98bd375d2babfc23d22",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "established/meet_ulink_uadded_ulate.result",
+      "outcome": "PASS",
+      "checks": 10,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "8ce25c9c75a03c72c165fa7013cb821c53989840bf038f1ebc2f01dfc862af12",
+      "after_record_sha256": "7784b995c5876ffd97f211cfa49a9769fcaf590ebf7be6c3a0d704319ec86da0",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "established/meet_ureschedule_uafter_ucompletion.result",
+      "outcome": "PASS",
+      "checks": 16,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "b566801e971ff94b73d1cf48753e2ef1d3e93c04238e890f3734f5d8ad2beb29",
+      "after_record_sha256": "ca489ec2befe0d53f56ada136496d52e5a94f9cd17270258417642601c845e5f",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "established/meet_usingle_urecording.result",
+      "outcome": "PASS",
+      "checks": 17,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "248ad2cc33db69e7f1637164ed73819f0c3508184af1d433553b07d30fecbbab",
+      "after_record_sha256": "ddb9e6e0d0f884041ed0b27eda2faa254d680cda95b1560634b494913acd7829",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "established/meet_usingle_urecording_ucontent.result",
+      "outcome": "PASS",
+      "checks": 26,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "6627f3e8ca5638fb5f73eee9df109fdfadda786128f063b85ad5bdb2cb4dc16e",
+      "after_record_sha256": "87d191564ffb285c556523746eb2d326d1d4cd2179a0dddc46758ec2a9b1e8ef",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "established/meet_usplit_urecording.result",
+      "outcome": "PASS",
+      "checks": 10,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "d8d6ba2ee923bcf7437420d6dc5410cd71ef862e0d5ab39481c17a013d13a892",
+      "after_record_sha256": "a3262c9dc4ac0432486be9509f6037c6cab2978aa7edb9a300efd8f3f7e21157",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "established/meet_utranscript_ubefore_umedia.result",
+      "outcome": "PASS",
+      "checks": 11,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "284bf38318f48b923b85c4373f26facd526f34e21c7ad834c00c1609f0efd9ab",
+      "after_record_sha256": "609ce97c74cea1fe4f460faaca12b94f3d9caa483213bc67a868a1223ff0bb20",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "established/plaud_usingle_urecording.result",
+      "outcome": "PASS",
+      "checks": 26,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "8b2cbfab05fa437ad6cb0597d705679cc4dc460adf939f3d009b09c17da6ed25",
+      "after_record_sha256": "462cdd356509226e78c0c5bb82c46352b9a04cd946b618445514a1f5c7f904d2",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "established/recall_udone_uafter_upost_ucall.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 12,
+      "failed_checks": [
+        "meetings[0] where {'meeting_id': 'evt-p'}: bot_status == 'summary_generated'"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "a0b1034e053a9463b0fa870b672583cad0a13a9caf7443ca79b0ec239d87594f",
+      "after_record_sha256": "59f475a9cddc32cca907dd953096233677caf91b861e8529001d9378136a3375",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "established/recall_uduplicate_ustatus_udelivery.result",
+      "outcome": "PASS",
+      "checks": 19,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "856399808046bcff04bb0b73cda116abef2cb4956fae47199165ed7489a33438",
+      "after_record_sha256": "61d92f87fb56e7f37b7228d4bf348ddc44dc0b0c978dcfcc87b8e78c3a538c38",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "established/recall_uoptout_uremove_ureadd.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 12,
+      "failed_checks": [
+        "meetings[0] where {'meeting_id': 'evt-o'}: bot_id == 'sim-recall-bot-2'",
+        "ledger never post_call_complete",
+        "ledger bot_readd_via_link == 1",
+        "recall bots created == 2"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "c915e2d57be4bcd0cee7fc705f21411fe4f9f453def45d486ef5d7a92e39bcd8",
+      "after_record_sha256": "c2bc73c75ebb40ca71fa89d698f6d1a0ee3fe3aae8da99b341b0259c16bec580",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "established/recall_usingle_urecording.result",
+      "outcome": "PASS",
+      "checks": 21,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "d4dccf37fed4c3f6999fd0bb2db4cce46bbcaf4f87966548ce7b72400e66e5b9",
+      "after_record_sha256": "e4ba869f17c2d855ec63a4c14e6d80833a7db1e9a7eb3bde7b67ba77c9666e73",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "established/recorder_uback_uto_uback_uafter_uno_ushow.result",
+      "outcome": "PASS",
+      "checks": 13,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "edce4725ccc198a1c7b766d23b3b7951147e1a5c60ec67bb308eb0744e5179eb",
+      "after_record_sha256": "bc3e0a938effe8e21261d8e20396aacd41d49d27773d18eb590eb2e4bd74d285",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "established/recorder_ufast_upass_ufinalize.result",
+      "outcome": "PASS",
+      "checks": 25,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "c81648ddb31b0644185e615207e9aa46e0ece8f254de08c42a85b750be4fa1ce",
+      "after_record_sha256": "1b0b0ca290d95271031e15deaa2226e7e3b2492e63140e099ae52cd8c9b66b83",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "established/recorder_utime_uwindow_uearly_ustart.result",
+      "outcome": "PASS",
+      "checks": 22,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "b0dfd1709c07b75fd7f6cd11aeaaab8596676d76bd198d60e9425916a922be60",
+      "after_record_sha256": "990a874bdbdc81fdd336db91797e5b7d30145727d591b514e0bdd43f5a49c408",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "established/teams_usingle_urecording.result",
+      "outcome": "PASS",
+      "checks": 15,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "3730ed5b30c97bd4ccfbf220532c1ec23f631fdb28b71a7be11d71388d1e8df2",
+      "after_record_sha256": "6292e11d4d77cd11f5218487abfcabe8f276b5b26550e1db916602303d2aa561",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "established/zoom_uno_uvtt_uasr.result",
+      "outcome": "PASS",
+      "checks": 14,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "284d35164ca84a0e11745a2584d849372a95b262878f711dc0615ea98a887213",
+      "after_record_sha256": "d67de4da50e290f3c6e71dbf497cee7bda75584b295d2db620b546971af2737c",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "established/zoom_usingle_urecording.result",
+      "outcome": "PASS",
+      "checks": 15,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "c5a891515100adf90db3707aa09fd2a37fe306c6b24fc2843289c5ca35cb2972",
+      "after_record_sha256": "b681c31c1ed8c08b06c5a4bd346c106956bc0f5488505c2543df2760b5c72838",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "established/zoom_usplit_urecording_ustrands.result",
+      "outcome": "PASS",
+      "checks": 10,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "da4c9afac1d16e58b481afd1c0720643e074945e87db7c1131282344a1cb1beb",
+      "after_record_sha256": "55340b379150a9ccfacb0721cb13b355eaa7d667898cd34386a85275f331ca87",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__coverage__pr2596_ubound_uteams.result",
+      "outcome": "PASS",
+      "checks": 14,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "5450755bed6fd7cd1cd3d4c6616d6e37e1289e00a9b64ba6a9fc85a063a6d75e",
+      "after_record_sha256": "c7e913c803012bcfebb971679751f80f07aa9c6d0d75872e9a725aecc2021096",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__coverage__pr2596_ubound_uzoom.result",
+      "outcome": "PASS",
+      "checks": 14,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "96b25efdba5809d9d3dcb419d716c1e662132f0e7fa45af0f96bbdf78c45fff7",
+      "after_record_sha256": "7cd800ebaff0015d58e8e92361c2029038e04e798952bc77b59d9e1fd1595ed6",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__coverage__pr2596_uempty_uwinner.result",
+      "outcome": "PASS",
+      "checks": 7,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "618aa277b9fe3504da5fac5c483c1818a997c2cb8b2053700363df58498b00a1",
+      "after_record_sha256": "a65575fa620ff62b1578c1e819d752c4aacfe4b5ae8aa5b03702b48f29eae49b",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__coverage__pr2596_uhalf_ucommit.result",
+      "outcome": "PASS",
+      "checks": 16,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "2fa2cb58b9cca27569214bb300de77acef381efb57836cf4fa8e66088fc48995",
+      "after_record_sha256": "12805296195e53e54394205b4da1457cbe634b82b1e4beba169023d02533315e",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__coverage__pr2596_ujunk_uforced.result",
+      "outcome": "PASS",
+      "checks": 13,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "248f1feb4faed802889aa1e0738618fbb34ada370c59e742a35011478d970e1d",
+      "after_record_sha256": "a1422e63a2054397fc5f6d322495fef3bfd87e86916229bca6da4fc6fed538fa",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__coverage__pr2596_ujunk_uordinary.result",
+      "outcome": "PASS",
+      "checks": 13,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "e8338254b15038534538a82dd49f8e6d54a7d2f2d45a2c6a8d2e2bf0c422c2b5",
+      "after_record_sha256": "92ac522b8552eeb253e26f627f0ff8fec5982770644579f1106ebfe40cb14e40",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__coverage__pr2600_ulease.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 27,
+      "failed_checks": [
+        "effects[1] emails: count and payload",
+        "effects[3] crm_calls: count and payload"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "5f766e4b837b5db2d2793bdab57ebb5c02832edc7daa50d306aad1f716387b48",
+      "after_record_sha256": "63342414c6fe81e077e3bd92e6ebcabce8ffd5e2fec82cc5fd330867e87273e9",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__coverage__pr2600_uqueued.result",
+      "outcome": "PASS",
+      "checks": 32,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "7c9b865b4ddabe02c84139fa01e8658f73271c93b102d68996bdbb33ef79f33b",
+      "after_record_sha256": "109b76a96f86ed8fe55f96f4c02d7be0bc36b6a16f52376e6f70b495e599f10f",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__coverage__pr2600_ustale_usnapshot.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 25,
+      "failed_checks": [
+        "effects[1] emails: count and payload",
+        "effects[3] crm_calls: count and payload"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "c3f872cbdcd3a650b88777e70e785aaeef47507c5098425ecd58f490344828dc",
+      "after_record_sha256": "cce9b62356007a61fe3faa6797811e6517a87238e4e0b56f60c32b31263700a9",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__coverage__pr2648_uobject_uchanged.result",
+      "outcome": "PASS",
+      "checks": 9,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "0f6f717d401da9ca3ccd0585452607d2c0f3ba86c2a069e0ecb0a1d0a0a4b8c0",
+      "after_record_sha256": "8bcc2e45ce6f0238117c82e7c27af4d47ddb5e40e230c1c4e8aecac72af29dc0",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__coverage__pr2648_uobject_usame.result",
+      "outcome": "PASS",
+      "checks": 9,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "68ac64363f534554d3b09548f4e479196260e15a61a937635cdd5d767e0b9c4f",
+      "after_record_sha256": "f5915888819f4dc3a75fb3d1b655c82e9d7aaf61d02d4c7f958a16b8469010f8",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__coverage__pr2648_upresign_uafter.result",
+      "outcome": "PASS",
+      "checks": 14,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "454197d1813f421b245cb55b826d70ca9101aba554a0177c3a0fd182833ae8fb",
+      "after_record_sha256": "e0f5b7c2397ecc98d58d7f937c358baf94a3be2473513e3f2f2c65f188f6a37b",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__coverage__pr2648_upresign_ubefore.result",
+      "outcome": "PASS",
+      "checks": 14,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "4edc2293f061411b9e690ad19e2996c5ea7797ecb64905835be11200006d8025",
+      "after_record_sha256": "9875821e78b736f3a46c0388db22866c25a3c84c344fbe94ea40d7596cddacc3",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__coverage__pr2653_udry_urun.result",
+      "outcome": "PASS",
+      "checks": 8,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "ee6d06974198fcc533ac68f32abbfef341765ed9841defbdcfbe6741cb9fe277",
+      "after_record_sha256": "cf30243f53076146f0d9ff54b61271a493357bf6cdf9dbe1f4b407cd755eaf86",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__coverage__pr2653_uingress_uerror.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 14,
+      "failed_checks": [
+        "meetings[0] where {'meeting_id': 'evt-z'}: bot_status == 'summary_generated'",
+        "meetings[0] where {'meeting_id': 'evt-z'}: transcript_contains == 'asr-job-3'",
+        "post-call ok runs == 1",
+        "quiescent: no row left in a non-terminal status"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "8a5c53231fe23e189611fdf53b22f45e8ea86e81a7868c35ebc24228378efb8f",
+      "after_record_sha256": "3e40fd28ad43edf0718aa2eb735cf3407458a80a5f96fa8ec90a545f6b436584",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__coverage__pr2653_uingress_uprocessing.result",
+      "outcome": "PASS",
+      "checks": 14,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "083fbb56ef92997810366cae034aeba2faddc356765aaaa5105c89965a785978",
+      "after_record_sha256": "922c4c2a1787d40e020144be4dd8441a070a32b1edc135c62d7ce50155eea819",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__coverage__pr2653_uingress_usample_ufailure.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 14,
+      "failed_checks": [
+        "meetings[0] where {'meeting_id': 'evt-z'}: bot_status == 'summary_generated'",
+        "meetings[0] where {'meeting_id': 'evt-z'}: transcript_contains == 'asr-job-2'",
+        "post-call ok runs == 1",
+        "quiescent: no row left in a non-terminal status"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "64eb9e2ef452d1bb4f62694655349954bf29d77b11fa8630852c0fac4a35e1ad",
+      "after_record_sha256": "f4be06032d405bcb2e48f1304059b728833742cbd3464f3e2f2578a594154336",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__coverage__pr2653_uingress_utransport.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 14,
+      "failed_checks": [
+        "meetings[0] where {'meeting_id': 'evt-z'}: bot_status == 'summary_generated'",
+        "meetings[0] where {'meeting_id': 'evt-z'}: transcript_contains == 'asr-job-2'",
+        "post-call ok runs == 1",
+        "quiescent: no row left in a non-terminal status"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "a6daefe58e244cd2a8635d874345a70976bd3ecb4f75ccd4f71961fc339c711d",
+      "after_record_sha256": "814db0da909f2c6b8b0095a7f3cda74110de58b7380785a62677de32ebadc220",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__coverage__pr2653_uinvalidates_ubytes.result",
+      "outcome": "PASS",
+      "checks": 12,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "2a14c3093101766dd76f6eeb3ee7933b0f74137100fb088e30ab6e8466eb6f5f",
+      "after_record_sha256": "f34039f36441aa3d5a13354d2e7bbd02cd34d9d50386e7ea064ec0edc316e739",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__coverage__pr2653_uinvalidates_us3_ukey.result",
+      "outcome": "PASS",
+      "checks": 12,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "0a2f73d72d853fd32393e0078938d12aeddeab77a9baed1a898c6244f201a70b",
+      "after_record_sha256": "5da8c37f6c941d33de8904b066a3c3bf8f2af2afa67e013ffde4fa25795a232f",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__coverage__pr2653_uinvalidates_usnippets.result",
+      "outcome": "PASS",
+      "checks": 12,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "0b8e0dd2c14d9f17a0c42121516322c9d9231c44805225e4a65283fa74bb07bc",
+      "after_record_sha256": "4d21455d3c06614b8f60e5f6947244a0989d237c1f5c5fbab454fe0acdeadf9d",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__coverage__pr2653_ureal_ujudge_ucompleted.result",
+      "outcome": "PASS",
+      "checks": 15,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "2351009315729c3f52cf0366f110d830b963de1e0774aa72befc8ee5f7cf3926",
+      "after_record_sha256": "b9dfc20ab23670c62d5c5a7a7eebbee271433fc3da4d3878295503e5f43d020a",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__coverage__pr2653_ureal_ujudge_uerror.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 15,
+      "failed_checks": [
+        "meetings[0] where {'meeting_id': 'evt'}: bot_status == 'summary_generated'",
+        "meetings[0] where {'meeting_id': 'evt'}: transcript_contains == 'asr-job-3'",
+        "effects[0] credits: count and payload",
+        "effects[1] crm_calls: count and payload",
+        "effects[2] emails: count and payload",
+        "effects[3] drafts: count and payload",
+        "quiescent: no row left in a non-terminal status"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "0b897e968af4d23002b01635eec186fdf66450730cc3295bb624313c94909082",
+      "after_record_sha256": "8e648bc1221a5517db172d51706f92fd67b15df483764488579ab090c67741e5",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__coverage__pr2653_ureal_ujudge_uprocessing.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 15,
+      "failed_checks": [
+        "meetings[0] where {'meeting_id': 'evt'}: bot_status == 'summary_generated'",
+        "meetings[0] where {'meeting_id': 'evt'}: transcript_contains == 'asr-job-2'",
+        "effects[0] credits: count and payload",
+        "effects[1] crm_calls: count and payload",
+        "effects[2] emails: count and payload",
+        "effects[3] drafts: count and payload",
+        "quiescent: no row left in a non-terminal status"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "10ca0b0da9271d5ecc4cd8f4a7a6c57de68fba0ef63846f66ea6d15553567a53",
+      "after_record_sha256": "8f4d447b76f0d97020791591b458b5f699292f41bccb1ef2c6158530bb66abed",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__coverage__pr2653_ureal_ujudge_utransport.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 15,
+      "failed_checks": [
+        "meetings[0] where {'meeting_id': 'evt'}: bot_status == 'summary_generated'",
+        "meetings[0] where {'meeting_id': 'evt'}: transcript_contains == 'asr-job-2'",
+        "effects[0] credits: count and payload",
+        "effects[1] crm_calls: count and payload",
+        "effects[2] emails: count and payload",
+        "effects[3] drafts: count and payload",
+        "quiescent: no row left in a non-terminal status"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "0d417f1a54d307c87d77a345ee18f32ef5b4afb50dcddf0899fa8c160edc8a51",
+      "after_record_sha256": "ad367cee34105a216c4db515d1aa8f6dcdbf89511b93b95b104435f315ea983d",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__coverage__pr2653_usample_ufailure.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 17,
+      "failed_checks": [
+        "meetings[0] where {'meeting_id': 'evt'}: bot_status == 'summary_generated'",
+        "effects[0] credits: count and payload",
+        "effects[1] crm_calls: count and payload",
+        "effects[2] emails: count and payload",
+        "effects[3] drafts: count and payload",
+        "quiescent: no row left in a non-terminal status"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "4837d0dad283c2a85bab1bc0f27efa5be6c3f0bf287172c48b5ea3bfa4e4d681",
+      "after_record_sha256": "6127e5464ddc751c914b507b4d099f8009066ef9bf7ee4bf0718f719b8da0402",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__coverage__pr2653_uunsaved_ujob_uid.result",
+      "outcome": "PASS",
+      "checks": 20,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "62f0ec038e5cf191cf81f479f61dc673ca97c112db691c8141feca31bab4b6c1",
+      "after_record_sha256": "b3f387fb33e1587c76d6c0fae2f2393edd163435b076b6588d0a11007e20eadb",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__coverage__pr2653_uunsaved_uverdict.result",
+      "outcome": "PASS",
+      "checks": 20,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "d5a2fce4ebfb22ce6e891c8667aa2c4fc1c233f703740faf8032802ee0b497fc",
+      "after_record_sha256": "66cfbf5e3f6029623a5772a4f660d0cfa383344b0325b8ec121ca649bffa2ae5",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__pr2596_uinvalid_unative_uquality.result",
+      "outcome": "PASS",
+      "checks": 15,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "02c1771c10e1895322f7d4691ccaf9fd2ba38659cab25fb21df015983cd8223c",
+      "after_record_sha256": "20de0278ebfa47f8bb38e2093be0b7ae3662bc54173dd8d75e0ffd88cb7358fc",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__pr2600_upending_uimport_ureschedule.result",
+      "outcome": "PASS",
+      "checks": 16,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "a14ec5f273cab659cc141d4009fd94d6dd2cf852dac2b9e16ff050e79bb1f9c3",
+      "after_record_sha256": "7a6b32c994b53ac14a519b492d92e12e5cd0dbfc1c0af8cdc2a690b861b5881d",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__pr2648_urotating_upresign_uretry.result",
+      "outcome": "PASS",
+      "checks": 14,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "00b002f3329e17da52a7052ff1074b5f6db7b00f0a47642d851968048530f866",
+      "after_record_sha256": "9b98874c91bf919d17855509a6f6f994f02236994d7d4c2bdabab685bdf346e7",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "pending/pending__pr2653_ujudge_uand_uasr_uretry.result",
+      "outcome": "PASS",
+      "checks": 18,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "53e8304415b3304afea81f94ccd4b199be6c5013e13ab8577c269d82c53a541b",
+      "after_record_sha256": "c71a504f8d8d2086e50b2b656262aaa28af04eeb68cf153cf8cc7fbd18c2d0d4",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitcancels__00-non-recurring-delete--organizer.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 7,
+      "failed_checks": [
+        "...drntnrclkv742r7m cancelled: row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "ba137594c3dd3c102e7b93c8e49b8e0e12f58aac061832c87a85c7719c3f6392",
+      "after_record_sha256": "eff5b77d1fb18a83af997b7f0a578af150bf581f7fb82da007ef914341d59602",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitcancels__01-recurring-delete-all--organizer.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 8,
+      "failed_checks": [
+        "...20270101T150000Z cancelled: row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "16d4d59c13c0d50ce3a9554430120fefb0b92e5d5623ba6e98a93c076bb1b70d",
+      "after_record_sha256": "eec776b3780967ae7bf2dc053d0670a49ab79792e18286b67c89856239ae2e2a",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitcancels__05-non-recurring-remove--organizer.result",
+      "outcome": "PASS",
+      "checks": 8,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "1012f476abfea76dd5cb1742dff278947071d991e9204a73acee0d259924848d",
+      "after_record_sha256": "49ee10860cd7e187cbc5552e0ac3baba7e84ae37793d202307330b142b44c159",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitcancels__07-recurring-remove-some--attendee-user02.result",
+      "outcome": "PASS",
+      "checks": 11,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "27990929b73f22319b2fff3434a872c302bc67c4fc9634935b9f2b8a22289541",
+      "after_record_sha256": "dbe4cffdebab3f2f62d07c7f45aac3fd6bb2a038a340076ca322fb31039df84a",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitcancels__07-recurring-remove-some--organizer.result",
+      "outcome": "PASS",
+      "checks": 11,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "fc5e87752bd1c9c6392853ed2d7c291140b14c9cb5ef314fde14542674032e10",
+      "after_record_sha256": "b658bdd6639d83e5ed718309ea17ec43ef0096673a8cefa2f26ea2f42723c676",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitcancels__08-recurring-remove-twice--attendee-user02.result",
+      "outcome": "PASS",
+      "checks": 12,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "bb61493bfdbe116300e44fabd30132320902563d9f2b62fb80d7e008ccb9c3ab",
+      "after_record_sha256": "b9ac7cf3f20eb4bf579bcdf0f25a3a8ad4d53226927659d098ecc32539de6b95",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitcancels__08-recurring-remove-twice--organizer.result",
+      "outcome": "PASS",
+      "checks": 12,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "11b9cd86247c1e4ec1ff4f26c0c0c820ce6d7cc7439fd2150fd3230bf39cc4f9",
+      "after_record_sha256": "a5b64d0d3e03a43297ed54593d58b56ab5cd896e131f1b08cdf17f0fed376683",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitcancels__13-non-recurring-with-time-shift-remove--attendee-user02.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 7,
+      "failed_checks": [
+        "...drntnrclkv742r7m cancelled: row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "38a54ccb3d414ac20afbec72a0d8434ef4ecba9daacc42ac2a91f6633beca79e",
+      "after_record_sha256": "e17f9f05f3bd43118c67b692b017d24d6f2f34bf1a9c08b6bb2e99a57baf3f5a",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitcancels__13-non-recurring-with-time-shift-remove--organizer.result",
+      "outcome": "PASS",
+      "checks": 8,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "385a1a836a1e10e3a811091bb83c77c9c4a779764583569107cbd1e4181ca309",
+      "after_record_sha256": "17a011c177a0804ab3ad69bd0a1d3c4bf496f52abef1497638bb248363f80b3b",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitcancels__14-recurring-with-time-shift-remove--attendee-user03.result",
+      "outcome": "PASS",
+      "checks": 10,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "830653f6f51d1e162ad3b6682df75048a5f0e08c4dbec01c2f9560986891ec62",
+      "after_record_sha256": "bc9f855c94328ccdc84793c076bcae6f70fe99345e27daa137e796bb50013754",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitcancels__14-recurring-with-time-shift-remove--organizer.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 11,
+      "failed_checks": [
+        "...20270101T150000Z cancelled: row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "c7d815f43cdd6834621168aacf93cb988b5345a49875d1aeef165f1520caa184",
+      "after_record_sha256": "ea4c5a40711b93c374e4b8d0cec58154a56d44b76253f6409672f5a6adfb2a30",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitcancels__18-non-recurring-add-only-status-cancelled--organizer.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 7,
+      "failed_checks": [
+        "...drntnrclkv742r7m cancelled: row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "60f245fa8cabfa0406bf9bcdc08f1641896c59256a88544f9e89b22b633f69ec",
+      "after_record_sha256": "4c4cc7a9d3406cf3cbc7e154688a3d83977b22a5e3ea4b26b163b06c92aea18e",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitcancels__20-recurring-add-only-status-cancelled-to-override--attendee-user02.result",
+      "outcome": "PASS",
+      "checks": 9,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "817065d1e886df0291fe6629f20dcd72af7c160b7c6bb801f81782137247e3f1",
+      "after_record_sha256": "612f5bfc850fb79ba6697544d6601213e832e53f884c4158665b5142079e7158",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitcancels__20-recurring-add-only-status-cancelled-to-override--organizer.result",
+      "outcome": "PASS",
+      "checks": 9,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "db812e974379e152cc59073111ed16b2b8d107168d312f2773e7c424e2acecec",
+      "after_record_sha256": "87326a2a65ace5f087139d1bb758c236bcdc310c917e91e816ec20b92d811cd0",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitcancels__22-recurring-cancelled-override-remains-at-override-time--attendee-user02.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 13,
+      "failed_checks": [
+        "...20260926T120000Z at its final corpus time (did not take place: no session): title == 'event 1 changed'",
+        "...20260928T120000Z at its final corpus time: title == 'event 1 - override 2'"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "f2a3e07fbe8c5e14e116bcdad0e9a3138fb43f0c8ad98e1d1a0f75ae187e1450",
+      "after_record_sha256": "a4899f60ae08ec9d3435a3e748a71098f1ba3a616e9fba3dda87546ecd37d5ed",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitcancels__22-recurring-cancelled-override-remains-at-override-time--organizer.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 13,
+      "failed_checks": [
+        "...20260926T120000Z at its final corpus time (did not take place: no session): title == 'event 1 changed'",
+        "...20260928T120000Z at its final corpus time: title == 'event 1 - override 2'"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "17f39aba992e0cec8700985abcea7791d0b5b0cf229cd01c9c5acecee147fcf2",
+      "after_record_sha256": "e4c9a85d5600a5200110ae987d5d8ca5a4b1bad4c8bd9aba14e4bdcd15b2ffd3",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitcancels__23-organzier-delete-attendee-exdate--attendee-user02.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 8,
+      "failed_checks": [
+        "...20260926T120000Z cancelled: row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "e3b20e0058f26239f57004962390cc2db9cf5303f73ece1f0219c66714352b91",
+      "after_record_sha256": "b9cc2ff16bd4001dbcbd68914f4b60d81b15f247e7516fbdec5e3fe7c290044e",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitcancels__24-organizer-re-invite-after-attendee-exdate--attendee-user02.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 9,
+      "failed_checks": [
+        "...20260927T120000Z at its final corpus time",
+        "recordings count == 1",
+        "post-call ok runs == 1"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "3c47efe5a2c4a6b3b5aa80b37c3a2cb52ccce3ab78ca610cc3470f36e4d9048b",
+      "after_record_sha256": "63819f8c0e1ecae5340d1b15c708e11f371e087e90f98e61d2900730c9f1effa",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitcancels__25-organizer-add-attendee-to-instance-they-were-initially-not-part-of--attendee-user02.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 10,
+      "failed_checks": [
+        "...20260927T120000Z at its final corpus time (did not take place: no session)"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "9b4c2ccf331ecc315bf31ce5a131ec05421caac653fe1a7abbf6381b87bedafd",
+      "after_record_sha256": "d2a4abfc7f69b3d76a237786a9edc6ce57520bc2307b37a85372636229421264",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitrecur1__00-override-only-in-request--organizer.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 14,
+      "failed_checks": [
+        "...20270101T150000Z at its final corpus time (did not take place: no session): title == 'event 1 - master'",
+        "...20270103T150000Z at its final corpus time (did not take place: no session): title == 'event 1 - master'"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "e095d0d50dbb131ff33061f4c0f5d0007caa1de22ec68040fcd9ab615b363fc6",
+      "after_record_sha256": "7d5e916210605cf032693d9759a316dfc62791c3e82635ddd36c291c2599ebb9",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitrecur1__01-cancel-override--attendee-user02.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 7,
+      "failed_checks": [
+        "...20270102T150000Z cancelled: row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "90d10160f2ba3773e19670adc614f2b5f5eb9d90378577abb5ad467e3cb858d9",
+      "after_record_sha256": "f51673586764f31dbe09a51aac9bf49f0759b5ffe44a8c5e9fe5d2affa695c19",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitrecur1__03-all-day-override--organizer.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 9,
+      "failed_checks": [
+        "...0s2egud_20270101 all-day (not a timed meeting): row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'",
+        "...0s2egud_20270102 all-day (not a timed meeting): row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "dff1ed23fc50036dfced69dbbc4e70eba707098fcc9de8a559c0156f4682b2e5",
+      "after_record_sha256": "072cff113e1af27f067d54480288c7e0360625e4b9e4774e7755a8d697feff8d",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitrecur1__04-attendee-instance-delete--attendee-user02.result",
+      "outcome": "PASS",
+      "checks": 11,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "df62fa340ce246197e1f8e653d157729b42b8a493eca7b8d2c8ccabcf5df8f04",
+      "after_record_sha256": "1c170d63693e979749395b7be3822c5194590b2831be4501c24f93e647c2f5d7",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitrecur1__05-rrule-truncation--organizer.result",
+      "outcome": "PASS",
+      "checks": 13,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "7103d65956628ef48aeaba2ad7047bfbdc8b7529a2f7066f0078f1f06710c1e5",
+      "after_record_sha256": "c0f10b2941562c0641107e26f1693a2a449db20255a801a25a1aa79fee77980b",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitrecur1__06-rrule-with-dtstart-change--organizer.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 13,
+      "failed_checks": [
+        "...20270101T150000Z cancelled: not recorded: has_transcript == False",
+        "...20270101T150000Z cancelled: row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'",
+        "post-call ok runs == 1"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "152ac23663c8d5bd0cfdbbae80a4b2f84bcedf337b907063a1c274e44387e54c",
+      "after_record_sha256": "65a116a80a664f9f60c50718a579269ad35b7d65926a47ed558808d659546cde",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitrecur1__07-rrule-addition-removal--organizer.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 11,
+      "failed_checks": [
+        "...20270101T150000Z cancelled: not recorded: has_transcript == False",
+        "...20270101T150000Z cancelled: row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'",
+        "post-call ok runs == 1"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "c2a285e01fe1d11e3f85641535678c6e9fd1169fd5bb9c8905289e169a5a0e38",
+      "after_record_sha256": "54a38953edf4f621643822d547cdbc9ccb8437ecb9f0c14f7edc2e5dbcb49975",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitrecur2__01-organizer-invites-other-attendee-to-one-instance-only--attendee-user03.result",
+      "outcome": "PASS",
+      "checks": 8,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "916015bdbe2214d0312cff21d6b3c871c8d618d62accd28ddd8d7a842e5f8d4c",
+      "after_record_sha256": "8fa95249668dbfd96100f9023e90b496482f8b8f9046269d23fbc613e8153f08",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitrecur2__02-organizer-truncate--organizer.result",
+      "outcome": "PASS",
+      "checks": 10,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "e3af2ac1c3d970c66a5b30f6f3011f480f61612a5c167dd64f8e58af0105cca3",
+      "after_record_sha256": "35c457040230f5c2b1646067f628d89564f51bbe86b58638226394e8337cbf39",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitrecur2__03-organizer-override-remove--organizer.result",
+      "outcome": "PASS",
+      "checks": 10,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "d596044f6a47ded06351f4c531fa0820d1e2916552c6e544b462f7692ce621cf",
+      "after_record_sha256": "461dfbe62685cb93d3ea2b28bf3f30740cd8d75a79a9acc0680dcc839867d654",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitrecur2__04-attendee-decline-instance-then-organizer-cancel--attendee-user02.result",
+      "outcome": "PASS",
+      "checks": 9,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "384782bb2879a99ebd8c1b1b66d3e630129e37a62ca00e824716879643e488ed",
+      "after_record_sha256": "f5753497be6ce1eff51338358e64faabfc93bef222fd8ab298555e65bc146f67",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitreschedule__00-non-recurring--attendee-user02.result",
+      "outcome": "PASS",
+      "checks": 8,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "a725c1528dfdfadb450527ea2275824d5c12900aa9932492f1ba303bb96d534e",
+      "after_record_sha256": "eb1cf2e96ec0b70720639355b7adf23d6e945e7e0a2fc7565e4349485647eea2",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitreschedule__00-non-recurring--organizer.result",
+      "outcome": "PASS",
+      "checks": 8,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "a7f0c70bf1bc7f5f905bc38f13232aa63ce29a53a69ee5ba7141663406c72ae0",
+      "after_record_sha256": "7c2ae2a263696c828eba05876918602e57291a90c97c50b87b4a38883e736d0d",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitreschedule__01-recurring-overridden--attendee-user02.result",
+      "outcome": "PASS",
+      "checks": 10,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "a14fdff8c55d00a98946c38c9827775eee3215eeb381ef66f43011c26d5d7d45",
+      "after_record_sha256": "e79cda5596e7f20fc23300064b272fec5b7709a6bfa26e9cf03d2ada5935614b",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitreschedule__01-recurring-overridden--organizer--after-first-occurrence.result",
+      "outcome": "PASS",
+      "checks": 12,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "d12d4294ef3e8317583bb4cc6780cf4af964b662ad11c9923e2f0fd42d71cb92",
+      "after_record_sha256": "16e3e2703fe14a746f482a47df9f5aaf7fc6c05d92a3ecade5f6e5541b69755d",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitreschedule__01-recurring-overridden--organizer.result",
+      "outcome": "PASS",
+      "checks": 10,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "d651a428fe9fff242218068ae97c428676e47c603d48b27e564311dcc2662671",
+      "after_record_sha256": "d14ca97f2c080b6f060255413a967c6caaa9300e0233363e4d35fa061757cfdc",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitschedulechanges__00-organizer-changes--organizer.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 7,
+      "failed_checks": [
+        "...j6ocjv8g7hn3m06v all-day (not a timed meeting): row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "f91a243449d255df5aef21e5e471c09ecba8ebfa8f437d9092df139fa132fcb6",
+      "after_record_sha256": "3de7508dd5375ae73d607ec127491a451fe1afd7eeb49e9a60f6a1758c602152",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitschedulechanges__03-multi-instance-change--organizer.result",
+      "outcome": "ASSERTION_FAILED",
+      "checks": 13,
+      "failed_checks": [
+        "...20270101T150000Z at its final corpus time (did not take place: no session): title == 'event 1-changed'"
+      ],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "dc12f19a99a89fcf1cce378e0e4e33998d38da15abde9ac7ace57122baaf79d8",
+      "after_record_sha256": "05475966632a2ac351d832eb0077a11fd4d6d6335ae06a7adca6fd6f7fcdc4d4",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__implicitschedulechanges__05-master-override-cancel--organizer.result",
+      "outcome": "PASS",
+      "checks": 9,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "20d9bcb50a1fc9ca84ebcd994fc621060634882ac0931e08ebe719d59ffb2edc",
+      "after_record_sha256": "f59c70c1895eab962df32c9460b3fdba43cc91d42ca34c5fee5320cd220397aa",
+      "ledger_identical": true
+    },
+    {
+      "scenario": "corpus/corpus__sync-report__03-simple-reports-diff-token-no-props-calendar-depth-1--user01.result",
+      "outcome": "PASS",
+      "checks": 14,
+      "failed_checks": [],
+      "health_passed": true,
+      "state_and_assertions_identical": true,
+      "before_record_sha256": "f5b15add9316c30ca4aba822c70816929dbb27117f6dba870ee74e1737d9d3ed",
+      "after_record_sha256": "1ec59cd0ad2ce226716e708f530f0ffe7cfb567c75517e2fb114c59adba4a7ef",
+      "ledger_identical": true
+    }
+  ],
+  "ledger_differences": [
+    {
+      "scenario": "established/calendar_upush_udebounce_uduplicates.result",
+      "entry": 32,
+      "event": "cal_ntfn_rescan_finished",
+      "field": "data.duration_seconds",
+      "before": 0.007,
+      "after": 0.003,
+      "reason": "application records real elapsed duration; not normalized out of evidence"
+    },
+    {
+      "scenario": "established/calendar_upush_ureschedule.result",
+      "entry": 26,
+      "event": "cal_ntfn_rescan_finished",
+      "field": "data.duration_seconds",
+      "before": 0.007,
+      "after": 0.003,
+      "reason": "application records real elapsed duration; not normalized out of evidence"
+    }
+  ],
+  "total": 102,
+  "health_passed": 102,
+  "comparison_passed": true,
+  "gates": {
+    "established": "PASS",
+    "pending": "FAIL: same nine unresolved application defects",
+    "corpus": "PASS"
+  },
+  "library_pin": {
+    "version": "0.1.0a1",
+    "filename": "workflow_sim-0.1.0a1-py3-none-any.whl",
+    "sha256": "c2412d2d3ec33c5e392e75158e7ba6fe2d5ca949345a10a9f37564c1e5d6f392",
+    "repository": "https://github.com/karthiksraju/workflow-sim",
+    "source_revision": "50055b18b9c33e0aad7ee44cee9de1f9f0d75a03"
+  }
+}
