@@ -66,7 +66,7 @@ def execute(request, attempt, project, scratch):
         # Include violations from setup, execution, assertions, and teardown.
         evidence = {'report': canonical(asdict(report)), 'checks': checks,
                     'ledger': engine.ledger.records(), 'violations': violations,
-                    'unsupported': engine.unsupported}
+                    'unsupported': engine.unsupported + engine.celery.unsupported}
         result.update(evidence=evidence, evidence_sha256=digest(evidence), outcome=verdict(evidence))
     except BaseException as exc:
         result.update(outcome='UNSUPPORTED' if violations or type(exc).__name__ in ('UnsupportedFeature', 'UnsupportedCeleryFeature', 'ClockRangeError') else 'HARNESS_ERROR',

@@ -33,6 +33,7 @@ Explicitly unsupported (raises :class:`UnsupportedCeleryFeature` at enqueue):
 from __future__ import annotations
 
 import heapq
+from contextvars import ContextVar
 import random
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
@@ -65,6 +66,7 @@ class TaskRun:
     seq: int
     name: str = field(compare=False)
     task: Any = field(compare=False, repr=False)
+    message: tuple = field(compare=False, default=(), repr=False)
     args: tuple = field(compare=False, default=())
     kwargs: dict = field(compare=False, default_factory=dict)
     queue: Optional[str] = field(compare=False, default=None)
@@ -105,10 +107,16 @@ class VirtualCelery:
         self.task_filter = task_filter
         self._orig_apply_async = None
         self._installed = False
+        self.unsupported: list[str] = []
+        self._current_run = ContextVar("celery_run", default=None)
         self._ids = 0
         self._id_rng = random.Random(f"celery-ids:{seed}")
         self.on_run_start: Optional[Callable[[TaskRun], None]] = None
         self.on_run_end: Optional[Callable[[TaskRun], None]] = None
+
+    def reject(self, reason):
+        self.unsupported.append(reason)
+        raise UnsupportedCeleryFeature(reason)
 
     # -- enqueue -------------------------------------------------------------
     def _next_id(self) -> str:
@@ -126,7 +134,7 @@ class VirtualCelery:
              delivery="normal", **options) -> TaskRun:
         unsupported = sorted(k for k in options if k in _UNSUPPORTED_OPTIONS and options[k] is not None)
         if unsupported:
-            raise UnsupportedCeleryFeature(
+            self.reject(
                 f"apply_async option(s) {unsupported} are not modelled by the simulator")
         now = self.clock.now()
         if eta is not None:
@@ -148,6 +156,7 @@ class VirtualCelery:
         self._seq += 1
         run = TaskRun(due_at=due, neg_priority=-int(priority or 0), seq=self._seq,
                       name=name or getattr(task, "name", str(task)), task=task,
+                      message=(content_type, encoding, body),
                       args=tuple(decoded_args), kwargs=decoded_kwargs, queue=queue,
                       task_id=task_id or self._next_id(), enqueued_at=now, countdown=countdown,
                       expires=expires, retries=int(retries or 0), priority=int(priority or 0),
@@ -170,11 +179,14 @@ class VirtualCelery:
             return self
         driver = self
         self._orig_apply_async = Task.apply_async
+        self._orig_signature_from_request = Task.signature_from_request
 
         def apply_async(task_self, args=None, kwargs=None, task_id=None, producer=None,
                         link=None, link_error=None, shadow=None, **options):
             if shadow is not None:
-                raise UnsupportedCeleryFeature("shadow task names are not modelled")
+                driver.reject("shadow task names are not modelled")
+            if producer is not None:
+                driver.reject("custom producers are not modelled")
             known = {k: options.pop(k) for k in ("countdown", "eta", "queue", "expires", "priority",
                                                   "soft_time_limit", "time_limit", "retries", "chain")
                      if k in options}
@@ -186,6 +198,23 @@ class VirtualCelery:
                               link=link, link_error=link_error, **known, **options)
             return AsyncResult(run.task_id, app=task_self.app)
 
+        def signature_from_request(task_self, request=None, args=None, kwargs=None,
+                                   queue=None, **extra_options):
+            signature = driver._orig_signature_from_request(
+                task_self, request=request, args=args, kwargs=kwargs, queue=queue, **extra_options)
+            run = driver._current_run.get()
+            request = task_self.request if request is None else request
+            if run is not None and task_self.name == run.name and request.id == run.task_id:
+                # The eager tracer must not dispatch continuations itself; finish()
+                # owns that. Restore the suppressed metadata where Celery produces
+                # a retry signature, preserving explicit overrides (including None).
+                for key, value in (("link", run.links), ("link_error", run.error_links),
+                                   ("chain", run.chain)):
+                    if key not in extra_options:
+                        signature.options[key] = list(value)
+            return signature
+
+        Task.signature_from_request = signature_from_request
         Task.apply_async = apply_async
         self._installed = True
         return self
@@ -194,6 +223,7 @@ class VirtualCelery:
         if not self._installed:
             return
         Task.apply_async = self._orig_apply_async
+        Task.signature_from_request = self._orig_signature_from_request
         self._installed = False
 
     def __enter__(self):
@@ -264,40 +294,38 @@ class VirtualCelery:
         run.finished_at = self.clock.now()
         self.running.pop(run.task_id, None)
         self.executed.append(run)
-        if self.on_run_end:
-            self.on_run_end(run)
-        if run.state == states.SUCCESS:
-            for sig in run.links:
-                self._apply_link(sig, (run.result,), run)
-            if run.chain:
-                # The worker's chain step (trace._dispatch_callbacks_and_chain): the
-                # next signature is the LAST element; it carries the rest onward.
-                self._apply_link(run.chain[-1], (run.result,), run, chain=run.chain[:-1])
-        elif run.state in (states.FAILURE, "CRASHED"):
-            for sig in run.error_links:
-                self._apply_errback(sig, run)
-            if run.state == "CRASHED" and run.redeliver:
-                self.redeliver(run)
+        try:
+            if self.on_run_end:
+                self.on_run_end(run)
+            if run.state == states.SUCCESS:
+                for sig in run.links:
+                    self._apply_link(sig, (run.result,), run)
+                if run.chain:
+                    # The worker's chain step (trace._dispatch_callbacks_and_chain): the
+                    # next signature is the LAST element; it carries the rest onward.
+                    self._apply_link(run.chain[-1], (run.result,), run, chain=run.chain[:-1])
+            elif run.state in (states.FAILURE, "CRASHED"):
+                for sig in run.error_links:
+                    self._apply_errback(sig, run)
+                if run.state == "CRASHED" and run.redeliver:
+                    self.redeliver(run)
+        except Exception as exc:
+            # Publication and completion hooks are part of execution health, even
+            # when the task body returned successfully. Never hide them in a log.
+            run.state = states.FAILURE
+            run.error = f"completion_error:{type(exc).__name__}: {exc}"
 
     def _apply_link(self, sig, extra_args, parent: TaskRun, chain=None) -> None:
         """``link`` semantics (celery.canvas.Signature._merge): a mutable signature
         receives the parent's result prepended to its own args; an immutable
         signature (``task.si(...)``) keeps exactly its own args. ``chain`` is the
         remainder of a chain the enqueued task must carry onward."""
-        try:
-            task = sig.type if hasattr(sig, "type") else None
-            immutable = bool(getattr(sig, "immutable", False))
-            args = tuple(sig.args or ()) if immutable else tuple(extra_args) + tuple(sig.args or ())
-            kwargs = dict(sig.kwargs or {})
-            options = dict(sig.options or {})
-            self.push(task, args, kwargs, name=sig.task if isinstance(sig.task, str) else None,
-                      queue=options.get("queue"), countdown=options.get("countdown"),
-                      eta=options.get("eta"), priority=options.get("priority"),
-                      link=options.get("link"), link_error=options.get("link_error"), chain=chain)
-        except UnsupportedCeleryFeature:
-            raise
-        except Exception as exc:  # noqa: BLE001 — a broken link is recorded, not fatal
-            parent.error = f"{parent.error or ''} link_error:{exc!r}"
+        from celery import signature
+        sig = signature(sig, app=parent.task.app)
+        options = {} if chain is None else {"chain": chain}
+        # Signature.apply_async performs Celery's argument/option merge, then uses
+        # the same patched Task.apply_async path as a direct publication.
+        sig.apply_async(args=extra_args, **options)
 
     def _apply_errback(self, sig, parent: TaskRun) -> None:
         """``link_error`` semantics (celery.backends.base._call_task_errbacks): an
@@ -306,20 +334,15 @@ class VirtualCelery:
         errback is enqueued with the failed task id."""
         from celery.app.task import Context  # noqa: PLC0415 — lazy
         from celery.utils.functional import arity_greater  # noqa: PLC0415 — lazy
-        try:
-            header = getattr(sig.type, "__header__", None)
-            if header is not None and arity_greater(header, 1):
-                request = Context({"id": parent.task_id, "task": parent.name, "args": list(parent.args),
-                                   "kwargs": dict(parent.kwargs), "retries": parent.retries,
-                                   "hostname": gethostname(), "delivery_info": {"routing_key": parent.queue}})
-                exc = parent.result if isinstance(parent.result, BaseException) else RuntimeError(parent.error or "failed")
-                sig.type(request, exc, parent.error, *(sig.args or ()), **dict(sig.kwargs or {}))
-            else:
-                self._apply_link(sig, (parent.task_id,), parent)
-        except UnsupportedCeleryFeature:
-            raise
-        except Exception as exc:  # noqa: BLE001 — a broken errback is recorded, not fatal
-            parent.error = f"{parent.error or ''} link_error:{exc!r}"
+        header = getattr(sig.type, "__header__", None)
+        if header is not None and arity_greater(header, 1):
+            request = Context({"id": parent.task_id, "task": parent.name, "args": list(parent.args),
+                               "kwargs": dict(parent.kwargs), "retries": parent.retries,
+                               "hostname": gethostname(), "delivery_info": {"routing_key": parent.queue}})
+            exc = parent.result if isinstance(parent.result, BaseException) else RuntimeError(parent.error or "failed")
+            sig.type(request, exc, parent.error, *(sig.args or ()), **dict(sig.kwargs or {}))
+        else:
+            self._apply_link(sig, (parent.task_id,), parent)
 
     def execute(self, run: TaskRun) -> None:
         """Run the task body through Celery's tracer like ``Task.apply`` does, except
@@ -345,19 +368,26 @@ class VirtualCelery:
             "ignore_result": False, "delivery_info": {"is_eager": False, "exchange": None,
                                                      "routing_key": run.queue, "priority": run.priority,
                                                      "redelivered": run.redelivered},
-            "timelimit": (run.time_limit, run.soft_time_limit),
+            "timelimit": (run.time_limit, run.soft_time_limit), "expires": run.expires,
         }
         tracer = build_tracer(task.name, task, eager=True, propagate=False, app=app)
         # Every random draw inside the task body (retry jitter, application code)
         # is a function of the driver seed, the task id and the attempt number,
         # never of the ambient process state.
         random.seed(f"{self.seed}:{run.task_id}:{run.retries}")
+        token = self._current_run.set(run)
         try:
-            ret = tracer(run.task_id, run.args, run.kwargs, request)
+            # Each delivery decodes the immutable broker message anew. Task code
+            # can mutate its local arguments without changing retries/redelivery.
+            content_type, encoding, body = run.message
+            args, kwargs = loads(body, content_type, encoding)
+            ret = tracer(run.task_id, tuple(args), kwargs, request)
         except SimulatedWorkerCrash as exc:
             run.state = "CRASHED"
             run.error = f"crashed: {exc}"
             return
+        finally:
+            self._current_run.reset(token)
         retval = ret.retval
         if isinstance(retval, ExceptionInfo):
             retval = retval.exception

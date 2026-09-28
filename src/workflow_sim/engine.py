@@ -838,22 +838,38 @@ class Engine:
         def _done(_f):
             if work.abandoned:
                 return
-            self.celery.finish(run)
-            self._log_task(run)
-            self.clock.scheduler.notify()
+            self._cancel_limits(work)
+            try:
+                self.celery.finish(run)
+            except BaseException as exc:
+                run.state = "FAILURE"
+                run.error = f"completion_error:{type(exc).__name__}: {exc}"
+            finally:
+                self._log_task(run)
+                self.clock.scheduler.notify()
 
         work.future.add_done_callback(_done)
         from celery.exceptions import SoftTimeLimitExceeded  # noqa: PLC0415 — lazy
-        if run.soft_time_limit:
-            when = work.started_at + timedelta(seconds=float(run.soft_time_limit))
-            self.at(when, "limit", f"soft_time_limit:{run.task_id[:8]}",
-                    lambda w=work: self.cancel_execution(w, SoftTimeLimitExceeded(), reason="soft_time_limit"),
-                    priority=10)
-        if run.time_limit:
-            when = work.started_at + timedelta(seconds=float(run.time_limit))
-            self.at(when, "limit", f"time_limit:{run.task_id[:8]}",
-                    lambda w=work: self.crash_execution(w, reason="time_limit", hard=True), priority=10)
+        # Serialize registration against completion: a fast task may already
+        # have finished before its deadline items are installed.
+        with self.clock.scheduler.cv:
+            if not work.future.done() and not work.abandoned:
+                if run.soft_time_limit:
+                    when = work.started_at + timedelta(seconds=float(run.soft_time_limit))
+                    work.limit_items.append(self.at(when, "limit", f"soft_time_limit:{run.task_id[:8]}",
+                        lambda w=work: self.cancel_execution(w, SoftTimeLimitExceeded(), reason="soft_time_limit"),
+                        priority=10))
+                if run.time_limit:
+                    when = work.started_at + timedelta(seconds=float(run.time_limit))
+                    work.limit_items.append(self.at(when, "limit", f"time_limit:{run.task_id[:8]}",
+                        lambda w=work: self.crash_execution(w, reason="time_limit", hard=True), priority=10))
         return work
+
+    def _cancel_limits(self, work):
+        with self.clock.scheduler.cv:
+            handles = {id(item) for item in work.limit_items}
+            self.cancel_items(lambda item: id(item) in handles)
+            work.limit_items.clear()
 
     def _log_task(self, run: TaskRun) -> None:
         self.ledger.add("task", f"celery:{run.name.rsplit('.', 1)[-1]}",
@@ -1001,6 +1017,7 @@ class Engine:
             # half done and hand its thread back to the pool in between, so only
             # this execution's threads are fenced.
             fence(work, work.loop_ids() | {c["thread_id"] for c in running})
+        self._cancel_limits(work)
         for c in running:
             _detach_from_exit_joins(c["thread"], c["executor"])
         self.abandoned.append(work)
