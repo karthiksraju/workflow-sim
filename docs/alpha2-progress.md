@@ -1,17 +1,17 @@
 # Alpha 2 verification record
 
-All eleven review findings are implemented; source and tests are pushed. The
-original `v0.1.0a1` remains immutable. Corrections target `v0.1.0a2`.
+All eleven independently reproduced findings are fixed. The final runtime passes
+316 library tests on Linux and macOS, and all 19 original reviewer probes/controls
+pass their corrected expectations. The old-code negative controls reproduce the
+defects; tests use observable content and state.
 
-Final runtime revision: `c9ba673c373bffc7b076753d86815560719117df`.
-All 316 library tests pass locally and in installed-wheel Linux/macOS CI. All
-19 original independent reviewer witnesses and controls pass their corrected
-expectations against that wheel. Strict packaging, minimal-install examples and
-the source-archive dependency-lock check pass.
+Consumer evidence includes 976 passing tests and six strict application xfails on
+the initial corrected wheel, then 192 affected-module tests and all 102 scenario
+comparisons on the final bridge correction. All nine policy mutations were caught.
+Every scenario's business checks, health verdicts and application state remain
+unchanged. The same nine pending application failures are preserved.
 
-The first 102-case consumer comparison preserved every outcome, business check,
-health verdict and application state. Completed-task deadline events disappear
-and frozen continuation IDs are now preserved. The final bridge correction is
-being checked through a repeat comparison and focused consumer modules; the full
-consumer suite also remains in progress. See [validation](validation.md) for
-completed evidence and [migration](alpha2.md) before replacing old alpha results.
+See [validation](validation.md) for exact revisions, artifact hashes, scope and
+intentional evidence differences. [Migration](alpha2.md) explains why old results
+must be rerun. Alpha 1 remains immutable; alpha 2 is promoted from CI artifacts
+only after both platform checks pass on its exact release commit.

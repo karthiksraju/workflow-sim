@@ -60,8 +60,16 @@ Three recorder cases' Celery records differ only in task IDs, because frozen
 continuation IDs now survive publication. Only seven ledger hashes are identical;
 we retain the original records rather than normalize away execution differences.
 
-The full 982-test consumer run on the initial alpha 2 wheel remains in progress.
-The 192-test rerun and 102-case comparison above use the final bridge correction.
+The full consumer run completed with **976 passed and six strict application
+xfails** in 64.3 minutes, with no unexpected failures.
+All nine application policy mutations were caught. The
+[full-run index](validation/alpha2-consumer-full.json) records the expected xfails,
+mutation timings, artifact identity and raw JUnit hash.
+
+That full run used the initial alpha 2 wheel from `c7aadfc`; it preceded the final
+bridge ownership/handoff correction. The 192-test affected-module rerun and complete
+102-case comparison above use final runtime `c9ba673`. We do not label the older
+full run as testing the final bytes.
 
 The [alpha 1 extraction record](validation-alpha1.md) remains available for
 provenance. Its passing tests preceded the defects found by the independent review.

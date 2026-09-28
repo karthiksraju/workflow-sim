@@ -18,6 +18,9 @@ The extracted runtime has now received an independent adversarial review and
 corrections for all eleven reproduced defects. Its 316 library tests pass on both
 Linux/macOS CI, including 49 additional regressions/controls. All 19 original
 review probes pass their corrected expectations against the final runtime wheel.
+Consumer checks include 976 passing tests and six strict xfails on the initial
+correction, followed by 192 affected-module tests and a 102-scenario comparison on
+the final bridge fix. No known product counterexample was hidden.
 See [validation](validation.md) for consumer evidence and [architecture](architecture.md)
 for the illustrated runtime/adapter boundary. Alpha 2 migration instructions are
 in [the correction notes](alpha2.md); alpha 1 remains available for reproduction.

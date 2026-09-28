@@ -1,0 +1,124 @@
+{
+  "consumer_revision": "89dd7a078650af5ec07243bc3d26a33a09e240ae",
+  "artifact": {
+    "version": "0.1.0a2",
+    "filename": "workflow_sim-0.1.0a2-py3-none-any.whl",
+    "sha256": "ba539ae206700709a7bae29bd302c8ccc5b7c37dd4e157f09e2724e58bf7cba5",
+    "repository": "https://github.com/karthiksraju/workflow-sim",
+    "source_revision": "c7aadfc0c449175376d5b56d5cbc6508156b4d46",
+    "ci_run": "https://github.com/karthiksraju/workflow-sim/actions/runs/36445337038",
+    "kernel_files": {
+      "workflow_sim/__init__.py": "22b2dfcbb0f9f0c73af1b77252c98dd56cbe4eed81d8f59ed8bf631a6a723fa0",
+      "workflow_sim/clock.py": "a8380471e7eab950212afffeca6c0c6a9bf696426b00540c3a28ade2b17ce8b3",
+      "workflow_sim/engine.py": "57946fbde91bd543f8c8555f0296ada01ba22174671c9a6b730a8eb24b1cce59",
+      "workflow_sim/celery_driver.py": "66cf4555a00cb27e1aea86b331eaef199558624e3261c8a619ca0fe11774ee22",
+      "workflow_sim/ledger.py": "7ec7e5423aaa46ab58940ff90a90ffa2e1181d225340345f3382f224e59d2a08",
+      "workflow_sim/runtime.py": "d25292d61365ea66c6b65d3b44e3c5504707f799f3fc14069d54b63bf124acec",
+      "workflow_sim/time.py": "0d62e44fd6d49efe85dbafaf267d56c7b382cea6967e6a027175edcc84e788f8"
+    }
+  },
+  "junit": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "6",
+    "tests": "982",
+    "time": "3856.942",
+    "timestamp": "2026-09-28T21:12:46.091096+05:30",
+    "hostname": "karthiks-MacBook-Pro"
+  },
+  "passed": 976,
+  "strict_xfails": [
+    {
+      "name": "test_known_bug_zoom_fragment_never_terminal",
+      "reason": {
+        "type": "pytest.xfail",
+        "message": "known bug zoom_fragment_never_terminal: a 5-minute Zoom session in a 30-minute slot fails the fit gate (tail_fragment) and the row stays recording_enabled forever; remove from F.KNOWN_BUGS once fixed"
+      }
+    },
+    {
+      "name": "test_known_bug_meet_late_drive_file_shorter_sibling_wins",
+      "reason": {
+        "type": "pytest.xfail",
+        "message": "known bug meet_late_drive_file_shorter_sibling_wins: the longer Meet conference's Drive file is late, so a shorter same-bucket sibling is committed; remove from F.KNOWN_BUGS once fixed"
+      }
+    },
+    {
+      "name": "test_known_bug_replica_lag_duplicate_downstream",
+      "reason": {
+        "type": "pytest.xfail",
+        "message": "known bug replica_lag_duplicate_downstream: with per-request replica routing each run_post_call retry completes the same generation again; remove from F.KNOWN_BUGS once fixed"
+      }
+    },
+    {
+      "name": "test_known_bug_meet_early_join_beyond_claim_window",
+      "reason": {
+        "type": "pytest.xfail",
+        "message": "known bug meet_early_join_beyond_claim_window: a Meet call opened 18 minutes early is never imported; remove from F.KNOWN_BUGS once fixed"
+      }
+    },
+    {
+      "name": "test_known_bug_teams_recurring_split_shifts_occurrence_rows",
+      "reason": {
+        "type": "pytest.xfail",
+        "message": "known bug teams_recurring_split_shifts_occurrence_rows: a recurring Teams series on one join URL with a split occurrence has each recording shifted onto a sibling occurrence's row; remove from F.KNOWN_BUGS once fixed"
+      }
+    },
+    {
+      "name": "test_known_bug_zoom_move_before_selection_orphans_occurrence",
+      "reason": {
+        "type": "pytest.xfail",
+        "message": "known bug zoom_move_before_selection_orphans_occurrence: the calendar moves a held Zoom occurrence while the selector is still deferring; the row is re-armed for the new slot and no row ever stands for the held occurrence; remove from F.KNOWN_BUGS once fixed"
+      }
+    }
+  ],
+  "caught_policy_mutations": [
+    {
+      "classname": "tests.simulator.tests.test_mutation_policies",
+      "name": "test_mutation_is_caught[m1_preserve_never_material]",
+      "time": "513.419"
+    },
+    {
+      "classname": "tests.simulator.tests.test_mutation_policies",
+      "name": "test_mutation_is_caught[m2_commit_skips_media_gate]",
+      "time": "224.278"
+    },
+    {
+      "classname": "tests.simulator.tests.test_mutation_policies",
+      "name": "test_mutation_is_caught[m3_give_up_after_0h]",
+      "time": "185.503"
+    },
+    {
+      "classname": "tests.simulator.tests.test_mutation_policies",
+      "name": "test_mutation_is_caught[m4_move_status_never_moves]",
+      "time": "282.529"
+    },
+    {
+      "classname": "tests.simulator.tests.test_mutation_policies",
+      "name": "test_mutation_is_caught[m5a_matcher_window_doubled]",
+      "time": "242.542"
+    },
+    {
+      "classname": "tests.simulator.tests.test_mutation_policies",
+      "name": "test_mutation_is_caught[m5b_matcher_window_zeroed]",
+      "time": "381.096"
+    },
+    {
+      "classname": "tests.simulator.tests.test_mutation_policies",
+      "name": "test_mutation_is_caught[m6a_commit_accepts_stale_generation]",
+      "time": "297.709"
+    },
+    {
+      "classname": "tests.simulator.tests.test_mutation_policies",
+      "name": "test_mutation_is_caught[m6b_completed_generation_forgotten]",
+      "time": "285.558"
+    },
+    {
+      "classname": "tests.simulator.tests.test_mutation_policies",
+      "name": "test_mutation_is_caught[m7_meet_claim_no_early_margin]",
+      "time": "303.618"
+    }
+  ],
+  "junit_sha256": "f44fb94338f9c51cf2b2f86ec6c07b825b69a342fd5472ac8b19da124029edd6",
+  "scope": "Full consumer run used the initial alpha2 wheel c7aadfc. Final bridge corrections c9ba673 were separately verified by 192 affected-module tests and the complete 102-scenario comparison."
+}

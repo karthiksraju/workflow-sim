@@ -10,7 +10,10 @@ verified findings from the independent review of alpha 1.
 
 Validation: 316 installed-package tests pass on Linux and macOS; all 19 original
 reviewer witnesses/controls pass their corrected expectations. Old-code negative
-controls demonstrate the regressions. See [validation](https://github.com/karthiksraju/workflow-sim/blob/main/docs/validation.md)
+controls demonstrate the regressions. Consumer validation includes 976 passing
+tests and six strict application xfails on the initial correction, followed by
+192 affected-module tests and all 102 scenarios on the final bridge fix. Business
+assertions, health verdicts and application state are preserved. See [validation](https://github.com/karthiksraju/workflow-sim/blob/main/docs/validation.md)
 for consumer results, exact revisions and remaining model limits.
 
 Upgrade to `v0.1.0a2` and rerun scenarios. Do not reinterpret archived alpha 1
