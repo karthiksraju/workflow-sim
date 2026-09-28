@@ -720,7 +720,7 @@ sequenceDiagram
     A->>Q: push only if both enabled, otherwise record loss
   end
   A-->>E: ledger_record(d) -> ("task","celery:x",{state:"CRASHED",...})
-  E->>E: ledger fault worker_crash; notify
+  E->>E: ledger fault worker_crash, then notify
   Note over E,X: X never resumes. No finally runs. Held leases stay held until they expire.
 ```
 

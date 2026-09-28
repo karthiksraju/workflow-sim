@@ -237,6 +237,11 @@ Four paths remain open, and each is tracked:
 - The Dramatiq mapping is a paper exercise. It relies on a guide that does not
   state ack or crash semantics, and the spec says so.
 
+**Checks run on the documents**
+
+- All relative links resolve.
+- All six Mermaid diagrams render with `@mermaid-js/mermaid-cli` (`mmdc`) and local Chrome. The render caught a `;` in a sequence-diagram message, which is now fixed.
+
 **Evidence gaps**
 
 - Probes P1–P5 were run on macOS only.
