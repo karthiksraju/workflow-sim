@@ -5,6 +5,25 @@ issues for sanitized bugs and extension requests. Prioritize false PASS reports,
 containment failures and installation failures; then model/adapter gaps. Reproduce
 first and attach a negative control to the fix.
 
+## The artifact that was tested is the artifact released
+
+```mermaid
+flowchart TD
+    Commit["Release commit"] --> Linux["Linux<br/>build + test"]
+    Commit --> Mac["macOS<br/>build + test"]
+    Linux --> Gate{"Both pass on<br/>tagged commit?"}
+    Mac --> Gate
+    Gate -- No --> Stop["No release"]
+    Gate -- Yes --> Promote["Promote tested artifacts<br/>wheel + sdist + reports"]
+    Promote --> Draft["Draft prerelease<br/>assets + hashes"]
+    Draft --> Owner["Owner review<br/>evidence + rights + audience"]
+    Owner --> Private["Approved private alpha"]
+    Owner -. "License + visibility decision" .-> Public["Future public alpha"]
+```
+
+The draft workflow promotes CI artifacts instead of rebuilding another wheel.
+No PyPI publisher is enabled. The public-alpha step is a future owner decision.
+
 ## Release checklist
 
 1. Update the version in pyproject.toml and `workflow_sim.__version__`, CHANGELOG,

@@ -32,3 +32,36 @@ Version the public adapter and result contracts independently of private engine
 internals. Preserve input/code/dependency identity in every result. No stable
 1.0 API or universal determinism claim is made for this alpha.
 
+
+## Boundary map
+
+```mermaid
+flowchart TB
+    subgraph Shared["Shared library: workflow-sim"]
+        Clock["Virtual clock + execution scheduler"]
+        Queue["Celery task model"]
+        Fence["Execution ownership + crash fencing"]
+        Evidence["Ledger + result validation"]
+        Process["Process supervisor"]
+    end
+    subgraph Owned["Application-owned adapter"]
+        Entry["Real entrypoints"]
+        Fakes["External contract models"]
+        Cases["Scenarios + business assertions"]
+        Bind["Explicit clock / bridge / logging bindings"]
+    end
+    Process --> Clock
+    Clock --> Entry
+    Queue --> Entry
+    Fence --> Entry
+    Entry <--> Fakes
+    Cases --> Evidence
+    Bind --> Clock
+    Entry --> Evidence
+```
+
+This boundary is justified by the existing meeting consumer and the independent
+retry/Celery examples. New application-specific models stay with the adapter;
+shared runtime changes need an observable case that the current boundary cannot
+express. See [the execution architecture](../architecture.md) for process lifetime
+and evidence flow.

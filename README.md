@@ -11,6 +11,19 @@ This is a testing library. You supply the real workflow code, controlled externa
 boundaries and assertions about observable state. A passing simulation says those
 assertions held in that model; it does not certify the live system.
 
+## The path from workflow to verdict
+
+```mermaid
+flowchart LR
+    A["Real workflow code"] --> B["Adapter<br/>controlled boundaries + assertions"]
+    B --> C["Fresh process<br/>virtual time + failures"]
+    C --> D["Evidence<br/>actual content vs expected"]
+    D --> E["Verified verdict"]
+```
+
+The runtime controls execution; your adapter supplies the external contracts and
+business assertions. [See the architecture](docs/architecture.md).
+
 ## Try the installed package
 
 Use a Python 3.12 virtual environment. Repository access is required:

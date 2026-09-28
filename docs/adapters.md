@@ -25,6 +25,32 @@ Do not use live production credentials. Adapters are trusted Python and may read
 files and environment variables. The runner blocks common socket and process APIs
 as a mistake detector; it cannot safely execute untrusted user uploads.
 
+## Why the retry example catches a real failure shape
+
+```mermaid
+sequenceDiagram
+    participant App as Real retry loop
+    participant Receiver as Receiver model
+    participant Check as Final assertions
+    App->>Receiver: Deliver invoice-42, amount 1200
+    Receiver->>Receiver: Commit payload and idempotency key
+    Receiver--xApp: Acknowledgement lost
+    Note over App: 5s virtual delay
+    App->>Receiver: Retry invoice-42
+    alt Deduplication works
+        Receiver->>Receiver: Keep the original delivery
+        Receiver-->>Check: One exact payload
+    else Deliberate bug enabled
+        Receiver->>Receiver: Append a duplicate delivery
+        Receiver-->>Check: Two payloads
+    end
+    Check->>Check: Require one exact delivery
+```
+
+The failure starts after the first durable effect. Testing only a timeout before
+any write would not expose this duplicate-delivery bug. The assertion inspects
+persisted content, not just whether retry code was called.
+
 ## Existing applications and advanced bindings
 
 The experimental `Engine` accepts `clock_seam`, `asyncio_bridge`, and `log_module`.

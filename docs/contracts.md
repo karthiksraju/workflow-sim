@@ -86,6 +86,34 @@ module hash covers **only that module**, not its imports, data or external servi
 Record your application's immutable revision and fixture identity alongside results.
 Hashes detect changes; they are not signatures or attestations against hostile code.
 
+## How completed evidence becomes a verdict
+
+The worker and parent use the same ordered rules. Worker/process failures without
+a completed report are handled separately as explicit errors or timeouts.
+
+```mermaid
+flowchart TD
+    E["Completed evidence"] --> U("Unsupported?")
+    U -- Yes --> Unsupported["UNSUPPORTED"]
+    U -- No --> I("Unfinished work<br/>or budget hit?")
+    I -- Yes --> Incomplete["INCOMPLETE"]
+    I -- No --> H("Execution failure?")
+    H -- Yes --> Error["HARNESS_ERROR"]
+    H -- No --> C("Any checks?")
+    C -- No --> Incomplete
+    C -- Yes --> Match("All values match?")
+    Match -- No --> Failed["ASSERTION_FAILED"]
+    Match -- Yes --> Pass["PASS"]
+    style Pass fill:#dcfce7,stroke:#15803d,color:#14532d
+    style Failed fill:#fee2e2,stroke:#b91c1c,color:#7f1d1d
+    style Incomplete fill:#fef3c7,stroke:#b45309,color:#78350f
+```
+
+The parent additionally rejects wrong attempt IDs, mismatched request/library
+hashes, malformed reports and contradictory claimed verdicts. Those records never
+reach the PASS box. No automatic rule can determine whether your chosen business
+assertion is meaningful; that needs an adapter review and a negative control.
+
 ## Compatibility
 
 Package versions follow Python prerelease notation (`0.1.0a1`, `0.1.0a2`). The
