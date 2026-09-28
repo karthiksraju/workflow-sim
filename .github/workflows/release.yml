@@ -14,6 +14,7 @@ jobs:
     timeout-minutes: 15
     permissions:
       contents: write
+      actions: read
     env:
       PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'
       RELEASE_TAG: ${{ inputs.tag }}
@@ -26,13 +27,18 @@ jobs:
         with:
           python-version: '3.12'
       - name: Verify tag, metadata and successful platform CI
+        id: verified
         run: python scripts/check_release.py
-      - run: python -m pip install --require-hashes -r requirements-dev.lock
-      - run: python -m build
-      - run: python -m twine check --strict dist/*
-      - run: python -m pip install --no-deps dist/*.whl
-      - run: python -m pytest -q
-      - run: python scripts/check_package.py
+      - name: Promote the exact distribution tested by CI
+        env:
+          CI_RUN_ID: ${{ steps.verified.outputs.ci_run_id }}
+        run: |
+          gh run download "$CI_RUN_ID" --name alpha-ubuntu-latest --dir promoted
+          mkdir dist
+          cp promoted/dist/*.whl promoted/dist/*.tar.gz dist/
+          cp promoted/test-results.xml dist/test-results-linux.xml
+          gh run download "$CI_RUN_ID" --name alpha-macos-latest --dir promoted-macos
+          cp promoted-macos/test-results.xml dist/test-results-macos.xml
       - name: Record artifact hashes
         run: sha256sum dist/* > dist/SHA256SUMS
       - name: Create draft for owner review

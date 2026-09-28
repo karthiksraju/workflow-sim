@@ -17,8 +17,9 @@ first and attach a negative control to the fix.
    wheel hash and both application/library revisions with the comparison.
 4. Commit/push, then create and push `v<version>` at that exact commit.
 5. Dispatch **Draft alpha release** with that tag. It requires successful platform
-   CI on the same commit, rebuilds/tests and creates a draft GitHub prerelease
-   containing wheel, sdist and SHA256SUMS. It does not publish to PyPI.
+   CI on the same commit and both named platform jobs, promotes the exact tested
+   Linux distribution artifact, and creates a draft GitHub prerelease
+   containing wheel, sdist, platform test reports and SHA256SUMS. It does not publish to PyPI.
 6. Review artifact hashes, notes, visibility and distribution rights. For an
    approved private alpha, share repository access with named testers. For a
    public alpha, first settle ownership/license, add LICENSE and matching metadata,
@@ -59,3 +60,13 @@ a raw scenario count is not a confidence metric.
 The first external callout should state the support matrix, alpha status, trusted
 adapter requirement and known limits. Do not advertise proof of production safety
 or full distributed-system simulation.
+
+## Current repository enforcement
+
+Issues, CODEOWNERS, dependency update PRs, vulnerability alerts and automatic
+merged-branch deletion are enabled. CI and the release verifier enforce the
+release checks. GitHub rejected branch-protection setup with HTTP 403 because
+this personal account's current plan does not support it on private repositories.
+Until the repository is public or the plan changes, owners must check CI before
+merging; CODEOWNERS and the PR template are review guidance, not server-enforced
+merge protection. No plan upgrade or public visibility change was made.
