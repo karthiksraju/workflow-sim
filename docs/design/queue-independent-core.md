@@ -486,8 +486,9 @@ class DeliveryAdapter(Protocol):
     def settle(self, d: Delivery, s: Settlement) -> None: ...
         # exactly once per delivery that began, except bodies whose execution
         # was crashed *after* return (already settled). Performs ack/retry
-        # bookkeeping, continuations, errbacks, redelivery. Exceptions are
-        # recorded by the adapter as completion errors (today's finish()).
+        # bookkeeping, continuations, errbacks, redelivery. Must not raise:
+        # the Celery adapter moves today's try/except from engine._done
+        # (FAILURE + "completion_error:...") inside its own settle.
 
     # evidence projections (fixed schema-1 report keys)
     def pending_view(self, d: Delivery) -> dict: ...      # -> report.pending_tasks[i]
