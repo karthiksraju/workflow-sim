@@ -1,0 +1,19 @@
+{
+  "version": "0.1.0a1",
+  "filename": "workflow_sim-0.1.0a1-py3-none-any.whl",
+  "sha256": "d04e0d5daa14839be3994e8600177b3b784067188b62cd4edc97820de58b569a",
+  "repository": "https://github.com/karthiksraju/workflow-sim",
+  "source_revision": "5bd5eea7ee39de10934a4b5b584cd6a70584e9ca",
+  "tag": "v0.1.0a1",
+  "ci_run": "https://github.com/karthiksraju/workflow-sim/actions/runs/36436750104",
+  "kernel_files": {
+    "workflow_sim/__init__.py": "e257b7c9445de90d0ba4e81af6dbf6f77426c182b4016be4e98304429a236a26",
+    "workflow_sim/clock.py": "2112b0fee1e650681f0f5ed231880c46c2ab35f7d816180424fefafbbbabf466",
+    "workflow_sim/engine.py": "b994ef45af4508c501914df12ce45ad8fe3afac122c6f7e91fbaac5a485a3b5f",
+    "workflow_sim/celery_driver.py": "cbe2fbee54865190a8aec3321ffad1f2da81d4b2712819a9a14195fbd03963e6",
+    "workflow_sim/ledger.py": "7ec7e5423aaa46ab58940ff90a90ffa2e1181d225340345f3382f224e59d2a08",
+    "workflow_sim/runtime.py": "d25292d61365ea66c6b65d3b44e3c5504707f799f3fc14069d54b63bf124acec",
+    "workflow_sim/time.py": "0d62e44fd6d49efe85dbafaf267d56c7b382cea6967e6a027175edcc84e788f8"
+  },
+  "identical_kernel_in_comparison_artifact": "c2412d2d3ec33c5e392e75158e7ba6fe2d5ca949345a10a9f37564c1e5d6f392"
+}

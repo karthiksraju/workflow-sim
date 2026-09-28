@@ -86,9 +86,9 @@ it as a wholly green rerun. Only affected modules were repeated after the fixes.
 
 The final library's clock, engine, Celery driver, ledger, bridge and time seam are
 unchanged from the kernel used in the 102-case comparison and full consumer run.
-Later public-runner hardening is covered by the 267-test library suite. A final
-consumer pin must verify those module hashes and run the binding/provenance smoke
-checks against the exact release wheel.
+Later public-runner hardening is covered by the 267-test library suite. The final consumer pin verified all seven kernel/bootstrap module hashes and
+passed **154 tests** for bindings, clock/Celery execution, evidence, provenance and
+historical proofs against the exact released wheel.
 
 ## Documentation verification
 
@@ -104,3 +104,15 @@ publisher or telemetry is enabled. Draft releases promote the tested CI artifact
 Branch protection is unavailable on this private repository under the current
 GitHub plan; [release and maintenance controls](releases.md) distinguish automated
 checks from owner-enforced review.
+
+
+## Created alpha artifacts
+
+Tag `v0.1.0a1` points to `5bd5eea7ee39de10934a4b5b584cd6a70584e9ca`.
+[CI on that exact commit](https://github.com/karthiksraju/workflow-sim/actions/runs/36436750104)
+passed both platform jobs. The
+[draft-release workflow](https://github.com/karthiksraju/workflow-sim/actions/runs/36437037368)
+succeeded and promoted the tested wheel, source archive and both platform test
+reports into a private draft prerelease. Downloaded assets passed all SHA256SUMS
+checks. The wheel SHA256 is
+`d04e0d5daa14839be3994e8600177b3b784067188b62cd4edc97820de58b569a`.
