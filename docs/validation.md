@@ -1,13 +1,13 @@
 # Alpha validation
 
-The library passes **266 tests on both hosted Linux and macOS**, using the installed
+The library passes **267 tests on both hosted Linux and macOS**, using the installed
 wheel outside its source tree. The exact meeting comparison preserves **102 of 102
-scenario outcomes, assertions and application-state snapshots**. The full consumer
-self-test run is still finishing; its wheel-provenance test fix is already verified.
+scenario outcomes, assertions and application-state snapshots**. All consumer failures found during extraction have been resolved and their
+affected modules rerun successfully.
 
 | Evidence | Verified | What this does not establish |
 | --- | --- | --- |
-| Library conformance | 266 tests per platform; local run also passes | Every possible interleaving or Python runtime |
+| Library conformance | 267 tests per platform; local run also passes | Every possible interleaving or Python runtime |
 | Installed distribution | Wheel built from sdist; strict metadata; fresh minimal environment | A live application integration without an adapter |
 | Independent workflows | Async retry/deduplication and Celery retry payloads | Real broker or provider behavior |
 | Negative controls | Duplicate delivery, shifted timer, stalled worker, malformed result and blocked boundary rejected | The completeness of an application's business assertions |
@@ -15,9 +15,9 @@ self-test run is still finishing; its wheel-provenance test fix is already verif
 | Live external contracts | Not part of this extraction | Provider/database correctness or production certification |
 
 Latest completed runtime CI:
-[Linux and macOS run 36433939424](https://github.com/karthiksraju/workflow-sim/actions/runs/36433939424).
-Documentation additions also passed
-[run 36435066053](https://github.com/karthiksraju/workflow-sim/actions/runs/36435066053).
+[Linux and macOS run 36436162068](https://github.com/karthiksraju/workflow-sim/actions/runs/36436162068)
+on commit `b7ab27f21b31fb15174600259ef1bd6362b5efa4`. The draft release verifier
+requires both platform jobs to pass again on the exact tagged release commit.
 
 ## Meeting comparison
 
@@ -63,6 +63,39 @@ The meeting consumer's imported-file coverage test assumed loose `.py` files.
 Its replacement binds zip-imported modules to the exact wheel in the harness
 manifest. All 31 provenance tests pass, including modified-wheel rejection and
 refusal of a preloaded package from another source.
+
+## Full consumer suite and follow-up checks
+
+The full 978-test consumer run completed in 30m12s: **958 passed, 6 strict
+application xfails, 14 failures**. Those failures had two causes, both resolved:
+
+- One imported-file coverage test did not understand zip-loaded wheel members.
+  The replacement verifies the actual archive and its hash. The combined clock
+  and provenance modules then passed **201 tests**, including four new negative
+  controls for altered timers, stalled coroutines, wheel tampering and shadowing.
+- Thirteen historical-proof checks shared a fixture that launched the system
+  Python from a fresh worktree without its dependencies. It now explicitly uses
+  the active test interpreter, as the other proof fixtures already did. The whole
+  proof module then passed **78 tests**, including a real historical before-fail /
+  after-pass pair and rejection of damaged proof records.
+
+All **nine application policy mutations were caught** in the full run. The six
+strict xfails describe existing application counterexamples; extraction did not
+weaken or remove them. We retain the original full-run result rather than relabel
+it as a wholly green rerun. Only affected modules were repeated after the fixes.
+
+The final library's clock, engine, Celery driver, ledger, bridge and time seam are
+unchanged from the kernel used in the 102-case comparison and full consumer run.
+Later public-runner hardening is covered by the 267-test library suite. A final
+consumer pin must verify those module hashes and run the binding/provenance smoke
+checks against the exact release wheel.
+
+## Documentation verification
+
+Eleven Mermaid diagrams across the library and meeting integration guides were
+rendered with Mermaid CLI and Chrome. The architecture, lifecycle, verdict and
+retry figures were visually inspected; documentation links were checked. Mermaid
+sources remain in Markdown so GitHub renders them and code changes can update them.
 
 ## Distribution status
 

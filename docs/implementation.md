@@ -8,14 +8,15 @@
 - [x] Installed wheel/sdist checks in a clean environment.
 - [x] Linux/macOS CI, release artifacts and compatibility/dependency policy.
 - [x] Contribution, issue intake, security, ownership and release documentation.
-- [ ] Record exact validation, unsupported behavior and release status.
+- [x] Record exact validation, unsupported behavior and release status.
 
 Public visibility and licensing await the owner's decision. Do not publish a
 package or make the repository public by assuming a license.
 
 
-Current evidence: 266 library tests pass on both Linux/macOS CI; 102 meeting
-comparison records preserve all assertions, state and execution health. The full
-consumer self-test run and final release-artifact pin are still in progress. See
-[validation](validation.md) for exact evidence and [architecture](architecture.md)
-for the illustrated runtime/adapter boundary.
+Runtime and packaging implementation is complete. Final evidence: 267 library
+tests on both Linux/macOS CI, 102 unchanged meeting scenario results, nine caught
+policy mutations, and passing targeted checks for the consumer issues found.
+See [validation](validation.md) for exact results and [architecture](architecture.md)
+for the illustrated runtime/adapter boundary. Release assets remain private drafts
+until the owner chooses their distribution scope.
