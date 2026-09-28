@@ -2,3 +2,4 @@ include CHANGELOG.md CONTRIBUTING.md SECURITY.md requirements-dev.lock
 recursive-include docs *.md *.json
 recursive-include scripts *.py
 recursive-include tests *.py
+recursive-include confidence *.py

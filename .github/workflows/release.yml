@@ -39,6 +39,9 @@ jobs:
           cp promoted/test-results.xml dist/test-results-linux.xml
           gh run download "$CI_RUN_ID" --name alpha-macos-latest --dir promoted-macos
           cp promoted-macos/test-results.xml dist/test-results-macos.xml
+          gh run download "$CI_RUN_ID" --name alpha-confidence --dir confidence-evidence
+          tar -czf dist/confidence-evidence.tar.gz confidence-evidence
+          tar -czf dist/example-evidence.tar.gz -C promoted example-evidence
       - name: Record artifact hashes
         working-directory: dist
         run: sha256sum *.whl *.tar.gz *.xml > SHA256SUMS

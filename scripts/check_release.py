@@ -17,7 +17,7 @@ successful = [r for r in runs if r['conclusion'] == 'success' and r['headSha'] =
 assert successful, 'both platform CI jobs must pass on the release commit'
 run_id = successful[0]['databaseId']
 jobs = json.loads(subprocess.check_output(['gh', 'run', 'view', str(run_id), '--json', 'jobs'], text=True))['jobs']
-assert all(any(j['name'] == name and j['conclusion'] == 'success' for j in jobs) for name in ('test (ubuntu-latest)', 'test (macos-latest)')), 'required platform jobs did not pass'
+assert all(any(j['name'] == name and j['conclusion'] == 'success' for j in jobs) for name in ('test (ubuntu-latest)', 'test (macos-latest)', 'confidence')), 'required platform and confidence jobs did not pass'
 with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
     output.write(f'ci_run_id={run_id}\n')
 assert not subprocess.check_output(['git', 'status', '--porcelain'], text=True), 'checkout must be clean'

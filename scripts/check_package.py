@@ -28,11 +28,11 @@ with tempfile.TemporaryDirectory() as directory:
     python = root / 'env/bin/python'
     subprocess.run([str(python), '-m', 'pip', 'install', '--disable-pip-version-check', str(wheel.resolve())], check=True)
     env = {k: v for k, v in os.environ.items() if not k.startswith('PYTHON')}
-    for adapter in ('retry', 'celery_retry'):
-        p = subprocess.run([str(python), '-m', 'workflow_sim.cli', f'workflow_sim.examples.{adapter}:build', '--duration', '10'], cwd=root, env=env, check=True, capture_output=True, text=True)
+    for adapter in ('retry', 'celery_retry', 'billing', 'fulfillment', 'ingestion', 'documents', 'monitoring', 'meetings'):
+        p = subprocess.run([str(python), '-m', 'workflow_sim.cli', f'workflow_sim.examples.{adapter}:build', '--duration', '12'], cwd=root, env=env, check=True, capture_output=True, text=True)
         result = json.loads(p.stdout)
         assert result['outcome'] == 'PASS', result
-        assert result['evidence']['checks'][0]['actual'] == result['evidence']['checks'][0]['expected']
+        assert all(c['actual'] == c['expected'] for c in result['evidence']['checks'])
     (root / 'broken.json').write_text('{"broken":true}')
     p = subprocess.run([str(python), '-m', 'workflow_sim.cli', 'workflow_sim.examples.retry:build', '--duration', '10', '--inputs', 'broken.json'], cwd=root, env=env, capture_output=True, text=True)
     assert p.returncode == 1 and json.loads(p.stdout)['outcome'] == 'ASSERTION_FAILED'
