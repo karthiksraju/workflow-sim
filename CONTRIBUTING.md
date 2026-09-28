@@ -37,3 +37,13 @@ migration notes when behavior changes. Keep the runtime free of application impo
 requirements-dev.lock`; review upgrades and rerun both platforms. Consumers use
 the bounded dependencies in pyproject.toml. A lock refresh is not proof that every
 version in those bounds works.
+
+## Confidence gates
+
+Run `python scripts/check_examples.py --output /tmp/workflow-examples` and
+`python scripts/check_mutations.py --output /tmp/workflow-mutations`. Linux CI also
+runs shared task bodies on real prefork Celery with isolated Redis; see
+[reproduction commands and limits](docs/confidence.md). These reusable gates are
+part of the library; generated results and disposable mutation environments stay
+outside the source tree. New domain examples need fixed and broken controls,
+fixture provenance, exact state/content checks and a documented boundary contract.

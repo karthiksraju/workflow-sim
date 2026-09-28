@@ -1,5 +1,25 @@
 # Alpha validation
 
+## Alpha 3 confidence expansion
+
+The six [domain examples](examples.md) each pass with the correction and fail
+with the deliberate bug. The expanded installed-wheel suite has **325 tests**,
+including Hypothesis comparisons with ordinary asyncio and independent lifecycle
+models. [CI for the expanded gates](https://github.com/karthiksraju/workflow-sim/actions/runs/36466009256)
+adds actual Linux prefork/Redis comparison and targeted runtime mutations.
+
+Locally, all four shared Celery programs match their expected real-worker effects,
+including actual child-process loss and redelivery. All six curated simulator
+defects cause assertion failures after a passing baseline. The
+[confidence guide](confidence.md) explains each oracle, reproduction command and
+limitation. Exact release CI and hashes are recorded with the release artifacts.
+
+No execution module changed from alpha 2; only the package version and new example
+modules differ. This expands validation and onboarding, not the modeled execution
+features. Historical application results below remain scoped to their original
+revisions. The six new examples are synthetic, not independent production
+integrations across six domains.
+
 ## Alpha 2 adversarial corrections
 
 All eleven independently reproduced review findings are corrected. **316 tests**

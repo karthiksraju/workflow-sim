@@ -1,31 +1,38 @@
-Internal alpha 2 for CPython 3.12 on Linux and macOS. This corrects all eleven
-verified findings from the independent review of alpha 1.
+Internal alpha 3 for CPython 3.12 on Linux and macOS.
 
-- Account for asynchronous descendants, unobserved errors and thread ownership.
-- Preserve Celery retry continuations, signature options and original delivery
-  payloads; report publication failures and unsupported operations.
-- Disarm completed task deadlines, invalidate stale CLI output on parse errors,
-  and include the contributor lock in the source distribution.
-- Keep async bridge ownership and coroutine handoff atomic with the scheduler.
+Six domain workflows are ready to run: billing, fulfillment, ingestion, document/AI
+processing, monitoring and meetings. Every example includes a deliberately broken
+control and assertions about resulting content/state. See the
+[illustrated catalog](https://github.com/karthiksraju/workflow-sim/blob/v0.1.0a3/docs/examples.md)
+and [tester guide](https://github.com/karthiksraju/workflow-sim/blob/v0.1.0a3/docs/try-the-alpha.md).
 
-Validation: 316 installed-package tests pass on Linux and macOS; all 19 original
-reviewer witnesses/controls pass their corrected expectations. Old-code negative
-controls demonstrate the regressions. Consumer validation includes 976 passing
-tests and six strict application xfails on the initial correction, followed by
-192 affected-module tests and all 102 scenarios on the final bridge fix. Business
-assertions, health verdicts and application state are preserved. See [validation](https://github.com/karthiksraju/workflow-sim/blob/main/docs/validation.md)
-for consumer results, exact revisions and remaining model limits.
+Release gates require:
 
-Upgrade to `v0.1.0a2` and rerun scenarios. Do not reinterpret archived alpha 1
-verdicts: they lack the corrected execution evidence. The public API and result
-schema 1 remain unchanged; verdicts, deadline events and frozen task IDs may change.
-See [migration](https://github.com/karthiksraju/workflow-sim/blob/main/docs/alpha2.md).
+- 325 installed-package tests on each supported OS, including generated asyncio
+  comparisons and child lifecycle checks.
+- Six fixed examples passing and six broken controls failing their intended checks.
+- Four shared Celery task programs matching actual Linux prefork/Redis behavior,
+  including worker-loss redelivery and original-payload preservation.
+- Six targeted simulator mutations caught by behavioral assertions after a passing
+  baseline. This is a curated campaign, not a whole-project mutation score.
+- Strict package metadata and minimal dependency installation checks.
 
-This is a trusted-adapter testing runtime. PASS establishes the supplied assertions
-in that model, not live provider/broker/database correctness. The same nine known
-application failures remain visible in the meeting consumer.
+The execution runtime is byte-identical to alpha 2, apart from the package version.
+Result schema remains 1. The new examples and Redis development dependency do not
+change the runtime dependency set. Existing alpha 2 adapters need no migration.
+Alpha 1 users should read the
+[alpha 2 corrections](https://github.com/karthiksraju/workflow-sim/blob/v0.1.0a3/docs/alpha2.md)
+and regenerate their evidence.
 
-Private distribution only; public licensing/visibility remains pending. These
-assets are promoted from the exact release commit's CI, without rebuilding.
-From the downloaded asset directory, run `sha256sum -c SHA256SUMS`
+Examples are synthetic reference workflows, not six production integrations.
+Meeting consumer integration evidence is recorded separately. Real-worker checks
+cover the recorded Celery/Redis/JSON configuration; they do not certify every
+broker, provider or database. A modeled crash remains visible as HARNESS_ERROR
+while recovery effects are checked independently. See
+[confidence and limits](https://github.com/karthiksraju/workflow-sim/blob/v0.1.0a3/docs/confidence.md).
+
+Private distribution only; public licensing/visibility remains pending. Artifacts
+are promoted from the exact release commit's CI, without rebuilding. Evidence
+archives include full example results, real-worker records/logs and mutation
+reports. From the downloaded asset directory, run `sha256sum -c SHA256SUMS`
 (or `shasum -a 256 -c SHA256SUMS` on macOS).
