@@ -17,3 +17,10 @@ Unverified external contracts include live Celery brokers, databases, provider
 APIs and production captures. The inherited meeting simulator's known product
 counterexamples are not library bugs fixed by this extraction. The library does
 not expand provider contract coverage merely by becoming installable.
+
+First hosted CI exposed the inherited 500 ms total watchdog on a 10,000-iteration
+zero-delay stress test (macOS runner: 262 pass, one timeout). That is an accidental
+throughput threshold, not the timer contract. Only this stress case now has a
+5-second wall bound; the exact no-time-advance/yield-order checks remain. Added
+negative controls that shift normalized timers by 1 microsecond (must fail those
+assertions) and stall a coroutine (must hit the unchanged default watchdog).

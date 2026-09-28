@@ -92,7 +92,7 @@ def test_seam_and_time_machine_agree_after_any_advances(seq):
     assert seam.installed() is None
 
 
-def _run_with_watchdog(coro_factory):
+def _run_with_watchdog(coro_factory, *, wall_timeout=WATCHDOG_S):
     """Run the coroutine in a worker thread; every event loop is on virtual time
     while the clock is installed, so the watchdog must be a real thread timer."""
     box = {}
@@ -105,9 +105,9 @@ def _run_with_watchdog(coro_factory):
 
     t = threading.Thread(target=target, daemon=True)
     t.start()
-    t.join(WATCHDOG_S)
+    t.join(wall_timeout)
     if t.is_alive():
-        raise TimeoutError(f"no progress within {WATCHDOG_S}s wall")
+        raise TimeoutError(f"coroutine exceeded {wall_timeout}s wall budget")
     if "error" in box:
         raise box["error"]
     return box.get("value")

@@ -32,7 +32,7 @@ from hypothesis import strategies as st
 from workflow_sim import runtime as asyncio_compat
 from workflow_sim.clock import MAX_ELAPSED_US, ClockRangeError, VirtualClock, range_error
 from workflow_sim.engine import Engine
-from test_prop_clock import _run_with_watchdog
+from test_prop_clock import _run_with_watchdog, WATCHDOG_S
 
 T0 = datetime(2099, 1, 1, 9, 0, tzinfo=timezone.utc)
 US = timedelta(microseconds=1)
@@ -62,13 +62,13 @@ def absolute_due_us(w):
     return round((Fraction(w) - Fraction(LOOP_EPOCH)) * 10**6)
 
 
-def standalone(main, start=T0, elapsed=timedelta(0)):
+def standalone(main, start=T0, elapsed=timedelta(0), *, wall_timeout=WATCHDOG_S):
     """Run ``main(vc)`` on a standalone (autojump) clock under the real-time watchdog,
     after moving the clock ``elapsed`` past its start (jumps recorded after that)."""
     with VirtualClock(start) as vc:
         vc.advance_by(elapsed)
         vc.jumps.clear()
-        out = _run_with_watchdog(lambda: main(vc))
+        out = _run_with_watchdog(lambda: main(vc), wall_timeout=wall_timeout)
     return out, vc
 
 
@@ -244,7 +244,9 @@ def test_a_delay_that_rounds_to_zero_yields_once_and_does_not_advance_time():
             await asyncio.sleep(1e-7)
         return events
 
-    events, vc = standalone(main)
+    # The 10,000-iteration stress check is not a 500ms throughput promise.
+    # Keep exact time/order assertions; allow slower shared CI hosts.
+    events, vc = standalone(main, wall_timeout=5)
     assert all(at == 0 for *_, at in events) and vc.jumps == []
     labels = [e[0] for e in events]
     assert labels.index("zero") < len(labels) - 1 - labels[::-1].index("tiny"), events  # tiny yielded
@@ -638,3 +640,31 @@ def test_an_engine_horizon_beyond_the_supported_range_fails_explicitly():
     assert report.stop_reason == "horizon" and e.clock.now() == T0 + MAX_ELAPSED
 
 
+
+
+def test_zero_delay_assertions_detect_a_one_microsecond_timer_mutation(monkeypatch):
+    """Negative control: delaying every normalized timer must fail the time oracle."""
+    from workflow_sim import clock
+    original = clock._real_call_at
+    def delayed(loop, when, callback, *args, context=None):
+        return original(loop, when + 1e-6, callback, *args, context=context)
+    monkeypatch.setattr(clock, '_real_call_at', delayed)
+    with pytest.raises(AssertionError):
+        test_a_delay_that_rounds_to_zero_yields_once_and_does_not_advance_time()
+
+
+def test_watchdog_still_rejects_a_stalled_coroutine(tmp_path):
+    source = '''import asyncio, sys
+from pathlib import Path
+sys.path.insert(0, sys.argv[1])
+from test_prop_clock import _run_with_watchdog
+try:
+ _run_with_watchdog(lambda: asyncio.Event().wait())
+except TimeoutError:
+ pass
+else:
+ raise AssertionError('watchdog accepted a stalled coroutine')
+'''
+    process = subprocess.run([sys.executable, '-c', source, str(Path(__file__).parent)],
+                             capture_output=True, text=True, timeout=10)
+    assert process.returncode == 0, process.stderr
