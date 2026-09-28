@@ -3,13 +3,14 @@
 Publish only after the owner chooses a license/distribution model and makes the
 repository or a tester-access route available. The current repository is private.
 
-## Short post
+## First post
 
 I'm building workflow-sim: test Python async/Celery workflows with virtual time,
-retries and injected failures, then check what they actually wrote or delivered.
+retries and failures, then check what they wrote or delivered.
 
-Looking for alpha testers working on billing, fulfillment, data pipelines, AI
-processing, monitoring or meetings. CPython 3.12, Linux/macOS.
+Looking for alpha testers. Six runnable examples. CPython 3.12, Linux/macOS.
+
+[Add the accessible project link here.]
 
 ## Follow-up / landing-page copy
 

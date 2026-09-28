@@ -17,12 +17,16 @@ visibility are explicitly settled.
 - [x] CI gates and promoted evidence artifacts for package, examples and confidence.
 - [x] Illustrated example catalog, architecture/validation updates, migration notes,
   contributor/testing recipes, issue intake and a factual launch-post draft.
-- [ ] Clean installed-package Linux/macOS validation; verify confidence reports and
+- [x] Clean installed-package Linux/macOS validation; verify confidence reports and
   preserve exact versions, code hashes, commands and external-contract limitations.
-- [ ] Publish verified private alpha 3 and update the consumer pin if runtime
+- [x] Publish verified private alpha 3 and update the consumer pin if runtime
   identity is preserved. No production merge/deploy, external messages or public
   visibility changes are part of preparation.
 
 Tests and confidence scripts are explicitly requested deliverables for this
 launch. Keep transient harnesses, raw local logs and mutation worktrees outside the
 repository; maintain the reusable regression/CI gates in the library.
+
+Completed as private `v0.1.0a3`; see the [release evidence index](validation/alpha3-release.json).
+The public launch still requires an owner decision on licensing and access. The
+launch draft is prepared; no external message or visibility change was made.

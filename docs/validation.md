@@ -5,14 +5,17 @@
 The six [domain examples](examples.md) each pass with the correction and fail
 with the deliberate bug. The expanded installed-wheel suite has **325 tests**,
 including Hypothesis comparisons with ordinary asyncio and independent lifecycle
-models. [CI for the expanded gates](https://github.com/karthiksraju/workflow-sim/actions/runs/36466009256)
+models. [CI for the expanded gates](https://github.com/karthiksraju/workflow-sim/actions/runs/36466471383)
 adds actual Linux prefork/Redis comparison and targeted runtime mutations.
 
 Locally, all four shared Celery programs match their expected real-worker effects,
 including actual child-process loss and redelivery. All six curated simulator
 defects cause assertion failures after a passing baseline. The
 [confidence guide](confidence.md) explains each oracle, reproduction command and
-limitation. Exact release CI and hashes are recorded with the release artifacts.
+limitation. The [release evidence index](validation/alpha3-release.json) records exact CI,
+artifact hashes, four worker comparisons, 17 passing mutation-baseline cases, six
+detected defects and the 126 passing focused consumer checks. Full reports are
+attached to the [private alpha 3 release](https://github.com/karthiksraju/workflow-sim/releases/tag/v0.1.0a3).
 
 No execution module changed from alpha 2; only the package version and new example
 modules differ. This expands validation and onboarding, not the modeled execution
