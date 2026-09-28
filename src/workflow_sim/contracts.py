@@ -122,4 +122,15 @@ def validate_result(result, request, attempt):
         raise ValueError('result has no evidence')
     if not isinstance(result['provenance'], dict) or not result['provenance'].get('library_sha256'):
         raise ValueError('missing runtime provenance')
+    source = result['provenance']
+    files = source.get('library_files')
+    if type(files) is not dict or not files or source['library_sha256'] != digest(files):
+        raise ValueError('runtime provenance digest mismatch')
+    if source.get('configuration') != configuration(request):
+        raise ValueError('runtime configuration mismatch')
     return result
+
+
+def configuration(request):
+    """Non-payload reproduction settings; input data remains caller-owned."""
+    return {k: request[k] for k in ('adapter', 'duration', 'seed', 'max_steps')}

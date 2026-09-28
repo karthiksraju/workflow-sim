@@ -79,7 +79,9 @@ invalid CLI input removes the prior output instead of leaving an old PASS behind
 
 `evidence_sha256` excludes the fresh attempt ID and host provenance, so repetitions
 can be compared. Provenance includes library version, hashes of installed Python
-source files, interpreter/platform and runtime dependency versions. The adapter
+source files, interpreter/platform, runtime dependency versions and the adapter/seed/duration/step
+configuration (inputs are not copied). The parent also binds the worker library
+hash to its own installed source. The adapter
 module hash covers **only that module**, not its imports, data or external services.
 Record your application's immutable revision and fixture identity alongside results.
 Hashes detect changes; they are not signatures or attestations against hostile code.

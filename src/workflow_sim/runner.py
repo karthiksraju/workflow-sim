@@ -16,7 +16,7 @@ import uuid
 
 from .provenance import provenance
 from .contracts import (SCHEMA_VERSION, MAX_OUTPUT_BYTES, MAX_RESULT_BYTES,
-                        digest, encode, validate_request, validate_result)
+                        digest, encode, validate_request, validate_result, configuration)
 
 
 def run(adapter: str, *, inputs: dict | None = None, duration: float = 60,
@@ -40,7 +40,7 @@ def run(adapter: str, *, inputs: dict | None = None, duration: float = 60,
     attempt = str(uuid.uuid4())
     base = {'schema_version': SCHEMA_VERSION, 'attempt': attempt, 'request_sha256': digest(request),
             'outcome': 'HARNESS_ERROR', 'evidence': None, 'evidence_sha256': None,
-            'provenance': provenance(), 'error': None}
+            'provenance': {**provenance(), 'configuration': configuration(request)}, 'error': None}
     with tempfile.TemporaryDirectory(prefix='workflow-sim-') as directory:
         root = Path(directory)
         (root / 'request.json').write_bytes(encode(request))
@@ -92,7 +92,10 @@ def run(adapter: str, *, inputs: dict | None = None, duration: float = 60,
             if path.stat().st_size > MAX_RESULT_BYTES:
                 raise ValueError('result exceeds 8 MB')
             result = json.loads(path.read_bytes())
-            return validate_result(result, request, attempt)
+            validate_result(result, request, attempt)
+            if result['provenance']['library_sha256'] != base['provenance']['library_sha256']:
+                raise ValueError('worker loaded a different library source')
+            return result
         except (OSError, ValueError, TypeError, KeyError) as exc:
             base['error'] = f'invalid worker result: {type(exc).__name__}: {exc}'
             return base

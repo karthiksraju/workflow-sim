@@ -240,6 +240,8 @@ def test_a_delay_that_rounds_to_zero_yields_once_and_does_not_advance_time():
                 await asyncio.sleep(0)
                 events.append(("zero", i, at_us(vc.now())))
         await asyncio.gather(tiny(), zero())
+        # Catch a wrong deadline before running the throughput stress tail.
+        assert all(at == 0 for *_, at in events) and vc.jumps == []
         for _ in range(10_000):              # and many in a row finish promptly
             await asyncio.sleep(1e-7)
         return events

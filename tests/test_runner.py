@@ -190,3 +190,27 @@ def build(c):
 ''')
     assert result['outcome'] == 'UNSUPPORTED'
     assert 'blocks subprocess' in result['error']
+
+
+def test_timeout_reaps_worker_before_delayed_filesystem_effect(tmp_path):
+    marker = tmp_path / 'must-not-exist'
+    pidfile = tmp_path / 'worker-pid'
+    result = adapter(tmp_path, f'''import asyncio, os, time
+from pathlib import Path
+def build(c):
+ Path({str(pidfile)!r}).write_text(str(os.getpid()))
+ def delayed():
+  time.sleep(2)
+  Path({str(marker)!r}).write_text('escaped worker')
+ async def task():
+  await asyncio.to_thread(delayed)
+ c.at(0, 'delayed effect', task)
+ c.expect('ok', lambda: 1, 1)
+''', wall_timeout=1)
+    assert result['outcome'] == 'INCOMPLETE'
+    import os
+    with pytest.raises(ProcessLookupError):
+        os.kill(int(pidfile.read_text()), 0)
+    time.sleep(1.2)
+    assert not marker.exists()
+    assert result['provenance']['configuration']['seed'] == 0

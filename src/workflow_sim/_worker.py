@@ -15,7 +15,7 @@ from dataclasses import asdict
 from datetime import datetime, timedelta, timezone
 
 from .provenance import provenance
-from .contracts import SCHEMA_VERSION, MAX_RESULT_BYTES, digest, encode, validate_request, verdict
+from .contracts import SCHEMA_VERSION, MAX_RESULT_BYTES, digest, encode, validate_request, verdict, configuration
 
 
 
@@ -43,7 +43,7 @@ def execute(request, attempt, project, scratch):
     result = {'schema_version': SCHEMA_VERSION, 'attempt': attempt,
               'request_sha256': digest(request), 'outcome': 'HARNESS_ERROR',
               'evidence': None, 'evidence_sha256': None, 'error': None,
-              'provenance': provenance()}
+              'provenance': {**provenance(), 'configuration': configuration(request)}}
     violations = []
     guard(violations)
     try:
