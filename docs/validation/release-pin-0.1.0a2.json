@@ -1,0 +1,135 @@
+{
+  "tag": "v0.1.0a2",
+  "source_revision": "5ff6edc5342e9d9d2ff3334db2e04abb81a50b67",
+  "ci_run": "https://github.com/karthiksraju/workflow-sim/actions/runs/36453594191",
+  "release_workflow": "https://github.com/karthiksraju/workflow-sim/actions/runs/36453853678",
+  "release_url": "https://github.com/karthiksraju/workflow-sim/releases/tag/v0.1.0a2",
+  "private": true,
+  "assets": {
+    "workflow_sim-0.1.0a2-py3-none-any.whl": "c764612feec8d86334d81d90235944385cc188063f8cf707eea2d2cc1bd5c419",
+    "test-results-macos.xml": "e986e3410c54f5171c929328631d02084c75a1acb1c8c56b8b34ff831ac3f013",
+    "workflow_sim-0.1.0a2.tar.gz": "5d8d9f2b9f160c55f84dd8efa788c90279ef891243a0198a263e670b892d59c5",
+    "SHA256SUMS": "f7ea0bc3c6d08c9edb0ddff44e86d909608974d645a45ed59c0559ad0e259882",
+    "test-results-linux.xml": "8587f7d6e62269a12da5d2c340ccd76f447bf31c994e165826bbaa37cfa033a5"
+  },
+  "platform_reports": {
+    "test-results-macos.xml": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "316",
+        "time": "59.598",
+        "timestamp": "2026-09-28T16:48:05.870706+00:00",
+        "hostname": "sat12-bq166-e17fb4da-9d83-4f87-954c-a2a92f358ede-4222F99B206A.local"
+      }
+    ],
+    "test-results-linux.xml": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "316",
+        "time": "61.385",
+        "timestamp": "2026-09-28T16:48:01.987375+00:00",
+        "hostname": "runnervmtr4k5"
+      }
+    ]
+  },
+  "consumer_pin": {
+    "version": "0.1.0a2",
+    "filename": "workflow_sim-0.1.0a2-py3-none-any.whl",
+    "sha256": "c764612feec8d86334d81d90235944385cc188063f8cf707eea2d2cc1bd5c419",
+    "repository": "https://github.com/karthiksraju/workflow-sim",
+    "source_revision": "5ff6edc5342e9d9d2ff3334db2e04abb81a50b67",
+    "ci_run": "https://github.com/karthiksraju/workflow-sim/actions/runs/36453594191",
+    "kernel_files": {
+      "workflow_sim/__init__.py": "22b2dfcbb0f9f0c73af1b77252c98dd56cbe4eed81d8f59ed8bf631a6a723fa0",
+      "workflow_sim/clock.py": "a8380471e7eab950212afffeca6c0c6a9bf696426b00540c3a28ade2b17ce8b3",
+      "workflow_sim/engine.py": "082007993e7d217c8d3ae6af6d125130f7e856799749f3d5dd23da98c16b70db",
+      "workflow_sim/celery_driver.py": "66cf4555a00cb27e1aea86b331eaef199558624e3261c8a619ca0fe11774ee22",
+      "workflow_sim/ledger.py": "7ec7e5423aaa46ab58940ff90a90ffa2e1181d225340345f3382f224e59d2a08",
+      "workflow_sim/runtime.py": "d25292d61365ea66c6b65d3b44e3c5504707f799f3fc14069d54b63bf124acec",
+      "workflow_sim/time.py": "0d62e44fd6d49efe85dbafaf267d56c7b382cea6967e6a027175edcc84e788f8"
+    },
+    "tag": "v0.1.0a2",
+    "identical_runtime_in_validation_artifact": "0f51138469c61acb78aec4eb04859447d338d4b7fc859d0b2a4a4250e27b2315",
+    "validated_runtime_files": {
+      "workflow_sim/__init__.py": "22b2dfcbb0f9f0c73af1b77252c98dd56cbe4eed81d8f59ed8bf631a6a723fa0",
+      "workflow_sim/_worker.py": "3a907b8936f9891b9d0f83b9b04c0e1044f89f19baa92017a5b7fac8c96ed8d9",
+      "workflow_sim/celery_driver.py": "66cf4555a00cb27e1aea86b331eaef199558624e3261c8a619ca0fe11774ee22",
+      "workflow_sim/cli.py": "8bf2aad32671404e13865096ddb98100a2cce064792d76cf7b4780175e87436c",
+      "workflow_sim/clock.py": "a8380471e7eab950212afffeca6c0c6a9bf696426b00540c3a28ade2b17ce8b3",
+      "workflow_sim/context.py": "f3d86f8762eac82088d4e208dd9fa22d446198812cfb0e4ee3a78b3217b734cd",
+      "workflow_sim/contracts.py": "4d4d29acb2ef7533a6397877f89cad89ebd9defef4a96383d8a8867825a836dd",
+      "workflow_sim/engine.py": "082007993e7d217c8d3ae6af6d125130f7e856799749f3d5dd23da98c16b70db",
+      "workflow_sim/ledger.py": "7ec7e5423aaa46ab58940ff90a90ffa2e1181d225340345f3382f224e59d2a08",
+      "workflow_sim/provenance.py": "0247b4acc31f28314019b094551ad492d227af8d0c48812b98a7e7281b0d69f7",
+      "workflow_sim/py.typed": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "workflow_sim/runner.py": "5a34d5bcf4a9c84a6ce0277aab1c00c677936c30d86928682dd76035f632f43e",
+      "workflow_sim/runtime.py": "d25292d61365ea66c6b65d3b44e3c5504707f799f3fc14069d54b63bf124acec",
+      "workflow_sim/time.py": "0d62e44fd6d49efe85dbafaf267d56c7b382cea6967e6a027175edcc84e788f8",
+      "workflow_sim/examples/__init__.py": "5c0c998afa3299b0042f423437d50183cf157e428d29b1fe309cce26150f859c",
+      "workflow_sim/examples/celery_retry.py": "039825f1c67f5122c5444c5c806be445829e77bce16e2e61d76841ae3c9e9ef7",
+      "workflow_sim/examples/retry.py": "5a3e7302591b1123f491c35eb02f460fba067c8d1d84ad5d5332de3b52f63d75"
+    }
+  },
+  "consumer_revision": "515e7503a23b4bbfab0f63cf48cc1c17a717b379",
+  "fresh_github_tag_install": {
+    "version": "0.1.0a2",
+    "source_revision": "5ff6edc5342e9d9d2ff3334db2e04abb81a50b67",
+    "outcome": "PASS",
+    "checks": [
+      {
+        "actual": [
+          {
+            "amount": 1200,
+            "id": "invoice-42"
+          }
+        ],
+        "expected": [
+          {
+            "amount": 1200,
+            "id": "invoice-42"
+          }
+        ],
+        "name": "one durable delivery"
+      },
+      {
+        "actual": [
+          0,
+          1
+        ],
+        "expected": [
+          0,
+          1
+        ],
+        "name": "retried after lost acknowledgement"
+      }
+    ],
+    "evidence_sha256": "be8486d3a58c48593881561eeb7c9b2400561c3617fc853308dca33b53c75579"
+  },
+  "final_artifact_consumer_checks": {
+    "modules": [
+      "test_harness_manifest.py",
+      "test_clock_and_celery.py",
+      "test_oracle_evidence.py",
+      "test_proof_scripts.py::test_the_historical_2563_fix_is_a_proof",
+      "test_proof_scripts.py::test_the_historical_2563_after_run_with_an_edited_clock_seam_is_not_a_proof"
+    ],
+    "junit": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "50",
+        "time": "29.745",
+        "timestamp": "2026-09-28T22:21:05.482855+05:30",
+        "hostname": "karthiks-MacBook-Pro"
+      }
+    ]
+  }
+}

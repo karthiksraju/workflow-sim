@@ -25,3 +25,6 @@ See [validation](validation.md) for consumer evidence and [architecture](archite
 for the illustrated runtime/adapter boundary. Alpha 2 migration instructions are
 in [the correction notes](alpha2.md); alpha 1 remains available for reproduction.
 Public visibility and licensing remain owner decisions.
+
+[Private alpha 2](https://github.com/karthiksraju/workflow-sim/releases/tag/v0.1.0a2)
+is published. Its exact release artifacts and GitHub-tag installation are verified.

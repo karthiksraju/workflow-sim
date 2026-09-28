@@ -85,3 +85,26 @@ private repository’s branch-protection limitation.
 Twelve Mermaid diagrams across library and consumer documentation have been
 rendered. The new completion/ownership diagram was visually inspected, and local
 documentation links were checked.
+
+## Published alpha 2 artifacts
+
+[Private prerelease v0.1.0a2](https://github.com/karthiksraju/workflow-sim/releases/tag/v0.1.0a2)
+points to `5ff6edc5342e9d9d2ff3334db2e04abb81a50b67`. Both platform jobs passed all
+316 tests on that exact commit in
+[CI run 36453594191](https://github.com/karthiksraju/workflow-sim/actions/runs/36453594191).
+The release workflow promoted its tested artifacts without rebuilding. Downloaded
+wheel, sdist and both test reports passed every SHA256SUMS check. The source archive
+contains the exact tested dependency lock.
+
+Wheel SHA256: `c764612feec8d86334d81d90235944385cc188063f8cf707eea2d2cc1bd5c419`.
+Every runtime file matches the final `c9ba673` CI wheel used for the 192-test consumer
+run and 102-scenario comparison. A fresh virtual environment installed directly
+from the GitHub tag, verified its source commit, and ran outside the checkout:
+PASS, exactly one `invoice-42` for amount 1200, and attempts `[0, 1]`.
+
+[Release evidence index](validation/release-pin-0.1.0a2.json) records every asset
+hash, platform report, consumer pin and fresh-install result. The final release pin
+also passed **50 consumer checks** covering clock/Celery execution, evidence,
+provenance, a real historical before-fail/after-pass proof and rejection of that
+proof after clock-seam tampering. The integration branch is pushed and remains
+unmerged. Alpha 1 is unchanged.
