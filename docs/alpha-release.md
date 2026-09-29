@@ -10,15 +10,14 @@ Calendar-sensitive workflows can set `start_at` / `--start-at` with an explicit
 timezone. The origin is normalized to UTC and bound to verified configuration.
 The default remains 2099-01-01 UTC. See [migration and scope](https://github.com/karthiksraju/workflow-sim/blob/v0.1.0a4/docs/alpha4.md).
 
-Release promotion requires installed-wheel checks on Linux and macOS, clean
-minimal installation, six examples with broken controls, four actual Linux
-prefork/Redis comparisons and six targeted simulator mutations. The separate
-local stability acceptance harness and corpus/consumer evidence are recorded
-in the validation index; they are not additional permanent CI tests.
+Release gates cover installed packages on Linux/macOS, minimal installation,
+six examples with broken controls, four real prefork/Redis comparisons and six
+runtime mutations. The [verification report](https://github.com/karthiksraju/workflow-sim/blob/main/docs/validation/alpha4.md)
+also records local stability, corpus and consumer checks, which are separate from CI.
 
 Result schema remains 1 with an optional `start_at` configuration field. Existing
 adapters that omit the option retain the old request shape. Rerun evidence for
-previously unsupported publication paths; do not reinterpret archived PASS files.
+previously unaccounted publication paths; do not reinterpret archived PASS files.
 
 Six synthetic domain examples remain available. The independent corpus has 240
 input timelines and 36 implemented reference business cases; 204 business cases

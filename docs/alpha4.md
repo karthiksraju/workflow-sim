@@ -1,7 +1,7 @@
 # Alpha 4: publication accounting and calendar time
 
-Alpha 4 closes a silent publication gap and adds a configurable clock origin.
-The full queue-independent redesign remains separate.
+Alpha 4 rejects publication paths that previously escaped queue accounting and
+adds `start_at` for calendar-sensitive workflows. Queue independence is deferred.
 
 ```mermaid
 flowchart TD
@@ -55,8 +55,8 @@ isolation/restoration; timezone normalization; microsecond timers; absolute ETAs
 configuration tampering; and stale CLI output removal. Its synthetic fixtures use
 the installed Celery/Kombu producer APIs. The harness stays outside the library.
 
-The unchanged alpha 3 wheel fails 18 publication regression checks. This supplies
-an old-code negative control, not merely a green test of the new implementation.
+The same acceptance checks fail 18 publication regressions on the unchanged
+alpha 3 wheel, confirming they detect the original gap.
 The [verification report](validation/alpha4.md) records installed-wheel, corpus,
 mutation, real-worker and pinned consumer comparison results.
 

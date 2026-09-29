@@ -1,7 +1,7 @@
 # How we test the simulator
 
-Confidence comes from several independent checks. Each answers a different
-question; none proves every possible workflow or thread interleaving.
+We check the simulator against independent models, ordinary asyncio, real Celery
+workers and deliberately introduced defects. Each checks a bounded set of behavior.
 
 ```mermaid
 flowchart TD
@@ -102,11 +102,11 @@ succeed on the tagged commit; its evidence archives are included in SHA256SUMS.
 
 ## What we can responsibly claim
 
-We test real Python workflow code under a controlled time/failure model, verify
-observable outcomes, and challenge the model with independent references and
-deliberate defects. This is stronger evidence than a scenario count alone.
+Report which behaviors and contracts were checked, with their revisions and
+fixtures. A scenario count alone does not establish coverage.
 
-We do not claim production safety, exhaustive concurrency coverage, LLM answer
-quality, provider compatibility, or superiority to another simulator. A credible
-new adapter still needs a documented or sanitized real boundary fixture, a broken
-control, and a real integration check for the contracts it models.
+A new adapter needs a sourced boundary fixture, a broken control and an integration
+check for the modeled contract. These gates do not establish production safety,
+exhaustive concurrency coverage, model answer quality, provider compatibility or
+superiority to another simulator. Current results are in the
+[validation index](validation.md).

@@ -1,30 +1,28 @@
-# Launch copy — draft, not published
+# Launch copy (unpublished)
 
-Publish only after the owner chooses a license/distribution model and makes the
-repository or a tester-access route available. The current repository is private.
+Use after the owner approves distribution and a tester-access route. Replace the
+link placeholder before posting.
 
 ## First post
 
-I'm building workflow-sim: test Python async/Celery workflows with virtual time,
+I'm building workflow-sim to test Python async/Celery workflows with virtual time,
 retries and failures, then check what they wrote or delivered.
 
-Looking for alpha testers. Six runnable examples. CPython 3.12, Linux/macOS.
+Looking for alpha testers. Six examples to start from. Python 3.12, Linux/macOS.
 
-[Add the accessible project link here.]
+[Project link]
 
-## Follow-up / landing-page copy
+## Follow-up
 
-Six runnable examples each include a deliberate bug and a corrected version.
-The simulator is checked against ordinary asyncio and real Celery workers, plus
-tests that deliberately break the simulator itself.
+Bring one workflow and a failure that's hard to reproduce. Each example includes
+a deliberate bug so you can see whether its assertions catch the failure.
 
-Bring one workflow and one failure you struggle to reproduce. Start with the
-example closest to it, connect your real code, and tell us where setup or the
-results fall short.
+We compare the simulator with ordinary asyncio and real Celery workers, and test
+it with deliberately introduced defects. It models external systems; it doesn't
+prove production safety or explore every schedule. AI examples test orchestration,
+not answer quality.
 
-This is an alpha testing tool with modeled external systems. It does not prove
-production safety or explore every concurrency schedule. AI examples test workflow
-behavior, not model answer quality.
+Tell us where connecting your code or interpreting the result was difficult.
 
-Links after access is settled: [repository](https://github.com/karthiksraju/workflow-sim),
-[examples](examples.md), [tester guide](try-the-alpha.md), [evidence and limits](confidence.md).
+Links: [repository](https://github.com/karthiksraju/workflow-sim),
+[examples](examples.md), [tester guide](try-the-alpha.md), [evidence](confidence.md).

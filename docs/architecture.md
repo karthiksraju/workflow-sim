@@ -1,8 +1,8 @@
 # Architecture
 
-The library owns **when work runs and what evidence it produces**. The adapter
-owns **what the application does, how external systems respond, and what correct
-behavior means**. Both execute in a disposable worker process.
+The runtime controls when work runs and records its evidence. The adapter calls
+the application, models external responses and defines the assertions. Both run
+in a disposable worker process; the parent validates the result.
 
 ## Where each responsibility lives
 
@@ -31,10 +31,9 @@ flowchart TB
     Verify --> Result["Return result"]
 ```
 
-The parent never installs clock or Celery patches. The worker does. Normal runs,
-failed runs and interrupted runs all go through parent-owned process cleanup.
-This separates simulator state between tests; it does not restrict a trusted
-adapter's filesystem access or turn Python into a security sandbox.
+Clock and Celery patches stay in the worker. The parent cleans up its process
+group after success, failure or interruption. This separates test state, but
+leaves adapter filesystem access intact. See [security](../SECURITY.md).
 
 ## One run, from request to evidence
 
@@ -128,13 +127,12 @@ Private-alpha vendoring avoids distributing personal GitHub credentials to the
 application's CI and keeps historical proof runs bound to their executed bytes.
 A loader refuses a modified wheel or an already-imported package from another source.
 
-The meeting adapter stays in its application repository. The library includes six domain reference workflows and two
-small introductory examples, so a new workflow can use it without meeting code,
-customer fixtures, application configuration or test dependencies.
+The meeting adapter stays in its application repository. The library's six domain
+examples and two introductory examples run without meeting code or customer data.
 
 ## Code map and extension points
 
-| Concern | Source | Change it when… |
+| Concern | Source | When to change it |
 | --- | --- | --- |
 | Process lifecycle and limits | [runner.py](../src/workflow_sim/runner.py), [_worker.py](../src/workflow_sim/_worker.py) | Ownership or cleanup behavior changes. |
 | Adapter authoring | [context.py](../src/workflow_sim/context.py) | Two real consumers need a shared operation. |
@@ -144,11 +142,10 @@ customer fixtures, application configuration or test dependencies.
 | Evidence and identity | [ledger.py](../src/workflow_sim/ledger.py), [provenance.py](../src/workflow_sim/provenance.py) | Records omit or misattribute an observable fact. |
 | Application boundaries | Your adapter repository | A provider/storage contract or workflow changes. |
 
-Stable-for-this-alpha entrypoints are `run()` and the documented context methods.
-The advanced engine and application bindings remain experimental. A new backend,
-plugin registry or generalized storage model needs concrete consumers before it
-belongs here. See [the boundary decision](adr/0001-alpha-boundary.md) and
-[the exact API contract](contracts.md).
+`run()` and the documented context methods are the supported alpha API. Engine
+internals and application bindings remain experimental. Shared abstractions need
+concrete consumers; see the [boundary decision](adr/0001-alpha-boundary.md) and
+[API contract](contracts.md).
 
 ## How changes earn release confidence
 

@@ -1,147 +1,34 @@
-# Alpha validation
+# Validation and remaining gaps
 
-## Alpha 4 stability
+Alpha 4 has passed the checks below. Its [verification report](validation/alpha4.md)
+records the tested artifacts, revisions, commands and qualifications. These results
+support the modeled behavior; they do not certify arbitrary adapters or live systems.
 
-[Publication and calendar-origin verification](validation/alpha4.md) records
-platform checks, negative controls, the 2026-origin corpus rerun and the
-102-scenario comparison at an identical application revision.
-
-## Independent corpus evaluation
-
-The existing alpha 3 was exercised with all 240 independently authored input
-timelines on asyncio and Celery. A separate 36-case reference business subset
-passes its original assertions; 204 business cases still require domain adapters.
-See the [evaluation scope, findings and per-case index](validation/corpus-alpha3.md).
-This is additional evidence, not a claim that 240 business workflows passed.
-
-## Alpha 3 confidence expansion
-
-The six [domain examples](examples.md) each pass with the correction and fail
-with the deliberate bug. The expanded installed-wheel suite has **325 tests**,
-including Hypothesis comparisons with ordinary asyncio and independent lifecycle
-models. [CI for the expanded gates](https://github.com/karthiksraju/workflow-sim/actions/runs/36466471383)
-adds actual Linux prefork/Redis comparison and targeted runtime mutations.
-
-Locally, all four shared Celery programs match their expected real-worker effects,
-including actual child-process loss and redelivery. All six curated simulator
-defects cause assertion failures after a passing baseline. The
-[confidence guide](confidence.md) explains each oracle, reproduction command and
-limitation. The [release evidence index](validation/alpha3-release.json) records exact CI,
-artifact hashes, four worker comparisons, 17 passing mutation-baseline cases, six
-detected defects and the 126 passing focused consumer checks. Full reports are
-attached to the [private alpha 3 release](https://github.com/karthiksraju/workflow-sim/releases/tag/v0.1.0a3).
-
-No execution module changed from alpha 2; only the package version and new example
-modules differ. This expands validation and onboarding, not the modeled execution
-features. Historical application results below remain scoped to their original
-revisions. The six new examples are synthetic, not independent production
-integrations across six domains.
-
-## Alpha 2 adversarial corrections
-
-All eleven independently reproduced review findings are corrected. **316 tests**
-pass locally and in the installed-wheel Linux/macOS
-[final runtime CI](https://github.com/karthiksraju/workflow-sim/actions/runs/36448361137)
-at `c9ba673c373bffc7b076753d86815560719117df`. That adds 49 regressions and controls
-to the original 267 tests. The release workflow repeats the checks on the exact
-release commit and promotes those tested artifacts.
-
-| Evidence | Result | Scope |
+| Evidence | Result | Limit |
 | --- | --- | --- |
-| Old-code negative baseline | 22 failures, two controls passed | New regressions detect the original defects |
-| Final library suite | 316 passed on Linux and macOS | CPython 3.12, real scheduler/Celery/pool/process boundaries |
-| Original independent review adapters | 19 witnesses/controls pass corrected expectations | Unmodified review probes, final installed CI wheel |
-| Coroutine handoff stress | Old wheel runs a t=6 callback at t=8; correction passes | Real threads, frequent switching, injected crash; no scheduler mocks |
-| Packaging | Strict wheel/sdist metadata and minimal-install examples pass | Source archive includes the exact contributor lock |
+| Installed package | 325 tests on each of Linux and macOS | CPython 3.12 and the recorded dependencies |
+| Stability acceptance | 41 checks on each platform; old alpha 3 fails 18 publication checks | Separate local harness, not permanent CI |
+| Domain examples | Six corrected cases pass; six deliberate bugs fail | Synthetic workflows |
+| Real workers | Four Celery/Redis comparisons match expected effects | Recorded transport, versions and worker configuration |
+| Runtime mutations | Six existing and two stability-specific defects detected | Curated faults, not a whole-codebase mutation score |
+| Independent corpus | 1,026 expected outcomes, including 36 business cases | 204 of 240 business cases still need adapters |
+| Pinned consumer replay | All 102 outcomes preserved: 73 PASS, 29 known failures | Same application revision; application bugs remain |
+| Consumer suite | 976 passing cases and six strict xfails across the full run and corrected four-test rerun | Not one clean full-suite invocation |
 
-[Finding-to-fix map and migration](alpha2.md) explains the changed verdicts.
-[Original review replay index](validation/alpha2-review-replay.json) records each
-before/after verdict and evidence hash. Tests verify resulting content and pending
-work, not only success codes. Synthetic boundary fixtures use the real Celery 5.6.3
-producer API. Live brokers, provider schemas, databases and arbitrary application
-adapters remain outside these checks.
+[Confidence recipes](confidence.md) explain how to reproduce the permanent gates.
+Timeline execution, business assertions and live integration checks measure
+different things; their counts are not interchangeable.
 
-Unobserved asyncio error detection deliberately targets CPython 3.12. Public
-workers enforce strict ownership throughout adapter execution; the advanced
-in-process engine retains its explicit opt-in lifecycle guard for compatibility.
-This release does not extend the support matrix or claim every possible thread
-interleaving.
+## Historical evidence
 
-### Consumer regression checks
+- [Alpha 1 extraction](validation-alpha1.md): original comparisons, before the
+  independent review found runtime defects.
+- [Alpha 2 corrections](validation/alpha2.md): adversarial regressions, consumer
+  comparisons and published artifact identity.
+- [Alpha 3 release index](validation/alpha3-release.json): examples, generated
+  tests, worker comparisons, mutations and exact artifact hashes.
+- [Alpha 3 corpus evaluation](validation/corpus-alpha3.md): independent timelines,
+  the implemented business subset and calendar-origin limitations corrected in alpha 4.
 
-The final runtime wheel passed **192 consumer tests** in clock/Celery execution,
-engine conformance, pool ownership, evidence, harness provenance and historical
-proof modules. This includes real historical before-fail/after-pass execution and
-rejection of altered runtime/proof evidence. The
-[consumer check index](validation/alpha2-consumer-targeted.json) records the exact
-library and application revisions and wheel hashes.
-
-The final 102-scenario comparison at application `232666fd` uses that same runtime
-wheel. **All 102 outcomes, complete business checks, health verdicts and application
-state match** the prior alpha 1 candidate. All runs are execution-healthy.
-
-| Scenario set | Alpha 1 and alpha 2 | Gate |
-| --- | --- | --- |
-| Established, 31 | 28 PASS / 3 declared counterexamples | PASS |
-| Pending fixes, 32 | 23 PASS / 9 unresolved application failures | FAIL, preserved |
-| Calendar corpus, 39 | 22 PASS / 17 declared counterexamples | PASS |
-
-[Comparison index](validation/alpha2-meeting-comparison.json) records artifact and
-source identities, per-case assertion failures and raw-record hashes. The nine
-pending failures concern ASR fallback retry generations and reschedule CRM/email
-carryover; this library release does not fix those application policies.
-
-Execution records deliberately differ. Completed tasks cancel their deadline
-callbacks, reducing steps and clock jumps and removing stale pending limits.
-Three recorder cases' Celery records differ only in task IDs, because frozen
-continuation IDs now survive publication. Only seven ledger hashes are identical;
-we retain the original records rather than normalize away execution differences.
-
-The full consumer run completed with **976 passed and six strict application
-xfails** in 64.3 minutes, with no unexpected failures.
-All nine application policy mutations were caught. The
-[full-run index](validation/alpha2-consumer-full.json) records the expected xfails,
-mutation timings, artifact identity and raw JUnit hash.
-
-That full run used the initial alpha 2 wheel from `c7aadfc`; it preceded the final
-bridge ownership/handoff correction. The 192-test affected-module rerun and complete
-102-case comparison above use final runtime `c9ba673`. We do not label the older
-full run as testing the final bytes.
-
-The [alpha 1 extraction record](validation-alpha1.md) remains available for
-provenance. Its passing tests preceded the defects found by the independent review.
-
-## Distribution and limits
-
-The repository and release remain private. Public licensing and visibility remain
-owner decisions; no PyPI publishing or telemetry is enabled. The release workflow
-promotes the tested wheel and source archive with both platform reports and
-SHA256SUMS. See [release controls](releases.md) for compatibility policy and the
-private repository’s branch-protection limitation.
-
-Twelve Mermaid diagrams across library and consumer documentation have been
-rendered. The new completion/ownership diagram was visually inspected, and local
-documentation links were checked.
-
-## Published alpha 2 artifacts
-
-[Private prerelease v0.1.0a2](https://github.com/karthiksraju/workflow-sim/releases/tag/v0.1.0a2)
-points to `5ff6edc5342e9d9d2ff3334db2e04abb81a50b67`. Both platform jobs passed all
-316 tests on that exact commit in
-[CI run 36453594191](https://github.com/karthiksraju/workflow-sim/actions/runs/36453594191).
-The release workflow promoted its tested artifacts without rebuilding. Downloaded
-wheel, sdist and both test reports passed every SHA256SUMS check. The source archive
-contains the exact tested dependency lock.
-
-Wheel SHA256: `c764612feec8d86334d81d90235944385cc188063f8cf707eea2d2cc1bd5c419`.
-Every runtime file matches the final `c9ba673` CI wheel used for the 192-test consumer
-run and 102-scenario comparison. A fresh virtual environment installed directly
-from the GitHub tag, verified its source commit, and ran outside the checkout:
-PASS, exactly one `invoice-42` for amount 1200, and attempts `[0, 1]`.
-
-[Release evidence index](validation/release-pin-0.1.0a2.json) records every asset
-hash, platform report, consumer pin and fresh-install result. The final release pin
-also passed **50 consumer checks** covering clock/Celery execution, evidence,
-provenance, a real historical before-fail/after-pass proof and rejection of that
-proof after clock-seam tampering. The integration branch is pushed and remains
-unmerged. Alpha 1 is unchanged.
+Historical results remain tied to their original code and application revisions.
+For release checks and artifact promotion, use the [release process](releases.md).
