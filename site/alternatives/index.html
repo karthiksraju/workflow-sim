@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workflow-sim — landing page directions</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:,">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+html { background: #e9e9ec; color: #16161a; }
+body { margin: 0; font: 400 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid #4b3cf0; outline-offset: 3px; border-radius: 6px; }
+.wrap { max-width: 1440px; margin: 0 auto; padding: 44px clamp(16px, 4vw, 48px) 56px; }
+header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 12px 32px; }
+h1 { font-size: clamp(28px, 3.2vw, 40px); letter-spacing: -.03em; line-height: 1.05; margin: 0; }
+header p { margin: 8px 0 0; color: #55555f; max-width: 44em; }
+header a.old { font-size: 14px; color: #55555f; }
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-top: 32px; }
+.opt { background: #fff; border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 1px 0 rgba(0,0,0,.04), 0 20px 40px -28px rgba(0,0,0,.35); transition: transform .2s ease; }
+.opt:hover { transform: translateY(-3px); }
+.shot { position: relative; aspect-ratio: 1440 / 900; overflow: hidden; background: #ddd; display: block; }
+.shot iframe { position: absolute; top: 0; left: 0; width: 1440px; height: 900px; border: 0; transform-origin: 0 0; transform: scale(var(--s, .3)); pointer-events: none; }
+.body { padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.num { font: 600 12px/1 ui-monospace, "SF Mono", Menlo, monospace; letter-spacing: .1em; color: #77777f; }
+h2 { font-size: 24px; letter-spacing: -.02em; margin: 0; }
+.body p { margin: 0; color: #45454f; font-size: 15px; }
+.traits { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 0; padding: 0; list-style: none; }
+.traits li { font-size: 12.5px; padding: 4px 9px; border-radius: 99px; background: #f0f0f3; color: #45454f; }
+.open { margin-top: auto; padding-top: 10px; display: inline-flex; align-items: center; gap: 8px; font-weight: 650; text-decoration: none; width: fit-content; }
+.open::after { content: "→"; transition: transform .15s ease; }
+.open:hover::after { transform: translateX(3px); }
+.sw { display: inline-flex; gap: 5px; }
+.sw i { width: 14px; height: 14px; border-radius: 4px; display: block; box-shadow: inset 0 0 0 1px rgba(0,0,0,.12); }
+footer { margin-top: 30px; color: #66666f; font-size: 14px; }
+@media (max-width: 1100px) { .grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .opt, .open::after { transition: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Three landing page directions</h1>
+      <p>The same product story told three ways: a lost acknowledgement, a retry at two virtual seconds, one receipt or two. Open each one full-size to compare them on desktop and mobile.</p>
+    </div>
+    <a class="old" href="../">Current page, for reference</a>
+  </header>
+
+  <div class="grid">
+    <article class="opt">
+      <a class="shot" href="signal/" tabindex="-1" aria-hidden="true"><iframe src="signal/" title="Signal preview" loading="lazy" inert></iframe></a>
+      <div class="body">
+        <span class="num">01 · <span class="sw"><i style="background:#060709"></i><i style="background:#c6ff3d"></i><i style="background:#ff5a4e"></i><i style="background:#3df0a4"></i></span></span>
+        <h2>Signal</h2>
+        <p>A dark developer-tool launch. A heavy grotesk headline, then an animated two-lane scope showing both runs side by side on a virtual clock.</p>
+        <ul class="traits"><li>Dark</li><li>Animated diagram</li><li>System sans + mono</li></ul>
+        <a class="open" href="signal/">Open Signal</a>
+      </div>
+    </article>
+    <article class="opt">
+      <a class="shot" href="editorial/" tabindex="-1" aria-hidden="true"><iframe src="editorial/" title="Editorial preview" loading="lazy" inert></iframe></a>
+      <div class="body">
+        <span class="num">02 · <span class="sw"><i style="background:#f4efe6"></i><i style="background:#1c1915"></i><i style="background:#c13b22"></i><i style="background:#22674c"></i></span></span>
+        <h2>Editorial</h2>
+        <p>Warm paper, a serif headline and an asymmetric grid. The one visual is a pair of illustrated run "receipts", stamped Twice and Once.</p>
+        <ul class="traits"><li>Light, warm</li><li>Typography-led</li><li>Instrument Serif</li></ul>
+        <a class="open" href="editorial/">Open Editorial</a>
+      </div>
+    </article>
+    <article class="opt">
+      <a class="shot" href="playground/" tabindex="-1" aria-hidden="true"><iframe src="playground/" title="Playground preview" loading="lazy" inert></iframe></a>
+      <div class="body">
+        <span class="num">03 · <span class="sw"><i style="background:#eef0f8"></i><i style="background:#5b3df5"></i><i style="background:#d93036"></i><i style="background:#137a4b"></i></span></span>
+        <h2>Playground</h2>
+        <p>The demo is the hero. Switch the idempotency key, scrub virtual time, and watch the receipts and your checks change. Labeled as illustrative.</p>
+        <ul class="traits"><li>Interactive</li><li>Friendly, bright</li><li>Recursive</li></ul>
+        <a class="open" href="playground/">Open Playground</a>
+      </div>
+    </article>
+  </div>
+
+  <footer>Previews are live, scaled copies of each page. All three are static HTML in <code>site/alternatives/</code>; see its README.</footer>
+</div>
+<script>
+  const fit = () => document.querySelectorAll('.shot').forEach(s => s.style.setProperty('--s', s.clientWidth / 1440));
+  new ResizeObserver(fit).observe(document.body);
+  fit();
+</script>
+</body>
+</html>

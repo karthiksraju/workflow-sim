@@ -34,7 +34,7 @@ result files can contain application content; sanitize them before attaching the
 to issues. Every PR states what external contracts remain unverified.
 
 Update CHANGELOG and migration notes when behavior changes. Keep application
-imports in adapters. @karthiksraju owns review; check CI before merging because
+imports in adapters. @KarthikRaju391 owns review; check CI before merging because
 CODEOWNERS alone does not enforce approval.
 
 `uv.lock` is the single development lock. Development tools live in the `dev`

@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workflow-sim — the response was lost, the receipt wasn't</title>
+<meta name="description" content="workflow-sim runs your real Python asyncio and Celery workflows against modeled services, in virtual time, with the failures you choose, then checks what was actually written.">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="data:,">
+<link rel="preload" href="../assets/fonts/instrument-serif-regular.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family: "Instrument Serif"; src: url("../assets/fonts/instrument-serif-regular.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("../assets/fonts/instrument-serif-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+:root {
+  --paper: #f4efe6;
+  --paper-2: #ebe4d7;
+  --sheet: #fffdf8;
+  --ink: #1c1915;
+  --ink-2: #4f483f;
+  --ink-3: #736a5e;
+  --rule: #d8cfbf;
+  --red: #c13b22;
+  --green: #22674c;
+  --serif: "Instrument Serif", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  --pad: clamp(20px, 5vw, 80px);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--paper); color: var(--ink); -webkit-text-size-adjust: 100%; }
+body { margin: 0; font: 400 17px/1.6 var(--sans); overflow-x: hidden; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--red); outline-offset: 4px; border-radius: 2px; }
+.skip { position: absolute; left: -9999px; }
+.skip:focus { left: 12px; top: 12px; z-index: 5; background: var(--ink); color: var(--paper); padding: 8px 12px; }
+.wrap { max-width: 1360px; margin: 0 auto; padding: 0 var(--pad); }
+.grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(16px, 2vw, 32px); }
+.label { font: 500 12px/1.2 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
+
+/* masthead */
+.mast .wrap { display: flex; align-items: baseline; gap: 20px; padding-top: 28px; padding-bottom: 22px; border-bottom: 1px solid var(--rule); }
+.wordmark { font: 400 30px/1 var(--serif); text-decoration: none; letter-spacing: -.01em; }
+.wordmark i { color: var(--red); }
+.mast .meta { margin-left: auto; display: flex; gap: 28px; align-items: baseline; }
+.mast .meta a { font-size: 15px; text-decoration: none; border-bottom: 1px solid transparent; }
+.mast .meta a:hover { border-color: currentColor; }
+
+/* hero */
+.hero { padding: clamp(36px, 5vw, 72px) 0 clamp(60px, 8vw, 120px); overflow-x: clip; }
+.hero .grid { align-items: start; }
+.hero-copy { grid-column: 1 / span 7; }
+.hero h1 { font: 400 clamp(54px, 7.3vw, 110px)/.9 var(--serif); letter-spacing: -.025em; margin: 24px 0 0; }
+.hero h1 span { display: block; }
+.hero h1 em { color: var(--red); display: block; }
+.dek { font-size: clamp(18px, 1.4vw, 20px); line-height: 1.55; color: var(--ink-2); max-width: 32em; margin: 30px 0 0; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 28px; margin-top: 34px; }
+.pill { display: inline-flex; align-items: center; gap: 12px; background: var(--ink); color: var(--paper); text-decoration: none; font: 500 16px/1 var(--sans); padding: 18px 26px; border-radius: 999px; transition: background .2s ease, transform .2s ease; }
+.pill:hover { background: #000; transform: translateY(-1px); }
+.pill svg { width: 15px; height: 15px; }
+.textlink { font: 500 16px/1 var(--sans); text-decoration: none; display: inline-flex; gap: 10px; align-items: center; border-bottom: 1px solid var(--ink); padding-bottom: 6px; background: none; border-top: 0; border-left: 0; border-right: 0; color: var(--ink); cursor: pointer; }
+.textlink:hover { color: var(--red); border-color: var(--red); }
+
+/* receipts */
+.exhibit { grid-column: 8 / span 5; position: relative; margin: 8px 0 0; }
+.stack { position: relative; height: 670px; }
+.receipt { position: absolute; width: min(340px, 86%); filter: drop-shadow(0 18px 22px rgba(60,40,10,.18)) drop-shadow(0 2px 2px rgba(60,40,10,.08)); transition: transform .7s cubic-bezier(.2,.8,.2,1), z-index 0s .25s; }
+.paper { background: var(--sheet); padding: 26px 26px 38px; font: 400 13px/1.7 var(--mono); color: #2b2620;
+  -webkit-mask: linear-gradient(#000 0 0) top / 100% calc(100% - 12px) no-repeat, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / 16px 12px repeat-x;
+          mask: linear-gradient(#000 0 0) top / 100% calc(100% - 12px) no-repeat, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / 16px 12px repeat-x; }
+.receipt .head { text-align: center; letter-spacing: .18em; font-weight: 600; font-size: 12px; }
+.receipt .sub { text-align: center; color: var(--ink-3); font-size: 12px; }
+.receipt hr { border: 0; border-top: 1px dashed #bdb2a0; margin: 12px 0; }
+.receipt .row { display: flex; justify-content: space-between; gap: 12px; }
+.receipt .row span:first-child { color: var(--ink-3); }
+.receipt .ind { padding-left: 4ch; }
+.receipt .lost { color: var(--red); font-weight: 600; }
+.receipt .total { font-weight: 600; font-size: 14px; }
+.receipt .verdict { text-align: center; font-weight: 700; letter-spacing: .12em; font-size: 15px; margin-top: 6px; }
+.r-bug { top: 34px; left: 0; z-index: 2; transform: rotate(-4deg); }
+.r-fix { top: 154px; right: 0; z-index: 1; transform: rotate(3.5deg); }
+.r-bug .verdict { color: var(--red); }
+.r-fix .verdict { color: var(--green); }
+.stamp { position: absolute; font: 400 italic 30px/1 var(--serif); padding: 12px 18px 10px; border: 2.5px solid currentColor; border-radius: 8px; transform: rotate(-12deg); mix-blend-mode: multiply; pointer-events: none; letter-spacing: .01em; }
+.stamp small { display: block; font: 600 10px/1.3 var(--mono); letter-spacing: .14em; text-transform: uppercase; font-style: normal; margin-top: 4px; }
+.r-bug .stamp { color: var(--red); right: -46px; top: -26px; transform: rotate(11deg); }
+.r-fix .stamp { color: var(--green); right: -26px; bottom: -14px; transform: rotate(8deg); }
+.stack.swapped .r-bug { z-index: 1; transform: translate(-10px, 24px) rotate(-6deg); }
+.stack.swapped .r-fix { z-index: 2; transform: translate(-18px, -16px) rotate(1.5deg); }
+.exhibit figcaption { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; border-top: 1px solid var(--rule); padding-top: 14px; margin-top: 14px; font-size: 14px; color: var(--ink-3); }
+.swap { font: 500 14px/1 var(--sans); background: none; border: 0; border-bottom: 1px solid currentColor; padding: 0 0 4px; color: var(--ink); cursor: pointer; white-space: nowrap; }
+.swap:hover { color: var(--red); }
+
+/* method: staircase */
+.method { border-top: 1px solid var(--rule); padding: clamp(70px, 9vw, 130px) 0; }
+.method .label { grid-column: 1 / -1; margin: 0 0 clamp(36px, 5vw, 64px); }
+.stair { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: inherit; row-gap: clamp(40px, 5vw, 72px); }
+.stair .line { display: contents; }
+.stair h2 { font: 400 clamp(40px, 5.6vw, 88px)/.95 var(--serif); letter-spacing: -.02em; margin: 0; }
+.stair p { margin: 0; color: var(--ink-2); max-width: 30ch; align-self: end; padding-bottom: 8px; }
+.stair .l1 h2 { grid-column: 1 / span 6; }  .stair .l1 p { grid-column: 8 / span 4; }
+.stair .l2 h2 { grid-column: 3 / span 6; }  .stair .l2 p { grid-column: 9 / span 4; }
+.stair .l3 h2 { grid-column: 5 / span 8; }  .stair .l3 p { grid-column: 5 / span 5; align-self: start; margin-top: calc(24px - clamp(40px, 5vw, 72px)); }
+.stair h2 em { color: var(--red); }
+
+/* quote + index */
+.index { background: var(--paper-2); padding: clamp(70px, 9vw, 130px) 0; }
+.index blockquote { grid-column: 2 / span 10; margin: 0; font: 400 italic clamp(38px, 5.2vw, 80px)/1.02 var(--serif); letter-spacing: -.015em; text-align: center; text-wrap: balance; }
+.index .label { grid-column: 1 / -1; margin: clamp(60px, 8vw, 110px) 0 0; padding-bottom: 16px; border-bottom: 1px solid var(--ink); display: flex; justify-content: space-between; gap: 16px; }
+.entries { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(24px, 4vw, 72px); margin: 0; padding: 0; list-style: none; counter-reset: e; }
+.entries li { display: grid; grid-template-columns: 3.2em minmax(0, 1fr); column-gap: 12px; padding: 26px 0 28px; border-bottom: 1px solid var(--rule); counter-increment: e; }
+.entries li::before { content: counter(e, lower-roman) "."; font: 400 italic 26px/1.2 var(--serif); color: var(--red); }
+.entries h3 { font: 400 clamp(28px, 2.6vw, 38px)/1.05 var(--serif); margin: 0; letter-spacing: -.01em; }
+.entries p { grid-column: 2; margin: 8px 0 0; color: var(--ink-2); }
+
+/* film */
+.film { padding: clamp(70px, 9vw, 130px) 0; }
+.film .grid { align-items: end; }
+.film .cap { grid-column: 1 / span 3; }
+.film .cap h2 { font: 400 clamp(36px, 3.6vw, 54px)/1 var(--serif); margin: 14px 0 14px; }
+.film .cap p { margin: 0; color: var(--ink-2); font-size: 15px; }
+.film .frame { grid-column: 5 / span 8; background: #000; box-shadow: 0 30px 70px -40px rgba(40,25,5,.6); }
+.film video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; }
+
+/* close */
+.close { border-top: 1px solid var(--ink); padding: clamp(70px, 10vw, 150px) 0 clamp(60px, 8vw, 110px); }
+.close h2 { grid-column: 1 / span 8; font: 400 clamp(52px, 8vw, 128px)/.9 var(--serif); letter-spacing: -.025em; margin: 0; }
+.close h2 em { color: var(--red); }
+.close .side { grid-column: 9 / span 4; align-self: end; }
+.close .side p { margin: 0 0 26px; color: var(--ink-2); }
+
+footer .wrap { border-top: 1px solid var(--rule); padding-top: 22px; padding-bottom: 36px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 32px; font-size: 13px; color: var(--ink-3); }
+footer p { margin: 0; }
+
+/* entrance */
+@media (prefers-reduced-motion: no-preference) {
+  .r-bug { animation: drop .9s cubic-bezier(.2,.8,.2,1) .15s backwards; }
+  .r-fix { animation: drop2 .9s cubic-bezier(.2,.8,.2,1) .35s backwards; }
+  .stamp { animation: stamp .35s cubic-bezier(.3,1.6,.5,1) 1.15s backwards; }
+  .r-fix .stamp { animation-delay: 1.35s; }
+  @keyframes drop { from { opacity: 0; transform: translateY(-30px) rotate(-9deg); } }
+  @keyframes drop2 { from { opacity: 0; transform: translateY(-30px) rotate(8deg); } }
+  @keyframes stamp { from { opacity: 0; transform: scale(1.35) rotate(-20deg); } }
+}
+@media (prefers-reduced-motion: reduce) {
+  .receipt { transition: none; }
+}
+
+@media (max-width: 1080px) {
+  .hero-copy { grid-column: 1 / -1; }
+  .exhibit { grid-column: 1 / -1; margin-top: 64px; max-width: 620px; justify-self: center; width: 100%; }
+  .stack { height: 600px; }
+  .film .cap { grid-column: 1 / -1; margin-bottom: 28px; }
+  .film .frame { grid-column: 1 / -1; }
+  .close h2 { grid-column: 1 / -1; }
+  .close .side { grid-column: 1 / span 8; margin-top: 36px; }
+}
+@media (max-width: 760px) {
+  .mast .meta .hide-s { display: none; }
+  .stair .line > * { grid-column: 1 / -1 !important; }
+  .stair p { padding: 0; }
+  .stair .line h2 { margin-bottom: -24px; }
+  .stair .l2 h2 { padding-left: 8%; } .stair .l2 p { padding-left: 8%; }
+  .stair .l3 h2 { padding-left: 16%; } .stair .l3 p { padding-left: 16%; }
+  .entries { grid-template-columns: 1fr; }
+  .index blockquote { grid-column: 1 / -1; }
+  .close .side { grid-column: 1 / -1; }
+  .hero h1 { font-size: 15vw; }
+  .stack { height: 540px; }
+  .receipt { width: 86%; }
+  .paper { padding: 20px 18px 32px; font-size: 12px; }
+  .r-bug { top: 0; left: 0; }
+  .r-fix { top: 34px; right: 0; }
+  .stack.swapped .r-bug { transform: translate(0, 10px) rotate(-5deg); }
+  .stack.swapped .r-fix { transform: translate(-6%, -24px) rotate(1deg); }
+  .stamp { font-size: 24px; }
+  .r-bug .stamp { right: auto; left: -4px; top: auto; bottom: -50px; transform: rotate(-8deg); }
+  .r-fix .stamp { bottom: -40px; }
+  .stamp { transition: opacity .3s ease; }
+  .stack:not(.swapped) .r-fix .stamp, .stack.swapped .r-bug .stamp { opacity: 0; }
+  .stack { height: 580px; }
+  .r-fix .stamp { right: -4px; }
+  .exhibit figcaption { flex-direction: column; }
+}
+@media (max-width: 360px) {
+  .paper { font-size: 11px; padding: 18px 14px 30px; }
+  .hero h1 { font-size: 50px; }
+  .pill { padding: 16px 20px; font-size: 15px; }
+  .stack { height: 500px; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="mast">
+  <div class="wrap">
+    <a class="wordmark" href="#main">workflow<i>-</i>sim</a>
+    <nav class="meta" aria-label="Primary">
+      <a class="hide-s" href="#method">Method</a>
+      <a class="hide-s" href="#examples">Examples</a>
+      <a class="hide-s" href="#film">Film</a>
+      <a href="#access">Private alpha</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" aria-labelledby="h1">
+    <div class="wrap grid">
+      <div class="hero-copy">
+        <p class="label">Failure testing for Python asyncio &amp; Celery workflows</p>
+        <h1 id="h1"><span>The response</span> <span>was lost.</span> <em>The receipt wasn't.</em></h1>
+        <p class="dek">When a retry meets a lost acknowledgement, good code quietly does things twice. workflow-sim runs your real workflow against modeled services, in virtual time, with the failures you choose, then checks what was actually written.</p>
+        <div class="actions">
+          <a class="pill" href="https://github.com/KarthikRaju391" rel="noopener">Private alpha · Find me on GitHub
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12L12 4M6 4h6v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a class="textlink" href="#film">Watch the 64-second film</a>
+        </div>
+      </div>
+
+      <figure class="exhibit" aria-labelledby="exhibit-cap">
+        <div class="stack" id="stack">
+          <div class="receipt r-bug" aria-label="Run with a new idempotency key per attempt: two receipts, assertion failed">
+            <div class="paper">
+            <div class="head">WORKFLOW-SIM</div>
+            <div class="sub">modeled run · billing</div>
+            <hr>
+            <div class="row"><span>invoice</span><span>in-42</span></div>
+            <div class="row"><span>customer</span><span>cus-7</span></div>
+            <div class="row"><span>amount</span><span>1200</span></div>
+            <hr>
+            <div>t 0.00  send receipt</div>
+            <div class="row ind"><span>key in-42:0</span><span>saved</span></div>
+            <div class="row ind"><span>acknowledgement</span><span class="lost">LOST</span></div>
+            <div>t 2.00  retry</div>
+            <div class="row ind"><span>key in-42:1</span><span>saved</span></div>
+            <hr>
+            <div class="row"><span>receipts expected</span><span>1</span></div>
+            <div class="row total"><span>receipts found</span><span>2</span></div>
+            <hr>
+            <div class="verdict">ASSERTION_FAILED</div>
+            </div>
+            <div class="stamp" aria-hidden="true">Twice.<small>new key per attempt</small></div>
+          </div>
+          <div class="receipt r-fix" aria-label="Run with the invoice ID as a stable key: one receipt, pass">
+            <div class="paper">
+            <div class="head">WORKFLOW-SIM</div>
+            <div class="sub">modeled run · billing</div>
+            <hr>
+            <div class="row"><span>invoice</span><span>in-42</span></div>
+            <div class="row"><span>customer</span><span>cus-7</span></div>
+            <div class="row"><span>amount</span><span>1200</span></div>
+            <hr>
+            <div>t 0.00  send receipt</div>
+            <div class="row ind"><span>key in-42</span><span>saved</span></div>
+            <div class="row ind"><span>acknowledgement</span><span class="lost">LOST</span></div>
+            <div>t 2.00  retry</div>
+            <div class="row ind"><span>key in-42</span><span>existing</span></div>
+            <hr>
+            <div class="row"><span>receipts expected</span><span>1</span></div>
+            <div class="row total"><span>receipts found</span><span>1</span></div>
+            <hr>
+            <div class="verdict">PASS</div>
+            </div>
+            <div class="stamp" aria-hidden="true">Once.<small>stable invoice ID</small></div>
+          </div>
+        </div>
+        <figcaption id="exhibit-cap">
+          <span>Illustrated: the billing example that ships with workflow-sim, run with the bug and with the fix.</span>
+          <button class="swap" type="button" id="swap" aria-pressed="false" aria-controls="stack">Bring the fix forward</button>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="method" id="method" aria-label="Method">
+    <div class="wrap grid">
+      <p class="label">The method, in the order it happens</p>
+      <div class="stair">
+        <div class="line l1">
+          <h2>Your real code.</h2>
+          <p>The asyncio or Celery workflow you already ship, unchanged, in a fresh worker process for every run.</p>
+        </div>
+        <div class="line l2">
+          <h2>A world you model.</h2>
+          <p>You describe the services it talks to. Time is virtual, and the failures arrive exactly when you say.</p>
+        </div>
+        <div class="line l3">
+          <h2>A verdict on <em>what was left behind.</em></h2>
+          <p>You write checks against final state: receipts, rows, alerts. PASS means they held in that modeled run. It won't write the fix, and it doesn't certify production. It tells you whether your fix held up.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="index" id="examples" aria-labelledby="ex-h">
+    <div class="wrap grid">
+      <blockquote>Retries are where good code quietly does things twice.</blockquote>
+      <h2 class="label" id="ex-h"><span>Six shipped examples</span><span>synthetic, modeled services</span></h2>
+      <ol class="entries">
+        <li><h3>Payments</h3><p>The receipt commits, the acknowledgement doesn't, and the webhook arrives twice.</p></li>
+        <li><h3>Order fulfillment</h3><p>Payment declines after stock is reserved. Release only this order's stock.</p></li>
+        <li><h3>Imports</h3><p>Interrupted between the row writes and the checkpoint. No duplicate rows after recovery.</p></li>
+        <li><h3>Documents &amp; AI</h3><p>One extraction retries, another finishes late. Every chunk, in order, before publishing.</p></li>
+        <li><h3>Monitoring</h3><p>Recovery and a new outage land inside the alert delay. Only the current incident alerts.</p></li>
+        <li><h3>Meetings</h3><p>A new recording finishes before a stale one. The new content survives.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="film" id="film" aria-labelledby="film-h">
+    <div class="wrap grid">
+      <div class="cap">
+        <p class="label">The film</p>
+        <h2 id="film-h">From workflow code to evidence in 64 seconds.</h2>
+        <p>Silent and captioned. The same billing example, start to verdict.</p>
+      </div>
+      <div class="frame">
+        <video controls playsinline preload="none" poster="../../media/poster.jpg" aria-label="workflow-sim launch film">
+          <source src="../../media/launch-1920x1080.mp4" type="video/mp4">
+          <track kind="captions" src="../../media/launch.en.vtt" srclang="en" label="English" default>
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <section class="close" id="access" aria-labelledby="close-h">
+    <div class="wrap grid">
+      <h2 id="close-h">Bring one workflow <em>that retries.</em></h2>
+      <div class="side">
+        <p>workflow-sim is in private alpha. If you run asyncio or Celery workflows and want to try it on a real one, get in touch.</p>
+        <a class="pill" href="https://github.com/KarthikRaju391" rel="noopener">Private alpha · Find me on GitHub
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12L12 4M6 4h6v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>workflow-sim v0.1.0a4 · private alpha · CPython 3.12, Linux and macOS · Celery is the only queue backend today.</p>
+    <p>You write the models and checks; results describe modeled runs.</p>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const stack = document.getElementById('stack');
+  const btn = document.getElementById('swap');
+  btn.addEventListener('click', () => {
+    const on = stack.classList.toggle('swapped');
+    btn.setAttribute('aria-pressed', String(on));
+    btn.textContent = on ? 'Bring the bug forward' : 'Bring the fix forward';
+  });
+})();
+</script>
+</body>
+</html>

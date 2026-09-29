@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workflow-sim: test what your Python workflow wrote after a failure</title>
+<meta name="description" content="workflow-sim runs real Python asyncio and Celery workflow code against modeled services, with virtual time and the failures you choose, then checks the final state. Private alpha.">
+<link rel="icon" href="data:,">
+<style>
+:root{
+  --page:#f6f7f9;--surf:#fff;--border:#e2e5e9;--text:#1a1d21;--sec:#5c6570;--faint:#8a93a0;
+  --ok:#176639;--ok-bg:#d9f2e2;--bad:#8f1d1d;--bad-bg:#fbdcdc;--muted-bg:#eef0f3;--code-bg:#2d3540;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page);color:var(--text);
+  font:17px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+a{color:#2d3f9e}
+a:focus-visible,.btn:focus-visible,summary:focus-visible,video:focus-visible{outline:3px solid #2d3f9e;outline-offset:3px;border-radius:6px}
+code,pre{font-family:var(--mono);font-size:.86em}
+code{background:var(--muted-bg);padding:.1em .35em;border-radius:4px;overflow-wrap:anywhere}
+pre{margin:0;background:var(--code-bg);color:#e8ebef;padding:16px 18px;border-radius:10px;overflow-x:auto;line-height:1.55}
+pre code{background:none;padding:0;font-size:1em;overflow-wrap:normal}
+pre .c{color:#9aa4b1}
+h1,h2,h3{line-height:1.2;margin:0}
+h2{font-size:1.6rem;margin-bottom:12px}
+h3{font-size:1.05rem}
+p{margin:0 0 12px}
+section{padding:48px 0;border-top:1px solid var(--border)}
+.lede{color:var(--sec);max-width:720px}
+
+/* header */
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0;flex-wrap:wrap}
+.brand{font-weight:700;font-size:1.1rem;color:var(--text);text-decoration:none}
+.top nav{display:flex;gap:18px;font-size:.95rem;flex-wrap:wrap}
+.top nav a{color:var(--sec);text-decoration:none}
+.top nav a:hover{color:var(--text);text-decoration:underline}
+.pill{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.03em;padding:3px 10px;border-radius:999px;text-transform:uppercase;vertical-align:middle}
+.pill.ok{background:var(--ok-bg);color:var(--ok)}
+.pill.bad{background:var(--bad-bg);color:var(--bad)}
+.pill.muted{background:var(--muted-bg);color:var(--sec)}
+
+/* intro */
+.intro{padding:28px 0 44px}
+.intro h1{font-size:clamp(1.9rem,4.2vw,2.7rem);letter-spacing:-.015em;max-width:760px;margin-bottom:18px}
+.intro p{font-size:1.12rem;max-width:720px}
+.intro .who{color:var(--sec)}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin:24px 0 18px}
+.btn{display:inline-block;padding:11px 18px;border-radius:8px;font-weight:600;text-decoration:none;font-size:1rem;border:1px solid var(--text)}
+.btn.primary{background:var(--text);color:#fff}
+.btn.primary:hover{background:#000}
+.btn.secondary{background:var(--surf);color:var(--text);border-color:var(--border)}
+.btn.secondary:hover{border-color:var(--sec)}
+.meta{font-size:.9rem;color:var(--sec)}
+
+/* example */
+.card{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:22px}
+.story{margin-top:22px}
+.steps{list-style:none;margin:0;padding:0}
+.steps li{display:grid;grid-template-columns:64px minmax(0,1fr);gap:14px;padding:10px 0;border-bottom:1px dashed var(--border)}
+.steps li:last-child{border-bottom:0}
+.steps .t{font-family:var(--mono);font-size:.85rem;color:var(--sec);padding-top:2px}
+.steps .lost{color:var(--bad);font-weight:600}
+.actor{font-weight:600}
+.outcomes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:18px}
+.outcome{border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--surf)}
+.outcome header{padding:10px 16px;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.outcome.bad header{background:var(--bad-bg);color:var(--bad)}
+.outcome.ok header{background:var(--ok-bg);color:var(--ok)}
+.outcome .body{padding:14px 16px}
+.outcome .line{font-family:var(--mono);font-size:.88rem;margin-bottom:12px;overflow-wrap:anywhere}
+.receipts{display:grid;gap:8px;margin-bottom:12px}
+.receipt{border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-family:var(--mono);font-size:.85rem}
+.receipt small{display:block;font-family:inherit;color:var(--sec);font-size:.8rem}
+.receipt.dup{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+.receipt.dup small{color:var(--bad)}
+.verdict{font-size:.92rem;color:var(--sec)}
+.note{border-left:3px solid #c9a24a;background:#fdf6e7;padding:10px 14px;border-radius:0 8px 8px 0;font-size:.93rem;color:#4a3b12;margin-top:18px}
+.pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:22px}
+.pair>div{min-width:0}
+.label{font-size:.85rem;color:var(--sec);font-weight:600;margin-bottom:6px}
+
+/* video */
+video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#000;border-radius:12px;border:1px solid var(--border)}
+.links{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;font-size:.95rem}
+details{margin-top:12px;font-size:.95rem}
+summary{cursor:pointer;color:var(--sec);font-weight:600}
+details ol{padding-left:22px;color:var(--sec);margin:8px 0 0}
+
+/* table */
+.tbl{overflow-x:auto;margin-top:18px;border:1px solid var(--border);border-radius:10px;background:var(--surf)}
+table{border-collapse:collapse;width:100%;font-size:.93rem}
+th,td{text-align:left;vertical-align:top;padding:10px 14px;border-bottom:1px solid var(--border)}
+tr:last-child td{border-bottom:0}
+thead th{background:var(--muted-bg);font-size:.82rem;color:var(--sec)}
+td:first-child{font-weight:600;white-space:nowrap}
+
+/* start */
+.start{list-style:none;counter-reset:s;margin:18px 0 0;padding:0;display:grid;gap:18px}
+.start>li{counter-increment:s;display:grid;grid-template-columns:36px minmax(0,1fr);gap:12px}
+.start>li::before{content:counter(s);width:30px;height:30px;border-radius:50%;background:var(--text);color:#fff;font-weight:700;font-size:.9rem;display:flex;align-items:center;justify-content:center}
+.start h3{margin:3px 0 6px}
+.start pre{margin-top:8px}
+
+/* scope */
+.scope{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:18px}
+.scope>div{background:var(--surf);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.scope h3{padding:10px 16px}
+.scope .yes h3{background:var(--ok-bg);color:var(--ok)}
+.scope .no h3{background:var(--muted-bg);color:var(--sec)}
+.scope ul{margin:0;padding:12px 16px 14px 34px}
+.scope li{margin:4px 0}
+
+/* access */
+.access{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:28px}
+.access p{max-width:680px}
+footer{padding:28px 0 44px;color:var(--faint);font-size:.88rem;border-top:1px solid var(--border)}
+
+@media (max-width:720px){
+  body{font-size:16px}
+  .wrap{padding:0 18px}
+  section{padding:36px 0}
+  .outcomes,.pair,.scope{grid-template-columns:minmax(0,1fr)}
+  .card,.access{padding:18px}
+  .steps li{grid-template-columns:52px minmax(0,1fr);gap:10px}
+  td:first-child{white-space:normal}
+  .top nav{gap:14px}
+}
+@media (max-width:560px){
+  thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  table,tbody,tr,td{display:block}
+  tr{padding:12px 16px;border-bottom:1px solid var(--border)}
+  tr:last-child{border-bottom:0}
+  td{padding:2px 0;border:0}
+  td[data-label]::before{content:attr(data-label) ": ";color:var(--sec);font-weight:600}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <a class="brand" href="#top" id="top">workflow-sim <span class="pill muted">Private alpha</span></a>
+  <nav aria-label="Page">
+    <a href="#example">Example</a>
+    <a href="#demo">Video</a>
+    <a href="#start">Try it</a>
+    <a href="#access">Access</a>
+    <a href="alternatives/">New designs</a>
+  </nav>
+</header>
+
+<main>
+<div class="intro">
+  <h1>Test what your Python workflow wrote after a failure.</h1>
+  <p>A payment handler saves a receipt, the response is lost, and it retries. Did the customer get one receipt or two? workflow-sim runs the handler's real code against a modeled receipt service, on a virtual clock, and checks the final state.</p>
+  <p class="who">It runs asyncio and Celery code in a fresh process each time. You choose the failures and write the checks. It's for Python developers whose background jobs call payment, email, storage or AI services and retry when something goes wrong.</p>
+  <div class="actions">
+    <a class="btn primary" href="#demo">Watch the 64-second demo</a>
+    <a class="btn secondary" href="#access">Ask for alpha access</a>
+  </div>
+  <p class="meta">v0.1.0a4 · CPython 3.12 · Linux and macOS · private repository</p>
+</div>
+
+<section id="example" aria-labelledby="example-h">
+  <h2 id="example-h">One lost response, two possible outcomes</h2>
+  <p class="lede">This is the billing example that ships with workflow-sim. A payment webhook sends a receipt. The receipt service saves it, but the response never arrives, so the handler retries.</p>
+
+  <div class="card story">
+    <ol class="steps" aria-label="Virtual timeline">
+      <li><span class="t">0 s</span><span><span class="actor">Payment handler</span> sends the receipt for invoice <code>in-42</code>. The receipt service saves it.</span></li>
+      <li><span class="t">0 s</span><span class="lost">The response is lost. The handler gets a <code>TimeoutError</code>.</span></li>
+      <li><span class="t">2 s</span><span><span class="actor">Payment handler</span> waits two virtual seconds and sends it again.</span></li>
+    </ol>
+
+    <div class="outcomes">
+      <div class="outcome bad">
+        <header>Bug: new key per attempt <span class="pill bad">ASSERTION_FAILED</span></header>
+        <div class="body">
+          <div class="line">key = f"{invoice['id']}:{attempt}"</div>
+          <div class="receipts" aria-label="Receipts saved">
+            <div class="receipt">in-42 · cus-7 · 1200<small>key in-42:0</small></div>
+            <div class="receipt dup">in-42 · cus-7 · 1200<small>key in-42:1 · second receipt</small></div>
+          </div>
+          <p class="verdict">Expected one receipt, found two. Exit code 1.</p>
+        </div>
+      </div>
+      <div class="outcome ok">
+        <header>Fix: reuse the invoice ID <span class="pill ok">PASS</span></header>
+        <div class="body">
+          <div class="line">key = invoice['id']</div>
+          <div class="receipts" aria-label="Receipts saved">
+            <div class="receipt">in-42 · cus-7 · 1200<small>key in-42 · retry found it already saved</small></div>
+          </div>
+          <p class="verdict">One receipt. Every check matched. Exit code 0.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pair">
+    <div>
+      <p class="label">The check you write (from <code>examples/billing.py</code>)</p>
+<pre><code>ctx.expect(
+    'one exact receipt',
+    lambda: list(account.receipts.values()),
+    [{'invoice': 'in-42',
+      'customer': 'cus-7',
+      'amount': 1200}],
+)</code></pre>
+    </div>
+    <div>
+      <p class="label">What the broken run reports (excerpt of <code>result.json</code>)</p>
+<pre><code>"outcome": "ASSERTION_FAILED",
+<span class="c">...</span>
+"name": "one exact receipt",
+"expected": [{"amount": 1200, "customer": "cus-7",
+              "invoice": "in-42"}],
+"actual":   [{"amount": 1200, "customer": "cus-7",
+              "invoice": "in-42"},
+             {"amount": 1200, "customer": "cus-7",
+              "invoice": "in-42"}]</code></pre>
+    </div>
+  </div>
+
+  <p class="note">The receipt service here is a model we wrote: it saves by idempotency key, atomically. Whether your real provider behaves that way needs its own integration test. In the shipped example, the two key lines are one line switched by <code>{"broken": true}</code>.</p>
+</section>
+
+<section id="demo" aria-labelledby="demo-h">
+  <h2 id="demo-h">How to use workflow-sim in 64 seconds</h2>
+  <p class="lede">Captions are part of the picture. There is no sound.</p>
+  <video controls preload="metadata" playsinline width="1920" height="1080" poster="media/poster.jpg" aria-describedby="transcript">
+    <source src="media/launch-1920x1080.mp4" type="video/mp4">
+    <track kind="captions" src="media/launch.en.vtt" srclang="en" label="English">
+    Your browser can't play this video. <a href="media/launch-1920x1080.mp4">Download the MP4</a>.
+  </video>
+  <div class="links">
+    <a href="media/launch-1920x1080.mp4" download>Download MP4 (1920×1080)</a>
+    <a href="media/launch-1080x1080.mp4" download>Square version (1080×1080)</a>
+    <a href="media/launch.en.vtt">Captions (WebVTT)</a>
+  </div>
+  <details id="transcript">
+    <summary>Read the transcript</summary>
+    <ol>
+      <li>A handler can return successfully and still save two receipts. Test the resulting state.</li>
+      <li>Call your real workflow code. Replace its external service with a model you write.</li>
+      <li>Here the model saves the receipt, then loses the acknowledgement. The handler retries.</li>
+      <li>Use ctx.at to schedule the payment and a duplicate webhook.</li>
+      <li>Use ctx.expect to check the exact receipt. You define what correct means.</li>
+      <li>Run your adapter with the workflow-sim CLI. Each run starts in a fresh worker process.</li>
+      <li>The virtual clock drives the real retry at two seconds and redelivery at five.</li>
+      <li>The result contains your failed check, expected content and actual content.</li>
+      <li>Expected one exact receipt. Found two. A successful handler was not enough.</li>
+      <li>Fix the key in your handler. Keep the same modeled failure and assertions.</li>
+      <li>Run again. One exact receipt; all four checks match. PASS for this modeled run.</li>
+      <li>You supply the workflow, service models and assertions. workflow-sim controls execution and reports the evidence. Private alpha: github.com/KarthikRaju391.</li>
+    </ol>
+  </details>
+</section>
+
+<section id="examples" aria-labelledby="examples-h">
+  <h2 id="examples-h">Six examples to start from</h2>
+  <p class="lede">Each example starts from existing state, has a corrected and a deliberately broken version, and checks final content. The data is synthetic.</p>
+  <div class="tbl">
+    <table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader" scope="col">Workflow</th><th role="columnheader" scope="col">Failure</th><th role="columnheader" scope="col">What the check looks at</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell">Payments</td><td role="cell" data-label="Failure">Receipt saved, response lost, webhook delivered twice</td><td role="cell" data-label="What the check looks at">Paid account, exactly one receipt, event marked processed</td></tr>
+        <tr role="row"><td role="cell">Order fulfillment</td><td role="cell" data-label="Failure">Payment declines after stock is reserved</td><td role="cell" data-label="What the check looks at">Only this order's stock is released; the older reservation stays; nothing ships</td></tr>
+        <tr role="row"><td role="cell">Data import</td><td role="cell" data-label="Failure">Interrupted between row writes and the checkpoint</td><td role="cell" data-label="What the check looks at">Every row after restart, with no duplicates or gaps</td></tr>
+        <tr role="row"><td role="cell">Documents and AI</td><td role="cell" data-label="Failure">One chunk retries, another finishes late</td><td role="cell" data-label="What the check looks at">All chunks, in order, before the document is published</td></tr>
+        <tr role="row"><td role="cell">Monitoring</td><td role="cell" data-label="Failure">Recovery and a new outage during an alert delay</td><td role="cell" data-label="What the check looks at">Only the current incident sends its alert</td></tr>
+        <tr role="row"><td role="cell">Meetings</td><td role="cell" data-label="Failure">A new recording finishes before a stale one</td><td role="cell" data-label="What the check looks at">The stale result can't overwrite the new content</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="start" aria-labelledby="start-h">
+  <h2 id="start-h">How to try it</h2>
+  <ol class="start">
+    <li><div>
+      <h3>Get repository access</h3>
+      <p>The repository is private during the alpha. <a href="#access">Ask for access</a> first; the install step below needs it.</p>
+    </div></li>
+    <li><div>
+      <h3>Create a trial project with uv</h3>
+<pre><code>uv init --bare --python '&gt;=3.12,&lt;3.13' workflow-sim-trial
+cd workflow-sim-trial
+uv add 'workflow-sim @ git+ssh://git@github.com/KarthikRaju391/workflow-sim.git@v0.1.0a4'</code></pre>
+      <p>uv fetches a compatible Python. The <code>git+ssh</code> URL only works once your GitHub account has access.</p>
+    </div></li>
+    <li><div>
+      <h3>Run the billing example both ways</h3>
+<pre><code>uv run workflow-sim workflow_sim.examples.billing:build \
+  --duration 12 --output billing.json
+printf '{"broken":true}\n' &gt; broken.json
+uv run workflow-sim workflow_sim.examples.billing:build \
+  --duration 12 --inputs broken.json --output billing-broken.json</code></pre>
+      <p>The first returns <code>PASS</code> (exit 0). The second returns <code>ASSERTION_FAILED</code> (exit 1) with two receipts in <code>actual</code>.</p>
+    </div></li>
+    <li><div>
+      <h3>Point it at one of your workflows</h3>
+      <p>Write a small adapter that calls your real entrypoint, swaps the services it calls for models, schedules the failure and checks the final state. Then put the bug back and confirm the same check fails. A check that never fails hasn't shown you anything.</p>
+    </div></li>
+  </ol>
+</section>
+
+<section id="scope" aria-labelledby="scope-h">
+  <h2 id="scope-h">What PASS means</h2>
+  <p class="lede">PASS means every check you registered held in this modeled run. You write the models and the checks; workflow-sim doesn't generate them or verify a fix for you.</p>
+  <div class="scope">
+    <div class="yes">
+      <h3>Checked in this run</h3>
+      <ul>
+        <li>Your workflow's real retry and write logic</li>
+        <li>The failures and timing you scheduled</li>
+        <li>The final state you asserted, including duplicates</li>
+      </ul>
+    </div>
+    <div class="no">
+      <h3>Not proven by PASS</h3>
+      <ul>
+        <li>Production safety</li>
+        <li>The live provider, broker or database</li>
+        <li>Every possible task or thread interleaving</li>
+      </ul>
+    </div>
+  </div>
+  <p class="note">Celery is the only queue backend today. Adapters are trusted code and the worker is not a security sandbox, so run them without production credentials.</p>
+</section>
+
+<section id="access" aria-labelledby="access-h">
+  <div class="access">
+    <h2 id="access-h">Try it on one of your workflows</h2>
+    <p>I'm looking for a few people with a Python async or Celery workflow that is hard to test under failure: a webhook, an import, a retrying job. The repository is private while it's in alpha, so access is by invitation.</p>
+    <p>For now, find me on GitHub and tell me which workflow you'd bring.</p>
+    <div class="actions">
+      <a class="btn primary" href="https://github.com/KarthikRaju391" rel="noopener">Find me on GitHub</a>
+    </div>
+    <p class="meta">Opens my public GitHub profile, github.com/KarthikRaju391.</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  workflow-sim v0.1.0a4 · private alpha · CPython 3.12 · Linux and macOS
+</footer>
+</div>
+</body>
+</html>

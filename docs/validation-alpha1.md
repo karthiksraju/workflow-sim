@@ -21,7 +21,7 @@ affected modules rerun successfully.
 | Live external contracts | Not part of this extraction | Provider/database correctness or production certification |
 
 Latest completed runtime CI:
-[Linux and macOS run 36436162068](https://github.com/karthiksraju/workflow-sim/actions/runs/36436162068)
+[Linux and macOS run 36436162068](https://github.com/KarthikRaju391/workflow-sim/actions/runs/36436162068)
 on commit `b7ab27f21b31fb15174600259ef1bd6362b5efa4`. The draft release verifier
 requires both platform jobs to pass again on the exact tagged release commit.
 
@@ -115,12 +115,12 @@ checks from owner-enforced review.
 ## Created alpha artifacts
 
 Tag `v0.1.0a1` points to `5bd5eea7ee39de10934a4b5b584cd6a70584e9ca`.
-[CI on that exact commit](https://github.com/karthiksraju/workflow-sim/actions/runs/36436750104)
+[CI on that exact commit](https://github.com/KarthikRaju391/workflow-sim/actions/runs/36436750104)
 passed both platform jobs. The
-[draft-release workflow](https://github.com/karthiksraju/workflow-sim/actions/runs/36437037368)
+[draft-release workflow](https://github.com/KarthikRaju391/workflow-sim/actions/runs/36437037368)
 succeeded and promoted the tested wheel, source archive and both platform test
 reports into a draft, then promoted it to the
-[private internal prerelease](https://github.com/karthiksraju/workflow-sim/releases/tag/v0.1.0a1)
+[private internal prerelease](https://github.com/KarthikRaju391/workflow-sim/releases/tag/v0.1.0a1)
 after verification. Downloaded assets passed all SHA256SUMS
 checks. The wheel SHA256 is
 `d04e0d5daa14839be3994e8600177b3b784067188b62cd4edc97820de58b569a`.
