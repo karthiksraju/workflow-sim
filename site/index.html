@@ -262,15 +262,15 @@ footer{padding:28px 0 44px;color:var(--faint);font-size:.88rem;border-top:1px so
   <h2 id="examples-h">Six examples to start from</h2>
   <p class="lede">Each example starts from existing state, has a corrected and a deliberately broken version, and checks final content. The data is synthetic.</p>
   <div class="tbl">
-    <table>
-      <thead><tr><th scope="col">Workflow</th><th scope="col">Failure</th><th scope="col">What the check looks at</th></tr></thead>
-      <tbody>
-        <tr><td>Payments</td><td data-label="Failure">Receipt saved, response lost, webhook delivered twice</td><td data-label="What the check looks at">Paid account, exactly one receipt, event marked processed</td></tr>
-        <tr><td>Order fulfillment</td><td data-label="Failure">Payment declines after stock is reserved</td><td data-label="What the check looks at">Only this order's stock is released; the older reservation stays; nothing ships</td></tr>
-        <tr><td>Data import</td><td data-label="Failure">Interrupted between row writes and the checkpoint</td><td data-label="What the check looks at">Every row after restart, with no duplicates or gaps</td></tr>
-        <tr><td>Documents and AI</td><td data-label="Failure">One chunk retries, another finishes late</td><td data-label="What the check looks at">All chunks, in order, before the document is published</td></tr>
-        <tr><td>Monitoring</td><td data-label="Failure">Recovery and a new outage during an alert delay</td><td data-label="What the check looks at">Only the current incident sends its alert</td></tr>
-        <tr><td>Meetings</td><td data-label="Failure">A new recording finishes before a stale one</td><td data-label="What the check looks at">The stale result can't overwrite the new content</td></tr>
+    <table role="table">
+      <thead role="rowgroup"><tr role="row"><th role="columnheader" scope="col">Workflow</th><th role="columnheader" scope="col">Failure</th><th role="columnheader" scope="col">What the check looks at</th></tr></thead>
+      <tbody role="rowgroup">
+        <tr role="row"><td role="cell">Payments</td><td role="cell" data-label="Failure">Receipt saved, response lost, webhook delivered twice</td><td role="cell" data-label="What the check looks at">Paid account, exactly one receipt, event marked processed</td></tr>
+        <tr role="row"><td role="cell">Order fulfillment</td><td role="cell" data-label="Failure">Payment declines after stock is reserved</td><td role="cell" data-label="What the check looks at">Only this order's stock is released; the older reservation stays; nothing ships</td></tr>
+        <tr role="row"><td role="cell">Data import</td><td role="cell" data-label="Failure">Interrupted between row writes and the checkpoint</td><td role="cell" data-label="What the check looks at">Every row after restart, with no duplicates or gaps</td></tr>
+        <tr role="row"><td role="cell">Documents and AI</td><td role="cell" data-label="Failure">One chunk retries, another finishes late</td><td role="cell" data-label="What the check looks at">All chunks, in order, before the document is published</td></tr>
+        <tr role="row"><td role="cell">Monitoring</td><td role="cell" data-label="Failure">Recovery and a new outage during an alert delay</td><td role="cell" data-label="What the check looks at">Only the current incident sends its alert</td></tr>
+        <tr role="row"><td role="cell">Meetings</td><td role="cell" data-label="Failure">A new recording finishes before a stale one</td><td role="cell" data-label="What the check looks at">The stale result can't overwrite the new content</td></tr>
       </tbody>
     </table>
   </div>
