@@ -8,9 +8,9 @@ After [installation](../README.md#try-the-installed-package), run an adapter wit
 12-second virtual horizon:
 
 ```sh
-workflow-sim workflow_sim.examples.billing:build --duration 12 --output billing.json
+uv run workflow-sim workflow_sim.examples.billing:build --duration 12 --output billing.json
 printf '{"broken":true}\n' > broken.json
-workflow-sim workflow_sim.examples.billing:build --duration 12 --inputs broken.json --output billing-broken.json
+uv run workflow-sim workflow_sim.examples.billing:build --duration 12 --inputs broken.json --output billing-broken.json
 ```
 
 The corrected example returns PASS / exit 0. The deliberate bug returns
@@ -156,6 +156,6 @@ ports with your boundary adapters, keep application logic real, and replace the
 assertions with your actual business contract. Run provider contract tests against
 real services or documented captured fixtures before trusting a substitute.
 
-Contributors can run `python scripts/check_examples.py --output /tmp/workflow-examples`
+Contributors can run `uv run --locked python scripts/check_examples.py --output /tmp/workflow-examples`
 for all 12 corrected/broken cases and their evidence. CI runs them against the
 installed wheel. Keep the broken cases to show that each assertion detects its bug.

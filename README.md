@@ -23,14 +23,19 @@ flowchart LR
 
 ## Try the installed package
 
-In a Python 3.12 virtual environment:
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/), then create a
+trial project. uv obtains a compatible Python and manages the environment:
 
 ```sh
-python3.12 -m venv .venv
-. .venv/bin/activate
-python -m pip install 'git+ssh://git@github.com/karthiksraju/workflow-sim.git@v0.1.0a4'
-workflow-sim workflow_sim.examples.retry:build --duration 10 --output result.json
+uv init --bare --python '>=3.12,<3.13' workflow-sim-trial
+cd workflow-sim-trial
+uv add 'workflow-sim @ git+ssh://git@github.com/karthiksraju/workflow-sim.git@v0.1.0a4'
+uv run workflow-sim workflow_sim.examples.retry:build --duration 10 --output result.json
 ```
+
+In an existing uv project, use the same `uv add` command. Its Python requirement
+must fit this alpha's `>=3.12,<3.13` range. Commit the application's `uv.lock` to
+retain its resolved dependencies.
 
 The receiver commits a delivery but loses its acknowledgement. The workflow
 retries five virtual seconds later. The result should be `PASS`: one delivery of
@@ -40,7 +45,7 @@ Enable the duplicate-delivery bug:
 
 ```sh
 printf '{"broken": true}\n' > broken.json
-workflow-sim workflow_sim.examples.retry:build --inputs broken.json --duration 10
+uv run workflow-sim workflow_sim.examples.retry:build --inputs broken.json --duration 10
 ```
 
 This returns `ASSERTION_FAILED` (exit 1): two deliveries where one was expected.
@@ -69,7 +74,7 @@ def build(ctx):
 Save this as `my_adapter.py`, then run from that directory:
 
 ```sh
-workflow-sim my_adapter:build --duration 180
+uv run workflow-sim my_adapter:build --duration 180
 ```
 
 Replace `process` with your application's entrypoint and `stored` with a model

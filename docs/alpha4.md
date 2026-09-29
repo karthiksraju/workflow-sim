@@ -38,7 +38,7 @@ result = run("my_workflow:build", duration=600,
 ```
 
 ```sh
-workflow-sim my_workflow:build --duration 600 --start-at 2026-01-15T10:00:00Z
+uv run workflow-sim my_workflow:build --duration 600 --start-at 2026-01-15T10:00:00Z
 ```
 
 Result schema remains 1. `start_at` is an optional configuration field introduced

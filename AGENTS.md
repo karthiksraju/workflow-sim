@@ -32,6 +32,7 @@ business assertions match.
 
 ## Finish the work
 
+Use uv for setup and commands; `uv.lock` is the development dependency authority.
 Use a feature branch and PR. Keep disposable harnesses, logs and generated results
 outside the repository unless requested. Commit and push completed work; record
 remaining work durably. Report the tested revision, relevant results and unverified

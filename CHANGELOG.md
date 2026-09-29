@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Use uv for contributor setup, Python selection, CI and package/mutation checks.
+  `uv.lock` replaces `requirements-dev.lock`; development tools move from the
+  `dev` package extra to the `dev` dependency group. Dependency versions are preserved.
+  Existing alpha tags and runtime behavior are unchanged.
+
 ## 0.1.0a4 — publication guards and calendar origins
 
 - Reject unmodeled Celery `send_task` and direct Kombu/AMQP publication, even
