@@ -39,10 +39,19 @@ the application into the trial environment and use the adapter's directory.
 | `checkout/src/sim_adapter.py`, `checkout/src/app/` | `sim_adapter:build` | `/absolute/path/to/checkout/src` |
 
 Both adapter and application must be importable from that root. A parent directory
-does not automatically expose packages nested in `source/` or `src/`. When keeping
-the adapter outside a read-only checkout, explicitly add that checkout's import
-root in the adapter before importing the application, using an absolute path
-derived from `__file__`. Resolve fixtures from their actual location as well.
+does not automatically expose packages nested in `source/` or `src/`. For an adapter
+at `trial/sim_adapter.py` and a read-only checkout at `trial/source/`, put this before
+the application imports and use `trial/` as `--project-dir`:
+
+```python
+from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent / "source"))
+```
+
+Resolve fixtures from their actual location as well. This adds an import root;
+it does not install the application's dependencies.
 
 ```mermaid
 flowchart LR
