@@ -12,10 +12,10 @@ import socket
 import subprocess
 import sys
 from dataclasses import asdict
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 
 from .provenance import provenance
-from .contracts import SCHEMA_VERSION, MAX_RESULT_BYTES, digest, encode, validate_request, verdict, configuration
+from .contracts import SCHEMA_VERSION, MAX_RESULT_BYTES, DEFAULT_START_AT, digest, encode, validate_request, verdict, configuration, normalize_start_at
 
 
 
@@ -50,7 +50,7 @@ def execute(request, attempt, project, scratch):
         from .engine import Engine
         from .context import Context
         from .ledger import canonical
-        start = datetime(2099, 1, 1, tzinfo=timezone.utc)
+        start = datetime.fromisoformat(normalize_start_at(request.get('start_at', DEFAULT_START_AT)))
         engine = Engine(start=start, seed=request['seed'], max_steps=request['max_steps'], strict_lifecycle=True)
         with engine:
             module_name, function_name = request['adapter'].split(':')
