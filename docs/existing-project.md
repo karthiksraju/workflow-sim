@@ -33,6 +33,17 @@ Put `sim_adapter.py` beside the application's importable package. For a `src/`
 layout, put it under `src/` and use that directory as `--project-dir`, or install
 the application into the trial environment and use the adapter's directory.
 
+| Layout | Adapter name | `--project-dir` |
+| --- | --- | --- |
+| `checkout/sim_adapter.py`, `checkout/app/` | `sim_adapter:build` | `/absolute/path/to/checkout` |
+| `checkout/src/sim_adapter.py`, `checkout/src/app/` | `sim_adapter:build` | `/absolute/path/to/checkout/src` |
+
+Both adapter and application must be importable from that root. A parent directory
+does not automatically expose packages nested in `source/` or `src/`. When keeping
+the adapter outside a read-only checkout, explicitly add that checkout's import
+root in the adapter before importing the application, using an absolute path
+derived from `__file__`. Resolve fixtures from their actual location as well.
+
 ```mermaid
 flowchart LR
     Env["uv environment<br/>simulator + application dependencies"] --> Runner["Public runner"]
@@ -106,6 +117,13 @@ For this template, swallowing `ProviderUnavailable` should produce
 `ASSERTION_FAILED` on "failure reaches caller". Restore the application and rerun
 the identical adapter: it should return `PASS`. Then add a successful retry and
 check the exact replacement content and absence of duplicate publication.
+
+Keep the fixture and expected values unchanged across the negative control.
+Changing the expectation to a wrong answer only tests the comparison. Record the
+loaded application's file path and hash so you can confirm the mutated copy ran;
+restore it and require `PASS` again. Preserve the patch alongside both results.
+Keep retry and backoff calculations real; use the runner's seed and virtual time
+instead of replacing those decisions with fixed answers.
 
 | Result or symptom | What to do |
 | --- | --- |
