@@ -17,7 +17,7 @@ also records local stability, corpus and consumer checks, which are separate fro
 
 Result schema remains 1 with an optional `start_at` configuration field. Existing
 adapters that omit the option retain the old request shape. Rerun evidence for
-previously unsupported publication paths; do not reinterpret archived PASS files.
+previously unaccounted publication paths; do not reinterpret archived PASS files.
 
 Six synthetic domain examples remain available. The independent corpus has 240
 input timelines and 36 implemented reference business cases; 204 business cases
