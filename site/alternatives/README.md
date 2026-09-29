@@ -41,5 +41,6 @@ The animations are illustrations, and each page says so. None of them runs Pytho
 
 Fonts were subset to Latin with `pyftsubset` (fonttools) and converted to WOFF2.
 Recursive was also pinned to `slnt=0`, `CRSV=0.5` with `fonttools varLib.instancer`,
-keeping the `wght`, `CASL` and `MONO` axes. Both are SIL OFL 1.1; the licence files sit
+keeping the `wght`, `CASL` and `MONO` axes. Playground now uses system sans-serif and monospace fonts; Recursive remains archived
+with the original alternative assets. Both bundled fonts are SIL OFL 1.1; the licence files sit
 next to the fonts and must ship with them.
