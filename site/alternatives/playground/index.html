@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workflow-sim — flip one line, watch the receipts</title>
+<meta name="description" content="An illustrative demo of workflow-sim's billing example: toggle the idempotency key and see a lost acknowledgement turn into one receipt or two.">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="data:,">
+<link rel="preload" href="../assets/fonts/recursive-var.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family: "Recursive"; src: url("../assets/fonts/recursive-var.woff2") format("woff2"); font-weight: 300 1000; font-style: normal; font-display: swap; }
+:root {
+  --bg: #eef0f8;
+  --card: #ffffff;
+  --ink: #15172b;
+  --ink-2: #464a66;
+  --ink-3: #6a6e8a;
+  --line: #e0e3ef;
+  --line-2: #cfd3e3;
+  --violet: #5b3df5;
+  --violet-2: #4428e0;
+  --violet-soft: #ece8ff;
+  --red: #d93036;
+  --red-soft: #ffe9e8;
+  --green: #137a4b;
+  --green-soft: #e1f6ea;
+  --amber: #b25b00;
+  --font: "Recursive", ui-rounded, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --pad: clamp(16px, 4vw, 56px);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--bg); color: var(--ink); -webkit-text-size-adjust: 100%; }
+body { margin: 0; font: 400 17px/1.55 var(--font); font-variation-settings: "CASL" .35, "MONO" 0; overflow-x: hidden; }
+a { color: inherit; }
+button { font: inherit; }
+:focus-visible { outline: 3px solid var(--violet); outline-offset: 3px; border-radius: 8px; }
+.skip { position: absolute; left: -9999px; }
+.skip:focus { left: 10px; top: 10px; z-index: 9; background: var(--violet); color: #fff; padding: 8px 12px; border-radius: 8px; }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 0 var(--pad); }
+.code { font-variation-settings: "MONO" 1, "CASL" 0; }
+.casual { font-variation-settings: "CASL" 1, "MONO" 0; }
+
+/* header */
+header .wrap { display: flex; align-items: center; gap: 16px; height: 72px; }
+.logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 750; font-size: 19px; text-decoration: none; font-variation-settings: "CASL" 1; letter-spacing: -.01em; }
+.logo svg { width: 30px; height: 30px; }
+header nav { margin-left: auto; display: flex; align-items: center; gap: 22px; }
+header nav a.plain { text-decoration: none; color: var(--ink-2); font-size: 15px; }
+header nav a.plain:hover { color: var(--ink); }
+.btn { display: inline-flex; align-items: center; gap: 10px; justify-content: center; border-radius: 12px; padding: 14px 20px; font-weight: 650; font-size: 16px; line-height: 1; text-decoration: none; border: 0; cursor: pointer; transition: transform .15s ease, background .15s ease, box-shadow .15s ease; white-space: nowrap; }
+.btn:hover { transform: translateY(-1px); }
+.btn-primary { background: var(--violet); color: #fff; box-shadow: 0 6px 18px -6px rgba(91,61,245,.55); }
+.btn-primary:hover { background: var(--violet-2); }
+.btn-quiet { background: var(--card); color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line-2); }
+.btn-sm { padding: 10px 14px; font-size: 14px; border-radius: 10px; }
+.btn svg { width: 16px; height: 16px; flex: none; }
+
+/* hero */
+.hero { text-align: center; padding: clamp(20px, 4vw, 44px) 0 0; }
+.hero h1 { font-size: clamp(38px, 4.9vw, 68px); line-height: 1; letter-spacing: -.035em; font-weight: 800; font-variation-settings: "CASL" 1, "MONO" 0; margin: 0 auto; text-wrap: balance; }
+.hero h1 .hl { color: var(--violet); }
+.hero .sub { margin: 16px auto 0; max-width: 46em; color: var(--ink-2); font-size: clamp(17px, 1.4vw, 19px); text-wrap: balance; }
+
+/* demo */
+.demo { margin: clamp(26px, 3.4vw, 40px) auto 0; background: var(--card); border-radius: 26px; box-shadow: 0 1px 0 rgba(21,23,43,.04), 0 30px 80px -30px rgba(40,30,120,.28); text-align: left; overflow: hidden; }
+.demo-top { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; padding: 18px 22px; border-bottom: 1px solid var(--line); }
+.seg { display: inline-flex; background: var(--bg); padding: 5px; border-radius: 14px; gap: 4px; border: 0; margin: 0; min-width: 0; }
+.seg legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.seg input { position: absolute; opacity: 0; pointer-events: none; }
+.seg label { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 10px; font-weight: 650; font-size: 15px; cursor: pointer; color: var(--ink-2); transition: background .2s ease, color .2s ease, box-shadow .2s ease; white-space: nowrap; }
+.seg label .dot { width: 9px; height: 9px; border-radius: 50%; background: currentColor; opacity: .45; }
+.seg input:checked + label { background: var(--card); color: var(--ink); box-shadow: 0 2px 8px -2px rgba(21,23,43,.18); }
+.seg input:checked + label .dot { opacity: 1; }
+.seg input#m-bug:checked + label .dot { background: var(--red); }
+.seg input#m-fix:checked + label .dot { background: var(--green); }
+.seg input:focus-visible + label { outline: 3px solid var(--violet); outline-offset: 2px; }
+.codeline { flex: 1 1 320px; min-width: 0; display: flex; align-items: center; gap: 10px; font-size: 15px; padding: 11px 14px; border-radius: 12px; background: #16182c; color: #e6e7f2; overflow: hidden; }
+.codeline .ln { color: #7d80a3; }
+.codeline code { font: inherit; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.codeline .chg { border-radius: 5px; padding: 1px 4px; transition: background .25s ease, color .25s ease; }
+.mode-bug .codeline .chg { background: rgba(255,90,90,.22); color: #ffb3ae; }
+.mode-fix .codeline .chg { background: rgba(60,220,140,.2); color: #9ff0c4; }
+.codeline .str { color: #f5d38b; }
+.controls { display: flex; gap: 8px; margin-left: auto; }
+.icon-btn { display: inline-flex; align-items: center; gap: 8px; border: 0; background: var(--bg); color: var(--ink); border-radius: 12px; padding: 11px 14px; font-weight: 650; font-size: 14px; cursor: pointer; }
+.icon-btn:hover { background: #e3e6f3; }
+.icon-btn svg { width: 14px; height: 14px; }
+
+.demo-body { display: grid; grid-template-columns: minmax(0, 1fr) 330px; }
+.stage { padding: 24px 26px 20px; border-right: 1px solid var(--line); min-width: 0; }
+.lanes { display: grid; grid-template-columns: 170px minmax(0, 1fr) 200px; align-items: stretch; gap: 0; min-height: 230px; }
+.actor { border-radius: 18px; padding: 16px; background: var(--bg); display: flex; flex-direction: column; gap: 6px; position: relative; }
+.actor .kind { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+.actor .name { font-size: 16px; font-weight: 700; }
+.actor .status { margin-top: auto; font-size: 13px; color: var(--ink-3); min-height: 2.6em; }
+.actor .status b { color: var(--ink); font-weight: 650; }
+.badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; padding: 4px 8px; border-radius: 99px; background: var(--card); color: var(--ink-2); box-shadow: inset 0 0 0 1px var(--line-2); width: fit-content; transition: opacity .25s ease, transform .25s ease; }
+.badge.off { opacity: 0; transform: translateY(4px); }
+.badge.ok { background: var(--green-soft); color: var(--green); box-shadow: none; }
+.badge.sleep { background: var(--violet-soft); color: var(--violet-2); box-shadow: none; }
+.badge.again { background: #fff3e0; color: var(--amber); box-shadow: none; }
+
+.track { position: relative; margin: 0 -2px; z-index: 2; }
+.rail { position: absolute; left: 10px; right: 10px; height: 2px; background: repeating-linear-gradient(90deg, var(--line-2) 0 6px, transparent 6px 12px); }
+.rail.out { top: 38%; } .rail.back { top: 62%; }
+.packet { position: absolute; top: 38%; left: calc(10px + var(--p, 0) * (100% - 20px)); transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 6px; opacity: 0; transition: opacity .15s ease; pointer-events: none; }
+.packet.on { opacity: 1; }
+.packet .blob { width: 18px; height: 18px; border-radius: 50%; background: var(--violet); box-shadow: 0 0 0 6px rgba(91,61,245,.16); }
+.packet .tagk { font-size: 12.5px; font-weight: 650; padding: 3px 7px; border-radius: 7px; background: var(--ink); color: #fff; white-space: nowrap; transform: translateY(-40px); position: absolute; }
+.ack { top: 62%; }
+.ack .blob { width: 14px; height: 14px; background: var(--card); box-shadow: inset 0 0 0 3px var(--ink-3); }
+.ack .tagk { background: var(--card); color: var(--ink-2); box-shadow: inset 0 0 0 1px var(--line-2); transform: translateY(30px); }
+.boom { position: absolute; top: 62%; left: 50%; transform: translate(-50%, -50%) scale(.6); opacity: 0; transition: opacity .2s ease, transform .3s cubic-bezier(.3,1.6,.5,1); display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.boom.on { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.boom.dim { opacity: .45; }
+.boom .x { width: 34px; height: 34px; border-radius: 50%; background: var(--red-soft); display: grid; place-items: center; }
+.boom .x svg { width: 14px; height: 14px; }
+.boom .lbl { position: absolute; top: 42px; font-size: 12.5px; font-weight: 700; color: var(--red); white-space: nowrap; }
+
+.ledger { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
+.rcpt { display: flex; justify-content: space-between; gap: 8px; font-size: 13px; padding: 9px 10px; border-radius: 10px; background: var(--card); box-shadow: inset 0 0 0 1.5px var(--line-2); transform: scale(.85); opacity: 0; transition: transform .35s cubic-bezier(.3,1.5,.5,1), opacity .2s ease, box-shadow .25s ease, background .25s ease; }
+.rcpt.on { transform: scale(1); opacity: 1; }
+.rcpt.dup { background: var(--red-soft); box-shadow: inset 0 0 0 1.5px var(--red); color: #8f1a1f; }
+.rcpt.hit { box-shadow: inset 0 0 0 1.5px var(--green), 0 0 0 5px rgba(19,122,75,.12); }
+.rcpt .amt { color: var(--ink-3); }
+.rcpt.dup .amt { color: inherit; }
+
+.timeline { margin-top: 20px; }
+.tl-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 10px; }
+.tl-head .clock { font-size: 14px; color: var(--ink-3); }
+.tl-head .clock b { font-size: 20px; color: var(--ink); font-weight: 700; font-variant-numeric: tabular-nums; }
+.narr { font-size: 14px; color: var(--ink-2); text-align: right; min-height: 1.5em; }
+.scrub { position: relative; height: 34px; }
+.scrub .marks { position: absolute; inset: 0 11px; pointer-events: none; }
+.scrub .marks i { position: absolute; top: 4px; width: 2px; height: 10px; background: var(--line-2); border-radius: 2px; }
+.scrub .fill { position: absolute; left: 11px; top: 16px; height: 4px; border-radius: 4px; background: var(--violet); width: calc(var(--f, 0) * (100% - 22px)); pointer-events: none; }
+.scrub input { position: absolute; inset: 0; width: 100%; margin: 0; background: transparent; -webkit-appearance: none; appearance: none; cursor: pointer; }
+.scrub input::-webkit-slider-runnable-track { height: 4px; background: var(--line); border-radius: 4px; }
+.scrub input::-moz-range-track { height: 4px; background: var(--line); border-radius: 4px; }
+.scrub input::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; margin-top: -9px; border-radius: 50%; background: var(--card); box-shadow: 0 0 0 3px var(--violet), 0 4px 10px rgba(21,23,43,.2); position: relative; z-index: 2; }
+.scrub input::-moz-range-thumb { width: 18px; height: 18px; border: 0; border-radius: 50%; background: var(--card); box-shadow: 0 0 0 3px var(--violet); }
+.scrub .fill { z-index: 1; }
+.tl-labels { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-3); margin-top: 2px; padding: 0 2px; }
+
+.checks { padding: 22px 24px 20px; display: flex; flex-direction: column; min-width: 0; }
+.checks h2 { font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 14px; }
+.checks ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.check { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 10px; align-items: start; padding: 9px 12px; border-radius: 12px; background: var(--bg); transition: background .25s ease; }
+.check .mark { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--card); box-shadow: inset 0 0 0 1.5px var(--line-2); transition: background .25s ease, box-shadow .25s ease, transform .3s cubic-bezier(.3,1.6,.5,1); }
+.check .mark svg { width: 12px; height: 12px; opacity: 0; transition: opacity .2s ease; }
+.check .t { font-size: 14.5px; font-weight: 650; line-height: 1.3; }
+.check .d { font-size: 13px; color: var(--ink-3); line-height: 1.35; margin-top: 2px; }
+.check.pass .mark { background: var(--green); box-shadow: none; transform: scale(1.06); }
+.check.fail { background: var(--red-soft); }
+.check.fail .mark { background: var(--red); box-shadow: none; transform: scale(1.06); }
+.check.pass .mark .i-ok, .check.fail .mark .i-no { opacity: 1; }
+.check.fail .d { color: #8f1a1f; }
+.verdict { margin-top: auto; padding-top: 18px; }
+.verdict .v { display: flex; align-items: center; justify-content: center; gap: 10px; border-radius: 14px; padding: 16px; font-weight: 800; font-size: 18px; letter-spacing: .02em; background: var(--bg); color: var(--ink-3); transition: background .3s ease, color .3s ease, transform .3s cubic-bezier(.3,1.6,.5,1); }
+.verdict .v.pass { background: var(--green); color: #fff; transform: scale(1.02); }
+.verdict .v.fail { background: var(--red); color: #fff; transform: scale(1.02); }
+
+.demo-foot { display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; padding: 14px 22px; border-top: 1px solid var(--line); font-size: 13.5px; color: var(--ink-3); background: #fafbfe; }
+.demo-foot strong { color: var(--ink-2); font-weight: 650; }
+
+/* truth strip */
+.truth { padding: clamp(60px, 8vw, 110px) 0 0; }
+.truth h2, .uses h2 { font-size: clamp(30px, 3.6vw, 48px); line-height: 1.05; letter-spacing: -.03em; font-weight: 800; font-variation-settings: "CASL" 1; margin: 0; max-width: 20ch; }
+.truth-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 32px; }
+.tcard { background: var(--card); border-radius: 20px; padding: 24px; }
+.tcard .ic { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; background: var(--violet-soft); color: var(--violet); }
+.tcard .ic svg { width: 22px; height: 22px; }
+.tcard h3 { font-size: 20px; letter-spacing: -.01em; margin: 18px 0 6px; font-weight: 750; }
+.tcard p { margin: 0; color: var(--ink-2); font-size: 15.5px; }
+
+/* uses */
+.uses { padding: clamp(60px, 8vw, 110px) 0 0; }
+.uses-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; }
+.uses-head p { margin: 0; color: var(--ink-3); max-width: 30em; font-size: 15px; }
+.chips { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 28px; }
+.chip { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 14px; align-items: start; background: var(--card); border-radius: 18px; padding: 18px; box-shadow: inset 0 0 0 1px transparent; transition: box-shadow .2s ease, transform .2s ease; }
+.chip:hover { box-shadow: inset 0 0 0 1.5px var(--violet); transform: translateY(-2px); }
+.chip .e { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--bg); color: var(--ink); }
+.chip .e svg { width: 20px; height: 20px; }
+.chip h3 { font-size: 17px; margin: 0; font-weight: 750; }
+.chip p { margin: 4px 0 0; font-size: 14.5px; color: var(--ink-2); line-height: 1.45; }
+
+/* cta */
+.cta { margin: clamp(60px, 8vw, 110px) 0 0; }
+.cta-card { background: var(--violet); color: #fff; border-radius: 28px; padding: clamp(32px, 5vw, 64px); display: grid; grid-template-columns: minmax(0, 1.3fr) auto; gap: 28px 40px; align-items: center; position: relative; overflow: hidden; }
+.cta-card::after { content: ""; position: absolute; right: -80px; top: -120px; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,255,255,.18), transparent); }
+.cta-card h2 { font-size: clamp(32px, 4.2vw, 56px); line-height: 1.02; letter-spacing: -.03em; margin: 0; font-weight: 800; font-variation-settings: "CASL" 1; }
+.cta-card p { margin: 14px 0 0; color: #e6e1ff; max-width: 34em; }
+.cta-actions { display: flex; flex-direction: column; gap: 10px; position: relative; z-index: 1; }
+.btn-white { background: #fff; color: var(--violet-2); }
+.btn-outline { background: transparent; color: #fff; box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.55); }
+.cta-card :focus-visible { outline-color: #fff; }
+
+footer { padding: 34px 0 40px; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 28px; font-size: 13.5px; color: var(--ink-3); }
+footer p { margin: 0; }
+
+dialog.film { width: min(1040px, calc(100vw - 24px)); padding: 0; border: 0; border-radius: 20px; background: #000; overflow: hidden; }
+dialog.film::backdrop { background: rgba(21,23,43,.7); }
+dialog.film video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; }
+dialog.film .bar { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; color: #c9cbe0; font-size: 14px; background: #15172b; }
+
+@media (max-width: 1060px) {
+  .demo-body { grid-template-columns: 1fr; }
+  .stage { border-right: 0; border-bottom: 1px solid var(--line); }
+  .checks ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .controls { margin-left: 0; }
+  .chips { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  header nav a.plain { display: none; }
+  .demo { border-radius: 20px; margin-left: calc(-1 * var(--pad) + 8px); margin-right: calc(-1 * var(--pad) + 8px); }
+  .demo-top { padding: 14px; }
+  .seg { width: 100%; }
+  .seg label { flex: 1 1 0; justify-content: center; padding: 10px 8px; font-size: 14px; white-space: normal; text-align: center; line-height: 1.2; }
+  .codeline { flex-basis: 100%; font-size: 13px; }
+  .controls { width: 100%; }
+  .controls .icon-btn { flex: 1 1 0; justify-content: center; }
+  .stage { padding: 20px 14px 18px; }
+  /* vertical lanes */
+  .lanes { grid-template-columns: 1fr; grid-template-rows: auto 170px auto; min-height: 0; }
+  .track { margin: 0; }
+  .rail { top: 10px !important; bottom: 10px; height: auto; width: 2px; right: auto; background: repeating-linear-gradient(180deg, var(--line-2) 0 6px, transparent 6px 12px); }
+  .rail.out { left: 38%; } .rail.back { left: 62%; }
+  .packet { left: 38%; top: calc(10px + var(--p, 0) * (100% - 20px)); }
+  .ack { left: 62%; }
+  .packet .tagk { transform: translateX(-72px); }
+  .ack .tagk { transform: translateX(62px); }
+  .boom { left: 62%; top: 50%; }
+  .boom .lbl { top: 8px; left: 44px; }
+  .actor .status { min-height: 0; }
+  .ledger { flex-direction: row; flex-wrap: wrap; }
+  .rcpt { flex: 1 1 130px; }
+  .checks { padding: 20px 14px; }
+  .checks ul { grid-template-columns: 1fr; }
+  .narr { text-align: left; }
+  .tl-head { flex-direction: column; align-items: flex-start; gap: 2px; }
+  .truth-grid, .chips { grid-template-columns: 1fr; }
+  .cta-card { grid-template-columns: 1fr; }
+  .demo-foot { padding: 12px 14px; }
+}
+@media (max-width: 360px) {
+  .hero h1 { font-size: 34px; }
+  .codeline { font-size: 12px; padding: 10px 10px; }
+  .codeline .ln { display: none; }
+  .seg label { font-size: 13px; }
+  .btn { font-size: 15px; padding: 14px 16px; }
+  .btn-sm { padding: 9px 11px; font-size: 13px; }
+  .logo { font-size: 17px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#demo">Skip to the demo</a>
+<header>
+  <div class="wrap">
+    <a class="logo" href="#top" id="top">
+      <svg viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="10" fill="#5b3df5"/><circle cx="10" cy="15" r="3.4" fill="#fff"/><path d="M15 15h8" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="2.5 3.5"/><rect x="19" y="10.5" width="6" height="9" rx="2" fill="none" stroke="#fff" stroke-width="2"/></svg>
+      workflow-sim
+    </a>
+    <nav aria-label="Primary">
+      <a class="plain" href="#real">What's real</a>
+      <a class="plain" href="#examples">Examples</a>
+      <a class="btn btn-primary btn-sm" href="#access">Private alpha</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="h1">
+    <div class="wrap">
+      <h1 id="h1">Flip one line. <span class="hl">Watch the receipts.</span></h1>
+      <p class="sub">A saved receipt, a lost acknowledgement, a retry at two seconds. workflow-sim puts your real Python workflow through moments like this, then checks what it wrote.</p>
+
+      <div class="demo mode-bug" id="demo" aria-labelledby="demo-h">
+        <h2 id="demo-h" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Illustrative demo: the billing example</h2>
+        <div class="demo-top">
+          <fieldset class="seg">
+            <legend>Idempotency key for each retry</legend>
+            <input type="radio" name="mode" id="m-bug" value="bug" checked>
+            <label for="m-bug"><span class="dot" aria-hidden="true"></span>New key per attempt</label>
+            <input type="radio" name="mode" id="m-fix" value="fix">
+            <label for="m-fix"><span class="dot" aria-hidden="true"></span>Stable invoice ID</label>
+          </fieldset>
+          <div class="codeline code" aria-label="The line that changes">
+            <span class="ln" aria-hidden="true">31</span>
+            <code id="code">key = <span class="chg"><span class="str">f"{invoice['id']}:{attempt}"</span></span></code>
+          </div>
+          <div class="controls">
+            <button class="icon-btn" type="button" id="play" aria-label="Pause">
+              <svg viewBox="0 0 14 14" aria-hidden="true" id="play-ic"><path d="M3 2h3v10H3zM8 2h3v10H8z" fill="currentColor"/></svg><span id="play-txt">Pause</span></button>
+            <button class="icon-btn" type="button" id="replay">
+              <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2.5 7a4.5 4.5 0 1 0 1.3-3.2M2.5 1.5v2.8h2.8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>Replay</button>
+          </div>
+        </div>
+
+        <div class="demo-body">
+          <div class="stage">
+            <div class="lanes">
+              <div class="actor">
+                <span class="kind">Your handler</span>
+                <span class="name code">provision()</span>
+                <span class="badge sleep off" id="b-sleep">sleep(2) · virtual</span>
+                <span class="badge ok off" id="b-done">processed ✓</span>
+                <span class="badge again off" id="b-skip">webhook again · skipped</span>
+                <span class="status" id="h-status">Waiting for the invoice.paid webhook</span>
+              </div>
+              <div class="track" aria-hidden="true">
+                <div class="rail out"></div><div class="rail back"></div>
+                <div class="packet" id="req"><span class="tagk code" id="req-key">in-42:0</span><span class="blob"></span></div>
+                <div class="packet ack" id="ack"><span class="blob"></span><span class="tagk">ack</span></div>
+                <div class="boom" id="boom"><span class="x"><svg viewBox="0 0 14 14"><path d="M3 3l8 8M11 3l-8 8" stroke="#d93036" stroke-width="2.4" stroke-linecap="round"/></svg></span><span class="lbl">ack lost</span></div>
+              </div>
+              <div class="actor">
+                <span class="kind">Receipt service</span>
+                <span class="name">modeled</span>
+                <div class="ledger" aria-label="Saved receipts">
+                  <div class="rcpt code" id="r1"><span id="r1-key">in-42:0</span><span class="amt">1200</span></div>
+                  <div class="rcpt code" id="r2"><span id="r2-key">in-42:1</span><span class="amt">1200</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="timeline">
+              <div class="tl-head">
+                <span class="clock">virtual time <b id="vt">0.00s</b></span>
+                <span class="narr" id="narr">Press play, or drag through time.</span>
+              </div>
+              <div class="scrub" id="scrub">
+                <div class="marks" aria-hidden="true" id="marks"></div>
+                <div class="fill" aria-hidden="true"></div>
+                <input type="range" id="range" min="0" max="7200" step="50" value="0" aria-label="Scrub through the run" aria-valuetext="virtual time 0.00 seconds">
+              </div>
+              <div class="tl-labels" aria-hidden="true"><span>send</span><span>retry at 2s</span><span>webhook again at 5s</span><span>checks</span></div>
+            </div>
+          </div>
+
+          <div class="checks">
+            <h2>Your checks</h2>
+            <ul>
+              <li class="check" id="c1"><span class="mark"><svg class="i-ok" viewBox="0 0 12 12"><path d="M2 6.5l2.5 2.5L10 3" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><span class="t">Paid account</span><span class="d" style="display:block">plan is "paid"</span></span></li>
+              <li class="check" id="c2"><span class="mark"><svg class="i-ok" viewBox="0 0 12 12" style="position:absolute"><path d="M2 6.5l2.5 2.5L10 3" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="i-no" viewBox="0 0 12 12"><path d="M3 3l6 6M9 3l-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></span><span><span class="t">One exact receipt</span><span class="d" style="display:block" id="c2-d">in-42 · cus-7 · 1200</span></span></li>
+              <li class="check" id="c3"><span class="mark"><svg class="i-ok" viewBox="0 0 12 12"><path d="M2 6.5l2.5 2.5L10 3" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><span class="t">Acknowledgement retried</span><span class="d" style="display:block">2 attempts</span></span></li>
+              <li class="check" id="c4"><span class="mark"><svg class="i-ok" viewBox="0 0 12 12"><path d="M2 6.5l2.5 2.5L10 3" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><span class="t">Completion recorded</span><span class="d" style="display:block">after delivery</span></span></li>
+            </ul>
+            <div class="verdict"><div class="v" id="verdict" role="status" aria-live="polite">Verdict pending</div></div>
+          </div>
+        </div>
+
+        <div class="demo-foot">
+          <span><strong>Illustrative demo.</strong> Nothing runs in your browser. It animates the billing example that ships with workflow-sim.</span>
+          <span>The real tool runs your Python in a fresh worker process.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="truth" id="real" aria-labelledby="real-h">
+    <div class="wrap">
+      <h2 id="real-h">In the real thing, three parts are yours.</h2>
+      <div class="truth-grid">
+        <div class="tcard">
+          <div class="ic"><svg viewBox="0 0 22 22" aria-hidden="true"><path d="M7 6l-5 5 5 5M15 6l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Your real code</h3>
+          <p>The asyncio or Celery workflow you already ship. Each run starts in a fresh worker process.</p>
+        </div>
+        <div class="tcard">
+          <div class="ic"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M11 6.5V11l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <h3>Your model of the world</h3>
+          <p>You model the services it calls. Time is virtual, and failures land exactly when you schedule them.</p>
+        </div>
+        <div class="tcard">
+          <div class="ic"><svg viewBox="0 0 22 22" aria-hidden="true"><path d="M5 11.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Your checks</h3>
+          <p>Assertions about final state. PASS means they held in that modeled run. It won't write the fix; it tells you whether yours held.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="uses" id="examples" aria-labelledby="uses-h">
+    <div class="wrap">
+      <div class="uses-head">
+        <h2 id="uses-h">Six more switches to flip.</h2>
+        <p>Each ships as a synthetic example with modeled services. Start from the closest one.</p>
+      </div>
+      <div class="chips">
+        <div class="chip"><span class="e"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="4.5" width="16" height="11" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M2 8.5h16" stroke="currentColor" stroke-width="1.7"/></svg></span><div><h3>Payments</h3><p>Receipt commits, acknowledgement lost, webhook twice.</p></div></div>
+        <div class="chip"><span class="e"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6.5l7-4 7 4v7l-7 4-7-4zM3 6.5l7 4 7-4M10 10.5v7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></span><div><h3>Order fulfillment</h3><p>Payment declines after stock is reserved.</p></div></div>
+        <div class="chip"><span class="e"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span><div><h3>Imports</h3><p>Interrupted between row writes and the checkpoint.</p></div></div>
+        <div class="chip"><span class="e"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 2h7l4 4v12H5z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M8 10h5M8 13.5h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span><div><h3>Documents &amp; AI</h3><p>One extraction retries, another finishes late.</p></div></div>
+        <div class="chip"><span class="e"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M2 11h3l2.5-6 3 10 2.5-6 1.5 2H18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Monitoring</h3><p>Recovery and a new outage inside the alert delay.</p></div></div>
+        <div class="chip"><span class="e"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="5" width="11" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M13 8.5l5-3v9l-5-3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></span><div><h3>Meetings</h3><p>A new recording finishes before a stale one.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="access" aria-labelledby="cta-h">
+    <div class="wrap">
+      <div class="cta-card">
+        <div>
+          <h2 id="cta-h">Flip the switch on your own workflow.</h2>
+          <p>workflow-sim is in private alpha for Python asyncio and Celery. Reach out if you have a workflow that retries.</p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-white" href="https://github.com/karthiksraju" rel="noopener">Private alpha · Find me on GitHub
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <button class="btn btn-outline" type="button" id="film-open">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7.5-4.5z" fill="currentColor"/></svg>Watch the 44-second film</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>workflow-sim v0.1.0a4 · private alpha · CPython 3.12 on Linux and macOS · Celery is the only queue backend today.</p>
+    <p>Results describe modeled runs, not production.</p>
+  </div>
+</footer>
+
+<dialog class="film" id="film" aria-label="workflow-sim launch film">
+  <video controls playsinline preload="none" poster="../../media/poster.jpg">
+    <source src="../../media/launch-1920x1080.mp4" type="video/mp4">
+    <track kind="captions" src="../../media/launch.en.vtt" srclang="en" label="English" default>
+  </video>
+  <div class="bar"><span>44 seconds · silent, captioned</span><form method="dialog"><button class="btn btn-quiet btn-sm" type="submit">Close</button></form></div>
+</dialog>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+
+  /* film */
+  const film = $('film'), video = film.querySelector('video');
+  $('film-open').addEventListener('click', () => { film.showModal(); video.play().catch(() => {}); });
+  film.addEventListener('close', () => video.pause());
+  film.addEventListener('click', e => { if (e.target === film) film.close(); });
+
+  /* demo timeline, in seconds of animation */
+  const T = { send1: [0.3, 1.1], save1: 1.1, ack1: [1.2, 1.75], sleep: [1.95, 2.9], send2: [3.0, 3.8], save2: 3.8,
+              ack2: [3.9, 4.6], done: 4.6, jump: [4.8, 5.3], skip: 5.4, checks: [6.0, 6.25, 6.5, 6.75], verdict: 7.0, end: 7.2 };
+  const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+  const prog = (t, [a, b]) => clamp((t - a) / (b - a));
+  const ease = x => x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+  const vt = t => t < T.sleep[0] ? 0 : t < T.jump[0] ? 2 * ease(prog(t, T.sleep)) : 2 + 3 * ease(prog(t, T.jump));
+  const MODES = {
+    bug: { keys: ['in-42:0', 'in-42:1'], code: `<span class="str">f"{invoice['id']}:{attempt}"</span>`, dup: true },
+    fix: { keys: ['in-42', 'in-42'], code: `invoice[<span class="str">'id'</span>]`, dup: false },
+  };
+  let mode = 'bug';
+
+  const demo = $('demo'), req = $('req'), ack = $('ack'), boom = $('boom'), r1 = $('r1'), r2 = $('r2');
+  const range = $('range'), scrub = $('scrub');
+  // event marks on the scrubber
+  [T.send1[0], T.ack1[1], T.send2[0], T.jump[1], T.verdict].forEach(s => {
+    const i = document.createElement('i'); i.style.left = `calc(${(s / T.end) * 100}% - 1px)`; $('marks').appendChild(i);
+  });
+
+  function narration(t, m) {
+    if (t < T.send1[0]) return 'invoice.paid arrives for in-42.';
+    if (t < T.save1) return `Handler sends the receipt, key ${m.keys[0]}.`;
+    if (t < T.ack1[1]) return 'The receipt is saved. Sending acknowledgement...';
+    if (t < T.send2[0]) return 'Acknowledgement lost. Handler sleeps 2s, in virtual time.';
+    if (t < T.save2) return `Retry at 2s with key ${m.keys[1]}.`;
+    if (t < T.done) return m.dup ? 'New key, so a second receipt is saved.' : 'Same key, so the existing receipt is returned.';
+    if (t < T.skip) return 'Delivered. Event marked processed.';
+    if (t < T.checks[0]) return 'The webhook arrives again at 5s. Already processed, skipped.';
+    return 'Your checks run against the final state.';
+  }
+
+  let lastVerdict = '';
+  function render(t) {
+    const m = MODES[mode];
+    const v = vt(t);
+    $('vt').textContent = v.toFixed(2) + 's';
+    range.value = Math.round(t * 1000);
+    range.setAttribute('aria-valuetext', `virtual time ${v.toFixed(2)} seconds. ${narration(t, m)}`);
+    scrub.style.setProperty('--f', (t / T.end).toFixed(4));
+    $('narr').textContent = narration(t, m);
+
+    // request packet
+    let rp = null, key = m.keys[0];
+    if (t >= T.send1[0] && t < T.send1[1]) rp = ease(prog(t, T.send1));
+    if (t >= T.send2[0] && t < T.send2[1]) { rp = ease(prog(t, T.send2)); key = m.keys[1]; }
+    req.classList.toggle('on', rp != null);
+    if (rp != null) { req.style.setProperty('--p', rp.toFixed(4)); $('req-key').textContent = key; }
+    // ack packet: first one dies at the midpoint
+    let ap = null;
+    if (t >= T.ack1[0] && t < T.ack1[1]) ap = 1 - .5 * prog(t, T.ack1);
+    if (t >= T.ack2[0] && t < T.ack2[1]) ap = 1 - ease(prog(t, T.ack2));
+    ack.classList.toggle('on', ap != null);
+    if (ap != null) ack.style.setProperty('--p', ap.toFixed(4));
+    boom.classList.toggle('on', t >= T.ack1[1]);
+    boom.classList.toggle('dim', t >= T.send2[0]);
+
+    // receipts
+    $('r1-key').textContent = m.keys[0];
+    $('r2-key').textContent = m.keys[1];
+    r1.classList.toggle('on', t >= T.save1);
+    r2.classList.toggle('on', m.dup && t >= T.save2);
+    r2.classList.toggle('dup', m.dup && t >= T.save2);
+    r2.style.display = m.dup ? '' : 'none';
+    r1.classList.toggle('hit', !m.dup && t >= T.save2);
+
+    // handler badges + status
+    $('b-sleep').classList.toggle('off', !(t >= T.sleep[0] && t < T.send2[0]));
+    $('b-done').classList.toggle('off', !(t >= T.done));
+    $('b-skip').classList.toggle('off', !(t >= T.skip));
+    $('h-status').innerHTML = t < T.send1[0] ? 'Waiting for the <b>invoice.paid</b> webhook'
+      : t < T.send2[0] ? '<b>attempt 0</b>' : t < T.done ? '<b>attempt 1</b>' : '<b>2 attempts</b> · plan: paid';
+
+    // checks
+    const res = [true, !m.dup, true, true];
+    ['c1', 'c2', 'c3', 'c4'].forEach((id, i) => {
+      const on = t >= T.checks[i];
+      $(id).classList.toggle('pass', on && res[i]);
+      $(id).classList.toggle('fail', on && !res[i]);
+    });
+    $('c2-d').textContent = t >= T.checks[1] && m.dup ? 'expected 1, found 2' : t >= T.checks[1] ? 'expected 1, found 1' : 'in-42 · cus-7 · 1200';
+    const vEl = $('verdict');
+    const verdict = t >= T.verdict ? (m.dup ? 'fail' : 'pass') : '';
+    if (verdict !== lastVerdict) {
+      lastVerdict = verdict;
+      vEl.className = 'v ' + verdict;
+      vEl.textContent = verdict === 'fail' ? '✕ ASSERTION_FAILED' : verdict === 'pass' ? '✓ PASS' : 'Verdict pending';
+    }
+  }
+
+  /* playback */
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  let t = 0, playing = false, raf = 0, last = 0;
+  function setPlaying(on) {
+    playing = on;
+    $('play-txt').textContent = on ? 'Pause' : 'Play';
+    $('play').setAttribute('aria-label', on ? 'Pause' : 'Play');
+    $('play-ic').innerHTML = on ? '<path d="M3 2h3v10H3zM8 2h3v10H8z" fill="currentColor"/>' : '<path d="M3 1.5v11l9.5-5.5z" fill="currentColor"/>';
+    cancelAnimationFrame(raf);
+    if (on) { last = performance.now(); raf = requestAnimationFrame(tick); }
+  }
+  function tick(now) {
+    t = Math.min(T.end, t + (now - last) / 1000); last = now;
+    render(t);
+    if (t >= T.end) { setPlaying(false); return; }
+    raf = requestAnimationFrame(tick);
+  }
+  function restart() {
+    t = 0; render(0);
+    if (reduce.matches) { t = T.end; render(t); setPlaying(false); }
+    else setPlaying(true);
+  }
+  $('play').addEventListener('click', () => {
+    if (playing) return setPlaying(false);
+    if (t >= T.end) t = 0;
+    setPlaying(true);
+  });
+  $('replay').addEventListener('click', () => { t = 0; render(0); setPlaying(true); });
+  range.addEventListener('input', () => { setPlaying(false); t = range.value / 1000; render(t); });
+  document.querySelectorAll('input[name=mode]').forEach(r => r.addEventListener('change', () => {
+    mode = r.value;
+    demo.classList.toggle('mode-bug', mode === 'bug');
+    demo.classList.toggle('mode-fix', mode === 'fix');
+    $('code').innerHTML = 'key = <span class="chg">' + MODES[mode].code + '</span>';
+    restart();
+  }));
+
+  // start when the demo is visible
+  let started = false;
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting && !started) { started = true; restart(); }
+  }, { threshold: .35 }).observe(demo);
+  render(0);
+})();
+</script>
+</body>
+</html>
