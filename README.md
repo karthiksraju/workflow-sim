@@ -36,6 +36,8 @@ uv run workflow-sim workflow_sim.examples.retry:build --duration 10 --output res
 In an existing uv project, use the same `uv add` command. Its Python requirement
 must fit this alpha's `>=3.12,<3.13` range. Commit the application's `uv.lock` to
 retain its resolved dependencies.
+For an application with its own dependencies and layout, follow the
+[existing-project setup](docs/existing-project.md).
 
 The receiver commits a delivery but loses its acknowledgement. The workflow
 retries five virtual seconds later. The result should be `PASS`: one delivery of

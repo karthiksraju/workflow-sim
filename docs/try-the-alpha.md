@@ -1,5 +1,8 @@
 # Try the alpha with your workflow
 
+Already have an application? Start with the [existing-project setup](existing-project.md)
+for environments, imports and a failure adapter.
+
 Use uv on Linux or macOS to create a project with CPython 3.12.
 Follow the [installation steps](../README.md#try-the-installed-package); private
 repository access is required. Choose a [domain example](examples.md) close to
