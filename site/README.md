@@ -12,6 +12,7 @@ part of the Python package; `site/` is excluded from the wheel and sdist.
 | `media/poster.jpg` | Video poster (the failing check, at 23.5 s). |
 | `video/render.py` | Renderer. Pillow draws every frame; ffmpeg encodes. |
 | `video/render.py.lock` | uv lock for the renderer's only dependency, Pillow. |
+| `alternatives/` | Three candidate landing pages and a chooser. See its README. |
 
 ## Preview
 

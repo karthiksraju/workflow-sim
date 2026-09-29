@@ -46,7 +46,7 @@ a { color: inherit; }
 .mast .meta a:hover { border-color: currentColor; }
 
 /* hero */
-.hero { padding: clamp(36px, 5vw, 72px) 0 clamp(60px, 8vw, 120px); }
+.hero { padding: clamp(36px, 5vw, 72px) 0 clamp(60px, 8vw, 120px); overflow-x: clip; }
 .hero .grid { align-items: start; }
 .hero-copy { grid-column: 1 / span 7; }
 .hero h1 { font: 400 clamp(54px, 7.3vw, 110px)/.9 var(--serif); letter-spacing: -.025em; margin: 24px 0 0; }
@@ -139,7 +139,7 @@ footer p { margin: 0; }
   .r-fix .stamp { animation-delay: 1.35s; }
   @keyframes drop { from { opacity: 0; transform: translateY(-30px) rotate(-9deg); } }
   @keyframes drop2 { from { opacity: 0; transform: translateY(-30px) rotate(8deg); } }
-  @keyframes stamp { from { opacity: 0; transform: scale(1.6) rotate(-20deg); } }
+  @keyframes stamp { from { opacity: 0; transform: scale(1.35) rotate(-20deg); } }
 }
 @media (prefers-reduced-motion: reduce) {
   .receipt { transition: none; }

@@ -15,7 +15,7 @@
   --line-2: #2a303b;
   --ink: #f2f4f7;
   --ink-2: #a9b0bd;
-  --ink-3: #737b89;
+  --ink-3: #7e8696;
   --fail: #ff5a4e;
   --fail-soft: rgba(255, 90, 78, .14);
   --pass: #3df0a4;
@@ -235,9 +235,9 @@ dialog.film .bar a { color: var(--ink-2); }
           <g transform="translate(0,432)">
             <line x1="236" x2="836" y1="0" y2="0" stroke="#2a303b"/>
             <g class="lbl" font-size="12">
-              <text x="236" y="24" fill="#737b89">0s</text>
-              <text x="536" y="24" fill="#737b89" text-anchor="middle">retry · sleep(2), virtual</text>
-              <text x="836" y="24" fill="#737b89" text-anchor="end">2s</text>
+              <text x="236" y="24" fill="#7e8696">0s</text>
+              <text x="536" y="24" fill="#7e8696" text-anchor="middle">retry · sleep(2), virtual</text>
+              <text x="836" y="24" fill="#7e8696" text-anchor="end">2s</text>
             </g>
             <line x1="236" x2="236" y1="-6" y2="6" stroke="#2a303b"/><line x1="836" x2="836" y1="-6" y2="6" stroke="#2a303b"/>
             <circle id="playhead" cx="236" cy="0" r="5" fill="#c6ff3d"/>
@@ -380,7 +380,7 @@ dialog.film .bar a { color: var(--ink-2); }
     if (parent) parent.appendChild(n);
     return n;
   };
-  const C = { fail: '#ff5a4e', pass: '#3df0a4', ink: '#f2f4f7', ink2: '#a9b0bd', ink3: '#737b89', line: '#2a303b', sig: '#c6ff3d' };
+  const C = { fail: '#ff5a4e', pass: '#3df0a4', ink: '#f2f4f7', ink2: '#a9b0bd', ink3: '#7e8696', line: '#2a303b', sig: '#c6ff3d' };
   const lanes = [
     { color: C.fail, soft: 'rgba(255,90,78,.14)', title: 'new key per attempt', keys: ['in-42:0', 'in-42:1'], dup: true,
       verdict: 'ASSERTION_FAILED', detail: 'one exact receipt: expected 1, found 2' },
