@@ -34,7 +34,7 @@ answer quality needs a separate evaluation. Billing results depend on whether
 your provider and storage actually honor the modeled delivery/idempotency rules.
 
 Share setup friction and unexpected results through the
-[feedback form](https://github.com/karthiksraju/workflow-sim/issues/new?template=alpha-feedback.yml).
-Use the [bug form](https://github.com/karthiksraju/workflow-sim/issues/new?template=bug.yml)
+[feedback form](https://github.com/KarthikRaju391/workflow-sim/issues/new?template=alpha-feedback.yml).
+Use the [bug form](https://github.com/KarthikRaju391/workflow-sim/issues/new?template=bug.yml)
 for a false PASS or runtime error. Include a small reproduction and remove
 credentials, customer content and private paths. The library uploads no telemetry.

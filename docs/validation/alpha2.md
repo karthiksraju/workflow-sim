@@ -7,7 +7,7 @@ Historical results below apply to their recorded revisions. See the
 
 All eleven independently reproduced review findings are corrected. **316 tests**
 pass locally and in the installed-wheel Linux/macOS
-[final runtime CI](https://github.com/karthiksraju/workflow-sim/actions/runs/36448361137)
+[final runtime CI](https://github.com/KarthikRaju391/workflow-sim/actions/runs/36448361137)
 at `c9ba673c373bffc7b076753d86815560719117df`. That adds 49 regressions and controls
 to the original 267 tests. The release workflow repeats the checks on the exact
 release commit and promotes those tested artifacts.
@@ -79,10 +79,10 @@ provenance. Its passing tests preceded the defects found by the independent revi
 
 ## Published alpha 2 artifacts
 
-[Private prerelease v0.1.0a2](https://github.com/karthiksraju/workflow-sim/releases/tag/v0.1.0a2)
+[Private prerelease v0.1.0a2](https://github.com/KarthikRaju391/workflow-sim/releases/tag/v0.1.0a2)
 points to `5ff6edc5342e9d9d2ff3334db2e04abb81a50b67`. Both platform jobs passed all
 316 tests on that exact commit in
-[CI run 36453594191](https://github.com/karthiksraju/workflow-sim/actions/runs/36453594191).
+[CI run 36453594191](https://github.com/KarthikRaju391/workflow-sim/actions/runs/36453594191).
 The release workflow promoted its tested artifacts without rebuilding. Downloaded
 wheel, sdist and both test reports passed every SHA256SUMS check. The source archive
 contains the exact tested dependency lock.

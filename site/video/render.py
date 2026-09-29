@@ -51,7 +51,7 @@ CAPTIONS = [
     (42, 46, 'Expected one exact receipt. Found two. A successful handler was not enough.'),
     (46, 50, 'Fix the key in your handler. Keep the same modeled failure and assertions.'),
     (50, 56, 'Run again. One exact receipt; all four checks match. PASS for this modeled run.'),
-    (56, 64, 'You supply the workflow, service models and assertions. workflow-sim controls execution and reports the evidence. Private alpha: github.com/karthiksraju.'),
+    (56, 64, 'You supply the workflow, service models and assertions. workflow-sim controls execution and reports the evidence. Private alpha: github.com/KarthikRaju391.'),
 ]
 _fonts = {}
 
@@ -291,7 +291,7 @@ def render(args):
                 cv.text(m,y+72+j*46,line,36,TEXT)
         prose(cv,'PASS covers this modeled run. Live integrations need their own tests.',704,29)
         cv.text(m,840,'workflow-sim / private alpha',42,TEXT,'Medium')
-        cv.text(m,912,'Find me on GitHub: github.com/karthiksraju',29,SEC)
+        cv.text(m,912,'Find me on GitHub: github.com/KarthikRaju391',29,SEC)
     return cv.frame().tobytes()
 def vtt_time(s):
     return f'{int(s // 3600):02d}:{int(s % 3600 // 60):02d}:{s % 60:06.3f}'
