@@ -1,31 +1,30 @@
-Internal alpha 2 for CPython 3.12 on Linux and macOS. This corrects all eleven
-verified findings from the independent review of alpha 1.
+Internal alpha 4 for CPython 3.12 on Linux and macOS.
 
-- Account for asynchronous descendants, unobserved errors and thread ownership.
-- Preserve Celery retry continuations, signature options and original delivery
-  payloads; report publication failures and unsupported operations.
-- Disarm completed task deadlines, invalidate stale CLI output on parse errors,
-  and include the contributor lock in the source distribution.
-- Keep async bridge ownership and coroutine handoff atomic with the scheduler.
+This release rejects Celery `send_task` and direct Kombu/AMQP publications that
+bypass the modeled queue. The unsupported record persists when application code
+catches the exception, preventing an unaccounted publication from producing PASS.
+Registered task `apply_async`, `delay` and registered signatures retain their
+supported behavior.
 
-Validation: 316 installed-package tests pass on Linux and macOS; all 19 original
-reviewer witnesses/controls pass their corrected expectations. Old-code negative
-controls demonstrate the regressions. Consumer validation includes 976 passing
-tests and six strict application xfails on the initial correction, followed by
-192 affected-module tests and all 102 scenarios on the final bridge fix. Business
-assertions, health verdicts and application state are preserved. See [validation](https://github.com/karthiksraju/workflow-sim/blob/main/docs/validation.md)
-for consumer results, exact revisions and remaining model limits.
+Calendar-sensitive workflows can set `start_at` / `--start-at` with an explicit
+timezone. The origin is normalized to UTC and bound to verified configuration.
+The default remains 2099-01-01 UTC. See [migration and scope](https://github.com/karthiksraju/workflow-sim/blob/v0.1.0a4/docs/alpha4.md).
 
-Upgrade to `v0.1.0a2` and rerun scenarios. Do not reinterpret archived alpha 1
-verdicts: they lack the corrected execution evidence. The public API and result
-schema 1 remain unchanged; verdicts, deadline events and frozen task IDs may change.
-See [migration](https://github.com/karthiksraju/workflow-sim/blob/main/docs/alpha2.md).
+Release promotion requires installed-wheel checks on Linux and macOS, clean
+minimal installation, six examples with broken controls, four actual Linux
+prefork/Redis comparisons and six targeted simulator mutations. The separate
+local stability acceptance harness and corpus/consumer evidence are recorded
+in the validation index; they are not additional permanent CI tests.
 
-This is a trusted-adapter testing runtime. PASS establishes the supplied assertions
-in that model, not live provider/broker/database correctness. The same nine known
-application failures remain visible in the meeting consumer.
+Result schema remains 1 with an optional `start_at` configuration field. Existing
+adapters that omit the option retain the old request shape. Rerun evidence for
+previously unsupported publication paths; do not reinterpret archived PASS files.
 
-Private distribution only; public licensing/visibility remains pending. These
-assets are promoted from the exact release commit's CI, without rebuilding.
-From the downloaded asset directory, run `sha256sum -c SHA256SUMS`
-(or `shasum -a 256 -c SHA256SUMS` on macOS).
+Six synthetic domain examples remain available. The independent corpus has 240
+input timelines and 36 implemented reference business cases; 204 business cases
+still need adapters. No additional queue backend or provider certification is
+claimed. Queue-independent architecture work is deferred.
+
+Private draft for review. Public licensing and visibility remain pending. Assets
+are promoted from the tested commit's CI, without rebuilding. Verify downloaded
+assets with `sha256sum -c SHA256SUMS` (or `shasum -a 256 -c SHA256SUMS` on macOS).

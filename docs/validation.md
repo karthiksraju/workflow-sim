@@ -1,5 +1,42 @@
 # Alpha validation
 
+## Alpha 4 stability
+
+[Publication and calendar-origin verification](validation/alpha4.md) records
+platform checks, negative controls, the 2026-origin corpus rerun and the
+102-scenario comparison at an identical application revision.
+
+## Independent corpus evaluation
+
+The existing alpha 3 was exercised with all 240 independently authored input
+timelines on asyncio and Celery. A separate 36-case reference business subset
+passes its original assertions; 204 business cases still require domain adapters.
+See the [evaluation scope, findings and per-case index](validation/corpus-alpha3.md).
+This is additional evidence, not a claim that 240 business workflows passed.
+
+## Alpha 3 confidence expansion
+
+The six [domain examples](examples.md) each pass with the correction and fail
+with the deliberate bug. The expanded installed-wheel suite has **325 tests**,
+including Hypothesis comparisons with ordinary asyncio and independent lifecycle
+models. [CI for the expanded gates](https://github.com/karthiksraju/workflow-sim/actions/runs/36466471383)
+adds actual Linux prefork/Redis comparison and targeted runtime mutations.
+
+Locally, all four shared Celery programs match their expected real-worker effects,
+including actual child-process loss and redelivery. All six curated simulator
+defects cause assertion failures after a passing baseline. The
+[confidence guide](confidence.md) explains each oracle, reproduction command and
+limitation. The [release evidence index](validation/alpha3-release.json) records exact CI,
+artifact hashes, four worker comparisons, 17 passing mutation-baseline cases, six
+detected defects and the 126 passing focused consumer checks. Full reports are
+attached to the [private alpha 3 release](https://github.com/karthiksraju/workflow-sim/releases/tag/v0.1.0a3).
+
+No execution module changed from alpha 2; only the package version and new example
+modules differ. This expands validation and onboarding, not the modeled execution
+features. Historical application results below remain scoped to their original
+revisions. The six new examples are synthetic, not independent production
+integrations across six domains.
+
 ## Alpha 2 adversarial corrections
 
 All eleven independently reproduced review findings are corrected. **316 tests**

@@ -1,5 +1,30 @@
 # Changelog
 
+## 0.1.0a4 — publication guards and calendar origins
+
+- Reject unmodeled Celery `send_task` and direct Kombu/AMQP publication, even
+  when the application catches the exception. Previously, a weak business
+  assertion could PASS while published work never executed.
+- Add timezone-aware `start_at` / `--start-at`, normalized to UTC and bound to
+  verified request/provenance. Preserve the default 2099 origin and request shape.
+- Keep result schema 1, the existing queue model and supported runtime matrix.
+
+See [migration and verification scope](docs/alpha4.md). Alpha 3 stays immutable.
+
+## 0.1.0a3 — domain examples and independent confidence gates
+
+- Add billing, fulfillment, ingestion, document/AI processing, monitoring and
+  meeting workflows with broken controls and illustrated boundary documentation.
+- Compare generated asyncio workloads with stock execution and independent models.
+- Compare four Celery contracts with real Linux prefork workers and isolated Redis,
+  including actual worker-loss redelivery and original-message preservation.
+- Require six targeted runtime mutations to fail behavioral assertions.
+- Gate artifact promotion on these checks and ship their evidence with the release.
+- Add tester onboarding, confidence recipes and a factual launch-post draft.
+
+Runtime modules and result schema are unchanged from alpha 2 (apart from the
+package version). No new execution features or platform support are claimed.
+
 ## 0.1.0a2 — adversarial review corrections
 
 - Keep asynchronous descendants in flight after their entry coroutine returns;

@@ -40,6 +40,8 @@ from datetime import datetime, timedelta, timezone
 from typing import Any, Callable, Optional
 
 from billiard.einfo import ExceptionInfo
+from amqp import Channel as AMQPChannel
+from celery import Celery
 from celery import states
 from celery.app.task import Task
 from celery.app.trace import build_tracer
@@ -47,6 +49,8 @@ from celery.exceptions import Retry, SoftTimeLimitExceeded
 from celery.result import AsyncResult
 from celery.utils.nodenames import gethostname
 from kombu.serialization import dumps, loads
+from kombu import Producer
+from kombu.transport.virtual.base import Channel as VirtualChannel
 
 from workflow_sim.clock import SimulatedWorkerCrash, VirtualClock
 
@@ -107,6 +111,7 @@ class VirtualCelery:
         self.task_filter = task_filter
         self._orig_apply_async = None
         self._installed = False
+        self._publication_patches = []
         self.unsupported: list[str] = []
         self._current_run = ContextVar("celery_run", default=None)
         self._ids = 0
@@ -216,6 +221,21 @@ class VirtualCelery:
 
         Task.signature_from_request = signature_from_request
         Task.apply_async = apply_async
+        # These paths bypass Task.apply_async and its modeled delivery heap.
+        # Block even memory/filesystem transports: absence of network I/O does
+        # not make a publication simulated. reject() remains sticky if caught.
+        def blocked_publication(label):
+            def blocked(*args, **kwargs):
+                driver.reject(f"{label} is not modelled; use a registered task's apply_async/delay or replace the boundary")
+            return blocked
+
+        for owner, name, label in (
+                (Celery, "send_task", "Celery.send_task"),
+                (Producer, "publish", "Kombu Producer.publish"),
+                (VirtualChannel, "basic_publish", "Kombu virtual Channel.basic_publish"),
+                (AMQPChannel, "basic_publish", "AMQP Channel.basic_publish")):
+            self._publication_patches.append((owner, name, getattr(owner, name)))
+            setattr(owner, name, blocked_publication(label))
         self._installed = True
         return self
 
@@ -224,6 +244,9 @@ class VirtualCelery:
             return
         Task.apply_async = self._orig_apply_async
         Task.signature_from_request = self._orig_signature_from_request
+        for owner, name, original in reversed(self._publication_patches):
+            setattr(owner, name, original)
+        self._publication_patches.clear()
         self._installed = False
 
     def __enter__(self):

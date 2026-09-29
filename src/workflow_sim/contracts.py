@@ -5,12 +5,25 @@ import hashlib
 import json
 import math
 import re
+from datetime import datetime, timedelta, timezone
 
 SCHEMA_VERSION = 1
 OUTCOMES = {'PASS', 'ASSERTION_FAILED', 'INCOMPLETE', 'UNSUPPORTED', 'HARNESS_ERROR'}
 MAX_REQUEST_BYTES = 1_000_000
 MAX_RESULT_BYTES = 8_000_000
 MAX_OUTPUT_BYTES = 256_000
+DEFAULT_START_AT = '2099-01-01T00:00:00+00:00'
+
+
+def normalize_start_at(value):
+    """Accept a precise, timezone-aware ISO timestamp and bind it to UTC."""
+    if type(value) is not str or not re.fullmatch(
+            r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?(?:Z|[+-](?:[01]\d|2[0-3]):[0-5]\d)', value):
+        raise ValueError('start_at must be an ISO timestamp with seconds, a timezone and at most six fractional digits')
+    try:
+        return datetime.fromisoformat(value).astimezone(timezone.utc).isoformat()
+    except (ValueError, OverflowError) as exc:
+        raise ValueError('start_at is outside the supported datetime range') from exc
 
 
 def encode(value) -> bytes:
@@ -40,7 +53,8 @@ def json_value(value):
 
 
 def validate_request(request):
-    if set(request) != {'schema_version', 'adapter', 'inputs', 'duration', 'seed', 'max_steps'}:
+    required = {'schema_version', 'adapter', 'inputs', 'duration', 'seed', 'max_steps'}
+    if not required <= set(request) or set(request) - required - {'start_at'}:
         raise ValueError('unknown or missing request fields')
     if type(request['schema_version']) is not int or request['schema_version'] != SCHEMA_VERSION:
         raise ValueError('unsupported request schema')
@@ -56,6 +70,11 @@ def validate_request(request):
         raise ValueError('max_steps must be between 1 and 1000000')
     if type(request['duration']) not in (int, float) or not math.isfinite(request['duration']) or not 0 <= request['duration'] <= 86400 * 366:
         raise ValueError('duration must be finite seconds between 0 and 366 days')
+    start = normalize_start_at(request.get('start_at', DEFAULT_START_AT))
+    try:
+        datetime.fromisoformat(start) + timedelta(seconds=request['duration'])
+    except OverflowError as exc:
+        raise ValueError('start_at plus duration exceeds the supported datetime range') from exc
     if len(encode(request)) > MAX_REQUEST_BYTES:
         raise ValueError('request exceeds 1 MB')
 
@@ -133,4 +152,4 @@ def validate_result(result, request, attempt):
 
 def configuration(request):
     """Non-payload reproduction settings; input data remains caller-owned."""
-    return {k: request[k] for k in ('adapter', 'duration', 'seed', 'max_steps')}
+    return {k: request[k] for k in ('adapter', 'duration', 'seed', 'max_steps', 'start_at') if k in request}
