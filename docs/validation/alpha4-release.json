@@ -1,0 +1,1746 @@
+{
+  "version": "0.1.0a4",
+  "tag": "v0.1.0a4",
+  "source_revision": "320e0504627b78c165ad572b535f4e369e9ac7ad",
+  "runtime_revision": "459c2fd5129dcc7f71dedd0523493a13d283414a",
+  "ci_run": "https://github.com/karthiksraju/workflow-sim/actions/runs/36528536194",
+  "promotion_run": "https://github.com/karthiksraju/workflow-sim/actions/runs/36528852186",
+  "draft_release": "https://github.com/karthiksraju/workflow-sim/releases/tag/untagged-967f6673a851755a53f8",
+  "visibility": "private",
+  "is_draft": true,
+  "artifacts": {
+    "test-results-macos.xml": "06517ed38087547d172f0a13b4a731501849642de19a5393e9bc36602a12d3a6",
+    "example-evidence.tar.gz": "d0108020a32e49a064d463dd8cef3165585c34a8a4679c2e4214fe4ccdefc266",
+    "workflow_sim-0.1.0a4.tar.gz": "85a1302de99221ce90f19045401c821ea74c3259183b6f3ad8bb3c62eefbf8c7",
+    "confidence-evidence.tar.gz": "13296859a1f951433b6b3412d082aac1833749b8824038cae9e5ddf77813e7da",
+    "workflow_sim-0.1.0a4-py3-none-any.whl": "cc4a82e472be9e77f6ed1c23d3cb58b05c32a6864c7795e5f579f1e0a186c59a",
+    "test-results-linux.xml": "e9ee8a9b7f3db70016368b285020f054f8fd3581ac3c101e87ae26386f2c6f2e"
+  },
+  "runtime_files": {
+    "workflow_sim/__init__.py": "b591f98d1610d3fcaa7a8fc83c477b413336e1041df3da136e8f25d536cbbcb3",
+    "workflow_sim/_worker.py": "e1765cc89e6546dba30f5cdb090af3c29207bb0ec970901f4f1904bc58121087",
+    "workflow_sim/celery_driver.py": "b722f2f6c92e537ef45a2de5e6a7b0a6922d3e77e04781a3d0fa19ecf740fb55",
+    "workflow_sim/cli.py": "8f338710375cac2cbc3175029b00f1599da2ea4eb8fc02281e24d49d83ef38ff",
+    "workflow_sim/clock.py": "a8380471e7eab950212afffeca6c0c6a9bf696426b00540c3a28ade2b17ce8b3",
+    "workflow_sim/context.py": "f3d86f8762eac82088d4e208dd9fa22d446198812cfb0e4ee3a78b3217b734cd",
+    "workflow_sim/contracts.py": "66aefc5635ebf48359f1f9fe865a56b93d31ea67f237e51be84b5924bd531d70",
+    "workflow_sim/engine.py": "082007993e7d217c8d3ae6af6d125130f7e856799749f3d5dd23da98c16b70db",
+    "workflow_sim/ledger.py": "7ec7e5423aaa46ab58940ff90a90ffa2e1181d225340345f3382f224e59d2a08",
+    "workflow_sim/provenance.py": "0247b4acc31f28314019b094551ad492d227af8d0c48812b98a7e7281b0d69f7",
+    "workflow_sim/py.typed": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "workflow_sim/runner.py": "f4ce65841e115aa00932d482500837107b4dd8a7f780855d6fa05f40788c2546",
+    "workflow_sim/runtime.py": "d25292d61365ea66c6b65d3b44e3c5504707f799f3fc14069d54b63bf124acec",
+    "workflow_sim/time.py": "0d62e44fd6d49efe85dbafaf267d56c7b382cea6967e6a027175edcc84e788f8",
+    "workflow_sim/examples/__init__.py": "5c0c998afa3299b0042f423437d50183cf157e428d29b1fe309cce26150f859c",
+    "workflow_sim/examples/billing.py": "73e0bdd88878ff1896878241d3461e528316208e5e4f9d60856164b1af2973f9",
+    "workflow_sim/examples/catalog.py": "f70848cc03a0efff7695f85a82f2ded56079f7d9f51d2214fcc871f7e2f0e000",
+    "workflow_sim/examples/celery_retry.py": "039825f1c67f5122c5444c5c806be445829e77bce16e2e61d76841ae3c9e9ef7",
+    "workflow_sim/examples/documents.py": "36d32c46157039843642cdf151acc9c8a30f3a7d63e186e84110804342c35b0f",
+    "workflow_sim/examples/fulfillment.py": "e3e6739d85cc9c2e31e6650fd17b6f07d11ef107ee9f4f11f6b106b1d6bedd63",
+    "workflow_sim/examples/ingestion.py": "edd931df4fda54e2bcb62443fd14bb975029f7ce404b455e2917ef52d3653618",
+    "workflow_sim/examples/meetings.py": "7f9e757d652bc4d06ced3414a1d236edbe26297997f9a7e245ef095e55791361",
+    "workflow_sim/examples/monitoring.py": "2fdcdbf6d541df81ffa8e7acdb703183a55d82e1ec4eaff07e7a14413c120406",
+    "workflow_sim/examples/retry.py": "5a3e7302591b1123f491c35eb02f460fba067c8d1d84ad5d5332de3b52f63d75"
+  },
+  "observed_at_utc": "2026-09-29T06:30:58.899658+00:00",
+  "environment": {
+    "python": "3.12.13 (main, Apr  7 2026, 21:09:58) [Clang 22.1.1 ]",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "dependencies": {
+      "rfc3986": "2.0.0",
+      "jaraco.classes": "3.4.0",
+      "click": "8.5.0",
+      "packaging": "26.3",
+      "iniconfig": "2.3.0",
+      "jaraco.context": "6.1.2",
+      "charset-normalizer": "3.5.1",
+      "Pygments": "2.21.0",
+      "prompt_toolkit": "3.0.53",
+      "tzdata": "2026.4",
+      "requests": "2.34.2",
+      "kombu": "5.6.2",
+      "hypothesis": "6.168.3",
+      "rich": "15.0.0",
+      "redis": "6.4.0",
+      "click-didyoumean": "0.3.1",
+      "readme_renderer": "46.0",
+      "build": "1.6.1",
+      "jaraco.functools": "4.6.0",
+      "pytest": "9.1.1",
+      "urllib3": "2.8.0",
+      "twine": "6.2.0",
+      "mdurl": "0.1.2",
+      "pyproject_hooks": "1.3.3",
+      "python-dateutil": "2.9.0.post0",
+      "sortedcontainers": "2.4.0",
+      "id": "1.6.1",
+      "certifi": "2026.7.22",
+      "wcwidth": "0.9.1",
+      "tzlocal": "5.4.4",
+      "nh3": "0.3.7",
+      "markdown-it-py": "4.2.0",
+      "pluggy": "1.6.0",
+      "time-machine": "3.5.1",
+      "requests-toolbelt": "1.0.0",
+      "typing_extensions": "4.16.0",
+      "click-repl": "0.4.0",
+      "click-plugins": "1.1.1.2",
+      "amqp": "5.4.0",
+      "billiard": "4.3.0",
+      "celery": "5.6.3",
+      "keyring": "25.7.0",
+      "docutils": "0.23",
+      "six": "1.17.0",
+      "more-itertools": "11.1.0",
+      "workflow-sim": "0.1.0a4",
+      "vine": "5.1.0",
+      "idna": "3.20"
+    },
+    "local_wheel_sha256": "7879dc17fde0a8b0e3fbffb91b90af5a3bb976c90d0e42c63c8749b468350cf0",
+    "runtime_source_revision": "459c2fd5129dcc7f71dedd0523493a13d283414a",
+    "release_candidate_revision": "320e0504627b78c165ad572b535f4e369e9ac7ad",
+    "corpus_manifest_sha256": "15860cc432c8880637c3ff0852f9adb78b6485270d2c8af1e51ebcd8a221627e"
+  },
+  "installed_library_tests": {
+    "linux": 325,
+    "macos": 325
+  },
+  "local_acceptance": {
+    "macos": 41,
+    "linux_container": 41,
+    "harness_in_pr": false
+  },
+  "old_wheel_control": {
+    "version": "0.1.0a3",
+    "wheel_sha256": "c7a5f642a45063ff0f4cdc661aa471afac69a5f3ad9fc553f46f8f9aeeec78da",
+    "publication_regressions_failed": 18
+  },
+  "new_runtime_mutations": [
+    {
+      "name": "baseline",
+      "cases": 25,
+      "failures": 0,
+      "errors": 0,
+      "replacement": {
+        "old": null,
+        "new": null
+      }
+    },
+    {
+      "name": "forget-publication-guard",
+      "cases": 21,
+      "failures": 21,
+      "errors": 0,
+      "replacement": {
+        "old": "driver.reject(f\"{label} is not modelled; use a registered task's apply_async/delay or replace the boundary\")",
+        "new": "return None"
+      }
+    },
+    {
+      "name": "ignore-clock-origin",
+      "cases": 3,
+      "failures": 3,
+      "errors": 0,
+      "replacement": {
+        "old": "datetime.fromisoformat(normalize_start_at(request.get('start_at', DEFAULT_START_AT)))",
+        "new": "datetime.fromisoformat(DEFAULT_START_AT)"
+      }
+    }
+  ],
+  "existing_runtime_mutations": {
+    "scope": "six curated simulator defects; no global mutation score",
+    "mutants": [
+      {
+        "name": "ignore-descendants",
+        "file": "engine.py",
+        "test": "test_adversarial_regressions.py::test_async_descendants_remain_in_flight",
+        "original_sha256": "082007993e7d217c8d3ae6af6d125130f7e856799749f3d5dd23da98c16b70db",
+        "replacement": {
+          "old": "and (self.loop is None or self.loop_retired)",
+          "new": "and True"
+        },
+        "detected_by_assertion": true,
+        "failed_cases": 3
+      },
+      {
+        "name": "hide-unretrieved-errors",
+        "file": "engine.py",
+        "test": "test_adversarial_regressions.py::test_unhandled_async_failures_veto_matching_checks",
+        "original_sha256": "082007993e7d217c8d3ae6af6d125130f7e856799749f3d5dd23da98c16b70db",
+        "replacement": {
+          "old": "if future.done() and getattr(future, \"_log_traceback\", False):",
+          "new": "if False:"
+        },
+        "detected_by_assertion": true,
+        "failed_cases": 1
+      },
+      {
+        "name": "keep-finished-task-deadlines",
+        "file": "engine.py",
+        "test": "test_celery_regressions.py::test_success_disarms_task_limits",
+        "original_sha256": "082007993e7d217c8d3ae6af6d125130f7e856799749f3d5dd23da98c16b70db",
+        "replacement": {
+          "old": "self.cancel_items(lambda item: id(item) in handles)",
+          "new": "self.cancel_items(lambda item: False)"
+        },
+        "detected_by_assertion": true,
+        "failed_cases": 1
+      },
+      {
+        "name": "reuse-mutated-message",
+        "file": "celery_driver.py",
+        "test": "test_celery_regressions.py::test_duplicate_delivery_has_independent_decoded_payload",
+        "original_sha256": "b722f2f6c92e537ef45a2de5e6a7b0a6922d3e77e04781a3d0fa19ecf740fb55",
+        "replacement": {
+          "old": "args, kwargs = loads(body, content_type, encoding)",
+          "new": "args, kwargs = run.args, run.kwargs"
+        },
+        "detected_by_assertion": true,
+        "failed_cases": 1
+      },
+      {
+        "name": "forget-caught-unsupported",
+        "file": "celery_driver.py",
+        "test": "test_celery_regressions.py::test_unsupported_celery_is_sticky_on_every_publish_path",
+        "original_sha256": "b722f2f6c92e537ef45a2de5e6a7b0a6922d3e77e04781a3d0fa19ecf740fb55",
+        "replacement": {
+          "old": "self.unsupported.append(reason)",
+          "new": "pass  # silently forget unsupported operation"
+        },
+        "detected_by_assertion": true,
+        "failed_cases": 2
+      },
+      {
+        "name": "retain-stale-cli-pass",
+        "file": "cli.py",
+        "test": "test_adversarial_regressions.py::test_cli_parse_failures_remove_stale_pass",
+        "original_sha256": "8f338710375cac2cbc3175029b00f1599da2ea4eb8fc02281e24d49d83ef38ff",
+        "replacement": {
+          "old": "output = _output_on_parse_error(argv)",
+          "new": "output = None"
+        },
+        "detected_by_assertion": true,
+        "failed_cases": 8
+      }
+    ],
+    "baseline_cases": 17
+  },
+  "real_worker_contracts": {
+    "versions": {
+      "workflow-sim": "0.1.0a4",
+      "celery": "5.6.3",
+      "redis": "6.4.0"
+    },
+    "task_source_sha256": "f3b344f535b95cf0f87b8e54343aaf5e19d7cb7c819f0f864f0cb79ac7daa8ef",
+    "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
+    "pool": "prefork",
+    "broker": "Redis",
+    "redis_server": "7.4.11",
+    "runtime_sha256": {
+      "_worker.py": "e1765cc89e6546dba30f5cdb090af3c29207bb0ec970901f4f1904bc58121087",
+      "celery_driver.py": "b722f2f6c92e537ef45a2de5e6a7b0a6922d3e77e04781a3d0fa19ecf740fb55",
+      "cli.py": "8f338710375cac2cbc3175029b00f1599da2ea4eb8fc02281e24d49d83ef38ff",
+      "runtime.py": "d25292d61365ea66c6b65d3b44e3c5504707f799f3fc14069d54b63bf124acec",
+      "time.py": "0d62e44fd6d49efe85dbafaf267d56c7b382cea6967e6a027175edcc84e788f8",
+      "contracts.py": "66aefc5635ebf48359f1f9fe865a56b93d31ea67f237e51be84b5924bd531d70",
+      "context.py": "f3d86f8762eac82088d4e208dd9fa22d446198812cfb0e4ee3a78b3217b734cd",
+      "engine.py": "082007993e7d217c8d3ae6af6d125130f7e856799749f3d5dd23da98c16b70db",
+      "runner.py": "f4ce65841e115aa00932d482500837107b4dd8a7f780855d6fa05f40788c2546",
+      "ledger.py": "7ec7e5423aaa46ab58940ff90a90ffa2e1181d225340345f3382f224e59d2a08",
+      "__init__.py": "b591f98d1610d3fcaa7a8fc83c477b413336e1041df3da136e8f25d536cbbcb3",
+      "provenance.py": "0247b4acc31f28314019b094551ad492d227af8d0c48812b98a7e7281b0d69f7",
+      "clock.py": "a8380471e7eab950212afffeca6c0c6a9bf696426b00540c3a28ade2b17ce8b3"
+    },
+    "cases": [
+      {
+        "case": "retry-chain",
+        "real_state": "SUCCESS",
+        "simulated_outcome": "PASS",
+        "effects": [
+          [
+            "attempt",
+            0,
+            "retry-id",
+            {
+              "items": [
+                "book"
+              ]
+            }
+          ],
+          [
+            "attempt",
+            1,
+            "retry-id",
+            {
+              "items": [
+                "book"
+              ]
+            }
+          ],
+          [
+            "finished",
+            {
+              "items": [
+                "book"
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        "case": "duplicate-json",
+        "real_state": "SUCCESS",
+        "simulated_outcome": "PASS",
+        "effects": [
+          [
+            "received",
+            false,
+            [
+              "original"
+            ],
+            "duplicate-id"
+          ],
+          [
+            "received",
+            false,
+            [
+              "original"
+            ],
+            "duplicate-id"
+          ]
+        ]
+      },
+      {
+        "case": "worker-loss",
+        "real_state": "SUCCESS",
+        "simulated_outcome": "HARNESS_ERROR",
+        "effects": [
+          [
+            "received",
+            false,
+            [
+              "original"
+            ],
+            "crash-id"
+          ],
+          [
+            "received",
+            true,
+            [
+              "original"
+            ],
+            "crash-id"
+          ]
+        ]
+      },
+      {
+        "case": "expiry",
+        "real_state": "REVOKED",
+        "simulated_outcome": "PASS",
+        "effects": []
+      }
+    ]
+  },
+  "example_compatibility": [
+    {
+      "file": "documents-broken.json",
+      "old_outcome": "ASSERTION_FAILED",
+      "new_outcome": "ASSERTION_FAILED",
+      "evidence_identical": true
+    },
+    {
+      "file": "fulfillment-broken.json",
+      "old_outcome": "ASSERTION_FAILED",
+      "new_outcome": "ASSERTION_FAILED",
+      "evidence_identical": true
+    },
+    {
+      "file": "billing-broken.json",
+      "old_outcome": "ASSERTION_FAILED",
+      "new_outcome": "ASSERTION_FAILED",
+      "evidence_identical": true
+    },
+    {
+      "file": "fulfillment-fixed.json",
+      "old_outcome": "PASS",
+      "new_outcome": "PASS",
+      "evidence_identical": true
+    },
+    {
+      "file": "meetings-fixed.json",
+      "old_outcome": "PASS",
+      "new_outcome": "PASS",
+      "evidence_identical": true
+    },
+    {
+      "file": "ingestion-fixed.json",
+      "old_outcome": "PASS",
+      "new_outcome": "PASS",
+      "evidence_identical": true
+    },
+    {
+      "file": "ingestion-broken.json",
+      "old_outcome": "ASSERTION_FAILED",
+      "new_outcome": "ASSERTION_FAILED",
+      "evidence_identical": true
+    },
+    {
+      "file": "monitoring-fixed.json",
+      "old_outcome": "PASS",
+      "new_outcome": "PASS",
+      "evidence_identical": true
+    },
+    {
+      "file": "documents-fixed.json",
+      "old_outcome": "PASS",
+      "new_outcome": "PASS",
+      "evidence_identical": true
+    },
+    {
+      "file": "monitoring-broken.json",
+      "old_outcome": "ASSERTION_FAILED",
+      "new_outcome": "ASSERTION_FAILED",
+      "evidence_identical": true
+    },
+    {
+      "file": "meetings-broken.json",
+      "old_outcome": "ASSERTION_FAILED",
+      "new_outcome": "ASSERTION_FAILED",
+      "evidence_identical": true
+    },
+    {
+      "file": "billing-fixed.json",
+      "old_outcome": "PASS",
+      "new_outcome": "PASS",
+      "evidence_identical": true
+    }
+  ],
+  "corpus": {
+    "timelines": 980,
+    "business": 42,
+    "health": [
+      {
+        "name": "origin",
+        "outcome": "PASS"
+      },
+      {
+        "name": "submicrosecond_control",
+        "outcome": "ASSERTION_FAILED"
+      },
+      {
+        "name": "outstanding",
+        "outcome": "INCOMPLETE"
+      },
+      {
+        "name": "unobserved_error",
+        "outcome": "HARNESS_ERROR"
+      }
+    ],
+    "origin": "2026-01-15T10:00:00+00:00",
+    "business_cases_implemented": 36,
+    "business_cases_unimplemented": 204
+  },
+  "consumer_conformance": {
+    "application_revision": "64c0ef223bb6d345033d33088e7a88f749191f66",
+    "candidate_pin": {
+      "version": "0.1.0a4",
+      "filename": "workflow_sim-0.1.0a4-py3-none-any.whl",
+      "sha256": "7879dc17fde0a8b0e3fbffb91b90af5a3bb976c90d0e42c63c8749b468350cf0",
+      "repository": "https://github.com/karthiksraju/workflow-sim",
+      "source_revision": "459c2fd",
+      "ci_run": null,
+      "kernel_files": {
+        "workflow_sim/__init__.py": "b591f98d1610d3fcaa7a8fc83c477b413336e1041df3da136e8f25d536cbbcb3",
+        "workflow_sim/clock.py": "a8380471e7eab950212afffeca6c0c6a9bf696426b00540c3a28ade2b17ce8b3",
+        "workflow_sim/engine.py": "082007993e7d217c8d3ae6af6d125130f7e856799749f3d5dd23da98c16b70db",
+        "workflow_sim/celery_driver.py": "b722f2f6c92e537ef45a2de5e6a7b0a6922d3e77e04781a3d0fa19ecf740fb55",
+        "workflow_sim/ledger.py": "7ec7e5423aaa46ab58940ff90a90ffa2e1181d225340345f3382f224e59d2a08",
+        "workflow_sim/runtime.py": "d25292d61365ea66c6b65d3b44e3c5504707f799f3fc14069d54b63bf124acec",
+        "workflow_sim/time.py": "0d62e44fd6d49efe85dbafaf267d56c7b382cea6967e6a027175edcc84e788f8"
+      },
+      "validated_runtime_files": {
+        "workflow_sim/__init__.py": "b591f98d1610d3fcaa7a8fc83c477b413336e1041df3da136e8f25d536cbbcb3",
+        "workflow_sim/_worker.py": "e1765cc89e6546dba30f5cdb090af3c29207bb0ec970901f4f1904bc58121087",
+        "workflow_sim/celery_driver.py": "b722f2f6c92e537ef45a2de5e6a7b0a6922d3e77e04781a3d0fa19ecf740fb55",
+        "workflow_sim/cli.py": "8f338710375cac2cbc3175029b00f1599da2ea4eb8fc02281e24d49d83ef38ff",
+        "workflow_sim/clock.py": "a8380471e7eab950212afffeca6c0c6a9bf696426b00540c3a28ade2b17ce8b3",
+        "workflow_sim/context.py": "f3d86f8762eac82088d4e208dd9fa22d446198812cfb0e4ee3a78b3217b734cd",
+        "workflow_sim/contracts.py": "66aefc5635ebf48359f1f9fe865a56b93d31ea67f237e51be84b5924bd531d70",
+        "workflow_sim/engine.py": "082007993e7d217c8d3ae6af6d125130f7e856799749f3d5dd23da98c16b70db",
+        "workflow_sim/ledger.py": "7ec7e5423aaa46ab58940ff90a90ffa2e1181d225340345f3382f224e59d2a08",
+        "workflow_sim/provenance.py": "0247b4acc31f28314019b094551ad492d227af8d0c48812b98a7e7281b0d69f7",
+        "workflow_sim/py.typed": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+        "workflow_sim/runner.py": "f4ce65841e115aa00932d482500837107b4dd8a7f780855d6fa05f40788c2546",
+        "workflow_sim/runtime.py": "d25292d61365ea66c6b65d3b44e3c5504707f799f3fc14069d54b63bf124acec",
+        "workflow_sim/time.py": "0d62e44fd6d49efe85dbafaf267d56c7b382cea6967e6a027175edcc84e788f8",
+        "workflow_sim/examples/__init__.py": "5c0c998afa3299b0042f423437d50183cf157e428d29b1fe309cce26150f859c",
+        "workflow_sim/examples/billing.py": "73e0bdd88878ff1896878241d3461e528316208e5e4f9d60856164b1af2973f9",
+        "workflow_sim/examples/catalog.py": "f70848cc03a0efff7695f85a82f2ded56079f7d9f51d2214fcc871f7e2f0e000",
+        "workflow_sim/examples/celery_retry.py": "039825f1c67f5122c5444c5c806be445829e77bce16e2e61d76841ae3c9e9ef7",
+        "workflow_sim/examples/documents.py": "36d32c46157039843642cdf151acc9c8a30f3a7d63e186e84110804342c35b0f",
+        "workflow_sim/examples/fulfillment.py": "e3e6739d85cc9c2e31e6650fd17b6f07d11ef107ee9f4f11f6b106b1d6bedd63",
+        "workflow_sim/examples/ingestion.py": "edd931df4fda54e2bcb62443fd14bb975029f7ce404b455e2917ef52d3653618",
+        "workflow_sim/examples/meetings.py": "7f9e757d652bc4d06ced3414a1d236edbe26297997f9a7e245ef095e55791361",
+        "workflow_sim/examples/monitoring.py": "2fdcdbf6d541df81ffa8e7acdb703183a55d82e1ec4eaff07e7a14413c120406",
+        "workflow_sim/examples/retry.py": "5a3e7302591b1123f491c35eb02f460fba067c8d1d84ad5d5332de3b52f63d75"
+      }
+    },
+    "initial_suite": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "4",
+      "skipped": "6",
+      "tests": "982",
+      "time": "3286.570",
+      "timestamp": "2026-09-29T11:04:26.411253+05:30",
+      "hostname": "karthiks-MacBook-Pro"
+    },
+    "async_rerun_suite": {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "4",
+      "time": "0.044",
+      "timestamp": "2026-09-29T11:11:14.394475+05:30",
+      "hostname": "karthiks-MacBook-Pro"
+    },
+    "effective_passed": 976,
+    "strict_xfails": [
+      "test_known_bug_zoom_fragment_never_terminal",
+      "test_known_bug_meet_late_drive_file_shorter_sibling_wins",
+      "test_known_bug_replica_lag_duplicate_downstream",
+      "test_known_bug_meet_early_join_beyond_claim_window",
+      "test_known_bug_teams_recurring_split_shifts_occurrence_rows",
+      "test_known_bug_zoom_move_before_selection_orphans_occurrence"
+    ],
+    "application_mutations_caught": [
+      {
+        "name": "test_mutation_is_caught[m1_preserve_never_material]",
+        "seconds": "352.327"
+      },
+      {
+        "name": "test_mutation_is_caught[m2_commit_skips_media_gate]",
+        "seconds": "171.781"
+      },
+      {
+        "name": "test_mutation_is_caught[m3_give_up_after_0h]",
+        "seconds": "261.014"
+      },
+      {
+        "name": "test_mutation_is_caught[m4_move_status_never_moves]",
+        "seconds": "207.135"
+      },
+      {
+        "name": "test_mutation_is_caught[m5a_matcher_window_doubled]",
+        "seconds": "224.476"
+      },
+      {
+        "name": "test_mutation_is_caught[m5b_matcher_window_zeroed]",
+        "seconds": "245.715"
+      },
+      {
+        "name": "test_mutation_is_caught[m6a_commit_accepts_stale_generation]",
+        "seconds": "265.174"
+      },
+      {
+        "name": "test_mutation_is_caught[m6b_completed_generation_forgotten]",
+        "seconds": "287.550"
+      },
+      {
+        "name": "test_mutation_is_caught[m7_meet_claim_no_early_margin]",
+        "seconds": "310.773"
+      }
+    ],
+    "qualification": "The initial full run disabled plugin autoload, so four async tests could not execute. All four were rerun successfully with pytest_asyncio.plugin enabled. This is combined coverage, not a claim of a single clean 982-case invocation.",
+    "raw_sha256": {
+      "consumer-tests.xml": "54bc2b92b12d5b892362d35f43245f32785492272b6ed7aa7e48546ba5f687b6",
+      "consumer-async-tests.xml": "69fca2166fdf44cb469f22b718841374b0576d82e53508f1cdea65bb3a6a0033"
+    }
+  },
+  "consumer_environment": {
+    "python": "3.12.13 (main, Apr  7 2026, 21:09:58) [Clang 22.1.1 ]",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "dependencies": {
+      "celery": "5.6.3",
+      "kombu": "5.6.2",
+      "amqp": "5.4.0",
+      "billiard": "4.3.0",
+      "time-machine": "3.5.1",
+      "pytest": "9.1.1",
+      "pytest-asyncio": "1.4.0",
+      "hypothesis": "6.168.1"
+    }
+  },
+  "consumer_comparison": {
+    "performance_differences": [
+      {
+        "file": "calendar_upush_udebounce_uduplicates.result.json",
+        "event": "cal_ntfn_rescan_finished",
+        "before_seconds": 0.006,
+        "after_seconds": 0.003
+      },
+      {
+        "file": "calendar_upush_ugraph_ureschedule.result.json",
+        "event": "cal_ntfn_rescan_finished",
+        "before_seconds": 0.005,
+        "after_seconds": 0.003
+      },
+      {
+        "file": "calendar_upush_ureschedule.result.json",
+        "event": "cal_ntfn_rescan_finished",
+        "before_seconds": 0.004,
+        "after_seconds": 0.003
+      }
+    ],
+    "cases": 102,
+    "outcomes": {
+      "PASS": 73,
+      "ASSERTION_FAILED": 29
+    },
+    "identical_ledgers": 99,
+    "changed_cases": [],
+    "rows": [
+      {
+        "group": "established",
+        "file": "calendar_ucancel_ubefore_ustart.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "25d263408d914bbf45b39f125e64b8be1ac46f35ee4cdf87de3c05fe8cf6f7b9",
+        "candidate_sha256": "f0bf583be47d8f747d42796ef2ae78dde93a46d4724a64776307d1e65456cec9",
+        "failed_checks": []
+      },
+      {
+        "group": "established",
+        "file": "calendar_ucancel_uepoch_ustart.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "bc4be488bee834cb39f2edcb689cbb876aebb33616cfadab2b2b1fffbae79ef9",
+        "candidate_sha256": "5b72eaa5e55ca7a2af603946789cb58233acec53e764490d9115576e1399a7f7",
+        "failed_checks": []
+      },
+      {
+        "group": "established",
+        "file": "calendar_upush_udebounce_uduplicates.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": false,
+        "baseline_sha256": "37741aabf28e3b1eec9bb39939ae3263224e82aba5a67b4fa37f4bb9dcced786",
+        "candidate_sha256": "5e5ae44744e2e2225d9acc529d78e8bd5352f4076ae9563def9ae8c866f9f821",
+        "failed_checks": []
+      },
+      {
+        "group": "established",
+        "file": "calendar_upush_ugraph_ureschedule.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": false,
+        "baseline_sha256": "c530d56d44dc3c98eb0a836bb3a8b06b20d98d526cf64afb3d491de6ce530dce",
+        "candidate_sha256": "a0ebe4141f5b2f3866820dc4bb1d2fb200c10bbe43e53aa2579f89b56088c6bf",
+        "failed_checks": []
+      },
+      {
+        "group": "established",
+        "file": "calendar_upush_ureschedule.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": false,
+        "baseline_sha256": "d0a26f927ddbadc605c05ab2932e7f0606c5137d4f11a10bb4bff7ea3895e1d9",
+        "candidate_sha256": "3e9b8fcc77053c9fe286c020ed40771f7f845f4c38df8f34c801b4a458cdd166",
+        "failed_checks": []
+      },
+      {
+        "group": "established",
+        "file": "fault_upost_ucall_uduplicate_udelivery.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "5d380f32a76d02b9bf1dc51245fbaeeb6ac348bdc32ad05fe5bdf73dbe696f61",
+        "candidate_sha256": "07d924befd95b97568f584fb3187e872a087363b2f3656a282e018867dbc3973",
+        "failed_checks": []
+      },
+      {
+        "group": "established",
+        "file": "fault_uredis_uoutage_uduring_uimport.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "53209b072401435106d6bac08a1e6d7d246a4d2a7b41db432da010114a012f61",
+        "candidate_sha256": "5670e9c7dc32a4c7ad6b107f99d42f1f3878cf04b9cd632cdf74792c4c2f3226",
+        "failed_checks": []
+      },
+      {
+        "group": "established",
+        "file": "fault_uredis_urestart_uloses_uleases.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "f62ec48c7bd240f6db7032ff20da905f382087d838863b9579bcd4e037b817bb",
+        "candidate_sha256": "acb1554c7500e11063b1ccc13d7e113082063d6dc67b9295c898dec2635181b4",
+        "failed_checks": []
+      },
+      {
+        "group": "established",
+        "file": "fault_ureplica_uper_urequest.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "5671de2a4958e2a711313566e38720e61ea7fe08725dfee036c184e20df1aaf7",
+        "candidate_sha256": "49134c567c74f339f8af22aefe3a8a61de6b85a667f51838f5ea77f4572df753",
+        "failed_checks": []
+      },
+      {
+        "group": "established",
+        "file": "fault_uworker_ucrash_uduring_upoll.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "c6a0a9b18e3078f3a61e3fe2d92c5bf738473fa4e7b8faa8737dd673c9b7010a",
+        "candidate_sha256": "42c407aed7cfab7ce0dba0b673508651f44d1db2d9b86697b85676a76e6bbe4a",
+        "failed_checks": []
+      },
+      {
+        "group": "established",
+        "file": "gong_usingle_umeeting.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "d6497b9ecf773010d10de6934cc4be3f4a55930805523a2f312d729ce7cec30c",
+        "candidate_sha256": "7cacdf528e12274cecf205188232fd7bc99fb3a72d017dc7385a144c50da7261",
+        "failed_checks": []
+      },
+      {
+        "group": "established",
+        "file": "granola_usingle_unote.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "1ff494fdc0865be00b1cc1238794eb1f17786740f9bdcb6d0cc76059f445a103",
+        "candidate_sha256": "c67d7471833717e090fbecde539b86396ef7a813422498a314bad634edc55bce",
+        "failed_checks": []
+      },
+      {
+        "group": "established",
+        "file": "meet_uearly_ujoin_u16m.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "05f3b3d1ac8cd74ca6c86f1933dbca19e43222ea61db3c5590bdce0f55e6101f",
+        "candidate_sha256": "b9fb372dd0357c4bb8e67934acf97b13a896fd1f17fdf3666a384c541080f66a",
+        "failed_checks": [
+          "meetings[0] where {'meeting_id': 'evt-e'}: bot_status == 'summary_generated'",
+          "meetings[0] where {'meeting_id': 'evt-e'}: transcript_contains == 'early'",
+          "ledger never post_call_native_give_up"
+        ]
+      },
+      {
+        "group": "established",
+        "file": "meet_ulink_uadded_ulate.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "3a3bd5e29f11f8989c4f0af688929f9216a09e9ffabe06f15f157e358bad6444",
+        "candidate_sha256": "250979f2154d8214568bf7d547578d623cd469846a2d08dd9d4f5adb7a49479b",
+        "failed_checks": []
+      },
+      {
+        "group": "established",
+        "file": "meet_ureschedule_uafter_ucompletion.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "b345fb28e0dcc13f60938fb9e8446fd49b6c9d9e9f122b1deda0343fa5d884ec",
+        "candidate_sha256": "daada3b47775c6c6f002c8c72fda7570b8f79b92da234c88627153b5569bfc66",
+        "failed_checks": []
+      },
+      {
+        "group": "established",
+        "file": "meet_usingle_urecording.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "d14b9440a7d32ce1723ce3bd6fd2dbb413085e2e64a29750726c5e19659b1d3a",
+        "candidate_sha256": "9392b06ea52f7b702ee6a5b20590d6ce99c731a3e9d1173a6d1a18fbc3b8474e",
+        "failed_checks": []
+      },
+      {
+        "group": "established",
+        "file": "meet_usingle_urecording_ucontent.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "1152f01623ccad44f92eb2dc5173becdc2f0a1250e7ee49f5ca229a4e5185e08",
+        "candidate_sha256": "f990f9a8e9ec527ed7ead46a09eabf1f3d52ee154b4e887aea2dfac7c1817eb5",
+        "failed_checks": []
+      },
+      {
+        "group": "established",
+        "file": "meet_usplit_urecording.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "8e03be0d8191b28bb71c4bdfd34421e4341430a705cd25691e00278d3524ce2e",
+        "candidate_sha256": "0d491e0b2df4f8c986bddbf9ad27242fdf8cecef725a7ca1f406236aeb73f83f",
+        "failed_checks": []
+      },
+      {
+        "group": "established",
+        "file": "meet_utranscript_ubefore_umedia.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "1ebb16279ad098a2d0160805e6158c51fa145e665184ef00d787bfe184b13aa2",
+        "candidate_sha256": "c4aacea6b8ab72c35d30d6908fec6f52c50027f59139d38d03450da2e02fca37",
+        "failed_checks": []
+      },
+      {
+        "group": "established",
+        "file": "plaud_usingle_urecording.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "5995b3f81ab6f876250f6c57d9af09f980e83f7d9563f0ae95feb6590710adef",
+        "candidate_sha256": "579c0e8485c5452850ca011db127103a9184950250d81a114fcc67906e9296dc",
+        "failed_checks": []
+      },
+      {
+        "group": "established",
+        "file": "recall_udone_uafter_upost_ucall.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "db9570b706e117f6ebf55d699caf192b9898e87eea709ea5c91cceef64823320",
+        "candidate_sha256": "a3e5b2e0e283a011c43447b1edd252bc3c1566edd3307e6e92359976611cfeb0",
+        "failed_checks": [
+          "meetings[0] where {'meeting_id': 'evt-p'}: bot_status == 'summary_generated'"
+        ]
+      },
+      {
+        "group": "established",
+        "file": "recall_uduplicate_ustatus_udelivery.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "ed64fc6371a812a78ecb564f236e0650b7e26af741b1c1682226a14053fc3ac0",
+        "candidate_sha256": "cb50a200c7529abdafe266f6004ad701d3853d001f5fbacf3a265a688a5b72b9",
+        "failed_checks": []
+      },
+      {
+        "group": "established",
+        "file": "recall_uoptout_uremove_ureadd.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "f350302681c699a153ad2310ae8b615605ecf6bc93cfdc693d3d26549582850a",
+        "candidate_sha256": "55e3e7794cacf8d6cd17d94d42d2368df5120b58895300c73744c0aa99941846",
+        "failed_checks": [
+          "meetings[0] where {'meeting_id': 'evt-o'}: bot_id == 'sim-recall-bot-2'",
+          "ledger never post_call_complete",
+          "ledger bot_readd_via_link == 1",
+          "recall bots created == 2"
+        ]
+      },
+      {
+        "group": "established",
+        "file": "recall_usingle_urecording.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "0007ab6550bce01c9314366f22dc8588395bb473f5377a6eccbf91047a5a2ce7",
+        "candidate_sha256": "c8e7ae4cee361bb5dff0f9fc9f4390b5a5645e8483fe164c94a5b1ed5e73f4a4",
+        "failed_checks": []
+      },
+      {
+        "group": "established",
+        "file": "recorder_uback_uto_uback_uafter_uno_ushow.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "3ae969966a618c182e6751424b426a8e22c08018a9f1526d983af390bc5880f6",
+        "candidate_sha256": "d7f882ef222a8cdabf5aa44321205035153f4c11033bc68d39bd5495a7e3e387",
+        "failed_checks": []
+      },
+      {
+        "group": "established",
+        "file": "recorder_ufast_upass_ufinalize.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "f30f7f185946f4833e55b00bfe6c00ca873c14ba66b6a6dfdba9acc41d4a57d2",
+        "candidate_sha256": "d2c65750337c64cbf2bc455edad3e1245e9bee1a343e0879533c889bb9179514",
+        "failed_checks": []
+      },
+      {
+        "group": "established",
+        "file": "recorder_utime_uwindow_uearly_ustart.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "9876bca45416a157431f0396dd26d20fdd094cc15220e13b9db66b3f015c2fb1",
+        "candidate_sha256": "8519d9dcbd1e73a591f323281de7c71a7dfba98d54a3084e84b8a6a11e7075a9",
+        "failed_checks": []
+      },
+      {
+        "group": "established",
+        "file": "teams_usingle_urecording.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "a31c206175017bae2b8f671a40ec92ecb0209351096d59564ac10a5e44759f0c",
+        "candidate_sha256": "54a85c01d89c6a9c7edca590adab10b06675d2ee5fa5760d2edada3e7ada6a20",
+        "failed_checks": []
+      },
+      {
+        "group": "established",
+        "file": "zoom_uno_uvtt_uasr.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "e61991cf027df49bc5b663f0f3e0a2dbdec09ad1ebd4102fd1bddf3efaba6b99",
+        "candidate_sha256": "4b32240eac3c8b8d3e93eb82f41adfcc1f18f6e970e7e71fb1f5a7cf5949547e",
+        "failed_checks": []
+      },
+      {
+        "group": "established",
+        "file": "zoom_usingle_urecording.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "70700c5e4c5b564ff66871ead051a4cd2520db2806bee37864f31f2aed3cad40",
+        "candidate_sha256": "e17ab8fd48a382283ff14ba24542332b22757b6316dd6bf815447d12a700e8b6",
+        "failed_checks": []
+      },
+      {
+        "group": "established",
+        "file": "zoom_usplit_urecording_ustrands.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "e1700dbe60988c277475657a5ec0d1afb9bc21d37b358774f3633f2c9cd1aed3",
+        "candidate_sha256": "45499927715bc66f00901e130c47bcfbb32fb58043ba04e8d7d7f903dfec28f2",
+        "failed_checks": []
+      },
+      {
+        "group": "pending",
+        "file": "pending__coverage__pr2596_ubound_uteams.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "dbe153280ab00ccc87585573d752a6a6a9b64db7233b6796d215540cb100fe13",
+        "candidate_sha256": "d97ec799c7b7ed86a2203af8a82dcc5c8c9d30cac1242aba7e7e1a0c1afdcd34",
+        "failed_checks": []
+      },
+      {
+        "group": "pending",
+        "file": "pending__coverage__pr2596_ubound_uzoom.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "7fe3d9acb222a3489e10698f8460c0ce4c39c137649338fb1394bf63b63a65f6",
+        "candidate_sha256": "df09d6e3ce833376bc1d6032227b994ee4b056bd7d7b598abb79fe2777162f77",
+        "failed_checks": []
+      },
+      {
+        "group": "pending",
+        "file": "pending__coverage__pr2596_uempty_uwinner.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "1461094217f81c5dc7f874ea5ee20db1def32b8d45f663a52b1c4810111aebc8",
+        "candidate_sha256": "2bbf5a160917795d21550bbd696ecc5bba0e62846a384ea13810dab98274252c",
+        "failed_checks": []
+      },
+      {
+        "group": "pending",
+        "file": "pending__coverage__pr2596_uhalf_ucommit.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "3fa790865796aba13ed9216b2ba12cbc0353989669b831e163a8c8366000cff6",
+        "candidate_sha256": "e0675d2e1ed7997abef930e60109157bd15c8e47a44d5fb2fb738c954016d79e",
+        "failed_checks": []
+      },
+      {
+        "group": "pending",
+        "file": "pending__coverage__pr2596_ujunk_uforced.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "9d78e918bc679df6d275e6a6318a285c900ad22769b306c938fedf95599c857f",
+        "candidate_sha256": "bd8957bd08d36829422b77dd614c08334ab449964033fb067c15a445f0e0f548",
+        "failed_checks": []
+      },
+      {
+        "group": "pending",
+        "file": "pending__coverage__pr2596_ujunk_uordinary.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "18e4e32b0e44604be347a79c306c6c2f8f86cd3eecef90dbf3a84b781b018668",
+        "candidate_sha256": "c50c799b8a77bca7c9fc040f236754e0dfa91dba0a2d481aa9c098affcfd9025",
+        "failed_checks": []
+      },
+      {
+        "group": "pending",
+        "file": "pending__coverage__pr2600_ulease.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "4de5e6fe620ca10f1b65696ac67f980a8aec8d0b79ef7f45f9a9ef79f6f82d17",
+        "candidate_sha256": "a8d22633518c0c43da388c9cea1f5ff54a46d894f9ab3abfc4b0b60a0ac8e4fa",
+        "failed_checks": [
+          "effects[1] emails: count and payload",
+          "effects[3] crm_calls: count and payload"
+        ]
+      },
+      {
+        "group": "pending",
+        "file": "pending__coverage__pr2600_uqueued.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "c7e558fe26497dee25252fd1c16b4d71c3df37dc81c8bbfea37868f654c90163",
+        "candidate_sha256": "e144defe8aa61bc8ee14055515eca8ac294c415d0df3f5e0ebb61c3cc8a94fcf",
+        "failed_checks": []
+      },
+      {
+        "group": "pending",
+        "file": "pending__coverage__pr2600_ustale_usnapshot.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "02457a015aed844479d0e0ac13f4aaccc6736d9c8a37bbfdef574d2e56a44526",
+        "candidate_sha256": "5d561c05ed8d90e9cf3a7472cbff731a69eb2d1ef568289c2dc008e7aa5840bd",
+        "failed_checks": [
+          "effects[1] emails: count and payload",
+          "effects[3] crm_calls: count and payload"
+        ]
+      },
+      {
+        "group": "pending",
+        "file": "pending__coverage__pr2648_uobject_uchanged.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "b4547309c28318eb79bc9755b911377eb65425dcc7ae7394754589c4aaa14502",
+        "candidate_sha256": "c97e9408435a1c6713aa847a2662f8f970d30e4e2680ffefd105e214d71d5174",
+        "failed_checks": []
+      },
+      {
+        "group": "pending",
+        "file": "pending__coverage__pr2648_uobject_usame.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "0b8d241671c32deca29bf21800880880c6dbabc4a9638b28064ac8891cc551db",
+        "candidate_sha256": "6b2d9a3359513673585f90c0216259619c34445a4e85f5b310eb07d1cafc7e53",
+        "failed_checks": []
+      },
+      {
+        "group": "pending",
+        "file": "pending__coverage__pr2648_upresign_uafter.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "fea32579d31bb3cb1111a6fe52550e445ee17232b449c7f4bb573a9aea685c1f",
+        "candidate_sha256": "9f2afe2a24c4a603f9bf929e4ba783a3151f9e6ee6329a2d9294fee80c7bf0f1",
+        "failed_checks": []
+      },
+      {
+        "group": "pending",
+        "file": "pending__coverage__pr2648_upresign_ubefore.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "6b843527ba37a106743527681d2cfd849f0a3163bdd3b7897789fcf01ebe017e",
+        "candidate_sha256": "2639d00c0c80363b8edc49f9e02d4c0203b58cd20aae403a34577fdea5b0fc96",
+        "failed_checks": []
+      },
+      {
+        "group": "pending",
+        "file": "pending__coverage__pr2653_udry_urun.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "32e5e217638cf9ac91750ab13d9af2fb5617d4022357bdd01e1b6a2c0d2ebcad",
+        "candidate_sha256": "da80a5cc0f8b6b62a5608a6c4f3a8941ea2c1be804261460a1bb9d5451cfdcba",
+        "failed_checks": []
+      },
+      {
+        "group": "pending",
+        "file": "pending__coverage__pr2653_uingress_uerror.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "245869e9dc15e00696744ce911e3e2baa969acb44f8ec12cc01862f57a6c4dbd",
+        "candidate_sha256": "c78294bc1d852ffcb6667845f19721ace43263b42994b1812b43518547f94289",
+        "failed_checks": [
+          "meetings[0] where {'meeting_id': 'evt-z'}: bot_status == 'summary_generated'",
+          "meetings[0] where {'meeting_id': 'evt-z'}: transcript_contains == 'asr-job-3'",
+          "post-call ok runs == 1",
+          "quiescent: no row left in a non-terminal status"
+        ]
+      },
+      {
+        "group": "pending",
+        "file": "pending__coverage__pr2653_uingress_uprocessing.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "6a067dab48be2dad660dd7489a0fdd19e353869142e2e5b5f992bfbfc9c5d391",
+        "candidate_sha256": "528a0c8f03a35c31da0d7fe393bec349005cd6eedd1d4d4fc333a97bbb9cb64c",
+        "failed_checks": []
+      },
+      {
+        "group": "pending",
+        "file": "pending__coverage__pr2653_uingress_usample_ufailure.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "1b4beda30bfbd71f8c91c2514780814a1c3756d4d55cf2fca4f4689e2d0df601",
+        "candidate_sha256": "844def5e5c7d9805765278427e534963ebc8a0435e2ef5027c2587545bd1b582",
+        "failed_checks": [
+          "meetings[0] where {'meeting_id': 'evt-z'}: bot_status == 'summary_generated'",
+          "meetings[0] where {'meeting_id': 'evt-z'}: transcript_contains == 'asr-job-2'",
+          "post-call ok runs == 1",
+          "quiescent: no row left in a non-terminal status"
+        ]
+      },
+      {
+        "group": "pending",
+        "file": "pending__coverage__pr2653_uingress_utransport.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "a8956606a4c7cae6b5fe25bc1f27b424861e80f70f09d43acef9d8250a650dac",
+        "candidate_sha256": "224c9e7977aca6c83791905316f77fdb6371497c8a3782177ca73bcd13a4972f",
+        "failed_checks": [
+          "meetings[0] where {'meeting_id': 'evt-z'}: bot_status == 'summary_generated'",
+          "meetings[0] where {'meeting_id': 'evt-z'}: transcript_contains == 'asr-job-2'",
+          "post-call ok runs == 1",
+          "quiescent: no row left in a non-terminal status"
+        ]
+      },
+      {
+        "group": "pending",
+        "file": "pending__coverage__pr2653_uinvalidates_ubytes.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "0794e6f96d31d9ccde50b9f2e64ccf4e26a7759368d12b8e56898df21fc323ba",
+        "candidate_sha256": "953cfc7d5fb9436964f0afc44f8709f18bd663855841a5b80e46cfbdacdc96d6",
+        "failed_checks": []
+      },
+      {
+        "group": "pending",
+        "file": "pending__coverage__pr2653_uinvalidates_us3_ukey.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "089b99b15e4c57d0184d3d9d70205afd28fe43af03b3d61f321db8edf730f3bf",
+        "candidate_sha256": "4c1f4b9ce96354a23452d16277bf53215c5c60bb43f49ee962ea34e52977ad06",
+        "failed_checks": []
+      },
+      {
+        "group": "pending",
+        "file": "pending__coverage__pr2653_uinvalidates_usnippets.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "6da53c8fc1829f0e3c7a6e134a34b31efa1624f327d53592468c72f4d6c9df18",
+        "candidate_sha256": "7515e01e5738aedae6158c5b4a5388d8c5d0b677e5405d7b2a8d786eeb2767d9",
+        "failed_checks": []
+      },
+      {
+        "group": "pending",
+        "file": "pending__coverage__pr2653_ureal_ujudge_ucompleted.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "91ea8f5b10ee9b64511dd4ff5f147807d74158de3499c459e79b18d8baec3c87",
+        "candidate_sha256": "acb79b510fdf06e4b425a971ca436f97793a26ec2749f3fe0844a2b54e31b585",
+        "failed_checks": []
+      },
+      {
+        "group": "pending",
+        "file": "pending__coverage__pr2653_ureal_ujudge_uerror.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "5089051b674205b1a76d07e87c662260a900f913faceb80eaef27d2f2dff4e19",
+        "candidate_sha256": "cc69fdb08854c01ca66f8b9126d18c150f4774b822b6d73dec28b83f54379e32",
+        "failed_checks": [
+          "meetings[0] where {'meeting_id': 'evt'}: bot_status == 'summary_generated'",
+          "meetings[0] where {'meeting_id': 'evt'}: transcript_contains == 'asr-job-3'",
+          "effects[0] credits: count and payload",
+          "effects[1] crm_calls: count and payload",
+          "effects[2] emails: count and payload",
+          "effects[3] drafts: count and payload",
+          "quiescent: no row left in a non-terminal status"
+        ]
+      },
+      {
+        "group": "pending",
+        "file": "pending__coverage__pr2653_ureal_ujudge_uprocessing.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "c17806557ff2c826d60c1c5db4b2568fd8fef0a73e801228f3b7f0cf82860c38",
+        "candidate_sha256": "6dc02af8bc6e05d58665a77daa1a84a2fe90a5c06aa794a7e9246bcf0e8a39df",
+        "failed_checks": [
+          "meetings[0] where {'meeting_id': 'evt'}: bot_status == 'summary_generated'",
+          "meetings[0] where {'meeting_id': 'evt'}: transcript_contains == 'asr-job-2'",
+          "effects[0] credits: count and payload",
+          "effects[1] crm_calls: count and payload",
+          "effects[2] emails: count and payload",
+          "effects[3] drafts: count and payload",
+          "quiescent: no row left in a non-terminal status"
+        ]
+      },
+      {
+        "group": "pending",
+        "file": "pending__coverage__pr2653_ureal_ujudge_utransport.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "05faa7a39c38b16a0051fc86ff8cc0f4bd38b8f4f50b3f1ef558c01fbb564f91",
+        "candidate_sha256": "625b1c1f9b33d3a5399072712a6d0a110490204c054249a7fa4288a8dea46d63",
+        "failed_checks": [
+          "meetings[0] where {'meeting_id': 'evt'}: bot_status == 'summary_generated'",
+          "meetings[0] where {'meeting_id': 'evt'}: transcript_contains == 'asr-job-2'",
+          "effects[0] credits: count and payload",
+          "effects[1] crm_calls: count and payload",
+          "effects[2] emails: count and payload",
+          "effects[3] drafts: count and payload",
+          "quiescent: no row left in a non-terminal status"
+        ]
+      },
+      {
+        "group": "pending",
+        "file": "pending__coverage__pr2653_usample_ufailure.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "f294e4a6ab91b1c6160939f72d141871b6310461591bf45b7da6e4d584cf8195",
+        "candidate_sha256": "91d290be30ccc9c9fc56a160f6e45f9b61a5b6328f40ee3286f53c9a97903960",
+        "failed_checks": [
+          "meetings[0] where {'meeting_id': 'evt'}: bot_status == 'summary_generated'",
+          "effects[0] credits: count and payload",
+          "effects[1] crm_calls: count and payload",
+          "effects[2] emails: count and payload",
+          "effects[3] drafts: count and payload",
+          "quiescent: no row left in a non-terminal status"
+        ]
+      },
+      {
+        "group": "pending",
+        "file": "pending__coverage__pr2653_uunsaved_ujob_uid.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "5318cdbe5973f02c46827353810104ced1530f1d8950013848ad5a01c80fe4dd",
+        "candidate_sha256": "ed575e759912763783ceee86069528047c22016117290dbed844d4be941e84b3",
+        "failed_checks": []
+      },
+      {
+        "group": "pending",
+        "file": "pending__coverage__pr2653_uunsaved_uverdict.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "53a20ce4a78d940fd158edd4af855f27487c602600d7fa58d98d41e106256ffc",
+        "candidate_sha256": "ff857c5273504d73ead0d3e57ae51e9eb468185733a41b54f5b775bd1863aa7c",
+        "failed_checks": []
+      },
+      {
+        "group": "pending",
+        "file": "pending__pr2596_uinvalid_unative_uquality.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "87717e3bd71c4c18eaaacd6265c8b457b15b67f299f8239f213bef7fb4568fc0",
+        "candidate_sha256": "860e0c1ee1d084611072e95cfbc47b3ff99b7be5750a6d1a0402903c737e0e84",
+        "failed_checks": []
+      },
+      {
+        "group": "pending",
+        "file": "pending__pr2600_upending_uimport_ureschedule.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "0462697eacc81f26993327fe0334b1bf824055f894f6efe55dd719045c2b9c10",
+        "candidate_sha256": "1a2065f1f0569045e489f04a5c90a37578697133f735748de89b43ea81a0f811",
+        "failed_checks": []
+      },
+      {
+        "group": "pending",
+        "file": "pending__pr2648_urotating_upresign_uretry.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "25f1d47ac97c871be6bd5d08c320b1f9e171389456d99a54081cc41e106fd75d",
+        "candidate_sha256": "030d531634a16cc6938b62cfcc3315ae0447ab9fffe6548c7e9fff36181a785d",
+        "failed_checks": []
+      },
+      {
+        "group": "pending",
+        "file": "pending__pr2653_ujudge_uand_uasr_uretry.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "9c2a1e9354777c5034cd852c839e50dd0c9fbc84583c740d2765c235f7f8a193",
+        "candidate_sha256": "af5e9d6964366b805aefa704e9193a68378bbe8b6488adfb5c3bed5499759641",
+        "failed_checks": []
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitcancels__00-non-recurring-delete--organizer.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "aa84d96ec54c1d92c14a83822e786a7207363e78c7d22cbd77a84e85cf6db739",
+        "candidate_sha256": "0c992c8bd6e96ee9adc58317f19d2bb4d788ce5c2dfeb24e79f0b4919345c095",
+        "failed_checks": [
+          "...drntnrclkv742r7m cancelled: row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'"
+        ]
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitcancels__01-recurring-delete-all--organizer.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "440a1cfd64d635d80e4d7b2d88d39291b6b5088f0bf2fef77e7f66a54af48324",
+        "candidate_sha256": "5b48ae79179d168d9556ebc4a2d23620af8969e224d60783d189ba99ae7c949d",
+        "failed_checks": [
+          "...20270101T150000Z cancelled: row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'"
+        ]
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitcancels__05-non-recurring-remove--organizer.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "f22cfa3a42f11e145874249c6f4b63b610ae5024a0a6cc55d952426374a50d08",
+        "candidate_sha256": "5a45bb9480406800e6501fbefb7c566ceb3c02e569347abeec18f2fbede3bef5",
+        "failed_checks": []
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitcancels__07-recurring-remove-some--attendee-user02.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "d4af6ebb0b9e000162db188f78e35c321626233a8da849cf18b09c3bd56ce916",
+        "candidate_sha256": "e2d32965c14dce5191b4f15f84ba7f6a9d315f7c326013a8e5de95bcc29d3796",
+        "failed_checks": []
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitcancels__07-recurring-remove-some--organizer.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "c0c9e9e135515f1656ce953fdfa5170615fc3556cc82a14eacd259a6e37d1141",
+        "candidate_sha256": "34d298e756ebcf75066f9bba96412840afb79edf1ce16645dcdd6d01d627ccbd",
+        "failed_checks": []
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitcancels__08-recurring-remove-twice--attendee-user02.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "7d69a9a08c94197f3ffa92b39647c3eb46299db81d6ca05c65c9a9e6e1b27cc2",
+        "candidate_sha256": "79f587eeb96ba7d4c981f4e0cec4daa62b31ce54a5ac5289227714bb2ee62066",
+        "failed_checks": []
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitcancels__08-recurring-remove-twice--organizer.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "a0a04ef7511bc6dfb7342f7a18b49abc67858b70373552a0f6f3fb3b567695b7",
+        "candidate_sha256": "8f52bddd66a35cc6d31236069d93a212f658f22c5baf34ffea8841fc0ebb972e",
+        "failed_checks": []
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitcancels__13-non-recurring-with-time-shift-remove--attendee-user02.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "cd1cffb2e44e6a4da84612820021c6126eb5d07e25b1e28e8bf3b3b460c6a86d",
+        "candidate_sha256": "cb370a170f3fb4b0fe250fc30b58fa2124ddabdc4b23b11fba9b771b939e57f7",
+        "failed_checks": [
+          "...drntnrclkv742r7m cancelled: row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'"
+        ]
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitcancels__13-non-recurring-with-time-shift-remove--organizer.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "edd5f0d1ac40d9a680e512d9a9a5993130ce6f02d320e1a868be9864c26c126d",
+        "candidate_sha256": "dd804603a0989f14947a05e89e2b759180bff87e53d694f24cad57d711e0e40f",
+        "failed_checks": []
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitcancels__14-recurring-with-time-shift-remove--attendee-user03.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "aa02e6799cd9c6c7acb33eab3b09f3b0b06c590bbb9067928e163b1ed5bb8409",
+        "candidate_sha256": "60ecd1b001795bc477c26ebd076f7f2439f98e409353606893dd2e1ea208705c",
+        "failed_checks": []
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitcancels__14-recurring-with-time-shift-remove--organizer.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "44468cfd024f187b07c1c8167233a8737ddc46fb1368d73c65e2382a00d49c99",
+        "candidate_sha256": "67c9b084380180c253b660ce7aa339a73e1d56aaeb61429a7790b2ac073b52d0",
+        "failed_checks": [
+          "...20270101T150000Z cancelled: row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'"
+        ]
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitcancels__18-non-recurring-add-only-status-cancelled--organizer.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "8d6124e741ba9086e22a1d595320ffb914c00edf2652106a2b427c3008fb7942",
+        "candidate_sha256": "16fa0d1dd259fff58302c49d7f5326a333290cf81649811e37eebf3afdfa5c60",
+        "failed_checks": [
+          "...drntnrclkv742r7m cancelled: row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'"
+        ]
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitcancels__20-recurring-add-only-status-cancelled-to-override--attendee-user02.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "0d4f7290aff3aa33e2e1465840468a31dbe0a139bc85f1ac4bf1ae096d92ab61",
+        "candidate_sha256": "21d19bec955c7e70ab039ca6e5b0b1345f5501a39085af7c4dc89dbcc528cb05",
+        "failed_checks": []
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitcancels__20-recurring-add-only-status-cancelled-to-override--organizer.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "c40fbdcc786e10f1fdde3718088a07e2f82f70c759fb403e11e06210f96e80a4",
+        "candidate_sha256": "20ee28e2395d00f6bc47604c5d95b7c94c33d91882011938ac4bf887653ea512",
+        "failed_checks": []
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitcancels__22-recurring-cancelled-override-remains-at-override-time--attendee-user02.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "5fedbaf9e1bab357d06c5ae23e9aa93195bd804f0485f621e2a0aa8a06b70aef",
+        "candidate_sha256": "162b51634b884f0d76fca76858692169fc026bff4def86cc7e274505b056a0f1",
+        "failed_checks": [
+          "...20260926T120000Z at its final corpus time (did not take place: no session): title == 'event 1 changed'",
+          "...20260928T120000Z at its final corpus time: title == 'event 1 - override 2'"
+        ]
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitcancels__22-recurring-cancelled-override-remains-at-override-time--organizer.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "1770ea026829acb4ad71d66991842dad586147b089ca9f0bd97a69a9b7c9714e",
+        "candidate_sha256": "b7ffeb77fbf6483398c6107fd6506b61acdd098f3075fd1a3b3371beed6f58d7",
+        "failed_checks": [
+          "...20260926T120000Z at its final corpus time (did not take place: no session): title == 'event 1 changed'",
+          "...20260928T120000Z at its final corpus time: title == 'event 1 - override 2'"
+        ]
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitcancels__23-organzier-delete-attendee-exdate--attendee-user02.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "eaf7e7389217dff9ff0e0119037d1e26ab5b6a3d84225dc236675cebd8808ea5",
+        "candidate_sha256": "dba6b76a332342a9a26264e48b45c0beaabd7c13f78221258bc359852176fb59",
+        "failed_checks": [
+          "...20260926T120000Z cancelled: row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'"
+        ]
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitcancels__24-organizer-re-invite-after-attendee-exdate--attendee-user02.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "4b5af097206b9ebb8bf7c6a061edc78028f9666659a47f70b5bf7df0b308da19",
+        "candidate_sha256": "4a32d384727d9490f5298cfee6ef7ecce36390d371ceb2470bbee4d9c4376826",
+        "failed_checks": [
+          "...20260927T120000Z at its final corpus time",
+          "recordings count == 1",
+          "post-call ok runs == 1"
+        ]
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitcancels__25-organizer-add-attendee-to-instance-they-were-initially-not-part-of--attendee-user02.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "2a3397189828cf0d58643c15fa3e67964c8b45a9f1f16134a9f4bbe66b65a8ae",
+        "candidate_sha256": "0f85019d954bf64311cc8f6df46ab9a978ac8c0a549fb051b56960f5876c84f2",
+        "failed_checks": [
+          "...20260927T120000Z at its final corpus time (did not take place: no session)"
+        ]
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitrecur1__00-override-only-in-request--organizer.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "4ae2991bcc41568f73503194368786a7f529eec7b0ed6623b280b5ba258ac46b",
+        "candidate_sha256": "52aeb3104097cd6808ff32af27d71cd27140c1104f2d3396a20a8b8652766964",
+        "failed_checks": [
+          "...20270101T150000Z at its final corpus time (did not take place: no session): title == 'event 1 - master'",
+          "...20270103T150000Z at its final corpus time (did not take place: no session): title == 'event 1 - master'"
+        ]
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitrecur1__01-cancel-override--attendee-user02.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "f93e064e69cf177d197d6fb5f989f73fac38dbffcb89ee93e2924cdc17307796",
+        "candidate_sha256": "71634eea07944b495b6139d7d821d428cc1ffcd1fb61e4bf5b4d5ba5f618531b",
+        "failed_checks": [
+          "...20270102T150000Z cancelled: row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'"
+        ]
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitrecur1__03-all-day-override--organizer.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "363a75add46102700d72a2f2880916f5817225c72662b689606ae7a0ca709c3f",
+        "candidate_sha256": "1fed9fc74c612dc652d43ba6eff2693834239b0ed75bf2b9697556fc313c755c",
+        "failed_checks": [
+          "...0s2egud_20270101 all-day (not a timed meeting): row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'",
+          "...0s2egud_20270102 all-day (not a timed meeting): row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'"
+        ]
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitrecur1__04-attendee-instance-delete--attendee-user02.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "fc2296cfde9a95f0e82862f8f83e066a6957879d78c15495fd59dfe56cde17ba",
+        "candidate_sha256": "db13960994fb3300ab01c0917a80ad4ed32923cd6cef4ec5c0dc81924167477f",
+        "failed_checks": []
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitrecur1__05-rrule-truncation--organizer.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "1ea98d19e8d8cb5b1dc69d8288f6d5203dfebc1d1b10395f6c07f7a0f5653790",
+        "candidate_sha256": "fba00b6c98aee282c40ef18f811cb8105e6f7aadc2b05f428843f4ff15e04b4d",
+        "failed_checks": []
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitrecur1__06-rrule-with-dtstart-change--organizer.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "6c1d434cff3707cae4fdca8b7a5992089a10f7abc3bdff00751d78039d1095af",
+        "candidate_sha256": "54f391efd3765816248717639bd7a148b12a078dd0e0a7084e8d99cfb956ea02",
+        "failed_checks": [
+          "...20270101T150000Z cancelled: not recorded: has_transcript == False",
+          "...20270101T150000Z cancelled: row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'",
+          "post-call ok runs == 1"
+        ]
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitrecur1__07-rrule-addition-removal--organizer.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "2722dde6a9ff7fce7b4a00cf0ab9b275bc2ce213334c31a53c75094e19d543f9",
+        "candidate_sha256": "9cdae14873c921ddf78e200aef8deb22a764b2e0569b69e1d51b429a6b9d6184",
+        "failed_checks": [
+          "...20270101T150000Z cancelled: not recorded: has_transcript == False",
+          "...20270101T150000Z cancelled: row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'",
+          "post-call ok runs == 1"
+        ]
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitrecur2__01-organizer-invites-other-attendee-to-one-instance-only--attendee-user03.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "c6dd421a20103b61cab8175439a40e49302d61f223c87984196275e1448be5aa",
+        "candidate_sha256": "c84ff48855be946d33cae6421fd99cdfc535a9cd9ca7d6816069dbe381c39314",
+        "failed_checks": []
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitrecur2__02-organizer-truncate--organizer.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "b0d6ccf4a0b847ac0aa1e5967e9ba01fe785eef7902f3c5dcdce463a8dfcfd3e",
+        "candidate_sha256": "b3220e70cce414fb395f8176c67bf16fc6c84e9dbda119054647f5774e17d762",
+        "failed_checks": []
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitrecur2__03-organizer-override-remove--organizer.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "5790aad95350407e1afa24412199fba49e8345f238296eb7c21cf04b0890f9ef",
+        "candidate_sha256": "36c0ff36cb3d642835d86bbc7dbb784ef1f30be0e1455db2a1e37484cb4218a4",
+        "failed_checks": []
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitrecur2__04-attendee-decline-instance-then-organizer-cancel--attendee-user02.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "be98ec7ef454bdc8482917bcce9131d42988d7265d1b483f6643c03af3447971",
+        "candidate_sha256": "65a0a72a0d79d3822a83df51e5091188057ac0be9f10605e481c7e166dea47f7",
+        "failed_checks": []
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitreschedule__00-non-recurring--attendee-user02.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "e2b6954b94b6d83d08c1b41e76d1554a15a915467a10e521b92bbe903500834e",
+        "candidate_sha256": "245f0f1431ce831036d7f8198980215c9a5695f2313bdec3d3e096ecac56aab5",
+        "failed_checks": []
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitreschedule__00-non-recurring--organizer.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "9214adf379a0af76ccc8e408cbffe54920be491f04ab10ad88e404e5db9793cd",
+        "candidate_sha256": "37ae326624a74588c639a1984b8f4b6ec05737e0a6c1174a9f2dabcf5f3de1e5",
+        "failed_checks": []
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitreschedule__01-recurring-overridden--attendee-user02.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "e4c73c7540eb362bc6ca3227dd1649354fcf5f407934f7737b2707facf9737d0",
+        "candidate_sha256": "9cb211c60ae7aed9ea3df2874af212a82855b89cedd11a70a7475c0c1503cc25",
+        "failed_checks": []
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitreschedule__01-recurring-overridden--organizer--after-first-occurrence.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "89fa371877252f5877b79a21c3c9c8a9405950d2741f694551b0f889640bbdf5",
+        "candidate_sha256": "24888def3a44e0c0302f7932eab3fea72e26e13cc5be711771c572a56f9ab096",
+        "failed_checks": []
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitreschedule__01-recurring-overridden--organizer.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "75695f30a4302d2676177e00ebb7bc3c5dbbbe411fa904eb1d7ab7d4a4e45065",
+        "candidate_sha256": "b59d15341a0171f293a6ec3444b59fc5db48ea0add87f9cdc9f29f0d7efd0273",
+        "failed_checks": []
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitschedulechanges__00-organizer-changes--organizer.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "c9f4fdd30fa2bf5a8fc59d961809779f07c4c47754d8b39e6561b84fce4f7136",
+        "candidate_sha256": "349c7c60026c236e30640a1b9c733d93b457c50718486aa282f46a75c56a1952",
+        "failed_checks": [
+          "...j6ocjv8g7hn3m06v all-day (not a timed meeting): row retired (caldav-v1: cancelled => deleted): bot_status == 'deleted'"
+        ]
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitschedulechanges__03-multi-instance-change--organizer.result.json",
+        "outcome": "ASSERTION_FAILED",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "eac635897d08f15f8202c7f0d27b47c54d84ea9eaea176a31d8955b81981bc1f",
+        "candidate_sha256": "01835b6dc39c665f4a9d6a095aa75716226c6005b503328ef33f9847307c7784",
+        "failed_checks": [
+          "...20270101T150000Z at its final corpus time (did not take place: no session): title == 'event 1-changed'"
+        ]
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__implicitschedulechanges__05-master-override-cancel--organizer.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "2d77ac627be14969d5ee328d0e417f651a32eb0b0e8e5b81bd7052a56edda819",
+        "candidate_sha256": "2c6c584cfd44b1c70dcccd59734df12f081992f668289c461c18a9720480bd96",
+        "failed_checks": []
+      },
+      {
+        "group": "corpus",
+        "file": "corpus__sync-report__03-simple-reports-diff-token-no-props-calendar-depth-1--user01.result.json",
+        "outcome": "PASS",
+        "changed_fields": [],
+        "ledger_identical": true,
+        "baseline_sha256": "d9395d60d50a826d7358e2685bba00f209f9f23ec94ef12da3e398d84499ced8",
+        "candidate_sha256": "160fb2ea389ce9847547dfae70701aa87cad5bece8bca0a12fba701523cbcb5a",
+        "failed_checks": []
+      }
+    ]
+  },
+  "limits": [
+    "204 of 240 business cases still need domain adapters",
+    "No new queue backend, custom transport or live provider certification",
+    "The four async consumer tests needed the pytest-asyncio plugin explicitly enabled; combined verification, not one clean full invocation",
+    "Consumer upgrade comparison uses historical application 232666fd; the separate conformance run uses 64c0ef22",
+    "New acceptance harness stays local; existing permanent CI count remains 325 per platform"
+  ],
+  "supplemental_archive": {
+    "filename": "stability-alpha4-evidence.tar.gz",
+    "sha256": "7889833ff7f7aac0aaf0f9bd5a01d07430a61cb0e8b4bb53492c6333a76a9ea7",
+    "bytes": 27991356,
+    "files": 1393
+  }
+}

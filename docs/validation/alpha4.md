@@ -78,3 +78,29 @@ not a claim of increased permanent CI test count.
 Public distribution still requires the owner's license/visibility decision. The
 runtime remains an alpha with documented boundaries, not proof of production
 safety or certification of external provider contracts.
+
+## Supplemental consumer conformance and release identity
+
+The current consumer checkout at `64c0ef223bb6d345033d33088e7a88f749191f66`
+completed its full 982-case invocation in 54.8 minutes: 972 passed, six strict
+application xfails and four failures because plugin autoload had been disabled
+for async tests. All four async tests pass in a separate rerun with
+`-p pytest_asyncio.plugin`. This gives **976 passing cases across the two runs**,
+with **all nine application policy mutations caught**. It is not a claim that
+the original invocation was entirely green. The raw setup failures and corrected
+rerun are both retained.
+
+The [release index](alpha4-release.json) records artifact hashes, dependency
+versions, exact revisions and test qualifications. Alpha 4 is a private draft
+at tag `v0.1.0a4`, source `320e0504627b78c165ad572b535f4e369e9ac7ad`, promoted by
+[the release workflow](https://github.com/karthiksraju/workflow-sim/actions/runs/36528852186)
+from [successful final CI](https://github.com/karthiksraju/workflow-sim/actions/runs/36528536194).
+The wheel SHA256 is
+`cc4a82e472be9e77f6ed1c23d3cb58b05c32a6864c7795e5f579f1e0a186c59a`.
+Every library runtime file matches the candidate used in the additional local
+acceptance/corpus/consumer runs; the release wheel itself is the exact CI artifact.
+
+The private draft also carries `stability-alpha4-evidence.tar.gz` and a standalone
+`stability-report.json`, covered by SHA256SUMS. The supplemental archive retains
+1,393 files and a per-file integrity manifest. This follow-up documentation does
+not move the release tag or change the tested runtime.
