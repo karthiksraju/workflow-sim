@@ -1,6 +1,6 @@
 # Try the alpha with your workflow
 
-Use CPython 3.12 on Linux or macOS in an isolated development environment.
+Use uv on Linux or macOS to create a project with CPython 3.12.
 Follow the [installation steps](../README.md#try-the-installed-package); private
 repository access is required. Choose a [domain example](examples.md) close to
 your workflow and run both its corrected and `broken` versions.
@@ -26,7 +26,7 @@ flowchart LR
    result. Check the modeled external contracts against a real integration.
 
 For date-sensitive workflows, pass `start_at="2026-01-15T10:00:00Z"` to `run`,
-or `--start-at 2026-01-15T10:00:00Z` to the CLI. An explicit timezone is required.
+or `--start-at 2026-01-15T10:00:00Z` to `uv run workflow-sim`. An explicit timezone is required.
 The default origin is 2099-01-01 UTC. See [contracts](contracts.md).
 
 For AI workflows, controlled outputs let you test retries and publication. Model

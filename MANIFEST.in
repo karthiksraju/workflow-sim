@@ -1,4 +1,4 @@
-include CHANGELOG.md CONTRIBUTING.md SECURITY.md requirements-dev.lock
+include CHANGELOG.md CONTRIBUTING.md SECURITY.md AGENTS.md uv.lock .python-version
 recursive-include docs *.md *.json
 recursive-include scripts *.py
 recursive-include tests *.py

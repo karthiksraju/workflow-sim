@@ -51,14 +51,12 @@ with tempfile.TemporaryDirectory(prefix='workflow-sim-mutations-') as directory:
     copy.mkdir()
     for name in ('src', 'tests'):
         shutil.copytree(source / name, copy / name, ignore=shutil.ignore_patterns('__pycache__'))
-    for name in ('pyproject.toml', 'README.md', 'requirements-dev.lock'):
+    for name in ('pyproject.toml', 'README.md', 'uv.lock', '.python-version'):
         shutil.copy2(source / name, copy / name)
-    subprocess.run([sys.executable, '-m', 'venv', str(root / 'env')], check=True)
     python = str(root / 'env/bin/python')
     with (output / 'install.log').open('w') as log:
-        subprocess.run([python, '-m', 'pip', 'install', '--require-hashes', '-r', str(copy / 'requirements-dev.lock')],
-                       stdout=log, stderr=subprocess.STDOUT, check=True)
-        subprocess.run([python, '-m', 'pip', 'install', '--no-deps', '-e', str(copy)],
+        subprocess.run(['uv', 'sync', '--locked', '--project', str(copy), '--python', sys.executable],
+                       env={**env, 'UV_PROJECT_ENVIRONMENT': str(root / 'env')},
                        stdout=log, stderr=subprocess.STDOUT, check=True)
     # Child runners launch this interpreter themselves: verify its installed import
     # points at the disposable copy, rather than depending on PYTHONPATH leakage.

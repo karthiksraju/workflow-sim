@@ -83,16 +83,16 @@ replacement, selected regression, JUnit output and assertion failure logs.
 After the [contributor setup](../CONTRIBUTING.md):
 
 ```sh
-python scripts/check_examples.py --output /tmp/workflow-examples
-python -m pytest -q tests/test_generated_execution.py
-python scripts/check_mutations.py --output /tmp/workflow-mutations
+uv run --locked python scripts/check_examples.py --output /tmp/workflow-examples
+uv run --locked pytest -q tests/test_generated_execution.py
+uv run --locked python scripts/check_mutations.py --output /tmp/workflow-mutations
 ```
 
 Run the worker comparison on Linux with a disposable Redis instance:
 
 ```sh
 CONTRACT_BROKER=redis://localhost:6379/0 \
-  python scripts/check_celery_contracts.py --output /tmp/workflow-celery
+  uv run --locked python scripts/check_celery_contracts.py --output /tmp/workflow-celery
 ```
 
 Use a fresh Redis service, as CI does. The script uses a unique queue and never

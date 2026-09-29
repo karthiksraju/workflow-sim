@@ -61,7 +61,7 @@ probes pass there. These tests exercise CPython internals, so installing success
 is insufficient. Celery is an explicit dependency until a second real backend
 justifies a separate backend contract.
 
-Weekly dependency update PRs are configured. Regenerate/review the hash lock and
+Dependabot updates `uv.lock`. Review the resolved changes and
 run the same release checks. Record schema changes separately from package version.
 A fix that changes evidence intentionally must include migration guidance for
 stored records. Retain old tagged source and assets so previous evidence remains

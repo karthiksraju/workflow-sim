@@ -3,18 +3,20 @@
 Use a feature branch and PR. Start with the observable behavior that should change
 and a test that would catch the bug. Agent instructions are in [AGENTS.md](AGENTS.md).
 
-Use CPython 3.12 on Linux or macOS:
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/) and work on
+Linux or macOS. `.python-version` selects CPython 3.12; uv manages `.venv` without
+shell activation. From the repository root:
 
 ```sh
-python3.12 -m venv .venv
-. .venv/bin/activate
-python -m pip install --require-hashes -r requirements-dev.lock
-python -m pip install --no-deps -e .
-PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest -q
-python -m build
-python -m twine check --strict dist/*
-python scripts/check_package.py
+uv sync --locked
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 uv run --locked pytest -q
+uv build
+uv run --locked python -m twine check --strict dist/*
+uv run --locked python scripts/check_package.py
 ```
+
+CI installs the built wheel and runs tests outside the checkout. Its later
+commands use `uv run --no-sync` to avoid replacing that wheel with editable source.
 
 Test behavior through the public runner when possible. Mock external services,
 clocks and storage at the adapter boundary, not internal functions that decide
@@ -35,16 +37,16 @@ Update CHANGELOG and migration notes when behavior changes. Keep application
 imports in adapters. @karthiksraju owns review; check CI before merging because
 CODEOWNERS alone does not enforce approval.
 
-`requirements-dev.lock` is the tested development dependency set. Regenerate with
-`uv pip compile pyproject.toml --extra dev --universal --generate-hashes -o
-requirements-dev.lock`; review upgrades and rerun both platforms. Consumers use
-the bounded dependencies in pyproject.toml. A lock refresh is not proof that every
-version in those bounds works.
+`uv.lock` is the single development lock. Development tools live in the `dev`
+dependency group. Use `uv add --dev <package>` to add a tool, or
+`uv lock --upgrade-package <package>` for a targeted update; commit pyproject/lock
+changes together and rerun both platforms. `uv sync --locked` rejects stale locks.
+The lock validates one dependency set; consumers still use the package's bounds.
 
 ## Confidence gates
 
-Run `python scripts/check_examples.py --output /tmp/workflow-examples` and
-`python scripts/check_mutations.py --output /tmp/workflow-mutations`. Linux CI also
+Run `uv run --locked python scripts/check_examples.py --output /tmp/workflow-examples` and
+`uv run --locked python scripts/check_mutations.py --output /tmp/workflow-mutations`. Linux CI also
 runs shared task bodies on real prefork Celery with isolated Redis; see
 [reproduction commands and limits](docs/confidence.md). These reusable gates are
 part of the library. Keep generated results and disposable harnesses outside the

@@ -21,25 +21,27 @@ jobs:
       PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+      - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
         with:
-          python-version: '3.12'
-          cache: pip
-          cache-dependency-path: requirements-dev.lock
-      - run: python -m pip install --require-hashes -r requirements-dev.lock
-      - run: python -m build
-      - run: python -m twine check --strict dist/*
+          version: '0.11.6'
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+      - run: uv python install
+      - run: uv sync --locked --no-install-project
+      - run: uv build
+      - run: uv run --no-sync python -m twine check --strict dist/*
       - name: Test installed wheel outside source tree
         shell: bash
         run: |
-          python -m pip install --no-deps dist/*.whl
+          uv pip install --python .venv/bin/python --no-deps dist/*.whl
           cp -R tests "$RUNNER_TEMP/workflow-sim-tests"
           cd "$RUNNER_TEMP"
-          python -m pytest -q workflow-sim-tests --junitxml="$GITHUB_WORKSPACE/test-results.xml"
+          "$GITHUB_WORKSPACE/.venv/bin/python" -c "import workflow_sim; assert '/site-packages/' in workflow_sim.__file__, workflow_sim.__file__"
+          "$GITHUB_WORKSPACE/.venv/bin/python" -m pytest -q workflow-sim-tests --junitxml="$GITHUB_WORKSPACE/test-results.xml"
       - name: Minimal dependency consumer
-        run: python scripts/check_package.py
+        run: uv run --no-sync python scripts/check_package.py
       - name: Six domain examples and broken controls
-        run: python scripts/check_examples.py --output example-evidence
+        run: uv run --no-sync python scripts/check_examples.py --output example-evidence
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()
         with:
@@ -63,18 +65,19 @@ jobs:
       PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+      - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
         with:
-          python-version: '3.12'
-          cache: pip
-          cache-dependency-path: requirements-dev.lock
-      - run: python -m pip install --require-hashes -r requirements-dev.lock
-      - run: python -m build
-      - run: python -m pip install --no-deps dist/*.whl
+          version: '0.11.6'
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+      - run: uv python install
+      - run: uv sync --locked --no-install-project
+      - run: uv build
+      - run: uv pip install --python .venv/bin/python --no-deps dist/*.whl
       - name: Real prefork worker and Redis differential checks
-        run: python scripts/check_celery_contracts.py --output confidence-evidence/celery
+        run: uv run --no-sync python scripts/check_celery_contracts.py --output confidence-evidence/celery
       - name: Targeted simulator mutation campaign
-        run: python scripts/check_mutations.py --output confidence-evidence/mutations
+        run: uv run --no-sync python scripts/check_mutations.py --output confidence-evidence/mutations
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()
         with:

@@ -20,13 +20,14 @@ with tarfile.open(source) as archive:
     names = archive.getnames()
     assert any(n.endswith('/docs/architecture.md') for n in names), 'source distribution must include architecture docs'
     assert any(n.endswith('/CONTRIBUTING.md') for n in names)
-    lock, = (n for n in names if n.endswith('/requirements-dev.lock'))
-    assert archive.extractfile(lock).read() == Path('requirements-dev.lock').read_bytes(), 'source archive contributor lock must match the tested checkout'
+    for filename in ('uv.lock', '.python-version'):
+        member, = (n for n in names if n.endswith('/' + filename))
+        assert archive.extractfile(member).read() == Path(filename).read_bytes(), f'source archive {filename} must match the tested checkout'
 with tempfile.TemporaryDirectory() as directory:
     root = Path(directory)
-    subprocess.run([sys.executable, '-m', 'venv', str(root / 'env')], check=True)
+    subprocess.run(['uv', 'venv', '--python', sys.executable, str(root / 'env')], check=True)
     python = root / 'env/bin/python'
-    subprocess.run([str(python), '-m', 'pip', 'install', '--disable-pip-version-check', str(wheel.resolve())], check=True)
+    subprocess.run(['uv', 'pip', 'install', '--python', str(python), str(wheel.resolve())], check=True)
     env = {k: v for k, v in os.environ.items() if not k.startswith('PYTHON')}
     for adapter in ('retry', 'celery_retry', 'billing', 'fulfillment', 'ingestion', 'documents', 'monitoring', 'meetings'):
         p = subprocess.run([str(python), '-m', 'workflow_sim.cli', f'workflow_sim.examples.{adapter}:build', '--duration', '12'], cwd=root, env=env, check=True, capture_output=True, text=True)
