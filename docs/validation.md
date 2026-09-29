@@ -1,5 +1,13 @@
 # Alpha validation
 
+## Independent corpus evaluation
+
+The existing alpha 3 was exercised with all 240 independently authored input
+timelines on asyncio and Celery. A separate 36-case reference business subset
+passes its original assertions; 204 business cases still require domain adapters.
+See the [evaluation scope, findings and per-case index](validation/corpus-alpha3.md).
+This is additional evidence, not a claim that 240 business workflows passed.
+
 ## Alpha 3 confidence expansion
 
 The six [domain examples](examples.md) each pass with the correction and fail
