@@ -44,8 +44,8 @@ sequenceDiagram
     participant P as Parent runner
     participant W as Worker process
     participant A as Adapter + application
-    T->>P: adapter, inputs, seed, duration, budgets
-    P->>P: Validate finite JSON and limits
+    T->>P: adapter, inputs, seed, duration, origin, budgets
+    P->>P: Validate JSON and limits, normalize origin to UTC
     P->>W: Start process with fresh attempt ID and scratch directory
     Note over P,W: Parent wall deadline includes setup, execution and teardown
     W->>W: Install boundary guards and runtime hooks

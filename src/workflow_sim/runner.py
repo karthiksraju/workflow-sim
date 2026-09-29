@@ -16,21 +16,24 @@ import uuid
 
 from .provenance import provenance
 from .contracts import (SCHEMA_VERSION, MAX_OUTPUT_BYTES, MAX_RESULT_BYTES,
-                        digest, encode, validate_request, validate_result, configuration)
+                        digest, encode, validate_request, validate_result, configuration, normalize_start_at)
 
 
 def run(adapter: str, *, inputs: dict | None = None, duration: float = 60,
         seed: int = 0, max_steps: int = 100_000, wall_timeout: float = 30,
-        project_dir: str | Path | None = None) -> dict:
+        project_dir: str | Path | None = None, start_at: str | None = None) -> dict:
     """Run one trusted adapter in a fresh process and return a JSON result.
 
     Invalid caller configuration raises ValueError. Execution failures return an
     explicit non-PASS outcome. See docs/contracts.md for coverage and limits.
+    start_at is a timezone-aware ISO timestamp; None preserves the 2099 UTC default.
     """
     if platform.python_implementation() != 'CPython' or sys.version_info[:2] != (3, 12) or sys.platform not in ('linux', 'darwin'):
         raise RuntimeError('alpha supports CPython 3.12 on Linux and macOS')
     request = {'schema_version': SCHEMA_VERSION, 'adapter': adapter, 'inputs': {} if inputs is None else inputs,
                'duration': duration, 'seed': seed, 'max_steps': max_steps}
+    if start_at is not None:
+        request['start_at'] = normalize_start_at(start_at)
     validate_request(request)
     if type(wall_timeout) not in (int, float) or not math.isfinite(wall_timeout) or not 0 < wall_timeout <= 3600:
         raise ValueError('wall_timeout must be finite seconds in (0, 3600]')

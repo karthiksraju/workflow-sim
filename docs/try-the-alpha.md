@@ -26,8 +26,13 @@ flowchart LR
    attempt. Assert exact resulting content and preservation of unrelated data.
 5. Reproduce the plausible bug and verify it fails the intended assertion. A
    timeout, unsupported operation or crashed adapter is not that business check.
-6. Retain the command, inputs, seed, horizon, library version and sanitized result.
+6. Retain the command, inputs, seed, clock origin, horizon, library version and sanitized result.
    Compare the modeled external contracts with a real integration test.
+
+For date-sensitive workflows, pass `start_at="2026-01-15T10:00:00Z"` to `run`,
+or `--start-at 2026-01-15T10:00:00Z` to the CLI. Use an explicit timezone; all
+scheduling and wall-clock reads share the normalized UTC origin. The default
+remains 2099-01-01 UTC. See [the API contract](contracts.md).
 
 For AI workflows, test retries, orchestration, completion and publication with
 controlled outputs. Use a separate evaluation dataset to assess model quality.

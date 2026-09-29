@@ -3,7 +3,7 @@
 ## Supported API
 
 `workflow_sim.run(adapter, *, inputs=None, duration=60, seed=0,
-max_steps=100_000, wall_timeout=30, project_dir=None)` returns a JSON-compatible
+max_steps=100_000, wall_timeout=30, project_dir=None, start_at=None)` returns a JSON-compatible
 dict. `adapter` is an explicit `module:function`, imported in a new child process.
 The factory receives one context, configures it, and returns `None`.
 
@@ -18,7 +18,14 @@ tuples, integer keys or NaN. The request is limited to 1 MB, the result to 8 MB,
 and combined worker output to 256 KB. The default wall deadline covers imports,
 setup, callbacks, assertions, teardown and output. It is configurable up to one
 hour. A seed is an unsigned 64-bit integer; step budgets range from 1 to 1,000,000.
-The virtual start is `2099-01-01T00:00:00Z`; duration is 0 through 366 days.
+The default virtual start is `2099-01-01T00:00:00Z`; duration is 0 through 366 days.
+Set `start_at="2026-01-15T10:00:00Z"` (CLI: `--start-at`) for calendar-sensitive
+workflows. Supply an ISO timestamp with seconds, an explicit `Z` or numeric
+`±HH:MM` timezone, and at most six fractional digits. It is normalized to UTC;
+naive dates, invalid timestamps and an origin-plus-duration overflow raise
+`ValueError` before executing the adapter. Relative scheduling still starts at
+zero. Wall-clock reads, asyncio timers and absolute Celery ETAs share this origin.
+Omitting it preserves the old default request and configuration shape.
 
 `project_dir` defaults to the caller's directory and supplies Python import
 resolution. The child's current directory is temporary. Dependencies must be
@@ -43,7 +50,12 @@ HARNESS_ERROR, including retained task objects. Exceptions consumed by applicati
 code through await/result()/exception() do not become harness failures. A callback exception is
 HARNESS_ERROR even if every registered assertion matches. A blocked operation
 prevents PASS even if adapter code catches its exception. This includes unsupported
-Celery options on direct, retry and continuation publication paths.
+Celery options on direct, retry and continuation publication paths. `Celery.send_task`,
+unregistered name-only signatures, direct Kombu `Producer.publish`, and direct
+virtual/AMQP channel `basic_publish` are explicitly unsupported: these paths
+bypass modeled task delivery. Registered tasks using `apply_async`, `delay` and
+registered signatures retain their supported behavior. Custom transports or
+method overrides are not certified by these guards.
 
 The public worker rejects raw `Thread.start` and direct `ThreadPoolExecutor.submit`
 during import, setup, callbacks and assertion evaluation. Put asynchronous work in
@@ -97,7 +109,8 @@ do not run a simulation or remove an output file.
 `evidence_sha256` excludes the fresh attempt ID and host provenance, so repetitions
 can be compared. Provenance includes library version, hashes of installed Python
 source files, interpreter/platform, runtime dependency versions and the adapter/seed/duration/step
-configuration (inputs are not copied). The parent also binds the worker library
+configuration, including normalized `start_at` when explicitly supplied (inputs
+are not copied). The parent also binds the worker library
 hash to its own installed source. The adapter
 module hash covers **only that module**, not its imports, data or external services.
 Record your application's immutable revision and fixture identity alongside results.

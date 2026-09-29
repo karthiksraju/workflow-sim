@@ -27,9 +27,10 @@ business assertions. [See the architecture](https://github.com/karthiksraju/work
 See the [six domain examples](docs/examples.md), [tester guide](docs/try-the-alpha.md),
 and [independent confidence checks](docs/confidence.md).
 
-Upgrade existing alpha installations to `v0.1.0a3` and rerun their scenarios.
-[Adversarial review corrections and migration](docs/alpha2.md) explain the changed
-execution accounting. Prior alpha 1 verdicts cannot establish the corrected checks.
+The alpha 4 candidate closes unaccounted Celery/Kombu publication paths and adds
+calendar origins. [Migration and verification](docs/alpha4.md) explain which
+previous PASS results need rerunning. Alpha 3 remains available for reproduction;
+its missed-publication results do not establish the corrected checks.
 
 ## Try the installed package
 
@@ -38,7 +39,7 @@ Use a Python 3.12 virtual environment. Repository access is required:
 ```sh
 python3.12 -m venv .venv
 . .venv/bin/activate
-python -m pip install 'git+ssh://git@github.com/karthiksraju/workflow-sim.git@v0.1.0a3'
+python -m pip install 'git+ssh://git@github.com/karthiksraju/workflow-sim.git@v0.1.0a4'
 workflow-sim workflow_sim.examples.retry:build --duration 10 --output result.json
 ```
 

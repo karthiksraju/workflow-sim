@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.0a4 — publication guards and calendar origins
+
+- Reject unmodeled Celery `send_task` and direct Kombu/AMQP publication, even
+  when the application catches the exception. Previously, a weak business
+  assertion could PASS while published work never executed.
+- Add timezone-aware `start_at` / `--start-at`, normalized to UTC and bound to
+  verified request/provenance. Preserve the default 2099 origin and request shape.
+- Keep result schema 1, the existing queue model and supported runtime matrix.
+
+See [migration and verification scope](docs/alpha4.md). Alpha 3 stays immutable.
+
 ## 0.1.0a3 — domain examples and independent confidence gates
 
 - Add billing, fulfillment, ingestion, document/AI processing, monitoring and
