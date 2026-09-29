@@ -57,8 +57,8 @@ the installed Celery/Kombu producer APIs. The harness stays outside the library.
 
 The unchanged alpha 3 wheel fails 18 publication regression checks. This supplies
 an old-code negative control, not merely a green test of the new implementation.
-The release evidence index records final installed-wheel, corpus, mutation,
-real-worker and consumer results when those checks complete.
+The [verification report](validation/alpha4.md) records installed-wheel, corpus,
+mutation, real-worker and pinned consumer comparison results.
 
 The independent corpus still has 36 implemented reference business workflows out
 of 240 cases. Executing all 240 input timelines does not validate the remaining

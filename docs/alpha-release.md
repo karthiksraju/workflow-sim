@@ -8,7 +8,7 @@ supported behavior.
 
 Calendar-sensitive workflows can set `start_at` / `--start-at` with an explicit
 timezone. The origin is normalized to UTC and bound to verified configuration.
-The default remains 2099-01-01 UTC. See [migration and scope](docs/alpha4.md).
+The default remains 2099-01-01 UTC. See [migration and scope](https://github.com/karthiksraju/workflow-sim/blob/v0.1.0a4/docs/alpha4.md).
 
 Release promotion requires installed-wheel checks on Linux and macOS, clean
 minimal installation, six examples with broken controls, four actual Linux

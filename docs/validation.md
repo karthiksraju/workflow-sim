@@ -1,5 +1,11 @@
 # Alpha validation
 
+## Alpha 4 stability
+
+[Publication and calendar-origin verification](validation/alpha4.md) records
+platform checks, negative controls, the 2026-origin corpus rerun and the
+102-scenario comparison at an identical application revision.
+
 ## Independent corpus evaluation
 
 The existing alpha 3 was exercised with all 240 independently authored input
