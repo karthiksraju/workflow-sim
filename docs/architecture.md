@@ -44,8 +44,8 @@ sequenceDiagram
     participant P as Parent runner
     participant W as Worker process
     participant A as Adapter + application
-    T->>P: adapter, inputs, seed, duration, budgets
-    P->>P: Validate finite JSON and limits
+    T->>P: adapter, inputs, seed, duration, origin, budgets
+    P->>P: Validate JSON and limits, normalize origin to UTC
     P->>W: Start process with fresh attempt ID and scratch directory
     Note over P,W: Parent wall deadline includes setup, execution and teardown
     W->>W: Install boundary guards and runtime hooks
@@ -128,8 +128,8 @@ Private-alpha vendoring avoids distributing personal GitHub credentials to the
 application's CI and keeps historical proof runs bound to their executed bytes.
 A loader refuses a modified wheel or an already-imported package from another source.
 
-The meeting adapter stays in its application repository. The library includes two
-small independent examples, so a new workflow can use it without meeting code,
+The meeting adapter stays in its application repository. The library includes six domain reference workflows and two
+small introductory examples, so a new workflow can use it without meeting code,
 customer fixtures, application configuration or test dependencies.
 
 ## Code map and extension points
@@ -149,3 +149,11 @@ The advanced engine and application bindings remain experimental. A new backend,
 plugin registry or generalized storage model needs concrete consumers before it
 belongs here. See [the boundary decision](adr/0001-alpha-boundary.md) and
 [the exact API contract](contracts.md).
+
+## How changes earn release confidence
+
+The [validation architecture](confidence.md) combines independent arithmetic and
+generated lifecycle models, ordinary asyncio, actual Redis/prefork Celery workers,
+and targeted mutations. Both platform jobs and the confidence job gate release
+promotion. Keep these tools in development dependencies; consumers only install
+the execution runtime and its bounded runtime dependencies.

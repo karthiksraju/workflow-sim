@@ -1,0 +1,3227 @@
+{
+  "target_version": "0.1.0a3",
+  "wheel_sha256": "c7a5f642a45063ff0f4cdc661aa471afac69a5f3ad9fc553f46f8f9aeeec78da",
+  "corpus_version": "1.0.0",
+  "corpus_thread": "thr_fdxf6iwevv",
+  "corpus_revision": "e3d669f",
+  "corpus_manifest_sha256": "15860cc432c8880637c3ff0852f9adb78b6485270d2c8af1e51ebcd8a221627e",
+  "harness_revision": "fb3d23604361c3b0e895440bc663b0ae5c77e7f8",
+  "observed_at_utc": "2026-09-29T02:46:04.950333+00:00",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "python": "3.12.13 (main, Apr  7 2026, 21:09:58) [Clang 22.1.1 ]",
+  "dependencies": {
+    "rpds-py": "2026.6.3",
+    "click": "8.5.0",
+    "packaging": "26.3",
+    "prompt_toolkit": "3.0.53",
+    "jsonschema-specifications": "2025.9.1",
+    "tzdata": "2026.4",
+    "kombu": "5.6.2",
+    "click-didyoumean": "0.3.1",
+    "jsonschema": "4.23.0",
+    "workflow-sim": "0.1.0a3",
+    "python-dateutil": "2.9.0.post0",
+    "wcwidth": "0.9.1",
+    "referencing": "0.37.0",
+    "tzlocal": "5.4.4",
+    "time-machine": "3.5.1",
+    "attrs": "26.1.0",
+    "typing_extensions": "4.16.0",
+    "click-repl": "0.4.0",
+    "click-plugins": "1.1.1.2",
+    "amqp": "5.4.0",
+    "billiard": "4.3.0",
+    "celery": "5.6.3",
+    "six": "1.17.0",
+    "vine": "5.1.0"
+  },
+  "execution_counts": {
+    "runtime_positive": 480,
+    "runtime_alternate_legal_orders": 20,
+    "runtime_payload_negative_controls": 480,
+    "reference_business_positive": 36,
+    "reference_business_negative_controls": 6,
+    "health_and_api_probes": 4,
+    "total_final_simulator_runs": 1026
+  },
+  "business": [
+    {
+      "id": "BIL-003",
+      "domain": "billing",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "BIL-003",
+      "domain": "billing",
+      "broken": true,
+      "fault": "duplicate payment creates another receipt",
+      "reference_failed": [
+        "BIL-003-E1"
+      ],
+      "outcome": "ASSERTION_FAILED",
+      "expected": "ASSERTION_FAILED",
+      "failed_checks": [
+        "BIL-003-E1"
+      ],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "BIL-009",
+      "domain": "billing",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "BIL-013",
+      "domain": "billing",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "BIL-014",
+      "domain": "billing",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "BIL-019",
+      "domain": "billing",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "BIL-025",
+      "domain": "billing",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "COM-005",
+      "domain": "commerce",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "COM-005",
+      "domain": "commerce",
+      "broken": true,
+      "fault": "duplicate shipment consumes stock twice",
+      "reference_failed": [
+        "COM-005-A1",
+        "COM-005-E1"
+      ],
+      "outcome": "ASSERTION_FAILED",
+      "expected": "ASSERTION_FAILED",
+      "failed_checks": [
+        "COM-005-A1",
+        "COM-005-E1"
+      ],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "COM-010",
+      "domain": "commerce",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "COM-011",
+      "domain": "commerce",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "COM-015",
+      "domain": "commerce",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "COM-028",
+      "domain": "commerce",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "COM-034",
+      "domain": "commerce",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "DOC-012",
+      "domain": "documents",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "DOC-013",
+      "domain": "documents",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "DOC-014",
+      "domain": "documents",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "DOC-015",
+      "domain": "documents",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "DOC-016",
+      "domain": "documents",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "DOC-031",
+      "domain": "documents",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "DOC-031",
+      "domain": "documents",
+      "broken": true,
+      "fault": "chunks assembled in arrival order including duplicates",
+      "reference_failed": [
+        "DOC-031-A1"
+      ],
+      "outcome": "ASSERTION_FAILED",
+      "expected": "ASSERTION_FAILED",
+      "failed_checks": [
+        "DOC-031-A1"
+      ],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "ING-001",
+      "domain": "ingestion",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "ING-004",
+      "domain": "ingestion",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "ING-004",
+      "domain": "ingestion",
+      "broken": true,
+      "fault": "old update and repeated tombstone bypass revision fence",
+      "reference_failed": [
+        "ING-004-E1",
+        "ING-004-C1"
+      ],
+      "outcome": "ASSERTION_FAILED",
+      "expected": "ASSERTION_FAILED",
+      "failed_checks": [
+        "ING-004-E1",
+        "ING-004-C1"
+      ],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "ING-014",
+      "domain": "ingestion",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "ING-017",
+      "domain": "ingestion",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "ING-025",
+      "domain": "ingestion",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "ING-029",
+      "domain": "ingestion",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "MTG-007",
+      "domain": "meetings",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "MTG-007",
+      "domain": "meetings",
+      "broken": true,
+      "fault": "stale summary published before correct replacement",
+      "reference_failed": [
+        "MTG-007-E1",
+        "MTG-007-C1"
+      ],
+      "outcome": "ASSERTION_FAILED",
+      "expected": "ASSERTION_FAILED",
+      "failed_checks": [
+        "MTG-007-E1",
+        "MTG-007-C1"
+      ],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "MTG-008",
+      "domain": "meetings",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "MTG-022",
+      "domain": "meetings",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "MTG-025",
+      "domain": "meetings",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "MTG-027",
+      "domain": "meetings",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "MTG-029",
+      "domain": "meetings",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "MON-001",
+      "domain": "monitoring",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "MON-003",
+      "domain": "monitoring",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "MON-009",
+      "domain": "monitoring",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "MON-012",
+      "domain": "monitoring",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "MON-013",
+      "domain": "monitoring",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "MON-022",
+      "domain": "monitoring",
+      "broken": false,
+      "fault": null,
+      "reference_failed": [],
+      "outcome": "PASS",
+      "expected": "PASS",
+      "failed_checks": [],
+      "error": null,
+      "matched": true
+    },
+    {
+      "id": "MON-022",
+      "domain": "monitoring",
+      "broken": true,
+      "fault": "healthy sample count fails to reset on intervening failure",
+      "reference_failed": [
+        "MON-022-A1",
+        "MON-022-E1",
+        "MON-022-C1"
+      ],
+      "outcome": "ASSERTION_FAILED",
+      "expected": "ASSERTION_FAILED",
+      "failed_checks": [
+        "MON-022-A1",
+        "MON-022-E1",
+        "MON-022-C1"
+      ],
+      "error": null,
+      "matched": true
+    }
+  ],
+  "health_and_api_probes": [
+    {
+      "probe": "origin",
+      "outcome": "ASSERTION_FAILED",
+      "evidence_sha256": "f1ab47f7acff20185bd931b7e7359d8dbf5843c450787b5499b2ff1df882eb2f"
+    },
+    {
+      "probe": "submicrosecond_control",
+      "outcome": "ASSERTION_FAILED",
+      "evidence_sha256": "935e3c0ba895bd85c7a97519045726c0409eb409c0233003b998e0512a4b9564"
+    },
+    {
+      "probe": "outstanding",
+      "outcome": "INCOMPLETE",
+      "evidence_sha256": "73122c0b7e04ced8aeb1995ce21b9385f7eaf821c2b8cf1b0c64d3a7a9b807d7"
+    },
+    {
+      "probe": "unobserved_error",
+      "outcome": "HARNESS_ERROR",
+      "evidence_sha256": "44b519d1126fb5c7c3c75ec8ccb30d3d0f28f36dd817a4df3822765ce68e176d"
+    }
+  ],
+  "limits": [
+    "204 business cases have no domain adapter; they are not counted as business passes or runtime failures",
+    "All ten branching-outcome business cases remain unimplemented",
+    "Runtime probes execute event timelines and payloads, not domain fault descriptions or business logic",
+    "Reference business applications consume supplied external facts; no live provider or database contract was validated",
+    "Fast native reference uses logical event time; it is not a real-time or real-service differential test",
+    "Public runner epoch is fixed at 2099-01-01 UTC; requested corpus origins were not configurable",
+    "Initial bridge int/float timestamp representation mismatch was corrected using exact integer microseconds; original results retained",
+    "No changes to the release wheel or frozen corpus; no new runtime defect observed within executed scope"
+  ],
+  "cases": [
+    {
+      "id": "BIL-001",
+      "domain": "billing",
+      "title": "Settled renewal grants the purchased period",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "BIL-002",
+      "domain": "billing",
+      "title": "Capture acknowledgement lost before worker restart",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "lost_ack",
+        "crash_restart"
+      ]
+    },
+    {
+      "id": "BIL-003",
+      "domain": "billing",
+      "title": "Old failure after duplicated successful payment",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": [
+        "duplicate_delivery",
+        "out_of_order"
+      ]
+    },
+    {
+      "id": "BIL-004",
+      "domain": "billing",
+      "title": "Concurrent partial refunds with one unknown reply",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 2,
+      "remaining_requirement": "Implement explicit external-world/ordering selection and full business transitions",
+      "corpus_faults": [
+        "concurrent_actors",
+        "lost_ack"
+      ]
+    },
+    {
+      "id": "BIL-005",
+      "domain": "billing",
+      "title": "Cancellation races with a slow capture",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "cancellation",
+        "dependency_delay"
+      ]
+    },
+    {
+      "id": "BIL-006",
+      "domain": "billing",
+      "title": "Expired provider key meets a stale completion cache",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "idempotency_expiry",
+        "stale_read"
+      ]
+    },
+    {
+      "id": "BIL-007",
+      "domain": "billing",
+      "title": "Proration invoice after conflicting plan edits",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "concurrent_actors",
+        "stale_actor"
+      ]
+    },
+    {
+      "id": "BIL-008",
+      "domain": "billing",
+      "title": "Refund retry after payment ledger outage",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "dependency_unavailable",
+        "duplicate_delivery"
+      ]
+    },
+    {
+      "id": "BIL-009",
+      "domain": "billing",
+      "title": "Payment callback cannot cross tenant after identifier collision",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": [
+        "poison_payload",
+        "duplicate_delivery"
+      ]
+    },
+    {
+      "id": "BIL-010",
+      "domain": "billing",
+      "title": "Dunning restart at grace deadline with late success",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "crash_restart",
+        "out_of_order"
+      ]
+    },
+    {
+      "id": "BIL-011",
+      "domain": "billing",
+      "title": "Unknown capture and unavailable reconciliation remain pending",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 2,
+      "remaining_requirement": "Implement explicit external-world/ordering selection and full business transitions",
+      "corpus_faults": [
+        "lost_ack",
+        "dependency_unavailable"
+      ]
+    },
+    {
+      "id": "BIL-012",
+      "domain": "billing",
+      "title": "Chargeback arrives during refund processing",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "dispute",
+        "partial_effect"
+      ]
+    },
+    {
+      "id": "BIL-013",
+      "domain": "billing",
+      "title": "Action-required payment waits for customer authentication",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": []
+    },
+    {
+      "id": "BIL-014",
+      "domain": "billing",
+      "title": "Hard decline ends this payment attempt",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": []
+    },
+    {
+      "id": "BIL-015",
+      "domain": "billing",
+      "title": "Soft decline recovers using a new approved attempt",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "BIL-016",
+      "domain": "billing",
+      "title": "Idempotency key reused with different amount",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "BIL-017",
+      "domain": "billing",
+      "title": "Tax half-up applies per line before total",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "BIL-018",
+      "domain": "billing",
+      "title": "Partial refund allocates discount residual deterministically",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "BIL-019",
+      "domain": "billing",
+      "title": "Currency mismatch quarantines a paid event",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": []
+    },
+    {
+      "id": "BIL-020",
+      "domain": "billing",
+      "title": "Zero-dollar invoice activates without a charge",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "BIL-021",
+      "domain": "billing",
+      "title": "Trial expires without an authorized payment method",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "BIL-022",
+      "domain": "billing",
+      "title": "Scheduled cancellation preserves paid-through access",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "BIL-023",
+      "domain": "billing",
+      "title": "Usage event after invoice cutoff becomes an adjustment",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "BIL-024",
+      "domain": "billing",
+      "title": "Usage correction replaces rather than adds earlier units",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "BIL-025",
+      "domain": "billing",
+      "title": "Partial payment leaves explicit outstanding balance",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": []
+    },
+    {
+      "id": "BIL-026",
+      "domain": "billing",
+      "title": "Overpayment becomes unapplied customer credit",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "BIL-027",
+      "domain": "billing",
+      "title": "Unmatched bank reference cannot choose an invoice",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "BIL-028",
+      "domain": "billing",
+      "title": "Refund denied after settlement preserves debt to customer",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "BIL-029",
+      "domain": "billing",
+      "title": "Reversed bank debit revokes unsettled-funded entitlement",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "BIL-030",
+      "domain": "billing",
+      "title": "Invoice webhook arrives before subscription creation",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "BIL-031",
+      "domain": "billing",
+      "title": "Retry-After protects rate-limited payment lookup",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "rate_limit"
+      ]
+    },
+    {
+      "id": "BIL-032",
+      "domain": "billing",
+      "title": "Cached server error is not cured by same-key retry",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 2,
+      "remaining_requirement": "Implement explicit external-world/ordering selection and full business transitions",
+      "corpus_faults": []
+    },
+    {
+      "id": "BIL-033",
+      "domain": "billing",
+      "title": "Webhook body fails authenticity before accounting",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "BIL-034",
+      "domain": "billing",
+      "title": "Coupon expires exactly at checkout acceptance",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "BIL-035",
+      "domain": "billing",
+      "title": "One-time credit cannot be spent by two invoices",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "BIL-036",
+      "domain": "billing",
+      "title": "Manual write-off does not pretend payment settled",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "BIL-037",
+      "domain": "billing",
+      "title": "Refund request exceeds remaining refundable principal",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "BIL-038",
+      "domain": "billing",
+      "title": "Pause collection without erasing invoices",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "BIL-039",
+      "domain": "billing",
+      "title": "Receipt outage cannot roll back a settled invoice",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "notification_failure"
+      ]
+    },
+    {
+      "id": "BIL-040",
+      "domain": "billing",
+      "title": "Unconfirmed address change cannot rewrite finalized tax",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-001",
+      "domain": "commerce",
+      "title": "Reserve pick and ship two units",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-002",
+      "domain": "commerce",
+      "title": "Last item contested using stale availability",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 2,
+      "remaining_requirement": "Implement explicit external-world/ordering selection and full business transitions",
+      "corpus_faults": [
+        "concurrent_actors",
+        "stale_read"
+      ]
+    },
+    {
+      "id": "COM-003",
+      "domain": "commerce",
+      "title": "Lost label acknowledgement followed by worker crash",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "lost_ack",
+        "crash_restart"
+      ]
+    },
+    {
+      "id": "COM-004",
+      "domain": "commerce",
+      "title": "Cancel arrives while handoff acknowledgement is delayed",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "dependency_delay",
+        "cancellation"
+      ]
+    },
+    {
+      "id": "COM-005",
+      "domain": "commerce",
+      "title": "Duplicate shipment callback after stale pick status",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": [
+        "out_of_order",
+        "duplicate_delivery"
+      ]
+    },
+    {
+      "id": "COM-006",
+      "domain": "commerce",
+      "title": "Inventory count conflicts with a live reservation",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "concurrent_actors",
+        "stale_read"
+      ]
+    },
+    {
+      "id": "COM-007",
+      "domain": "commerce",
+      "title": "Partial kit reservation compensates after second component outage",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "partial_completion",
+        "dependency_unavailable"
+      ]
+    },
+    {
+      "id": "COM-008",
+      "domain": "commerce",
+      "title": "Split shipment fails on second location after first ships",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "partial_completion",
+        "dependency_unavailable"
+      ]
+    },
+    {
+      "id": "COM-009",
+      "domain": "commerce",
+      "title": "Duplicate return with stale inspection result",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "duplicate_delivery",
+        "stale_actor"
+      ]
+    },
+    {
+      "id": "COM-010",
+      "domain": "commerce",
+      "title": "Expired reservation with restarted picking actor",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": [
+        "crash_restart",
+        "stale_actor"
+      ]
+    },
+    {
+      "id": "COM-011",
+      "domain": "commerce",
+      "title": "Wrong shop order and duplicate webhook",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": [
+        "poison_payload",
+        "duplicate_delivery"
+      ]
+    },
+    {
+      "id": "COM-012",
+      "domain": "commerce",
+      "title": "Backorder fills from an inbound receipt",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-013",
+      "domain": "commerce",
+      "title": "Unacceptable substitute needs explicit customer decision",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-014",
+      "domain": "commerce",
+      "title": "Address edited after label but before handoff",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-015",
+      "domain": "commerce",
+      "title": "Delivered event before in-transit event",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-016",
+      "domain": "commerce",
+      "title": "Carrier loses parcel and replacement consumes new stock",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-017",
+      "domain": "commerce",
+      "title": "Damaged return is quarantined and written off",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-018",
+      "domain": "commerce",
+      "title": "Oversized return quantity is rejected",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-019",
+      "domain": "commerce",
+      "title": "Order edit increases quantity beyond available stock",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-020",
+      "domain": "commerce",
+      "title": "Partial cancellation releases only unpicked lines",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-021",
+      "domain": "commerce",
+      "title": "Warehouse transfer retains in-transit ownership",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-022",
+      "domain": "commerce",
+      "title": "Short pick leaves an explicit shortage",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-023",
+      "domain": "commerce",
+      "title": "Recall blocks a previously reserved lot",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-024",
+      "domain": "commerce",
+      "title": "Digital and physical lines complete independently",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-025",
+      "domain": "commerce",
+      "title": "Inventory webhook missing absolute quantity needs lookup",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-026",
+      "domain": "commerce",
+      "title": "Customer cancellation after delivery becomes return request",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-027",
+      "domain": "commerce",
+      "title": "Gift message poison does not become carrier instruction",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-028",
+      "domain": "commerce",
+      "title": "Payment not yet settled holds paid-only fulfillment",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-029",
+      "domain": "commerce",
+      "title": "Fraud review expires reservation but preserves order",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-030",
+      "domain": "commerce",
+      "title": "Carrier rate quote expires before purchase",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-031",
+      "domain": "commerce",
+      "title": "Unknown handoff outcome blocks reshipment",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 2,
+      "remaining_requirement": "Implement explicit external-world/ordering selection and full business transitions",
+      "corpus_faults": [
+        "lost_ack"
+      ]
+    },
+    {
+      "id": "COM-032",
+      "domain": "commerce",
+      "title": "Serial number collision prevents duplicate physical fulfillment",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-033",
+      "domain": "commerce",
+      "title": "Bundle return credit requires all mandatory parts",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-034",
+      "domain": "commerce",
+      "title": "Customer pickup token consumed once",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-035",
+      "domain": "commerce",
+      "title": "Supplier receipt correction removes only unallocated excess",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-036",
+      "domain": "commerce",
+      "title": "Fulfillment service rejects unsupported destination",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-037",
+      "domain": "commerce",
+      "title": "Exchange reserves replacement before releasing customer credit",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-038",
+      "domain": "commerce",
+      "title": "Inventory batch isolates a malformed item",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-039",
+      "domain": "commerce",
+      "title": "Order recreated with same display number is a new entity",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "COM-040",
+      "domain": "commerce",
+      "title": "Fulfillment notification failure retains shipped stock",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "notification_failure"
+      ]
+    },
+    {
+      "id": "DOC-001",
+      "domain": "documents",
+      "title": "Complete extraction approved and published",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-002",
+      "domain": "documents",
+      "title": "Extractor start acknowledgement lost across restart",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "lost_ack",
+        "crash_restart"
+      ]
+    },
+    {
+      "id": "DOC-003",
+      "domain": "documents",
+      "title": "Old model answer returns after replacement extraction",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "stale_actor",
+        "out_of_order"
+      ]
+    },
+    {
+      "id": "DOC-004",
+      "domain": "documents",
+      "title": "Publication accepted but acknowledgement and worker are lost",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "lost_ack",
+        "crash_restart"
+      ]
+    },
+    {
+      "id": "DOC-005",
+      "domain": "documents",
+      "title": "Partial extraction and duplicate completion callback",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "partial_completion",
+        "duplicate_delivery"
+      ]
+    },
+    {
+      "id": "DOC-006",
+      "domain": "documents",
+      "title": "Cancellation fences answer while cleanup dependency is down",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "cancellation",
+        "dependency_unavailable",
+        "stale_actor"
+      ]
+    },
+    {
+      "id": "DOC-007",
+      "domain": "documents",
+      "title": "Tenant callback collision with duplicate job identifier",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "poison_payload",
+        "duplicate_delivery"
+      ]
+    },
+    {
+      "id": "DOC-008",
+      "domain": "documents",
+      "title": "Pagination second page unavailable after first page stored",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "partial_completion",
+        "dependency_unavailable"
+      ]
+    },
+    {
+      "id": "DOC-009",
+      "domain": "documents",
+      "title": "Approval races with a new source revision",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "concurrent_actors",
+        "stale_approval"
+      ]
+    },
+    {
+      "id": "DOC-010",
+      "domain": "documents",
+      "title": "Model rate limit followed by crash during retry backoff",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "rate_limit",
+        "crash_restart"
+      ]
+    },
+    {
+      "id": "DOC-011",
+      "domain": "documents",
+      "title": "Deleted source and delayed stale cache result",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "deletion",
+        "stale_read"
+      ]
+    },
+    {
+      "id": "DOC-012",
+      "domain": "documents",
+      "title": "Invalid structured model JSON is a terminal attempt",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-013",
+      "domain": "documents",
+      "title": "Schema-valid model response lacks required citation",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-014",
+      "domain": "documents",
+      "title": "Citation points to a block from another document",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-015",
+      "domain": "documents",
+      "title": "Model refusal is distinct from an empty successful summary",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-016",
+      "domain": "documents",
+      "title": "Token-truncated response cannot count as completion",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-017",
+      "domain": "documents",
+      "title": "Prompt injection in source remains quoted data",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-018",
+      "domain": "documents",
+      "title": "Low extraction confidence requires explicit review",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-019",
+      "domain": "documents",
+      "title": "Blank scanned page has a valid empty extraction",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-020",
+      "domain": "documents",
+      "title": "Password-protected input cannot be silently skipped",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-021",
+      "domain": "documents",
+      "title": "Filename extension does not override MIME inspection",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-022",
+      "domain": "documents",
+      "title": "Extracted HTML is escaped in published view",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-023",
+      "domain": "documents",
+      "title": "Approval binds to redaction policy revision",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-024",
+      "domain": "documents",
+      "title": "Human correction survives automatic regeneration request",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-025",
+      "domain": "documents",
+      "title": "Failed replacement preserves previous publication",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-026",
+      "domain": "documents",
+      "title": "Publication ACL change invalidates queued share",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-027",
+      "domain": "documents",
+      "title": "Identical upload content under different tenant cannot reuse private result",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-028",
+      "domain": "documents",
+      "title": "Extractor result expires before it is fetched",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-029",
+      "domain": "documents",
+      "title": "Reused extraction token with changed source is a conflict",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-030",
+      "domain": "documents",
+      "title": "Model completion streams disconnect before final marker",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-031",
+      "domain": "documents",
+      "title": "Out-of-order chunk delivery requires sequence assembly",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-032",
+      "domain": "documents",
+      "title": "Declared source page count disagrees with extract result",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-033",
+      "domain": "documents",
+      "title": "Budget ceiling blocks a new model attempt",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-034",
+      "domain": "documents",
+      "title": "Exact content duplicate within same generation is reused safely",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-035",
+      "domain": "documents",
+      "title": "Conflicting extraction blocks with same ID require review",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-036",
+      "domain": "documents",
+      "title": "Language metadata preserved without unsupported translation",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-037",
+      "domain": "documents",
+      "title": "Ambiguous extraction choices remain unresolved",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-038",
+      "domain": "documents",
+      "title": "Timed publication embargo ends at exact instant",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-039",
+      "domain": "documents",
+      "title": "Renderer failure does not mark artifact published",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "DOC-040",
+      "domain": "documents",
+      "title": "Notification retry cannot create another publication",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "notification_failure"
+      ]
+    },
+    {
+      "id": "ING-001",
+      "domain": "ingestion",
+      "title": "Two-page import publishes a complete generation",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": []
+    },
+    {
+      "id": "ING-002",
+      "domain": "ingestion",
+      "title": "Sink commit survives lost acknowledgement and replay",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "lost_ack",
+        "duplicate_delivery"
+      ]
+    },
+    {
+      "id": "ING-003",
+      "domain": "ingestion",
+      "title": "Crash between row application and cursor save",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "crash_restart",
+        "partial_completion"
+      ]
+    },
+    {
+      "id": "ING-004",
+      "domain": "ingestion",
+      "title": "Delete precedes stale update and duplicated tombstone",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": [
+        "out_of_order",
+        "duplicate_delivery"
+      ]
+    },
+    {
+      "id": "ING-005",
+      "domain": "ingestion",
+      "title": "Concurrent backfill cannot overwrite live revision",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "concurrent_actors",
+        "stale_actor"
+      ]
+    },
+    {
+      "id": "ING-006",
+      "domain": "ingestion",
+      "title": "Poison row plus sink outage cannot skip good successor",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "poison_payload",
+        "dependency_unavailable"
+      ]
+    },
+    {
+      "id": "ING-007",
+      "domain": "ingestion",
+      "title": "Invalidated cursor during partial snapshot restart",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "cursor_expiry",
+        "dependency_unavailable"
+      ]
+    },
+    {
+      "id": "ING-008",
+      "domain": "ingestion",
+      "title": "Rebalance leaves two workers with same partition",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "concurrent_actors",
+        "stale_actor"
+      ]
+    },
+    {
+      "id": "ING-009",
+      "domain": "ingestion",
+      "title": "Lost delete acknowledgement during long outage",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "lost_ack",
+        "dependency_unavailable"
+      ]
+    },
+    {
+      "id": "ING-010",
+      "domain": "ingestion",
+      "title": "Tenant collision inside replayed batch",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "poison_payload",
+        "duplicate_delivery"
+      ]
+    },
+    {
+      "id": "ING-011",
+      "domain": "ingestion",
+      "title": "Object overwritten while old notification is delayed",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "out_of_order",
+        "version_mismatch"
+      ]
+    },
+    {
+      "id": "ING-012",
+      "domain": "ingestion",
+      "title": "Same event ID from two sources is two facts",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "ING-013",
+      "domain": "ingestion",
+      "title": "Opaque cursor is not an arithmetic offset",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "ING-014",
+      "domain": "ingestion",
+      "title": "Empty intermediate page still has continuation",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": []
+    },
+    {
+      "id": "ING-015",
+      "domain": "ingestion",
+      "title": "Schema adds optional field without breaking known rows",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "ING-016",
+      "domain": "ingestion",
+      "title": "Required field removal is quarantined as incompatible",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "ING-017",
+      "domain": "ingestion",
+      "title": "Null clears a field while absent leaves it unchanged",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": []
+    },
+    {
+      "id": "ING-018",
+      "domain": "ingestion",
+      "title": "Missing parent holds child without inventing relation",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "ING-019",
+      "domain": "ingestion",
+      "title": "Late event after watermark revises aggregate explicitly",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "ING-020",
+      "domain": "ingestion",
+      "title": "Future timestamp cannot advance source watermark",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "ING-021",
+      "domain": "ingestion",
+      "title": "Decimal text is parsed without floating point loss",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "ING-022",
+      "domain": "ingestion",
+      "title": "Form-encoded object key decodes plus and percent distinctly",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "ING-023",
+      "domain": "ingestion",
+      "title": "S3 test notification is not a data object",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "ING-024",
+      "domain": "ingestion",
+      "title": "Checksum mismatch blocks corrupted object ingestion",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "ING-025",
+      "domain": "ingestion",
+      "title": "Repeated page token detects an infinite pagination loop",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": []
+    },
+    {
+      "id": "ING-026",
+      "domain": "ingestion",
+      "title": "Row count manifest detects missing page without token",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "ING-027",
+      "domain": "ingestion",
+      "title": "Delete and recreate use an incarnation identifier",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "ING-028",
+      "domain": "ingestion",
+      "title": "Two source authorities conflict on the same field",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "ING-029",
+      "domain": "ingestion",
+      "title": "Cancellation discards staging without erasing active data",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": []
+    },
+    {
+      "id": "ING-030",
+      "domain": "ingestion",
+      "title": "Mapping revision changes while old transform completes",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "ING-031",
+      "domain": "ingestion",
+      "title": "Malformed CSV quoting quarantines whole file",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "ING-032",
+      "domain": "ingestion",
+      "title": "Unicode normalization collision requires review",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "ING-033",
+      "domain": "ingestion",
+      "title": "Source permission revoked is not an empty snapshot",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "ING-034",
+      "domain": "ingestion",
+      "title": "Rate limit one source while another progresses",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "rate_limit"
+      ]
+    },
+    {
+      "id": "ING-035",
+      "domain": "ingestion",
+      "title": "Quarantined row repaired and replayed with same identity",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "ING-036",
+      "domain": "ingestion",
+      "title": "Filtered records still advance examined cursor",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "ING-037",
+      "domain": "ingestion",
+      "title": "Sparse event does not imply source deletion",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "ING-038",
+      "domain": "ingestion",
+      "title": "Sequencers from different object keys are incomparable",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "ING-039",
+      "domain": "ingestion",
+      "title": "Transformation error preserves prior completed generation",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "ING-040",
+      "domain": "ingestion",
+      "title": "Non-idempotent sink with unknown result stays unresolved",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 2,
+      "remaining_requirement": "Implement explicit external-world/ordering selection and full business transitions",
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-001",
+      "domain": "meetings",
+      "title": "Consented meeting records and publishes fixed summary",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-002",
+      "domain": "meetings",
+      "title": "Reschedule duplicates cannot revive old bot reservation",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "duplicate_delivery",
+        "stale_actor"
+      ]
+    },
+    {
+      "id": "MTG-003",
+      "domain": "meetings",
+      "title": "Cancellation after physical bot join but before acknowledgement",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "lost_ack",
+        "cancellation"
+      ]
+    },
+    {
+      "id": "MTG-004",
+      "domain": "meetings",
+      "title": "Recording ended but ready file endpoint is unavailable",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "partial_completion",
+        "dependency_unavailable"
+      ]
+    },
+    {
+      "id": "MTG-005",
+      "domain": "meetings",
+      "title": "Split recording arrives reversed with duplicate segment",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "out_of_order",
+        "duplicate_delivery"
+      ]
+    },
+    {
+      "id": "MTG-006",
+      "domain": "meetings",
+      "title": "Transcript precedes media and worker restarts",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "out_of_order",
+        "crash_restart"
+      ]
+    },
+    {
+      "id": "MTG-007",
+      "domain": "meetings",
+      "title": "Old post-call summary returns after transcript correction",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": [
+        "concurrent_actors",
+        "stale_actor"
+      ]
+    },
+    {
+      "id": "MTG-008",
+      "domain": "meetings",
+      "title": "Foreign calendar callback with colliding event ID repeats",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": [
+        "poison_payload",
+        "duplicate_delivery"
+      ]
+    },
+    {
+      "id": "MTG-009",
+      "domain": "meetings",
+      "title": "Calendar token invalidation and paginated refresh outage",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "cursor_expiry",
+        "dependency_unavailable"
+      ]
+    },
+    {
+      "id": "MTG-010",
+      "domain": "meetings",
+      "title": "Unknown bot join survives scheduler restart",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "lost_ack",
+        "crash_restart"
+      ]
+    },
+    {
+      "id": "MTG-011",
+      "domain": "meetings",
+      "title": "Malformed transcript chunk and repeated completion marker",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "poison_payload",
+        "duplicate_delivery"
+      ]
+    },
+    {
+      "id": "MTG-012",
+      "domain": "meetings",
+      "title": "Spring-forward recurrence skips nonexistent generated time",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-013",
+      "domain": "meetings",
+      "title": "Fall-back explicit local start selects first occurrence",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-014",
+      "domain": "meetings",
+      "title": "Moved recurring occurrence keeps original identity",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-015",
+      "domain": "meetings",
+      "title": "Cancel one recurring exception without cancelling series",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-016",
+      "domain": "meetings",
+      "title": "Series edit changes future occurrences but preserves past meeting",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-017",
+      "domain": "meetings",
+      "title": "All-day calendar item does not authorize a bot",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-018",
+      "domain": "meetings",
+      "title": "One attendee declines while organizer keeps meeting",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-019",
+      "domain": "meetings",
+      "title": "Conference link replacement invalidates old join target",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-020",
+      "domain": "meetings",
+      "title": "Bot waits in lobby before actual start",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-021",
+      "domain": "meetings",
+      "title": "Meeting overruns calendar end without premature finalization",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-022",
+      "domain": "meetings",
+      "title": "No consent means no recording despite calendar completion",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-023",
+      "domain": "meetings",
+      "title": "Consent revoked mid-call stops capture and gates existing segment",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-024",
+      "domain": "meetings",
+      "title": "Recording permission denied is not zero-length media",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-025",
+      "domain": "meetings",
+      "title": "Complete silent recording produces no-speech outcome",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-026",
+      "domain": "meetings",
+      "title": "Unknown speaker cannot inherit host identity",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-027",
+      "domain": "meetings",
+      "title": "Corrected transcript removes obsolete action items",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-028",
+      "domain": "meetings",
+      "title": "Summary succeeds while CRM writeback fails",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "dependency_unavailable"
+      ]
+    },
+    {
+      "id": "MTG-029",
+      "domain": "meetings",
+      "title": "Invalid model action schema blocks publication",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-030",
+      "domain": "meetings",
+      "title": "Follow-up email acceptance unknown is not safe to resend",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 2,
+      "remaining_requirement": "Implement explicit external-world/ordering selection and full business transitions",
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-031",
+      "domain": "meetings",
+      "title": "Shared conference URL does not merge separate meetings",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-032",
+      "domain": "meetings",
+      "title": "Calendar deletion after processing preserves recorded history",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-033",
+      "domain": "meetings",
+      "title": "Join attempt at admission deadline is too late",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-034",
+      "domain": "meetings",
+      "title": "Cancelled event reinstated creates a new scheduling generation",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-035",
+      "domain": "meetings",
+      "title": "Concurrent organizer edits admit either winning revision",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 2,
+      "remaining_requirement": "Implement explicit external-world/ordering selection and full business transitions",
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-036",
+      "domain": "meetings",
+      "title": "Floating calendar time requires explicit timezone decision",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-037",
+      "domain": "meetings",
+      "title": "Transcript redaction before downstream publication",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-038",
+      "domain": "meetings",
+      "title": "Recording timeout budget produces visible pending state",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-039",
+      "domain": "meetings",
+      "title": "Host transfer changes future sharing authority",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MTG-040",
+      "domain": "meetings",
+      "title": "Conflicting recording associations require manual match",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MON-001",
+      "domain": "monitoring",
+      "title": "Sustained failure pages and confirmed recovery resolves",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": []
+    },
+    {
+      "id": "MON-002",
+      "domain": "monitoring",
+      "title": "Pager accepts trigger before response loss and restart",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "lost_ack",
+        "crash_restart"
+      ]
+    },
+    {
+      "id": "MON-003",
+      "domain": "monitoring",
+      "title": "Stale failure after duplicate recovery cannot reopen episode",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": [
+        "out_of_order",
+        "duplicate_delivery"
+      ]
+    },
+    {
+      "id": "MON-004",
+      "domain": "monitoring",
+      "title": "Two detectors share one episode during stale incident reads",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "concurrent_actors",
+        "stale_read"
+      ]
+    },
+    {
+      "id": "MON-005",
+      "domain": "monitoring",
+      "title": "Acknowledgement races with escalation at the deadline",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 2,
+      "remaining_requirement": "Implement explicit external-world/ordering selection and full business transitions",
+      "corpus_faults": [
+        "concurrent_actors",
+        "deadline_boundary"
+      ]
+    },
+    {
+      "id": "MON-006",
+      "domain": "monitoring",
+      "title": "Primary notification outage with delayed fallback acceptance",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "dependency_unavailable",
+        "dependency_delay"
+      ]
+    },
+    {
+      "id": "MON-007",
+      "domain": "monitoring",
+      "title": "Remediation completes before crash and stale retry",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "partial_effect",
+        "crash_restart",
+        "stale_actor"
+      ]
+    },
+    {
+      "id": "MON-008",
+      "domain": "monitoring",
+      "title": "Maintenance expiry with queued stale silence decision",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "deadline_boundary",
+        "stale_read"
+      ]
+    },
+    {
+      "id": "MON-009",
+      "domain": "monitoring",
+      "title": "Wrong tenant recovery and duplicate event cannot close incident",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": [
+        "poison_payload",
+        "duplicate_delivery"
+      ]
+    },
+    {
+      "id": "MON-010",
+      "domain": "monitoring",
+      "title": "Recovery resolution lost while new episode starts",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "lost_ack",
+        "out_of_order"
+      ]
+    },
+    {
+      "id": "MON-011",
+      "domain": "monitoring",
+      "title": "Poison probe and missing heartbeat produce unknown health",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "poison_payload",
+        "missing_signal"
+      ]
+    },
+    {
+      "id": "MON-012",
+      "domain": "monitoring",
+      "title": "Transient failure resolves within grouping wait",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": []
+    },
+    {
+      "id": "MON-013",
+      "domain": "monitoring",
+      "title": "Acknowledged incident remains unhealthy",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": []
+    },
+    {
+      "id": "MON-014",
+      "domain": "monitoring",
+      "title": "Severity escalation is a meaningful update within episode",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MON-015",
+      "domain": "monitoring",
+      "title": "Root outage inhibits dependent symptom pages",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MON-016",
+      "domain": "monitoring",
+      "title": "Inhibition must not cross cluster boundary",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MON-017",
+      "domain": "monitoring",
+      "title": "Recovery of root releases still-failing dependent alarm",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MON-018",
+      "domain": "monitoring",
+      "title": "Notification credential rejection needs operator repair",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MON-019",
+      "domain": "monitoring",
+      "title": "Pager throttling retains earliest unsent episode",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "rate_limit"
+      ]
+    },
+    {
+      "id": "MON-020",
+      "domain": "monitoring",
+      "title": "Probe clock moves backward but sequence remains authoritative",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MON-021",
+      "domain": "monitoring",
+      "title": "Manual resolution without recovery is visibly provisional",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MON-022",
+      "domain": "monitoring",
+      "title": "Two healthy samples separated by failure do not resolve",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "REFERENCE_ASSERTIONS_PASS",
+      "business_outcome_branches": 1,
+      "remaining_requirement": null,
+      "corpus_faults": []
+    },
+    {
+      "id": "MON-023",
+      "domain": "monitoring",
+      "title": "Group membership update waits for group interval",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MON-024",
+      "domain": "monitoring",
+      "title": "Silence matcher typo cannot mute unrelated severity",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MON-025",
+      "domain": "monitoring",
+      "title": "Monitor itself loses storage and exposes impaired reliability",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MON-026",
+      "domain": "monitoring",
+      "title": "Unsupported alert severity quarantines only bad event",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MON-027",
+      "domain": "monitoring",
+      "title": "Late resolve to different routing integration is ineffective",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MON-028",
+      "domain": "monitoring",
+      "title": "Incident deletion request cannot erase audit history",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MON-029",
+      "domain": "monitoring",
+      "title": "Automatic remediation forbidden without authorization",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MON-030",
+      "domain": "monitoring",
+      "title": "Remediation circuit breaker stops repeated unsuccessful fixes",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MON-031",
+      "domain": "monitoring",
+      "title": "Recovery during queued remediation invalidates action",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MON-032",
+      "domain": "monitoring",
+      "title": "Multi-region evidence preserves partial outage",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MON-033",
+      "domain": "monitoring",
+      "title": "Synthetic test alert never triggers real remediation",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MON-034",
+      "domain": "monitoring",
+      "title": "Unqueryable notification acceptance remains uncertain",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 2,
+      "remaining_requirement": "Implement explicit external-world/ordering selection and full business transitions",
+      "corpus_faults": []
+    },
+    {
+      "id": "MON-035",
+      "domain": "monitoring",
+      "title": "Probe target configuration change resets evidence scope",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MON-036",
+      "domain": "monitoring",
+      "title": "Suppressed incident must still accumulate diagnostic evidence",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MON-037",
+      "domain": "monitoring",
+      "title": "Unmatched resolve creates no phantom incident",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MON-038",
+      "domain": "monitoring",
+      "title": "Incident merge preserves each child recovery state",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    },
+    {
+      "id": "MON-039",
+      "domain": "monitoring",
+      "title": "Repeated notification schedule survives scheduler restart",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": [
+        "crash_restart"
+      ]
+    },
+    {
+      "id": "MON-040",
+      "domain": "monitoring",
+      "title": "Threshold equality follows explicit comparator",
+      "runtime_status": "PASS_BOTH_PATHS_AND_NEGATIVE_CONTROLS",
+      "business_status": "DOMAIN_ADAPTER_NOT_IMPLEMENTED",
+      "business_outcome_branches": 1,
+      "remaining_requirement": "Implement and review the domain workflow/boundary behavior for these requirements",
+      "corpus_faults": []
+    }
+  ],
+  "evidence_archive_sha256": "dfd2c614f9fddee2f6209680b6d12cfedbf1cabd8132975e92a5d97d4929c655",
+  "evidence_manifest_sha256": "49d76e8f5aa30a8749c549dde7225304811e4e725ebe148c63208826ea6d56bd",
+  "local_harness_final_revision": "a22984a"
+}

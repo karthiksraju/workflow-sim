@@ -28,6 +28,7 @@ def main(argv=None):
     parser.add_argument('adapter', help='module:function')
     parser.add_argument('--inputs', type=Path, help='JSON object file')
     parser.add_argument('--duration', type=float, default=60)
+    parser.add_argument('--start-at', help='Timezone-aware ISO clock origin (default: 2099-01-01T00:00:00Z)')
     parser.add_argument('--seed', type=int, default=0)
     parser.add_argument('--max-steps', type=int, default=100000)
     parser.add_argument('--wall-timeout', type=float, default=30)
@@ -40,7 +41,7 @@ def main(argv=None):
             args.output.unlink(missing_ok=True)
         result = run(args.adapter, inputs=json.loads(args.inputs.read_text()) if args.inputs else {},
                      duration=args.duration, seed=args.seed, max_steps=args.max_steps,
-                     wall_timeout=args.wall_timeout, project_dir=args.project_dir)
+                     wall_timeout=args.wall_timeout, project_dir=args.project_dir, start_at=args.start_at)
         if args.output:
             args.output.parent.mkdir(parents=True, exist_ok=True)
             temporary = args.output.with_name(args.output.name + '.tmp')

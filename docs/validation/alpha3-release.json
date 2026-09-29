@@ -1,0 +1,383 @@
+{
+  "version": "0.1.0a3",
+  "tag": "v0.1.0a3",
+  "source_revision": "b19bb928784a703ee1ab7bb7e9063738d17d9080",
+  "ci_run": "https://github.com/karthiksraju/workflow-sim/actions/runs/36466471383",
+  "promotion_run": "https://github.com/karthiksraju/workflow-sim/actions/runs/36466796999",
+  "release": "https://github.com/karthiksraju/workflow-sim/releases/tag/v0.1.0a3",
+  "visibility": "private",
+  "artifact_hashes": {
+    "workflow_sim-0.1.0a3-py3-none-any.whl": "c7a5f642a45063ff0f4cdc661aa471afac69a5f3ad9fc553f46f8f9aeeec78da",
+    "confidence-evidence.tar.gz": "1f275c6ac795cd0a206a9302cffcb8fb5f493a89fa09282624f6bae72a51517a",
+    "example-evidence.tar.gz": "1a23201389d36a4c0639bc764b9465631baaec7b362b98a8c4a761e4ba615748",
+    "workflow_sim-0.1.0a3.tar.gz": "7164fb227ddfbd4fdb06125ff5bf92142c4de164093beccc0c7b7f0396b9ac26",
+    "test-results-linux.xml": "8b998b2b397530b2615152593ffc061c194fa6aee23bc7d4f237c686c20466fb",
+    "test-results-macos.xml": "189a3b8861f16bf3592f8126332a52c35f0749f97bbc8230b94892dadf5223a0"
+  },
+  "installed_tests": {
+    "linux": 325,
+    "macos": 325
+  },
+  "examples": {
+    "cases": [
+      {
+        "example": "billing",
+        "broken": false,
+        "outcome": "PASS",
+        "failed_checks": [],
+        "evidence_sha256": "97fa8c238d125cb3d2e9f6ef07d446a3df6c09cbc59512053d6db0c024f0e135",
+        "file": "billing-fixed.json"
+      },
+      {
+        "example": "billing",
+        "broken": true,
+        "outcome": "ASSERTION_FAILED",
+        "failed_checks": [
+          "one exact receipt"
+        ],
+        "evidence_sha256": "e452d8eaa2c602f9e45cfe887f080329b92367ac1037393ac32a5ea2315c7cdf",
+        "file": "billing-broken.json"
+      },
+      {
+        "example": "fulfillment",
+        "broken": false,
+        "outcome": "PASS",
+        "failed_checks": [],
+        "evidence_sha256": "6c22cc9c68002b9a33d0ea1550e4078b8e05ace0699ead3a9cb32cc9f2a224ae",
+        "file": "fulfillment-fixed.json"
+      },
+      {
+        "example": "fulfillment",
+        "broken": true,
+        "outcome": "ASSERTION_FAILED",
+        "failed_checks": [
+          "available stock restored on decline",
+          "other reservation preserved"
+        ],
+        "evidence_sha256": "640bd5ca083a942927a78bfae99758235f39aead9b9cb927e998b4c38964f8e0",
+        "file": "fulfillment-broken.json"
+      },
+      {
+        "example": "ingestion",
+        "broken": false,
+        "outcome": "PASS",
+        "failed_checks": [],
+        "evidence_sha256": "1fa965e338f01ff22f36db5995f23aee6935edcf2a6a31ed093e52ddffaf2ff3",
+        "file": "ingestion-fixed.json"
+      },
+      {
+        "example": "ingestion",
+        "broken": true,
+        "outcome": "ASSERTION_FAILED",
+        "failed_checks": [
+          "exact imported rows and unrelated existing row"
+        ],
+        "evidence_sha256": "d8df90d4715312567476d7a124c39667c081c5a46a51ebb866f3880714504b74",
+        "file": "ingestion-broken.json"
+      },
+      {
+        "example": "documents",
+        "broken": false,
+        "outcome": "PASS",
+        "failed_checks": [],
+        "evidence_sha256": "0e8ab41c7285ec051cae885f16a2139652bc5f255bf7232f515d2cfcc82a3d7e",
+        "file": "documents-fixed.json"
+      },
+      {
+        "example": "documents",
+        "broken": true,
+        "outcome": "ASSERTION_FAILED",
+        "failed_checks": [
+          "all content in original order",
+          "complete only after every chunk"
+        ],
+        "evidence_sha256": "29aeb3daff07bea21eb4cd4bc1e53ffe1f74b5c4b29346f884fe4fe5ea4ab7cd",
+        "file": "documents-broken.json"
+      },
+      {
+        "example": "monitoring",
+        "broken": false,
+        "outcome": "PASS",
+        "failed_checks": [],
+        "evidence_sha256": "70ab87807b6a418a9e16dc674b0113b0b57f63137e322822edab562403c9a1fa",
+        "file": "monitoring-fixed.json"
+      },
+      {
+        "example": "monitoring",
+        "broken": true,
+        "outcome": "ASSERTION_FAILED",
+        "failed_checks": [
+          "only current incident alerts after grace period"
+        ],
+        "evidence_sha256": "6e60fabb0093145c88ea170fa916f5490cf8f6e7f780febf04f888f2a093e4c0",
+        "file": "monitoring-broken.json"
+      },
+      {
+        "example": "meetings",
+        "broken": false,
+        "outcome": "PASS",
+        "failed_checks": [],
+        "evidence_sha256": "f26544ecbaf2d812d473b7377835b106458dd65d78cc5b412d1665c390d6b599",
+        "file": "meetings-fixed.json"
+      },
+      {
+        "example": "meetings",
+        "broken": true,
+        "outcome": "ASSERTION_FAILED",
+        "failed_checks": [
+          "late result cannot replace current content",
+          "stale generation explicitly discarded"
+        ],
+        "evidence_sha256": "5504cc4a674b393dfe9f09cf4c477092702feb4862a25cefe80967944b441a28",
+        "file": "meetings-broken.json"
+      }
+    ]
+  },
+  "celery": {
+    "versions": {
+      "workflow-sim": "0.1.0a3",
+      "celery": "5.6.3",
+      "redis": "6.4.0"
+    },
+    "task_source_sha256": "f3b344f535b95cf0f87b8e54343aaf5e19d7cb7c819f0f864f0cb79ac7daa8ef",
+    "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
+    "pool": "prefork",
+    "broker": "Redis",
+    "redis_server": "7.4.11",
+    "runtime_sha256": {
+      "_worker.py": "3a907b8936f9891b9d0f83b9b04c0e1044f89f19baa92017a5b7fac8c96ed8d9",
+      "celery_driver.py": "66cf4555a00cb27e1aea86b331eaef199558624e3261c8a619ca0fe11774ee22",
+      "cli.py": "8bf2aad32671404e13865096ddb98100a2cce064792d76cf7b4780175e87436c",
+      "runtime.py": "d25292d61365ea66c6b65d3b44e3c5504707f799f3fc14069d54b63bf124acec",
+      "time.py": "0d62e44fd6d49efe85dbafaf267d56c7b382cea6967e6a027175edcc84e788f8",
+      "contracts.py": "4d4d29acb2ef7533a6397877f89cad89ebd9defef4a96383d8a8867825a836dd",
+      "context.py": "f3d86f8762eac82088d4e208dd9fa22d446198812cfb0e4ee3a78b3217b734cd",
+      "engine.py": "082007993e7d217c8d3ae6af6d125130f7e856799749f3d5dd23da98c16b70db",
+      "runner.py": "5a34d5bcf4a9c84a6ce0277aab1c00c677936c30d86928682dd76035f632f43e",
+      "ledger.py": "7ec7e5423aaa46ab58940ff90a90ffa2e1181d225340345f3382f224e59d2a08",
+      "__init__.py": "20d7bf68125df50668b5fdb0013c984268f4f9861166dfd2639afe08b51b85ed",
+      "provenance.py": "0247b4acc31f28314019b094551ad492d227af8d0c48812b98a7e7281b0d69f7",
+      "clock.py": "a8380471e7eab950212afffeca6c0c6a9bf696426b00540c3a28ade2b17ce8b3"
+    },
+    "cases": [
+      {
+        "case": "retry-chain",
+        "real_state": "SUCCESS",
+        "simulated_outcome": "PASS",
+        "effects": [
+          [
+            "attempt",
+            0,
+            "retry-id",
+            {
+              "items": [
+                "book"
+              ]
+            }
+          ],
+          [
+            "attempt",
+            1,
+            "retry-id",
+            {
+              "items": [
+                "book"
+              ]
+            }
+          ],
+          [
+            "finished",
+            {
+              "items": [
+                "book"
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        "case": "duplicate-json",
+        "real_state": "SUCCESS",
+        "simulated_outcome": "PASS",
+        "effects": [
+          [
+            "received",
+            false,
+            [
+              "original"
+            ],
+            "duplicate-id"
+          ],
+          [
+            "received",
+            false,
+            [
+              "original"
+            ],
+            "duplicate-id"
+          ]
+        ]
+      },
+      {
+        "case": "worker-loss",
+        "real_state": "SUCCESS",
+        "simulated_outcome": "HARNESS_ERROR",
+        "effects": [
+          [
+            "received",
+            false,
+            [
+              "original"
+            ],
+            "crash-id"
+          ],
+          [
+            "received",
+            true,
+            [
+              "original"
+            ],
+            "crash-id"
+          ]
+        ]
+      },
+      {
+        "case": "expiry",
+        "real_state": "REVOKED",
+        "simulated_outcome": "PASS",
+        "effects": []
+      }
+    ]
+  },
+  "mutations": {
+    "scope": "six curated simulator defects; no global mutation score",
+    "mutants": [
+      {
+        "name": "ignore-descendants",
+        "file": "engine.py",
+        "test": "test_adversarial_regressions.py::test_async_descendants_remain_in_flight",
+        "original_sha256": "082007993e7d217c8d3ae6af6d125130f7e856799749f3d5dd23da98c16b70db",
+        "replacement": {
+          "old": "and (self.loop is None or self.loop_retired)",
+          "new": "and True"
+        },
+        "detected_by_assertion": true,
+        "failed_cases": 3
+      },
+      {
+        "name": "hide-unretrieved-errors",
+        "file": "engine.py",
+        "test": "test_adversarial_regressions.py::test_unhandled_async_failures_veto_matching_checks",
+        "original_sha256": "082007993e7d217c8d3ae6af6d125130f7e856799749f3d5dd23da98c16b70db",
+        "replacement": {
+          "old": "if future.done() and getattr(future, \"_log_traceback\", False):",
+          "new": "if False:"
+        },
+        "detected_by_assertion": true,
+        "failed_cases": 1
+      },
+      {
+        "name": "keep-finished-task-deadlines",
+        "file": "engine.py",
+        "test": "test_celery_regressions.py::test_success_disarms_task_limits",
+        "original_sha256": "082007993e7d217c8d3ae6af6d125130f7e856799749f3d5dd23da98c16b70db",
+        "replacement": {
+          "old": "self.cancel_items(lambda item: id(item) in handles)",
+          "new": "self.cancel_items(lambda item: False)"
+        },
+        "detected_by_assertion": true,
+        "failed_cases": 1
+      },
+      {
+        "name": "reuse-mutated-message",
+        "file": "celery_driver.py",
+        "test": "test_celery_regressions.py::test_duplicate_delivery_has_independent_decoded_payload",
+        "original_sha256": "66cf4555a00cb27e1aea86b331eaef199558624e3261c8a619ca0fe11774ee22",
+        "replacement": {
+          "old": "args, kwargs = loads(body, content_type, encoding)",
+          "new": "args, kwargs = run.args, run.kwargs"
+        },
+        "detected_by_assertion": true,
+        "failed_cases": 1
+      },
+      {
+        "name": "forget-caught-unsupported",
+        "file": "celery_driver.py",
+        "test": "test_celery_regressions.py::test_unsupported_celery_is_sticky_on_every_publish_path",
+        "original_sha256": "66cf4555a00cb27e1aea86b331eaef199558624e3261c8a619ca0fe11774ee22",
+        "replacement": {
+          "old": "self.unsupported.append(reason)",
+          "new": "pass  # silently forget unsupported operation"
+        },
+        "detected_by_assertion": true,
+        "failed_cases": 2
+      },
+      {
+        "name": "retain-stale-cli-pass",
+        "file": "cli.py",
+        "test": "test_adversarial_regressions.py::test_cli_parse_failures_remove_stale_pass",
+        "original_sha256": "8bf2aad32671404e13865096ddb98100a2cce064792d76cf7b4780175e87436c",
+        "replacement": {
+          "old": "output = _output_on_parse_error(argv)",
+          "new": "output = None"
+        },
+        "detected_by_assertion": true,
+        "failed_cases": 8
+      }
+    ],
+    "baseline_cases": 17
+  },
+  "runtime_comparison": {
+    "prior_wheel_sha256": "c764612feec8d86334d81d90235944385cc188063f8cf707eea2d2cc1bd5c419",
+    "current_wheel_sha256": "c7a5f642a45063ff0f4cdc661aa471afac69a5f3ad9fc553f46f8f9aeeec78da",
+    "unchanged_files": [
+      "workflow_sim/_worker.py",
+      "workflow_sim/celery_driver.py",
+      "workflow_sim/cli.py",
+      "workflow_sim/clock.py",
+      "workflow_sim/context.py",
+      "workflow_sim/contracts.py",
+      "workflow_sim/engine.py",
+      "workflow_sim/ledger.py",
+      "workflow_sim/provenance.py",
+      "workflow_sim/py.typed",
+      "workflow_sim/runner.py",
+      "workflow_sim/runtime.py",
+      "workflow_sim/time.py",
+      "workflow_sim/examples/__init__.py",
+      "workflow_sim/examples/celery_retry.py",
+      "workflow_sim/examples/retry.py"
+    ],
+    "version_only_change": "workflow_sim/__init__.py",
+    "new_files": [
+      "workflow_sim/examples/billing.py",
+      "workflow_sim/examples/catalog.py",
+      "workflow_sim/examples/documents.py",
+      "workflow_sim/examples/fulfillment.py",
+      "workflow_sim/examples/ingestion.py",
+      "workflow_sim/examples/meetings.py",
+      "workflow_sim/examples/monitoring.py"
+    ]
+  },
+  "consumer": {
+    "revision": "64c0ef223bb6d345033d33088e7a88f749191f66",
+    "branch": "feat/workflow-sim-library-alpha",
+    "tests_passed": 126,
+    "junit_sha256": "d9578b6eb9ee2f0656dfd3eb2d8fc10e5df79d9ac068affa73fb77d4aa1ac738",
+    "scope": [
+      "harness_manifest",
+      "clock_and_celery",
+      "oracle_evidence",
+      "proof_scripts"
+    ],
+    "merged": false,
+    "deployed": false
+  },
+  "limits": [
+    "Synthetic domain reference workflows, not six production integrations",
+    "Celery reference: Linux, prefork concurrency=1, Redis 7.4.11, JSON, Celery 5.6.3",
+    "Six curated mutation defects, not global mutation coverage",
+    "No exhaustive schedule exploration or provider/database/model-quality certification",
+    "Existing full application comparison remains scoped to alpha 2 revisions"
+  ]
+}
