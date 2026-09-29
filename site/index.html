@@ -158,7 +158,7 @@ footer{padding:28px 0 44px;color:var(--faint);font-size:.88rem;border-top:1px so
   <p>A payment handler saves a receipt, the response is lost, and it retries. Did the customer get one receipt or two? workflow-sim runs the handler's real code against a modeled receipt service, on a virtual clock, and checks the final state.</p>
   <p class="who">It runs asyncio and Celery code in a fresh process each time. You choose the failures and write the checks. It's for Python developers whose background jobs call payment, email, storage or AI services and retry when something goes wrong.</p>
   <div class="actions">
-    <a class="btn primary" href="#demo">Watch the 44-second demo</a>
+    <a class="btn primary" href="#demo">Watch the 64-second demo</a>
     <a class="btn secondary" href="#access">Ask for alpha access</a>
   </div>
   <p class="meta">v0.1.0a4 · CPython 3.12 · Linux and macOS · private repository</p>
@@ -229,7 +229,7 @@ footer{padding:28px 0 44px;color:var(--faint);font-size:.88rem;border-top:1px so
 </section>
 
 <section id="demo" aria-labelledby="demo-h">
-  <h2 id="demo-h">The same example in 44 seconds</h2>
+  <h2 id="demo-h">How to use workflow-sim in 64 seconds</h2>
   <p class="lede">Captions are part of the picture. There is no sound.</p>
   <video controls preload="metadata" playsinline width="1920" height="1080" poster="media/poster.jpg" aria-describedby="transcript">
     <source src="media/launch-1920x1080.mp4" type="video/mp4">
@@ -244,17 +244,18 @@ footer{padding:28px 0 44px;color:var(--faint);font-size:.88rem;border-top:1px so
   <details id="transcript">
     <summary>Read the transcript</summary>
     <ol>
-      <li>A payment webhook sends a receipt.</li>
-      <li>The receipt is saved. The response is lost.</li>
-      <li>So the handler retries. One receipt, or two?</li>
-      <li>Your real handler. A modeled receipt service.</li>
-      <li>You choose the failure. You write the check.</li>
-      <li>The bug: each retry gets a new idempotency key.</li>
-      <li>The check fails. Two receipts were saved.</li>
-      <li>The fix: reuse the invoice ID as the key.</li>
-      <li>Same failure, same check. One receipt.</li>
-      <li>PASS means your checks held in this modeled run. It doesn't prove production safety, the live provider's behavior, or every task and thread interleaving.</li>
-      <li>workflow-sim. Private alpha. Want to try it on one of your workflows? Ask for access: github.com/karthiksraju</li>
+      <li>A handler can return successfully and still save two receipts. Test the resulting state.</li>
+      <li>Call your real workflow code. Replace its external service with a model you write.</li>
+      <li>Here the model saves the receipt, then loses the acknowledgement. The handler retries.</li>
+      <li>Use ctx.at to schedule the payment and a duplicate webhook.</li>
+      <li>Use ctx.expect to check the exact receipt. You define what correct means.</li>
+      <li>Run your adapter with the workflow-sim CLI. Each run starts in a fresh worker process.</li>
+      <li>The virtual clock drives the real retry at two seconds and redelivery at five.</li>
+      <li>The result contains your failed check, expected content and actual content.</li>
+      <li>Expected one exact receipt. Found two. A successful handler was not enough.</li>
+      <li>Fix the key in your handler. Keep the same modeled failure and assertions.</li>
+      <li>Run again. One exact receipt; all four checks match. PASS for this modeled run.</li>
+      <li>You supply the workflow, service models and assertions. workflow-sim controls execution and reports the evidence. Private alpha: github.com/karthiksraju.</li>
     </ol>
   </details>
 </section>

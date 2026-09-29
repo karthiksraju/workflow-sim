@@ -1,0 +1,95 @@
+{
+  "broken": {
+    "outcome": "ASSERTION_FAILED",
+    "checks": [
+      {
+        "actual": "paid",
+        "expected": "paid",
+        "name": "paid account"
+      },
+      {
+        "actual": [
+          {
+            "amount": 1200,
+            "customer": "cus-7",
+            "invoice": "in-42"
+          },
+          {
+            "amount": 1200,
+            "customer": "cus-7",
+            "invoice": "in-42"
+          }
+        ],
+        "expected": [
+          {
+            "amount": 1200,
+            "customer": "cus-7",
+            "invoice": "in-42"
+          }
+        ],
+        "name": "one exact receipt"
+      },
+      {
+        "actual": 2,
+        "expected": 2,
+        "name": "acknowledgement retried"
+      },
+      {
+        "actual": [
+          "evt-paid-42"
+        ],
+        "expected": [
+          "evt-paid-42"
+        ],
+        "name": "completion recorded after delivery"
+      }
+    ],
+    "error": null,
+    "version": "0.1.0a4",
+    "adapter_source_sha256": "73e0bdd88878ff1896878241d3461e528316208e5e4f9d60856164b1af2973f9"
+  },
+  "fixed": {
+    "outcome": "PASS",
+    "checks": [
+      {
+        "actual": "paid",
+        "expected": "paid",
+        "name": "paid account"
+      },
+      {
+        "actual": [
+          {
+            "amount": 1200,
+            "customer": "cus-7",
+            "invoice": "in-42"
+          }
+        ],
+        "expected": [
+          {
+            "amount": 1200,
+            "customer": "cus-7",
+            "invoice": "in-42"
+          }
+        ],
+        "name": "one exact receipt"
+      },
+      {
+        "actual": 2,
+        "expected": 2,
+        "name": "acknowledgement retried"
+      },
+      {
+        "actual": [
+          "evt-paid-42"
+        ],
+        "expected": [
+          "evt-paid-42"
+        ],
+        "name": "completion recorded after delivery"
+      }
+    ],
+    "error": null,
+    "version": "0.1.0a4",
+    "adapter_source_sha256": "73e0bdd88878ff1896878241d3461e528316208e5e4f9d60856164b1af2973f9"
+  }
+}

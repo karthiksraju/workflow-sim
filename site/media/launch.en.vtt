@@ -1,45 +1,49 @@
 WEBVTT
 
 1
-00:00:00.400 --> 00:00:03.000
-A payment webhook sends a receipt.
+00:00:00.000 --> 00:00:06.000
+A handler can return successfully and still save two receipts. Test the resulting state.
 
 2
-00:00:03.000 --> 00:00:05.100
-The receipt is saved. The response is lost.
+00:00:06.000 --> 00:00:10.000
+Call your real workflow code. Replace its external service with a model you write.
 
 3
-00:00:05.100 --> 00:00:08.300
-So the handler retries. One receipt, or two?
+00:00:10.000 --> 00:00:15.000
+Here the model saves the receipt, then loses the acknowledgement. The handler retries.
 
 4
-00:00:08.900 --> 00:00:11.900
-Your real handler. A modeled receipt service.
+00:00:15.000 --> 00:00:20.000
+Use ctx.at to schedule the payment and a duplicate webhook.
 
 5
-00:00:11.900 --> 00:00:15.000
-You choose the failure. You write the check.
+00:00:20.000 --> 00:00:27.000
+Use ctx.expect to check the exact receipt. You define what correct means.
 
 6
-00:00:15.400 --> 00:00:21.300
-The bug: each retry gets a new idempotency key.
+00:00:27.000 --> 00:00:32.000
+Run your adapter with the workflow-sim CLI. Each run starts in a fresh worker process.
 
 7
-00:00:21.300 --> 00:00:25.100
-The check fails. Two receipts were saved.
+00:00:32.000 --> 00:00:37.000
+The virtual clock drives the real retry at two seconds and redelivery at five.
 
 8
-00:00:25.600 --> 00:00:31.400
-The fix: reuse the invoice ID as the key.
+00:00:37.000 --> 00:00:42.000
+The result contains your failed check, expected content and actual content.
 
 9
-00:00:31.400 --> 00:00:34.400
-Same failure, same check. One receipt.
+00:00:42.000 --> 00:00:46.000
+Expected one exact receipt. Found two. A successful handler was not enough.
 
 10
-00:00:34.800 --> 00:00:38.600
-PASS means your checks held in this modeled run.
+00:00:46.000 --> 00:00:50.000
+Fix the key in your handler. Keep the same modeled failure and assertions.
 
 11
-00:00:39.100 --> 00:00:44.000
-workflow-sim. Test Python asyncio and Celery workflows under the failures you choose. Private alpha. Want to try it on one of your workflows? Ask for access: github.com/karthiksraju
+00:00:50.000 --> 00:00:56.000
+Run again. One exact receipt; all four checks match. PASS for this modeled run.
+
+12
+00:00:56.000 --> 00:01:04.000
+You supply the workflow, service models and assertions. workflow-sim controls execution and reports the evidence. Private alpha: github.com/karthiksraju.
