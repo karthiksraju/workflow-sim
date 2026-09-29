@@ -1,0 +1,45 @@
+WEBVTT
+
+1
+00:00:00.400 --> 00:00:03.000
+A payment webhook sends a receipt.
+
+2
+00:00:03.000 --> 00:00:05.100
+The receipt is saved. The response is lost.
+
+3
+00:00:05.100 --> 00:00:08.300
+So the handler retries. One receipt, or two?
+
+4
+00:00:08.900 --> 00:00:11.900
+Your real handler. A modeled receipt service.
+
+5
+00:00:11.900 --> 00:00:15.000
+You choose the failure. You write the check.
+
+6
+00:00:15.400 --> 00:00:21.300
+The bug: each retry gets a new idempotency key.
+
+7
+00:00:21.300 --> 00:00:25.100
+The check fails. Two receipts were saved.
+
+8
+00:00:25.600 --> 00:00:31.400
+The fix: reuse the invoice ID as the key.
+
+9
+00:00:31.400 --> 00:00:34.400
+Same failure, same check. One receipt.
+
+10
+00:00:34.800 --> 00:00:38.600
+PASS means your checks held in this modeled run.
+
+11
+00:00:39.100 --> 00:00:44.000
+workflow-sim. Test Python asyncio and Celery workflows under the failures you choose. Private alpha. Want to try it on one of your workflows? Ask for access: github.com/karthiksraju
