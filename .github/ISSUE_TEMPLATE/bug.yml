@@ -10,7 +10,7 @@ body:
   - type: textarea
     attributes:
       label: Reproduction
-      description: Small adapter, inputs, seed, duration, package version, Python version and OS. Remove credentials and customer data.
+      description: Small adapter, inputs, seed, duration, start_at (if set), package version, Python version and OS. Remove credentials and customer data.
     validations:
       required: true
   - type: textarea

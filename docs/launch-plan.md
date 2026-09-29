@@ -1,32 +1,29 @@
-# Launch preparation
+# Launch status
 
-This is the execution checklist for alpha 3. Alpha 1/2 source, tags and artifacts
-remain immutable. Publication stays private until ownership/license and public
-visibility are explicitly settled.
+Alpha 4 stability fixes are merged. The release is a private draft. Public
+licensing, distribution rights and tester access still need the owner's decision.
 
-- [x] Six installed, runnable domain examples: billing, fulfillment, ingestion,
-  document/AI processing, monitoring and meetings. Each has realistic existing
-  state, a named failure injection, fixed/broken behavior and final-state checks.
-- [x] Explain fixture provenance and model limits. Reference workflows must not be
-  described as third-party production incident reproductions.
-- [x] Generated lifecycle tests and comparisons with ordinary asyncio.
-- [x] Real prefork Celery + isolated Redis contract checks, including retry/canvas,
-  JSON messages, duplicate delivery, worker-loss redelivery and expiry.
-- [x] Simulator mutation campaign: baseline passes, deliberate defects are caught
-  through assertions; import errors/timeouts do not count as killed mutants.
-- [x] CI gates and promoted evidence artifacts for package, examples and confidence.
-- [x] Illustrated example catalog, architecture/validation updates, migration notes,
-  contributor/testing recipes, issue intake and a factual launch-post draft.
-- [x] Clean installed-package Linux/macOS validation; verify confidence reports and
-  preserve exact versions, code hashes, commands and external-contract limitations.
-- [x] Publish verified private alpha 3 and update the consumer pin if runtime
-  identity is preserved. No production merge/deploy, external messages or public
-  visibility changes are part of preparation.
+## Ready for review
 
-Tests and confidence scripts are explicitly requested deliverables for this
-launch. Keep transient harnesses, raw local logs and mutation worktrees outside the
-repository; maintain the reusable regression/CI gates in the library.
+- Six synthetic domain examples, each with a corrected and deliberately broken
+  version, fixture provenance and final-state assertions.
+- Linux/macOS installed-package checks, comparisons with ordinary asyncio and
+  real prefork Celery/Redis, and targeted simulator mutations.
+- Alpha 4 publication guards, calendar origins and pinned consumer comparison.
+- [Tester guide](try-the-alpha.md), [evidence and limits](validation.md), feedback
+  forms and [launch copy](launch-post.md).
 
-Completed as private `v0.1.0a3`; see the [release evidence index](validation/alpha3-release.json).
-The public launch still requires an owner decision on licensing and access. The
-launch draft is prepared; no external message or visibility change was made.
+## Before inviting public testers
+
+1. Settle licensing and distribution rights, then choose repository visibility or
+   a named-tester access route. Follow the [release gates](releases.md).
+2. Review the alpha 4 draft's artifacts, hashes and notes before publishing it.
+3. Put the accessible project link in the launch post and verify the installation
+   path with the access a tester will have.
+
+The independent corpus has 36 implemented business cases out of 240. Running the
+remaining input timelines does not validate their business contracts. Queue
+independence is deferred. Keep both limits explicit in launch claims.
+
+The [alpha 3 release index](validation/alpha3-release.json) preserves the earlier
+launch evidence; its tags and artifacts remain unchanged.

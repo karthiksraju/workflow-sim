@@ -1,9 +1,8 @@
 # Maintaining and releasing the alpha
 
-Karthik (@karthiksraju) owns triage, compatibility and release approval. Use GitHub
-issues for sanitized bugs and extension requests. Prioritize false PASS reports,
-containment failures and installation failures; then model/adapter gaps. Reproduce
-first and attach a negative control to the fix.
+@karthiksraju owns triage, compatibility and release approval. Prioritize false
+PASS reports, containment failures and installation failures, then adapter gaps.
+Reproduce the bug and show that the regression check detects it.
 
 ## The artifact that was tested is the artifact released
 
@@ -23,8 +22,8 @@ flowchart TD
     Owner -. "License + visibility decision" .-> Public["Future public alpha"]
 ```
 
-The draft workflow promotes CI artifacts instead of rebuilding another wheel.
-No PyPI publisher is enabled. The public-alpha step is a future owner decision.
+Promote the artifacts tested by CI. The workflow creates a private draft;
+publication requires owner approval. No PyPI publisher is enabled.
 
 ## Release checklist
 
@@ -33,24 +32,22 @@ No PyPI publisher is enabled. The public-alpha step is a future owner decision.
 2. Run CI on the release commit: installed-wheel conformance on Linux and macOS,
    strict package metadata, and examples in a minimal fresh environment. CI uploads
    wheel, sdist and test results with 30-day retention.
-3. If runtime code changes, run the meeting consumer upgrade comparison against its pinned application
-   revision. Preserve known failing product cases and failure identities. Record
-   wheel hash and both application/library revisions with the comparison.
+3. For runtime changes, compare the meeting consumer at its pinned application
+   revision. Preserve known product failures and assertion identities. Record the
+   wheel hash and application/library revisions.
 4. Commit/push, then create and push `v<version>` at that exact commit.
-5. Dispatch **Draft alpha release** with that tag. It requires successful platform
-   CI on the same commit, both named platform jobs and the confidence job, promotes the exact tested
-   Linux distribution artifact, and creates a draft GitHub prerelease
-   containing wheel, sdist, platform test reports, example/confidence evidence archives
-   and SHA256SUMS. It does not publish to PyPI.
+5. Dispatch **Draft alpha release** with that tag. Both platform jobs and the
+   confidence job must pass on the tagged commit. The workflow promotes the tested
+   Linux wheel/sdist, platform reports, example/confidence archives and SHA256SUMS
+   into a draft GitHub prerelease.
 6. Review artifact hashes, notes, visibility and distribution rights. For an
    approved private alpha, share repository access with named testers. For a
    public alpha, first settle ownership/license, add LICENSE and matching metadata,
    enable private vulnerability reporting, then choose public visibility.
 
-The repository is currently private and the metadata contains `Private :: Do Not
-Upload`, which blocks accidental PyPI uploads. Remove that marker only after the
-public-distribution decision. Before PyPI publication, verify the distribution name
-is available and configure a dedicated environment and Trusted Publisher; never
+Keep `Private :: Do Not Upload` in package metadata until public distribution is
+approved; it blocks accidental PyPI uploads. Before PyPI publication, verify the
+distribution name is available and configure an environment and Trusted Publisher; never
 store a long-lived PyPI token in this repository.
 
 Packaging follows [PyPA's pyproject guidance](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/).
@@ -72,26 +69,21 @@ reproducible.
 
 ## Tester intake
 
-Ask for workflow type, Python/OS, external boundaries, the bug they expected to
-catch, setup friction and any surprising verdict. Request a small sanitized
-adapter, seed and provenance rather than a production data dump. Track missing
-contracts separately from runtime defects. Measure successful installation,
-first useful assertion, reproducible negative control and false verdict reports;
-a raw scenario count is not a confidence metric.
+Use the [feedback form](https://github.com/karthiksraju/workflow-sim/issues/new?template=alpha-feedback.yml)
+for workflow type, environment, setup friction and surprising verdicts. Ask for a
+small sanitized adapter and its provenance. Track missing boundary contracts
+separately from runtime defects.
 
-The first external callout should state the support matrix, alpha status, trusted
-adapter requirement and known limits. Do not advertise proof of production safety
-or full distributed-system simulation.
+A useful trial ends with a real workflow assertion that catches the intended bug.
+Launch claims should state the support matrix, trusted-adapter requirement and
+model limits; see the [draft copy](launch-post.md).
 
 ## Current repository enforcement
 
-Issues, CODEOWNERS, dependency update PRs, vulnerability alerts and automatic
-merged-branch deletion are enabled. CI and the release verifier enforce the
-release checks. GitHub rejected branch-protection setup with HTTP 403 because
-this personal account's current plan does not support it on private repositories.
-Until the repository is public or the plan changes, owners must check CI before
-merging; CODEOWNERS and the PR template are review guidance, not server-enforced
-merge protection. No plan upgrade or public visibility change was made.
+CI and the release verifier enforce artifact promotion checks. Branch-protection
+setup was rejected with HTTP 403 under the personal account's private-repository
+plan. Until protection is configured, check CI before merging: CODEOWNERS and the
+PR template alone do not prevent an unchecked merge.
 
 For an examples/docs-only release, compare every runtime module byte-for-byte
 against the prior consumer pin, then verify the new wheel identity and focused

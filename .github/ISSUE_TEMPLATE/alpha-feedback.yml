@@ -28,4 +28,4 @@ body:
   - type: textarea
     attributes:
       label: Most useful next change
-      description: Describe the concrete workflow behavior you could not express, rather than proposing a generic plugin system.
+      description: What workflow behavior could you not express? Include a small example.

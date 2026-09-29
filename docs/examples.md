@@ -1,12 +1,11 @@
 # Workflow examples
 
-Six small reference applications show different failure patterns. They run the
-application functions under virtual time, preserve existing state and check final
-content. They are **synthetic reference workflows**, not claimed reproductions of
-third-party production incidents. No credentials or live providers are needed.
+Six synthetic workflows demonstrate failures across domains. Each starts with
+existing state and checks final content. They need no credentials or live services;
+they do not reproduce a specific third-party incident.
 
-Install the library, then run any adapter below. Each scenario's horizon is 12
-virtual seconds. The same CLI produces the complete checks and causal ledger.
+After [installation](../README.md#try-the-installed-package), run an adapter with a
+12-second virtual horizon:
 
 ```sh
 workflow-sim workflow_sim.examples.billing:build --duration 12 --output billing.json
@@ -157,7 +156,6 @@ ports with your boundary adapters, keep application logic real, and replace the
 assertions with your actual business contract. Run provider contract tests against
 real services or documented captured fixtures before trusting a substitute.
 
-For contributors, `python scripts/check_examples.py --output results/examples`
-runs all 12 fixed/broken cases and writes full evidence plus a summary. CI runs it
-against the installed wheel. Keep known broken cases: a demonstration that only
-passes is insufficient evidence that its assertions can detect the intended bug.
+Contributors can run `python scripts/check_examples.py --output /tmp/workflow-examples`
+for all 12 corrected/broken cases and their evidence. CI runs them against the
+installed wheel. Keep the broken cases to show that each assertion detects its bug.

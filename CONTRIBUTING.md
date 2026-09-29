@@ -1,5 +1,8 @@
 # Contributing
 
+Use a feature branch and PR. Start with the observable behavior that should change
+and a test that would catch the bug. Agent instructions are in [AGENTS.md](AGENTS.md).
+
 Use CPython 3.12 on Linux or macOS:
 
 ```sh
@@ -28,9 +31,9 @@ Fixtures must name their source and be free of credentials/customer data. Raw
 result files can contain application content; sanitize them before attaching them
 to issues. Every PR states what external contracts remain unverified.
 
-Use a feature branch and PR. The owner is @karthiksraju; CODEOWNERS documents review
-ownership, but repository rules determine enforcement. Update CHANGELOG and API
-migration notes when behavior changes. Keep the runtime free of application imports.
+Update CHANGELOG and migration notes when behavior changes. Keep application
+imports in adapters. @karthiksraju owns review; check CI before merging because
+CODEOWNERS alone does not enforce approval.
 
 `requirements-dev.lock` is the tested development dependency set. Regenerate with
 `uv pip compile pyproject.toml --extra dev --universal --generate-hashes -o
@@ -44,6 +47,14 @@ Run `python scripts/check_examples.py --output /tmp/workflow-examples` and
 `python scripts/check_mutations.py --output /tmp/workflow-mutations`. Linux CI also
 runs shared task bodies on real prefork Celery with isolated Redis; see
 [reproduction commands and limits](docs/confidence.md). These reusable gates are
-part of the library; generated results and disposable mutation environments stay
-outside the source tree. New domain examples need fixed and broken controls,
+part of the library. Keep generated results and disposable harnesses outside the
+source tree unless requested. New examples need corrected and broken versions,
 fixture provenance, exact state/content checks and a documented boundary contract.
+
+## Documentation and PRs
+
+State what changes for the reader and why. Support claims with the relevant test,
+contract or evidence record; keep assumptions and gaps visible. Remove repeated
+explanations and link to their source. A diagram should explain a relationship or
+sequence that takes longer to follow in prose. Review every sentence for meaning
+before sharing it. Preserve historical results under their tested revisions.

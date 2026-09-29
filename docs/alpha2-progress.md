@@ -1,5 +1,7 @@
 # Alpha 2 verification record
 
+Historical record. See [current validation](validation.md) for alpha 4.
+
 All eleven independently reproduced findings are fixed. The final runtime passes
 316 library tests on Linux and macOS, and all 19 original reviewer probes/controls
 pass their corrected expectations. The old-code negative controls reproduce the

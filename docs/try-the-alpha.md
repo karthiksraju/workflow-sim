@@ -1,9 +1,9 @@
 # Try the alpha with your workflow
 
-Start with CPython 3.12 on Linux or macOS and an isolated development environment.
-Installation currently requires access to the private repository. Follow the
-[README installation](../README.md#try-the-installed-package), then choose a
-[domain example](examples.md) close to your workflow.
+Use CPython 3.12 on Linux or macOS in an isolated development environment.
+Follow the [installation steps](../README.md#try-the-installed-package); private
+repository access is required. Choose a [domain example](examples.md) close to
+your workflow and run both its corrected and `broken` versions.
 
 ```mermaid
 flowchart LR
@@ -14,37 +14,27 @@ flowchart LR
     Break --> Evidence["Fixed passes, broken fails<br/>retain sanitized evidence"]
 ```
 
-1. Run the example once, then run its `broken` variant. Read the differing
-   `actual`/`expected` values, not only the outcome label.
-2. Pick one failure you recognize: a lost acknowledgement, retry after a partial
-   write, stale completion, or unfinished child task. Record what should remain
-   true after it happens.
-3. Call your actual application function from an adapter. Replace network,
-   storage and clock boundaries as needed; avoid replacing internal business logic.
-   Use [adapter authoring](adapters.md) for supported scheduling and assertions.
-4. Seed realistic old state, including prior completion markers or an interrupted
-   attempt. Assert exact resulting content and preservation of unrelated data.
-5. Reproduce the plausible bug and verify it fails the intended assertion. A
-   timeout, unsupported operation or crashed adapter is not that business check.
-6. Retain the command, inputs, seed, clock origin, horizon, library version and sanitized result.
-   Compare the modeled external contracts with a real integration test.
+1. Pick a failure: lost acknowledgement, retry after a partial write, stale
+   completion, or unfinished child task. Write down the state that should survive.
+2. Call your application through an [adapter](adapters.md). Model its external
+   services and storage; keep the decision logic you want to test running.
+3. Seed old state, including completed markers or interrupted attempts. Assert
+   exact final content, preserved unrelated data and absence of duplicate effects.
+4. Introduce the bug. Check that it fails the intended assertion. A timeout or
+   crashed adapter does not demonstrate that the business assertion works.
+5. Retain the command, inputs, seed, clock origin, horizon, version and sanitized
+   result. Check the modeled external contracts against a real integration.
 
 For date-sensitive workflows, pass `start_at="2026-01-15T10:00:00Z"` to `run`,
-or `--start-at 2026-01-15T10:00:00Z` to the CLI. Use an explicit timezone; all
-scheduling and wall-clock reads share the normalized UTC origin. The default
-remains 2099-01-01 UTC. See [the API contract](contracts.md).
+or `--start-at 2026-01-15T10:00:00Z` to the CLI. An explicit timezone is required.
+The default origin is 2099-01-01 UTC. See [contracts](contracts.md).
 
-For AI workflows, test retries, orchestration, completion and publication with
-controlled outputs. Use a separate evaluation dataset to assess model quality.
-For billing workflows, reconcile the modeled idempotency and delivery rules with
-your provider and storage implementation before drawing production conclusions.
+For AI workflows, controlled outputs let you test retries and publication. Model
+answer quality needs a separate evaluation. Billing results depend on whether
+your provider and storage actually honor the modeled delivery/idempotency rules.
 
-Use the [alpha feedback form](https://github.com/karthiksraju/workflow-sim/issues/new?template=alpha-feedback.yml)
-to tell us your category, time to first useful assertion, boundary work, broken
-control and any surprising verdict. For a false PASS or runtime error, use the
-[bug form](https://github.com/karthiksraju/workflow-sim/issues/new?template=bug.yml).
-Remove credentials, customer content and private paths. No telemetry is uploaded.
-
-An initial alpha success means you installed it, connected one real workflow,
-produced a meaningful failure, fixed it, and reproduced the result. We want to
-learn which boundary contracts and execution features made that difficult.
+Share setup friction and unexpected results through the
+[feedback form](https://github.com/karthiksraju/workflow-sim/issues/new?template=alpha-feedback.yml).
+Use the [bug form](https://github.com/karthiksraju/workflow-sim/issues/new?template=bug.yml)
+for a false PASS or runtime error. Include a small reproduction and remove
+credentials, customer content and private paths. The library uploads no telemetry.

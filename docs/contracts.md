@@ -45,10 +45,11 @@ non-Python environment variables are inherited, including credentials if present
   compatibility promise during alpha; ordinary adapters should use the methods above.
 
 No checks means INCOMPLETE. Outstanding future tasks/items, in-flight executions,
-dropped timers or exhausted budgets also prevent PASS. An unhandled asyncio callback error or an unretrieved task/future exception is
-HARNESS_ERROR, including retained task objects. Exceptions consumed by application
-code through await/result()/exception() do not become harness failures. A callback exception is
-HARNESS_ERROR even if every registered assertion matches. A blocked operation
+dropped timers or exhausted budgets also prevent PASS. An unhandled asyncio
+callback error or an unretrieved task/future exception is HARNESS_ERROR, including
+retained task objects. Exceptions consumed by application code through
+await/result()/exception() do not become harness failures. A callback exception
+is HARNESS_ERROR even if every registered assertion matches. A blocked operation
 prevents PASS even if adapter code catches its exception. This includes unsupported
 Celery options on direct, retry and continuation publication paths. `Celery.send_task`,
 unregistered name-only signatures, direct Kombu `Producer.publish`, and direct
@@ -82,8 +83,8 @@ and refuses coarser representations. Public requests use the smaller bound above
 
 The seed controls Python `random`, UUID4 and hash iteration order. It does not
 control cryptographic randomness, provider output, filesystem enumeration, all
-thread scheduling, real elapsed-performance metrics, or arbitrary native extensions. Repeated matching evidence is
-a useful check, not a proof of universal determinism.
+thread scheduling, real elapsed-performance metrics, or arbitrary native extensions.
+Matching evidence across repetitions does not prove universal determinism.
 
 Hard-abandoned Python executions are fenced, including owned pool work. A C call
 already in progress may complete its side effect. Graceful cancellation keeps
@@ -108,11 +109,11 @@ do not run a simulation or remove an output file.
 
 `evidence_sha256` excludes the fresh attempt ID and host provenance, so repetitions
 can be compared. Provenance includes library version, hashes of installed Python
-source files, interpreter/platform, runtime dependency versions and the adapter/seed/duration/step
-configuration, including normalized `start_at` when explicitly supplied (inputs
-are not copied). The parent also binds the worker library
-hash to its own installed source. The adapter
-module hash covers **only that module**, not its imports, data or external services.
+source files, interpreter/platform, runtime dependency versions and the
+adapter/seed/duration/step configuration, including normalized `start_at` when
+explicitly supplied (inputs are not copied). The parent also binds the worker
+library hash to its own installed source. The adapter module hash covers
+**only that module**, not its imports, data or external services.
 Record your application's immutable revision and fixture identity alongside results.
 Hashes detect changes; they are not signatures or attestations against hostile code.
 
@@ -139,10 +140,9 @@ flowchart TD
     style Incomplete fill:#fef3c7,stroke:#b45309,color:#78350f
 ```
 
-The parent additionally rejects wrong attempt IDs, mismatched request/library
-hashes, malformed reports and contradictory claimed verdicts. Those records never
-reach the PASS box. No automatic rule can determine whether your chosen business
-assertion is meaningful; that needs an adapter review and a negative control.
+The parent rejects wrong attempt IDs, mismatched request/library hashes, malformed
+reports and contradictory verdicts. Business assertions still need adapter review
+and a negative control: the runtime cannot decide whether an assertion is meaningful.
 
 ## Compatibility
 

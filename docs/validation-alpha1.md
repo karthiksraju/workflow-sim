@@ -1,5 +1,7 @@
 # Alpha 1 extraction validation (historical)
 
+Historical record. See [current validation](validation.md) for alpha 4.
+
 
 The following records describe the original extraction before the adversarial
 review. They do not establish the alpha 2 corrections and are retained for provenance.
