@@ -31,7 +31,8 @@ uv run --locked --script site/video/render.py --layout wide      # one format
 uv run --locked --script site/video/render.py --still 23.5 --out /tmp/frames
 ```
 
-A full render takes about 20 seconds on an Apple silicon laptop. Captions, their
+A full render of both formats took about 20 seconds on the Apple silicon laptop
+it was built on; expect that to vary with the machine. Captions, their
 timing and the scene schedule are constants at the top of `render.py`; the VTT
 file is written from the same list, so edit the text there, not in the VTT.
 The transcript in `index.html` is maintained by hand: update it when you change
@@ -42,8 +43,10 @@ a caption.
 Everything comes from `src/workflow_sim/examples/billing.py` and its two runs:
 
 ```sh
-uv run workflow-sim workflow_sim.examples.billing:build --duration 12                                # PASS
-uv run workflow-sim workflow_sim.examples.billing:build --duration 12 --inputs broken.json         # ASSERTION_FAILED
+uv run workflow-sim workflow_sim.examples.billing:build --duration 12        # PASS, exit 0
+printf '{"broken":true}\n' > broken.json                                     # switches on the bug
+uv run workflow-sim workflow_sim.examples.billing:build --duration 12 \
+  --inputs broken.json                                                       # ASSERTION_FAILED, exit 1
 ```
 
 The bug and fix lines are the two branches of
