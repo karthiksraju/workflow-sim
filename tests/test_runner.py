@@ -38,7 +38,10 @@ def test_retry_content_and_deliberate_duplicate_mutation():
 def test_real_celery_retry_and_delivered_json():
     result = run('workflow_sim.examples.celery_retry:build', duration=10)
     assert result['outcome'] == 'PASS', result
-    assert result['evidence']['checks'][0]['actual'] == [{'id': 'order-7', 'items': ['book']}]
+    assert result['evidence']['checks'][0]['actual'] == [
+        {'id': 'older-6', 'items': ['pen']},
+        {'id': 'order-7', 'items': ['book']},
+    ]
     assert result['evidence']['checks'][1]['actual'] == [0, 1]
 
 
