@@ -1015,8 +1015,12 @@ class Engine:
         finally:
             if attached:
                 sched.engine = None
-        self.clock.advance_to(when, reason="run_until")
-        report = self._report(stop, started, steps_before)
+        # The final clock move can let a time-polling coroutine return after a
+        # budget stop. Keep completion bookkeeping out until the report captures
+        # that unfinished work; otherwise in_flight depends on thread scheduling.
+        with sched.cv:
+            self.clock.advance_to(when, reason="run_until")
+            report = self._report(stop, started, steps_before)
         self.reports.append(report)
         return report
 
@@ -1185,6 +1189,7 @@ class _Submission:
 # prestarted non-daemon worker; 3.13+ hides that registry, so submit rejects it.
 _LEGACY_THREAD_JOINS = all(hasattr(threading, a) for a in ("_shutdown_locks", "_shutdown_locks_lock"))
 _EXIT_JOINS_KNOWN = hasattr(_cf_thread, "_threads_queues")
+
 
 def _detach_from_exit_joins(thread: threading.Thread, executor: Any) -> None:
     # A ThreadPoolExecutor registers a new worker for the exit hook only after
