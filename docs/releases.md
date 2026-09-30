@@ -27,14 +27,20 @@ publication requires owner approval. No PyPI publisher is enabled.
 ## Release checklist
 
 1. Update the version in pyproject.toml and `workflow_sim.__version__`, CHANGELOG,
-   release notes, supported-runtime matrix and migration notes. Do not reuse a tag.
+   release notes, supported-runtime matrix and migration notes. Align the README
+   pin and skill revision so the tag includes the instructions users follow.
+   Do not reuse a tag.
 2. Run CI on the release commit: installed-wheel conformance on Linux and macOS,
    strict package metadata, and examples in a minimal fresh environment. CI uploads
    wheel, sdist and test results with 30-day retention.
 3. For runtime changes, compare the meeting consumer at its pinned application
    revision. Preserve known product failures and assertion identities. Record the
-   wheel hash and application/library revisions.
-4. Commit/push, then create and push `v<version>` at that exact commit.
+   wheel hash and application/library revisions. If the private consumer is
+   inaccessible, record that check as not run and leave the release gate open;
+   library checks do not replace it. Keep PR validation distinct from release readiness.
+4. Commit/push, then create and push `v<version>` at that exact commit. In a fresh
+   project, execute the README and skill fixed/broken commands against that tag;
+   verify its version, license metadata and skill files, not just the checkout.
 5. Dispatch **Draft alpha release** with that tag. Both platform jobs and the
    confidence job must pass on the tagged commit. The workflow promotes the tested
    Linux wheel/sdist, platform reports, example/confidence archives and SHA256SUMS

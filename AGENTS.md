@@ -31,6 +31,10 @@ For onboarding a consumer application, follow the [workflow-sim skill](skills/wo
   that the plausible bug fails the intended assertion.
 - Dependencies, compatibility or releases: follow [release gates](docs/releases.md).
   Preserve pinned consumer counterexamples and promote the artifact actually tested.
+- CLI, evidence-field or release changes: align the README install pin, smoke
+  commands, contracts and `skills/workflow-sim/SKILL.md`. Run the documented
+  fixed/broken commands against the pinned artifact. Report inaccessible private
+  consumer checks as not run; do not substitute library tests or waive the gate.
 
 ## Finish the work
 

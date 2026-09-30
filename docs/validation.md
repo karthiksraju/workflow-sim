@@ -1,6 +1,10 @@
 # Validation and remaining gaps
 
-Alpha 4 has passed the checks below. Its [verification report](validation/alpha4.md)
+[Alpha 5](alpha5.md) aligns public installation, MIT metadata and the agent skill
+and adds the Celery example's negative control. The checks below describe alpha 4,
+not a new application validation of alpha 5.
+
+Alpha 4 passed the checks below. Its [verification report](validation/alpha4.md)
 records the tested artifacts, revisions, commands and qualifications. These results
 support the modeled behavior; they do not certify arbitrary adapters or live systems.
 
@@ -16,6 +20,10 @@ support the modeled behavior; they do not certify arbitrary adapters or live sys
 | Consumer suite | 976 passing cases and six strict xfails across the full run and corrected four-test rerun | Not one clean full-suite invocation |
 
 [Confidence recipes](confidence.md) explain how to reproduce the permanent gates.
+Alpha 4's supplemental stability and consumer evidence is attached to a draft
+release and is not publicly downloadable. The in-repository corpus/release indexes
+are available; unpublished raw archives are not independent public verification.
+
 Timeline execution, business assertions and live integration checks measure
 different things; their counts are not interchangeable.
 

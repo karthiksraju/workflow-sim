@@ -2,7 +2,8 @@
 
 Six synthetic workflows demonstrate failures across domains. Each starts with
 existing state and checks final content. They need no credentials or live services;
-they do not reproduce a specific third-party incident.
+they do not reproduce a specific third-party incident. A separate Celery example
+exercises the producer/task retry path.
 
 After [installation](../README.md#try-the-installed-package), run an adapter with a
 12-second virtual horizon:
@@ -25,6 +26,26 @@ acceptable substitute for the intended business assertion failure.
 | `documents` | One extraction retries; another finishes late | All chunks in original order before document publication |
 | `monitoring` | Recovery and a new outage happen during an alert delay | Only the current incident sends its delayed alert |
 | `meetings` | New recording finishes before a stale recording | New occurrence content survives; previous meeting remains intact |
+
+## Celery retry: preserve the queued payload
+
+```sh
+uv run workflow-sim workflow_sim.examples.celery_retry:build --duration 12 --output celery-fixed.json
+printf '{"broken":true}\n' > broken.json
+uv run workflow-sim workflow_sim.examples.celery_retry:build --duration 12 --inputs broken.json --output celery-broken.json
+```
+
+The adapter publishes a real registered Celery task with `.delay`. Its first
+attempt retries after three virtual seconds. The fixed run returns PASS with the
+new order's original `items: ["book"]`, the older delivery intact, and retry counts
+`[0, 1]`. The broken run clears the new order's items before retry publication,
+so `delivered content` fails with ASSERTION_FAILED / exit 1. Retry counts still
+match: the payload assertion catches the bug.
+
+Fixture provenance: order IDs and storage are synthetic; message serialization
+and retry publication use Celery's producer APIs. The example uses memory URLs
+and no live broker. For an application's existing Celery instance and client
+requirements, read the [adapter guide](adapters.md#existing-celery-applications).
 
 ## Billing: lost acknowledgement
 
@@ -157,5 +178,5 @@ assertions with your actual business contract. Run provider contract tests again
 real services or documented captured fixtures before trusting a substitute.
 
 Contributors can run `uv run --locked python scripts/check_examples.py --output /tmp/workflow-examples`
-for all 12 corrected/broken cases and their evidence. CI runs them against the
+for all 14 corrected/broken cases and their evidence. CI runs them against the
 installed wheel. Keep the broken cases to show that each assertion detects its bug.

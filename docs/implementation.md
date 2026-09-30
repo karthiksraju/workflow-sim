@@ -1,9 +1,8 @@
 # Implementation status
 
-The extracted library, six domain examples and alpha 4 stability fixes are on
-`main`. Alpha 4 rejects unaccounted publication paths and supports calendar origins.
-The repository is public under the [MIT license](../LICENSE). Alpha 4 release
-assets remain a draft pending review; the Git tag is available for installation.
+[Alpha 5](alpha5.md) aligns the public MIT package, uv installation and agent skill
+under one tag, with a Celery retry negative control alongside six domain examples.
+Its runtime retains alpha 4's publication guards and calendar origins.
 
 - [Architecture](architecture.md): runtime and application responsibilities.
 - [Validation](validation.md): tested behavior, exact evidence and remaining gaps.

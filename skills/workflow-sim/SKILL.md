@@ -16,16 +16,25 @@ observable failure, and checks the fix under the same modeled conditions.
    If absent, clone `https://github.com/karthiksraju/workflow-sim.git` into a separate
    directory and select the intended tag or commit. Public HTTPS access needs no
    GitHub credentials.
-   Read that revision's `README.md` installation section and `pyproject.toml`.
+   For new users, start with `v0.1.0a5`, the first tag with this skill, uv setup
+   and MIT metadata. Earlier tags lack the skill and contain private-era setup
+   text: keep this skill's checkout separate and use public HTTPS when inspecting
+   one. Read the selected revision's `README.md` and `pyproject.toml`.
    Support on a newer branch does not change an older tag's Python requirements.
 3. Use the application's compatible environment, or an isolated uv project with
    its required application dependencies. Pin workflow-sim to an immutable commit
    or release tag and retain the lockfile. Preserve the application's Python range
    and dependency tooling; report incompatibility rather than forcing a downgrade.
-   For a new trial, follow the checkout's uv installation recipe.
+   In an existing uv app, use `uv add --dev`; name the dependency/lock files
+   changed in your handoff. Dev groups still share version resolution, so use
+   a separate environment if the app's constraints conflict. For a new trial,
+   follow the checkout's uv installation recipe.
 4. Read the matching checkout's `docs/contracts.md` for supported execution paths
    and `docs/adapters.md` for boundary modeling. Celery is the queue backend;
    direct async functions can run without testing broker delivery semantics.
+   For an existing Celery app, follow the Celery section of `docs/adapters.md`
+   and the `celery_retry` example; call its real tasks through `.delay` or
+   `.apply_async` and retain required broker/backend client dependencies.
 
 Run trusted application code in a disposable environment without production
 credentials. The worker inherits environment variables and can access files;
@@ -95,8 +104,10 @@ Inspect `outcome`, `error`, and—when present—`evidence.checks`, `evidence.re
 addressing these outcomes. Null evidence means the worker did not produce a
 verified result; inspect the supervisor error first.
 
-Repeat the fixed case with the same seed, then vary relevant failure points or
-ordering. Use stock asyncio or an independent reference where practical. If two
+Repeat with the same code, dependencies, fixtures, inputs, seed and horizon;
+compare `evidence_sha256`. Investigate differences before calling the case
+reproducible (for example, an adapter may record real elapsed time). Then vary
+relevant failure points or ordering. Use stock asyncio or an independent reference where practical. If two
 models disagree, resolve the boundary assumption before claiming confidence.
 More seeds do not establish more business or live-system coverage by themselves.
 

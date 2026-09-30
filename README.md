@@ -18,7 +18,7 @@ flowchart LR
     A["Real workflow code"] --> B["Adapter<br/>controlled boundaries + assertions"]
     B --> C["Fresh process<br/>virtual time + failures"]
     C --> D["Evidence<br/>actual content vs expected"]
-    D --> E["Verified verdict"]
+    D --> E["Integrity-checked verdict"]
 ```
 
 ## Try the installed package
@@ -29,13 +29,15 @@ trial project. uv obtains a compatible Python and manages the environment:
 ```sh
 uv init --bare --python '>=3.12,<3.13' workflow-sim-trial
 cd workflow-sim-trial
-uv add 'workflow-sim @ git+https://github.com/karthiksraju/workflow-sim.git@v0.1.0a4'
+uv add --dev 'workflow-sim @ git+https://github.com/karthiksraju/workflow-sim.git@v0.1.0a5'
 uv run workflow-sim workflow_sim.examples.retry:build --duration 10 --output result.json
 ```
 
-In an existing uv project, use the same `uv add` command. Its Python requirement
+In an existing uv project, use the same `uv add --dev` command. Its Python requirement
 must fit this alpha's `>=3.12,<3.13` range. Commit the application's `uv.lock` to
-retain its resolved dependencies.
+retain its resolved dependencies. Dev dependencies still share uv's version
+resolution; if the application's Celery or Python requirements conflict, use a
+separate trial environment rather than changing the application's constraints.
 
 The receiver commits a delivery but loses its acknowledgement. The workflow
 retries five virtual seconds later. The result should be `PASS`: one delivery of
@@ -59,7 +61,9 @@ fix. It includes evidence requirements and the limits of a PASS result.
 
 Install the `skills/workflow-sim` folder into your agent's skill directory, or
 point the agent directly at its `SKILL.md`. Keep a checkout of the library revision
-you use: the skill reads its contracts and examples. For agents that use
+you use: the skill reads its contracts and examples. Alpha 5 is the first tag
+that includes the skill, uv setup and MIT package metadata. Keep the installed
+skill checkout separate if you need to inspect an older tag. For agents that use
 `~/.agents/skills`, and have no workflow-sim skill installed, run from this
 repository root:
 
@@ -72,6 +76,9 @@ Use your agent's configured skill directory if different. Example request: “Us
 reproduce duplicate refunds in this project and validate the fix.”
 
 ## Connect a workflow
+
+For Celery applications, start with the [Celery adapter guide](docs/adapters.md#existing-celery-applications)
+and its [fixed/broken example](docs/examples.md#celery-retry-preserve-the-queued-payload).
 
 An adapter calls your application and registers final-state checks:
 
@@ -115,6 +122,7 @@ documents, monitoring and meetings. Each has a corrected and broken version.
 
 Results include checks, a causal event ledger, execution health and provenance.
 [Contracts](docs/contracts.md) define verdict precedence, CLI exit codes and hashes.
+[Alpha 5](docs/alpha5.md) aligns installation, licensing and the skill.
 [Alpha 4 migration](docs/alpha4.md) covers calendar origins and previously
 unaccounted publication paths whose old PASS results need rerunning.
 

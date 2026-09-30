@@ -1,5 +1,9 @@
 # Alpha 4 stability verification
 
+Status note (2026-09-30): this report records verification while the project was
+private. The repository is now public under MIT. The alpha 4 draft's supplemental
+archives remain unavailable to public readers; the results below are historical.
+
 The publication guards and configurable origin pass the installed-wheel checks
 below. The queue-independent refactor is not part of this release.
 

@@ -117,6 +117,19 @@ library hash to its own installed source. The adapter module hash covers
 Record your application's immutable revision and fixture identity alongside results.
 Hashes detect changes; they are not signatures or attestations against hostile code.
 
+## CLI exit codes
+
+| Result | Exit code |
+| --- | --- |
+| `PASS` | 0 |
+| `ASSERTION_FAILED` | 1 |
+| `INCOMPLETE` | 2 |
+| `UNSUPPORTED` | 3 |
+| `HARNESS_ERROR` or invalid CLI input | 4 |
+
+Help and version requests exit 0 without running a simulation. A nonzero exit
+needs its result/error inspected; an import failure is not a detected business bug.
+
 ## How completed evidence becomes a verdict
 
 The worker and parent use the same ordered rules. Worker/process failures without

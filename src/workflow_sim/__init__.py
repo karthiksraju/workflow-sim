@@ -1,5 +1,5 @@
 """Process-isolated deterministic workflow testing. Alpha API."""
-__version__ = "0.1.0a4"
+__version__ = "0.1.0a5"
 
 from .runner import run
 
