@@ -82,6 +82,10 @@ At equal instants, timeline items precede queued Celery work, which precedes tim
 wakeups. Items retain insertion order; equal-deadline loops wake in park order.
 The scheduler waits for owned thread-pool work before advancing time. Hard crash
 fencing and graceful cancellation are distinct behaviors, covered by separate tests.
+Owned pool workers start as daemon threads but remain joined by normal pool
+shutdown. Hard abandonment removes the frozen worker from its pool and the
+`concurrent.futures` exit registry. This avoids relying on the non-daemon shutdown
+registry removed in Python 3.13; see [compatibility](python-compatibility.md).
 
 This is one controlled scheduling model. It does not explore every possible
 interleaving or reproduce a real broker's distribution and acknowledgement behavior.
@@ -101,7 +105,7 @@ flowchart TD
 ```
 
 The runtime retains created tasks/futures through evidence collection so garbage
-collection cannot hide an unobserved exception. CPython 3.12's exception-retrieval
+collection cannot hide an unobserved exception. CPython's exception-retrieval
 flag distinguishes handled errors from unhandled ones; application loop handlers
 still run. Final health is refreshed after assertions. Celery retries preserve
 continuation metadata at signature production, while the simulator owns exactly

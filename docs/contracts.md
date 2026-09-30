@@ -2,6 +2,9 @@
 
 ## Supported API
 
+Current source supports standard GIL-enabled CPython 3.12–3.14 on Linux/macOS.
+See [compatibility](python-compatibility.md) for tagged-release limits.
+
 `workflow_sim.run(adapter, *, inputs=None, duration=60, seed=0,
 max_steps=100_000, wall_timeout=30, project_dir=None, start_at=None)` returns a JSON-compatible
 dict. `adapter` is an explicit `module:function`, imported in a new child process.
@@ -67,6 +70,9 @@ An entry coroutine returning does not finish its child tasks or timers. Pending
 children remain owned, reported and subject to crash fencing. The experimental
 in-process engine defaults to permitting coordinator-owned setup threads; public
 runs enable `strict_lifecycle=True` and always terminate their worker process.
+On 3.13–3.14, an executor with prestarted non-daemon workers is rejected before
+submission: those threads cannot be safely abandoned. Create its workers inside
+the simulation instead. Ordinary completion still waits for owned pool effects.
 
 ## Ordering and time
 

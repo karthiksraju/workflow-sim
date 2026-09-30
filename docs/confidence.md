@@ -26,7 +26,7 @@ flowchart TD
 | Generated child lifecycles | Up to 50 examples vary completion time, cancellation, errors and run horizon against an independent outcome model. | This supplements the existing clock/stateful suite; it is not full schedule exploration. |
 | Real Celery contracts | Four shared task programs run in Linux prefork workers with Redis and in the simulator. Compare durable effects, retry identity, payloads, redelivery flags and expiry. | Celery 5.6.3, JSON, one worker child, the recorded Redis version; no RabbitMQ, database or provider certification. |
 | Targeted runtime mutations | Six deliberately introduced runtime defects must cause assertion failures in their functional regressions after a clean baseline. | A curated campaign, not a whole-codebase mutation score. |
-| Installed package checks | Linux/macOS suites, wheel/sdist metadata, clean minimal installation and installed examples. | CPython 3.12 only. Dependency bounds are broader than the frozen tested set. |
+| Installed package checks | Linux/macOS suites, wheel/sdist metadata, clean minimal installation and installed examples. | Current CI: GIL-enabled CPython 3.12–3.14. Historical release evidence retains its original matrix. Dependency bounds are broader than the frozen tested set. |
 
 Hypothesis generates and minimizes failing **test inputs**. The library does not
 promise to minimize arbitrary user scenarios or explore all schedules. See

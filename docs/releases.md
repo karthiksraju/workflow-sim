@@ -8,8 +8,8 @@ Reproduce the bug and show that the regression check detects it.
 
 ```mermaid
 flowchart TD
-    Commit["Release commit"] --> Linux["Linux<br/>build + test"]
-    Commit --> Mac["macOS<br/>build + test"]
+    Commit["Release commit"] --> Linux["Linux<br/>3.12 + 3.13 + 3.14"]
+    Commit --> Mac["macOS<br/>3.12 + 3.13 + 3.14"]
     Linux --> Gate{"All gates pass on<br/>tagged commit?"}
     Mac --> Gate
     Commit --> Confidence["Examples + real worker contracts<br/>generated tests + mutations"]
@@ -29,16 +29,16 @@ publication requires owner approval. No PyPI publisher is enabled.
 
 1. Update the version in pyproject.toml and `workflow_sim.__version__`, CHANGELOG,
    release notes, supported-runtime matrix and migration notes. Do not reuse a tag.
-2. Run CI on the release commit: installed-wheel conformance on Linux and macOS,
+2. Run CI on the release commit: installed-wheel conformance on all three Python minors on Linux and macOS,
    strict package metadata, and examples in a minimal fresh environment. CI uploads
    wheel, sdist and test results with 30-day retention.
 3. For runtime changes, compare the meeting consumer at its pinned application
    revision. Preserve known product failures and assertion identities. Record the
    wheel hash and application/library revisions.
 4. Commit/push, then create and push `v<version>` at that exact commit.
-5. Dispatch **Draft alpha release** with that tag. Both platform jobs and the
-   confidence job must pass on the tagged commit. The workflow promotes the tested
-   Linux wheel/sdist, platform reports, example/confidence archives and SHA256SUMS
+5. Dispatch **Draft alpha release** with that tag. All six platform/runtime jobs and the three
+   confidence jobs must pass on the tagged commit. The workflow promotes the tested
+   Linux 3.12 wheel/sdist, all platform reports, a runtime-evidence archive and SHA256SUMS
    into a draft GitHub prerelease.
 6. Review artifact hashes, notes, visibility and distribution rights. For an
    approved private alpha, share repository access with named testers. For a
@@ -55,7 +55,8 @@ A future PyPI workflow should use [PyPI Trusted Publishing](https://docs.pypi.or
 
 ## Compatibility and dependency changes
 
-Support only CPython 3.12 and the two tested OS families for this alpha. Add a
+Support standard GIL-enabled CPython 3.12–3.14 on Linux/macOS in current source.
+Tagged alpha 4 remains 3.12-only; see [compatibility](python-compatibility.md). Add a
 runtime only after clock boundary, crash-return, pool ownership and process cleanup
 probes pass there. These tests exercise CPython internals, so installing successfully
 is insufficient. Celery is an explicit dependency until a second real backend

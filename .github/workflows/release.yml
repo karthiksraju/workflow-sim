@@ -34,15 +34,19 @@ jobs:
         env:
           CI_RUN_ID: ${{ steps.verified.outputs.ci_run_id }}
         run: |
-          gh run download "$CI_RUN_ID" --name alpha-ubuntu-latest --dir promoted
+          gh run download "$CI_RUN_ID" --name alpha-ubuntu-latest-py3.12 --dir promoted
           mkdir dist
           cp promoted/dist/*.whl promoted/dist/*.tar.gz dist/
-          cp promoted/test-results.xml dist/test-results-linux.xml
-          gh run download "$CI_RUN_ID" --name alpha-macos-latest --dir promoted-macos
-          cp promoted-macos/test-results.xml dist/test-results-macos.xml
-          gh run download "$CI_RUN_ID" --name alpha-confidence --dir confidence-evidence
-          tar -czf dist/confidence-evidence.tar.gz confidence-evidence
-          tar -czf dist/example-evidence.tar.gz -C promoted example-evidence
+          for python in 3.12 3.13 3.14; do
+            for os in ubuntu-latest macos-latest; do
+              target="evidence/$os-py$python"
+              gh run download "$CI_RUN_ID" --name "alpha-$os-py$python" --dir "$target"
+              cp "$target/test-results.xml" "dist/test-results-$os-py$python.xml"
+              rm -r "$target/dist"
+            done
+            gh run download "$CI_RUN_ID" --name "alpha-confidence-py$python" --dir "evidence/confidence-py$python"
+          done
+          tar -czf dist/runtime-evidence.tar.gz evidence
       - name: Record artifact hashes
         working-directory: dist
         run: sha256sum *.whl *.tar.gz *.xml > SHA256SUMS

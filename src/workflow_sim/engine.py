@@ -462,7 +462,7 @@ class Engine:
         for future, owner in list(self._async_futures):
             if owner is not None and owner.abandoned:
                 continue
-            # CPython 3.12 Future records whether result()/exception()/await has
+            # CPython Future records whether result()/exception()/await has
             # consumed the exception. Looking at done() alone misclassifies caught
             # exceptions; waiting for __del__ misses deliberately retained tasks.
             if future.done() and getattr(future, "_log_traceback", False):
@@ -636,6 +636,14 @@ class Engine:
                                                                             "label": item.label if item else "adapter lifecycle"})
                 raise UnsupportedFeature(reason)
             with critical:
+                # 3.13+ no longer exposes the non-daemon exit-join registry.
+                # Workers started here are daemonized below; a prestarted pool
+                # cannot be made safe retroactively. Reject before running user IO.
+                if (_owned_pool_submit.get() and not _LEGACY_THREAD_JOINS
+                        and any(not t.daemon for t in pool_self._threads)):
+                    reason = "prestarted non-daemon pool workers cannot be abandoned; create the executor's workers inside the simulation"
+                    self.unsupported.append(reason)
+                    raise UnsupportedFeature(reason)
                 return orig_submit(pool_self, fn, *args, **kwargs)
 
         concurrent.futures.ThreadPoolExecutor.submit = sim_submit
@@ -659,6 +667,12 @@ class Engine:
                 self.ledger.add("fault", "unsupported_thread_start", data={"execution": item.id if item else None,
                                                                             "label": item.label if item else "adapter lifecycle"})
                 raise UnsupportedFeature(reason)
+            if _owned_pool_submit.get() and self.clock.scheduler.engine is self:
+                # Normal pool shutdown still joins these workers. A hard crash
+                # removes only abandoned workers from the pool and futures exit
+                # hook; daemon status keeps CPython's native shutdown from joining
+                # their permanently fenced threads (including on 3.13+).
+                thread_self.daemon = True
             return orig(thread_self, *args, **kwargs)
 
         threading.Thread.start = sim_start
@@ -1166,14 +1180,11 @@ class _Submission:
         return future
 
 
-# A pool thread that never exits (frozen with its abandoned execution) must not be
-# waited for: by its pool's ``shutdown``, by concurrent.futures' exit hook, or by the
-# interpreter's join of non-daemon threads. These are CPython 3.12 internals; without
-# them pool work under the engine is refused (UnsupportedFeature), not left to hang.
-_EXIT_JOINS_KNOWN = all(hasattr(m, a) for m, a in ((_cf_thread, "_threads_queues"),
-                                                     (threading, "_shutdown_locks"),
-                                                     (threading, "_shutdown_locks_lock")))
-
+# Frozen workers must leave both pool join registries. New workers are daemon
+# threads, so CPython itself does not join them. On 3.12 we can also detach a
+# prestarted non-daemon worker; 3.13+ hides that registry, so submit rejects it.
+_LEGACY_THREAD_JOINS = all(hasattr(threading, a) for a in ("_shutdown_locks", "_shutdown_locks_lock"))
+_EXIT_JOINS_KNOWN = hasattr(_cf_thread, "_threads_queues")
 
 def _detach_from_exit_joins(thread: threading.Thread, executor: Any) -> None:
     # A ThreadPoolExecutor registers a new worker for the exit hook only after
@@ -1187,7 +1198,7 @@ def _detach_from_exit_joins(thread: threading.Thread, executor: Any) -> None:
             threads.discard(thread)      # its pool may start a replacement worker
         _cf_thread._threads_queues.pop(thread, None)
     lock = getattr(thread, "_tstate_lock", None)
-    if lock is not None:
+    if lock is not None and _LEGACY_THREAD_JOINS:
         with threading._shutdown_locks_lock:
             threading._shutdown_locks.discard(lock)
 

@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Support standard GIL-enabled CPython 3.13 and 3.14 alongside 3.12 on Linux/macOS.
+  Adapt abandoned pool cleanup to the new threading internals; reject prestarted
+  non-daemon pools on 3.13+ before submission. Require conformance, examples and
+  confidence checks on each minor. See [compatibility](docs/python-compatibility.md).
+
 - Use uv for contributor setup, Python selection, CI and package/mutation checks.
   `uv.lock` replaces `requirements-dev.lock`; development tools move from the
   `dev` package extra to the `dev` dependency group. Dependency versions are preserved.
