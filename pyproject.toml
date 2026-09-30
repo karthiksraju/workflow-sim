@@ -24,8 +24,8 @@ dev = ["pytest>=9.1,<10", "hypothesis>=6.168,<7", "build>=1.2,<2", "twine>=6,<8"
 workflow-sim = "workflow_sim.cli:main"
 
 [project.urls]
-Source = "https://github.com/KarthikRaju391/workflow-sim"
-Issues = "https://github.com/KarthikRaju391/workflow-sim/issues"
+Source = "https://github.com/karthiksraju/workflow-sim"
+Issues = "https://github.com/karthiksraju/workflow-sim/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]

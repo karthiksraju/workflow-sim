@@ -14,7 +14,7 @@ below. The queue-independent refactor is not part of this release.
 | Independent corpus | 1,026 expected outcomes with the original 2026 clock origin | 36 implemented business cases; 204 remain unimplemented |
 | Pinned meeting application replay | All 102 outcomes, business checks/state, health and execution reports unchanged | Existing application failures remain; this is upgrade compatibility |
 
-Initial CI: [36526803415](https://github.com/KarthikRaju391/workflow-sim/actions/runs/36526803415),
+Initial CI: [36526803415](https://github.com/karthiksraju/workflow-sim/actions/runs/36526803415),
 runtime source `459c2fd5129dcc7f71dedd0523493a13d283414a`. Both CI wheels contain
 exactly the runtime files tested locally. Release promotion reruns the same CI
 gates on the tagged commit, then promotes its tested artifacts without rebuilding.
@@ -93,8 +93,8 @@ rerun are both retained.
 The [release index](alpha4-release.json) records artifact hashes, dependency
 versions, exact revisions and test qualifications. Alpha 4 is a private draft
 at tag `v0.1.0a4`, source `320e0504627b78c165ad572b535f4e369e9ac7ad`, promoted by
-[the release workflow](https://github.com/KarthikRaju391/workflow-sim/actions/runs/36528852186)
-from [successful final CI](https://github.com/KarthikRaju391/workflow-sim/actions/runs/36528536194).
+[the release workflow](https://github.com/karthiksraju/workflow-sim/actions/runs/36528852186)
+from [successful final CI](https://github.com/karthiksraju/workflow-sim/actions/runs/36528536194).
 The wheel SHA256 is
 `cc4a82e472be9e77f6ed1c23d3cb58b05c32a6864c7795e5f579f1e0a186c59a`.
 Every library runtime file matches the candidate used in the additional local

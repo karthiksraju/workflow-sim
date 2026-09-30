@@ -24,5 +24,5 @@ not answer quality.
 
 Tell us where connecting your code or interpreting the result was difficult.
 
-Links: [repository](https://github.com/KarthikRaju391/workflow-sim),
+Links: [repository](https://github.com/karthiksraju/workflow-sim),
 [examples](examples.md), [tester guide](try-the-alpha.md), [evidence](confidence.md).
