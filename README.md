@@ -29,7 +29,7 @@ trial project. uv obtains a compatible Python and manages the environment:
 ```sh
 uv init --bare --python '>=3.12,<3.13' workflow-sim-trial
 cd workflow-sim-trial
-uv add 'workflow-sim @ git+ssh://git@github.com/KarthikRaju391/workflow-sim.git@v0.1.0a4'
+uv add 'workflow-sim @ git+ssh://git@github.com/karthiksraju/workflow-sim.git@v0.1.0a4'
 uv run workflow-sim workflow_sim.examples.retry:build --duration 10 --output result.json
 ```
 

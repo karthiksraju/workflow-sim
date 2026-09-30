@@ -1,6 +1,6 @@
 # Maintaining and releasing the alpha
 
-@KarthikRaju391 owns triage, compatibility and release approval. Prioritize false
+@karthiksraju owns triage, compatibility and release approval. Prioritize false
 PASS reports, containment failures and installation failures, then adapter gaps.
 Reproduce the bug and show that the regression check detects it.
 
@@ -69,7 +69,7 @@ reproducible.
 
 ## Tester intake
 
-Use the [feedback form](https://github.com/KarthikRaju391/workflow-sim/issues/new?template=alpha-feedback.yml)
+Use the [feedback form](https://github.com/karthiksraju/workflow-sim/issues/new?template=alpha-feedback.yml)
 for workflow type, environment, setup friction and surprising verdicts. Ask for a
 small sanitized adapter and its provenance. Track missing boundary contracts
 separately from runtime defects.

@@ -10,7 +10,7 @@ or sensitive mounted directories. The library has no telemetry or automatic
 artifact upload. Review results before sharing: assertions, logs and exceptions
 can contain sensitive values.
 
-Report vulnerabilities privately to @KarthikRaju391 through your existing internal
+Report vulnerabilities privately to @karthiksraju through your existing internal
 channel. Keep credentials, exploit data and customer artifacts out of public
 issues. Private vulnerability reporting must be configured before the repository
 opens to the public.
