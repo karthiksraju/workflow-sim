@@ -3,6 +3,8 @@
 Choose an observable effect: a stored row, delivered message or completion marker.
 Call the application's real entrypoint and model its external services and storage.
 Keep the decision logic under test running.
+The [existing-project guide](existing-project.md) covers installation, import paths
+and a template that distinguishes expected failures from adapter errors.
 
 1. Seed realistic initial state: old derived data, prior attempts and completion
    markers. A replacement test starting from an empty database misses stale data.
