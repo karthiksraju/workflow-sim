@@ -178,5 +178,5 @@ assertions with your actual business contract. Run provider contract tests again
 real services or documented captured fixtures before trusting a substitute.
 
 Contributors can run `uv run --locked python scripts/check_examples.py --output /tmp/workflow-examples`
-for all 12 corrected/broken cases and their evidence. CI runs them against the
+for all 14 corrected/broken cases and their evidence. CI runs them against the
 installed wheel. Keep the broken cases to show that each assertion detects its bug.
