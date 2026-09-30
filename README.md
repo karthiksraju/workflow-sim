@@ -4,8 +4,8 @@ Run Python async/Celery workflows with virtual time, retries and failures. Check
 what they wrote or delivered, including duplicate effects and unfinished work.
 Each run uses a fresh process.
 
-**Internal alpha · CPython 3.12 · Linux and macOS.** Repository access is required.
-Public licensing and distribution are pending. Do not redistribute the alpha yet.
+**Alpha · CPython 3.12 · Linux and macOS · [MIT license](LICENSE).**
+The repository is public. Install from GitHub; there is no PyPI release yet.
 
 You supply real workflow code, models of its external systems, and assertions.
 `PASS` means those assertions held in the modeled execution. It does not certify
@@ -29,7 +29,7 @@ trial project. uv obtains a compatible Python and manages the environment:
 ```sh
 uv init --bare --python '>=3.12,<3.13' workflow-sim-trial
 cd workflow-sim-trial
-uv add 'workflow-sim @ git+ssh://git@github.com/karthiksraju/workflow-sim.git@v0.1.0a4'
+uv add 'workflow-sim @ git+https://github.com/karthiksraju/workflow-sim.git@v0.1.0a4'
 uv run workflow-sim workflow_sim.examples.retry:build --duration 10 --output result.json
 ```
 

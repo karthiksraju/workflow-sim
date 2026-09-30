@@ -13,8 +13,9 @@ observable failure, and checks the fix under the same modeled conditions.
 1. Locate the application entrypoint and its existing tests. Identify the queue,
    Python version, dependency tool, and external effects before choosing a case.
 2. Locate a workflow-sim checkout matching the installed or selected revision.
-   If absent, clone `git@github.com:karthiksraju/workflow-sim.git` into a separate
-   directory and select the intended tag or commit. Repository access is required.
+   If absent, clone `https://github.com/karthiksraju/workflow-sim.git` into a separate
+   directory and select the intended tag or commit. Public HTTPS access needs no
+   GitHub credentials.
    Read that revision's `README.md` installation section and `pyproject.toml`.
    Support on a newer branch does not change an older tag's Python requirements.
 3. Use the application's compatible environment, or an isolated uv project with

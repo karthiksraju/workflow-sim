@@ -7,11 +7,12 @@ name = "workflow-sim"
 version = "0.1.0a4"
 description = "Deterministic, process-isolated tests for asynchronous Python workflows"
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.12,<3.13"
 authors = [{name = "Karthik Raju"}]
 classifiers = [
   "Development Status :: 3 - Alpha",
-  "Private :: Do Not Upload",
   "Programming Language :: Python :: 3.12",
   "Operating System :: POSIX",
 ]

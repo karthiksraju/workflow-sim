@@ -1,4 +1,4 @@
-Internal alpha 4 for CPython 3.12 on Linux and macOS.
+Alpha 4 for CPython 3.12 on Linux and macOS.
 
 This release rejects Celery `send_task` and direct Kombu/AMQP publications that
 bypass the modeled queue. The unsupported record persists when application code
@@ -24,6 +24,7 @@ input timelines and 36 implemented reference business cases; 204 business cases
 still need adapters. No additional queue backend or provider certification is
 claimed. Queue-independent architecture work is deferred.
 
-Private draft for review. Public licensing and visibility remain pending. Assets
+Draft release for review. The repository is public under the
+[MIT license](https://github.com/karthiksraju/workflow-sim/blob/main/LICENSE). Assets
 are promoted from the tested commit's CI, without rebuilding. Verify downloaded
 assets with `sha256sum -c SHA256SUMS` (or `shasum -a 256 -c SHA256SUMS` on macOS).
