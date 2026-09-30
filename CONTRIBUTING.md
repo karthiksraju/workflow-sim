@@ -15,6 +15,10 @@ uv run --locked python -m twine check --strict dist/*
 uv run --locked python scripts/check_package.py
 ```
 
+To check another supported interpreter, use `uv sync --locked --python 3.14`,
+then `uv run --locked --python 3.14 pytest -q` (or substitute `3.13`).
+CI tests all three minors on Linux and macOS.
+
 CI installs the built wheel and runs tests outside the checkout. Its later
 commands use `uv run --no-sync` to avoid replacing that wheel with editable source.
 

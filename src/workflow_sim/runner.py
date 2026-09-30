@@ -10,6 +10,7 @@ import selectors
 import signal
 import subprocess
 import sys
+import sysconfig
 import tempfile
 import time
 import uuid
@@ -28,8 +29,9 @@ def run(adapter: str, *, inputs: dict | None = None, duration: float = 60,
     explicit non-PASS outcome. See docs/contracts.md for coverage and limits.
     start_at is a timezone-aware ISO timestamp; None preserves the 2099 UTC default.
     """
-    if platform.python_implementation() != 'CPython' or sys.version_info[:2] != (3, 12) or sys.platform not in ('linux', 'darwin'):
-        raise RuntimeError('alpha supports CPython 3.12 on Linux and macOS')
+    if (platform.python_implementation() != 'CPython' or not (3, 12) <= sys.version_info[:2] < (3, 15)
+            or sys.platform not in ('linux', 'darwin') or sysconfig.get_config_var('Py_GIL_DISABLED')):
+        raise RuntimeError('alpha supports GIL-enabled CPython 3.12–3.14 on Linux and macOS')
     request = {'schema_version': SCHEMA_VERSION, 'adapter': adapter, 'inputs': {} if inputs is None else inputs,
                'duration': duration, 'seed': seed, 'max_steps': max_steps}
     if start_at is not None:

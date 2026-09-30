@@ -22,8 +22,9 @@ with explicit runtime bindings. Celery remains a declared alpha dependency:
 separating a second queue backend is deferred until a concrete consumer needs it.
 No generic plugin discovery or arbitrary YAML code execution is introduced.
 
-The alpha supports CPython 3.12 and POSIX Linux/macOS. Other runtimes must fail
-explicitly. Widen this claim only after conformance CI passes on that runtime.
+The initial alpha supported CPython 3.12 and POSIX Linux/macOS. Current source
+extends this to standard GIL-enabled CPython 3.13 and 3.14, with conformance CI
+required on every supported minor and platform. Other runtimes must fail explicitly.
 Validate the extracted implementation with inherited engine probes, installed-wheel
 tests, a small independent workflow and the meeting adapter. Product bugs must
 remain product failures; extracting a library is not a reason to mute them.

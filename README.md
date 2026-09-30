@@ -4,7 +4,7 @@ Run Python async/Celery workflows with virtual time, retries and failures. Check
 what they wrote or delivered, including duplicate effects and unfinished work.
 Each run uses a fresh process.
 
-**Internal alpha · CPython 3.12 · Linux and macOS.** Repository access is required.
+**Internal alpha · CPython 3.12–3.14 · Linux and macOS.** Repository access is required.
 Public licensing and distribution are pending. Do not redistribute the alpha yet.
 
 You supply real workflow code, models of its external systems, and assertions.
@@ -22,6 +22,10 @@ flowchart LR
 ```
 
 ## Try the installed package
+
+The current source supports standard, GIL-enabled CPython 3.12, 3.13 and 3.14.
+The latest published tag, `v0.1.0a4`, still requires 3.12. For newer Python, use
+a checkout as described in [Python compatibility](docs/python-compatibility.md).
 
 Install [uv](https://docs.astral.sh/uv/getting-started/installation/), then create a
 trial project. uv obtains a compatible Python and manages the environment:

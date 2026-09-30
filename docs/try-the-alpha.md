@@ -1,6 +1,7 @@
 # Try the alpha with your workflow
 
-Use uv on Linux or macOS to create a project with CPython 3.12.
+Use uv on Linux or macOS. The published alpha 4 tag needs CPython 3.12;
+[current source also supports 3.13 and 3.14](python-compatibility.md).
 Follow the [installation steps](../README.md#try-the-installed-package); private
 repository access is required. Choose a [domain example](examples.md) close to
 your workflow and run both its corrected and `broken` versions.

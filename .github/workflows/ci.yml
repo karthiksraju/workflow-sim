@@ -11,14 +11,17 @@ concurrency:
   cancel-in-progress: true
 jobs:
   test:
+    name: test (${{ matrix.os }}, ${{ matrix.python }})
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest]
+        python: ["3.12", "3.13", "3.14"]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15
     env:
       PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'
+      UV_PYTHON: ${{ matrix.python }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
@@ -45,7 +48,7 @@ jobs:
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()
         with:
-          name: alpha-${{ matrix.os }}
+          name: alpha-${{ matrix.os }}-py${{ matrix.python }}
           path: |
             dist/*
             test-results.xml
@@ -53,6 +56,11 @@ jobs:
           if-no-files-found: error
           retention-days: 30
   confidence:
+    name: confidence (${{ matrix.python }})
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.12", "3.13", "3.14"]
     runs-on: ubuntu-latest
     timeout-minutes: 20
     services:
@@ -63,6 +71,7 @@ jobs:
     env:
       CONTRACT_BROKER: redis://localhost:6379/0
       PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'
+      UV_PYTHON: ${{ matrix.python }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
@@ -81,7 +90,7 @@ jobs:
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()
         with:
-          name: alpha-confidence
+          name: alpha-confidence-py${{ matrix.python }}
           path: confidence-evidence/
           if-no-files-found: error
           retention-days: 30
