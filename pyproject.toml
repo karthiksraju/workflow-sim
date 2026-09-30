@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "workflow-sim"
-version = "0.1.0a4"
+version = "0.1.0a5"
 description = "Deterministic, process-isolated tests for asynchronous Python workflows"
 readme = "README.md"
 license = "MIT"

@@ -21,7 +21,7 @@ flowchart TD
 
 | Check | Evidence | Remaining limit |
 | --- | --- | --- |
-| Six domain examples | Corrected versions meet exact state/content assertions; six deliberate bugs fail them. | Synthetic reference workflows; only the meeting consumer has separate application integration evidence. |
+| Six domain examples + Celery retry | Corrected versions meet exact state/content assertions; seven deliberate bugs fail them. | Synthetic reference workflows; only the meeting consumer has separate application integration evidence. |
 | Generated async programs | Up to 35 Hypothesis examples compare the same coroutine/thread-pool workload with ordinary asyncio and independently computed results. | Bounded input space; compares observable results, not unconstrained thread ordering. |
 | Generated child lifecycles | Up to 50 examples vary completion time, cancellation, errors and run horizon against an independent outcome model. | This supplements the existing clock/stateful suite; it is not full schedule exploration. |
 | Real Celery contracts | Four shared task programs run in Linux prefork workers with Redis and in the simulator. Compare durable effects, retry identity, payloads, redelivery flags and expiry. | Celery 5.6.3, JSON, one worker child, the recorded Redis version; no RabbitMQ, database or provider certification. |

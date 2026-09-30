@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+## 0.1.0a5 — public onboarding alignment
+
+- Align the installation tag, MIT metadata, uv setup and portable agent skill.
+  Install as a development dependency in existing uv applications.
+- Add a Celery retry payload mutation and exact-state negative control to the
+  installed gallery; document existing-app Celery setup and client dependencies.
+- Document CLI exit codes, reproducibility comparison and public evidence limits.
+  Scheduler, runner, queue semantics and schema remain unchanged from alpha 4.
+
 - Publish the repository under MIT; add license metadata and packaged license text.
   Use public HTTPS setup links and GitHub private vulnerability reporting.
 
@@ -11,7 +20,7 @@
 - Use uv for contributor setup, Python selection, CI and package/mutation checks.
   `uv.lock` replaces `requirements-dev.lock`; development tools move from the
   `dev` package extra to the `dev` dependency group. Dependency versions are preserved.
-  Existing alpha tags and runtime behavior are unchanged.
+  Earlier alpha tags remain unchanged.
 
 ## 0.1.0a4 — publication guards and calendar origins
 
