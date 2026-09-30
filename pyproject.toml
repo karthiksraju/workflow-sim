@@ -18,7 +18,7 @@ classifiers = [
 dependencies = ["celery>=5.6.3,<5.7", "time-machine>=3.5.1,<4"]
 
 [dependency-groups]
-dev = ["pytest>=9.1,<10", "hypothesis>=6.168,<7", "build>=1.2,<2", "twine>=6,<8", "redis>=5,<7"]
+dev = ["pytest>=9.1,<10", "hypothesis>=6.168,<7", "build>=1.2,<2", "twine>=6,<8", "redis>=5,<9"]
 
 [project.scripts]
 workflow-sim = "workflow_sim.cli:main"
