@@ -123,8 +123,9 @@ flowchart LR
 ```
 
 The wheel is a generated dependency artifact, not a second editable implementation.
-Private-alpha vendoring avoids distributing personal GitHub credentials to the
-application's CI and keeps historical proof runs bound to their executed bytes.
+The first consumer vendored the private alpha to avoid distributing GitHub
+credentials to its CI. The repository is now public; immutable artifact pins
+still keep historical proof runs bound to their executed bytes.
 A loader refuses a modified wheel or an already-imported package from another source.
 
 The meeting adapter stays in its application repository. The library's six domain

@@ -10,10 +10,8 @@ or sensitive mounted directories. The library has no telemetry or automatic
 artifact upload. Review results before sharing: assertions, logs and exceptions
 can contain sensitive values.
 
-Report vulnerabilities privately to @karthiksraju through your existing internal
-channel. Keep credentials, exploit data and customer artifacts out of public
-issues. Private vulnerability reporting must be configured before the repository
-opens to the public.
+Report vulnerabilities through [GitHub's private reporting form](https://github.com/karthiksraju/workflow-sim/security/advisories/new).
+Keep credentials, exploit details and customer artifacts out of public issues.
 
-Security fixes target the latest internal alpha and receive a new immutable tag.
+Security fixes target the latest alpha and receive a new immutable tag.
 Existing tags and published artifacts are never overwritten.

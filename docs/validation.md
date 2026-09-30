@@ -21,6 +21,10 @@ different things; their counts are not interchangeable.
 
 ## Historical evidence
 
+Earlier reports describe private releases as they were tested. The repository is
+now public under the [MIT license](../LICENSE); historical results and tags remain
+tied to their original revisions.
+
 - [Alpha 1 extraction](validation-alpha1.md): original comparisons, before the
   independent review found runtime defects.
 - [Alpha 2 corrections](validation/alpha2.md): adversarial regressions, consumer

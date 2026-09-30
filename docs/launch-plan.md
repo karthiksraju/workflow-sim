@@ -1,7 +1,7 @@
 # Launch status
 
-Alpha 4 stability fixes are merged. The release is a private draft. Public
-licensing, distribution rights and tester access still need the owner's decision.
+The repository is public under the [MIT license](../LICENSE). Testers can install
+from GitHub over HTTPS without credentials. Alpha 4 release assets remain a draft.
 
 ## Ready for review
 
@@ -11,15 +11,15 @@ licensing, distribution rights and tester access still need the owner's decision
   real prefork Celery/Redis, and targeted simulator mutations.
 - Alpha 4 publication guards, calendar origins and pinned consumer comparison.
 - [Tester guide](try-the-alpha.md), [evidence and limits](validation.md), feedback
-  forms and [launch copy](launch-post.md).
+  forms and the [agent skill](../skills/workflow-sim/SKILL.md).
 
 ## Before inviting public testers
 
-1. Settle licensing and distribution rights, then choose repository visibility or
-   a named-tester access route. Follow the [release gates](releases.md).
-2. Review the alpha 4 draft's artifacts, hashes and notes before publishing it.
-3. Put the accessible project link in the launch post and verify the installation
-   path with the access a tester will have.
+1. Review the alpha 4 draft's artifacts, hashes and notes against the
+   [release gates](releases.md) before publishing it.
+2. Verify the documented HTTPS installation from a fresh environment.
+3. Link the project, examples and feedback form in the launch post. State the
+   tested runtime and model limits.
 
 The independent corpus has 36 implemented business cases out of 240. Running the
 remaining input timelines does not validate their business contracts. Queue

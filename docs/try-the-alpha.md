@@ -1,8 +1,8 @@
 # Try the alpha with your workflow
 
 Use uv on Linux or macOS to create a project with CPython 3.12.
-Follow the [installation steps](../README.md#try-the-installed-package); private
-repository access is required. Choose a [domain example](examples.md) close to
+Follow the [public HTTPS installation steps](../README.md#try-the-installed-package);
+GitHub credentials are not required. Choose a [domain example](examples.md) close to
 your workflow and run both its corrected and `broken` versions.
 
 ```mermaid

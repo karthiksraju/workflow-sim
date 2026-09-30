@@ -17,12 +17,11 @@ flowchart TD
     Gate -- No --> Stop["No release"]
     Gate -- Yes --> Promote["Promote tested artifacts<br/>wheel + sdist + reports"]
     Promote --> Draft["Draft prerelease<br/>assets + hashes"]
-    Draft --> Owner["Owner review<br/>evidence + rights + audience"]
-    Owner --> Private["Approved private alpha"]
-    Owner -. "License + visibility decision" .-> Public["Future public alpha"]
+    Draft --> Owner["Owner review<br/>evidence + release notes"]
+    Owner --> Public["Published alpha"]
 ```
 
-Promote the artifacts tested by CI. The workflow creates a private draft;
+Promote the artifacts tested by CI. The workflow creates a draft;
 publication requires owner approval. No PyPI publisher is enabled.
 
 ## Release checklist
@@ -40,15 +39,13 @@ publication requires owner approval. No PyPI publisher is enabled.
    confidence job must pass on the tagged commit. The workflow promotes the tested
    Linux wheel/sdist, platform reports, example/confidence archives and SHA256SUMS
    into a draft GitHub prerelease.
-6. Review artifact hashes, notes, visibility and distribution rights. For an
-   approved private alpha, share repository access with named testers. For a
-   public alpha, first settle ownership/license, add LICENSE and matching metadata,
-   enable private vulnerability reporting, then choose public visibility.
+6. Review artifact hashes and notes, then publish the approved draft prerelease.
+   The repository is already public under the [MIT license](../LICENSE), with
+   [private vulnerability reporting](../SECURITY.md) enabled.
 
-Keep `Private :: Do Not Upload` in package metadata until public distribution is
-approved; it blocks accidental PyPI uploads. Before PyPI publication, verify the
-distribution name is available and configure an environment and Trusted Publisher; never
-store a long-lived PyPI token in this repository.
+No PyPI publisher is configured. Before adding one, verify the distribution name
+is available and configure a protected environment and Trusted Publisher. Public
+GitHub access and an MIT license do not require publishing to PyPI.
 
 Packaging follows [PyPA's pyproject guidance](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/).
 A future PyPI workflow should use [PyPI Trusted Publishing](https://docs.pypi.org/trusted-publishers/using-a-publisher/).
@@ -76,13 +73,13 @@ separately from runtime defects.
 
 A useful trial ends with a real workflow assertion that catches the intended bug.
 Launch claims should state the support matrix, trusted-adapter requirement and
-model limits; see the [draft copy](launch-post.md).
+model limits; see the [launch checklist](launch-plan.md).
 
 ## Current repository enforcement
 
 CI and the release verifier enforce artifact promotion checks. Branch-protection
-setup was rejected with HTTP 403 under the personal account's private-repository
-plan. Until protection is configured, check CI before merging: CODEOWNERS and the
+setup was rejected while the repository was private. Public visibility does not
+automatically configure protection. Check CI before merging: CODEOWNERS and the
 PR template alone do not prevent an unchecked merge.
 
 For an examples/docs-only release, compare every runtime module byte-for-byte

@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Publish the repository under MIT; add license metadata and packaged license text.
+  Use public HTTPS setup links and GitHub private vulnerability reporting.
+
 - Add a portable workflow-sim agent skill for setup, real application adapters,
   negative controls and evidence reporting. Include it in the source distribution.
 
