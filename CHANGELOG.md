@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add a portable workflow-sim agent skill for setup, real application adapters,
+  negative controls and evidence reporting. Include it in the source distribution.
+
 - Use uv for contributor setup, Python selection, CI and package/mutation checks.
   `uv.lock` replaces `requirements-dev.lock`; development tools move from the
   `dev` package extra to the `dev` dependency group. Dependency versions are preserved.
