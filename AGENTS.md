@@ -19,6 +19,8 @@ business assertions match.
 
 ## Read for the change
 
+For onboarding a consumer application, follow the [workflow-sim skill](skills/workflow-sim/SKILL.md).
+
 - API, CLI, verdict or evidence changes: read [contracts](docs/contracts.md).
   Preserve request/result identity and update migration notes for changed meaning.
 - Scheduling, ownership or backend changes: read [architecture](docs/architecture.md)

@@ -51,6 +51,26 @@ uv run workflow-sim workflow_sim.examples.retry:build --inputs broken.json --dur
 This returns `ASSERTION_FAILED` (exit 1): two deliveries where one was expected.
 Read the `actual` and `expected` values in the result.
 
+## Agent setup
+
+The [workflow-sim skill](skills/workflow-sim/SKILL.md) guides an agent through
+installation, adapting a real workflow, reproducing its failure and checking the
+fix. It includes evidence requirements and the limits of a PASS result.
+
+Install the `skills/workflow-sim` folder into your agent's skill directory, or
+point the agent directly at its `SKILL.md`. Keep a checkout of the library revision
+you use: the skill reads its contracts and examples. For agents that use
+`~/.agents/skills`, and have no workflow-sim skill installed, run from this
+repository root:
+
+```sh
+mkdir -p ~/.agents/skills
+ln -s "$PWD/skills/workflow-sim" ~/.agents/skills/workflow-sim
+```
+
+Use your agent's configured skill directory if different. Example request: “Use workflow-sim to
+reproduce duplicate refunds in this project and validate the fix.”
+
 ## Connect a workflow
 
 An adapter calls your application and registers final-state checks:
