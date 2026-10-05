@@ -781,7 +781,12 @@ class Engine:
                     break
                 remaining = real_budget_deadline - _real_time.monotonic()
                 if remaining <= 0:
-                    raise _BudgetExceeded("real time budget exhausted while work was running")
+                    # Freeze unfinished membership atomically with detection:
+                    # still holding sched.cv, before any unwind lets a
+                    # post-expiry completion retire work the verdict must show.
+                    exc = _BudgetExceeded("real time budget exhausted while work was running")
+                    exc.interrupted = [w for w in self.active if not w.retired()]
+                    raise exc
                 sched.cv.wait(timeout=min(0.05, remaining))
         # Armed crashes fire at the execution's first scheduling point.
         for w in list(self.active):
@@ -999,11 +1004,12 @@ class Engine:
                     break
         except _BudgetExceeded as exc:
             stop = f"budget: {exc}"
-            # Freeze the unfinished set before the horizon advance below: a
-            # still-spinning execution can observe the advanced clock and
-            # complete afterwards, which must not rewrite the verdict.
-            with sched.cv:
-                interrupted = [w for w in self.active if not w.retired()]
+            # Membership frozen at detection (carried on the exception); fall
+            # back to a locked read for budget sources that bypass the wait.
+            interrupted = getattr(exc, 'interrupted', None)
+            if interrupted is None:
+                with sched.cv:
+                    interrupted = [w for w in self.active if not w.retired()]
         finally:
             if attached:
                 sched.engine = None
@@ -1026,10 +1032,12 @@ class Engine:
                     raise _BudgetExceeded(f"step budget {limit} exhausted")
         except _BudgetExceeded as exc:
             stop = f"budget: {exc}"
-            # Same freeze as run_until: step budgets expire while work holds
-            # the real-time wait, and no post-stop completion may rewrite it.
-            with self.clock.scheduler.cv:
-                interrupted = [w for w in self.active if not w.retired()]
+            # Same freeze as run_until; step-budget expiry bypasses the wait,
+            # so fall back to a locked read when the exception carries none.
+            interrupted = getattr(exc, 'interrupted', None)
+            if interrupted is None:
+                with self.clock.scheduler.cv:
+                    interrupted = [w for w in self.active if not w.retired()]
         report = self._report(stop, started, steps_before,
                               in_flight_override=interrupted)
         self.reports.append(report)
@@ -1040,11 +1048,15 @@ class Engine:
         self._observe_async_errors()
         sched = self.clock.scheduler
         with sched.cv:
-            # With an override, membership is frozen at the stop instant: a
-            # post-stop completion must not drop an execution that was
-            # unfinished when the budget expired. Without one, live state.
-            members = (in_flight_override if in_flight_override is not None
-                       else [w for w in self.active if not w.retired()])
+            # With an override, frozen-at-detection membership is authoritative
+            # for what was unfinished at the stop instant; live unretired work
+            # is unioned in so executions created afterwards (e.g. by assertion
+            # reads during the worker's evidence refresh) stay visible too.
+            # Without one, live state.
+            members = list(in_flight_override) if in_flight_override is not None else []
+            seen = {id(w) for w in members}
+            members.extend(w for w in self.active
+                           if not w.retired() and id(w) not in seen)
             in_flight = [{"id": w.id, "kind": w.kind, "label": w.label,
                           "since": w.started_at.isoformat() if w.started_at else None,
                           "deadlines": [p.when.isoformat() if p.when else None for p in sched.parks_for(w)],
