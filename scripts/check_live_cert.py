@@ -21,11 +21,19 @@ import time
 import uuid
 
 from workflow_sim import run
+from workflow_sim.contracts import encode
 
 SIM_CASES = [
     ('celery_retry', 'workflow_sim.examples.celery_retry:build', 10, {'delivered content'}),
     ('billing', 'workflow_sim.examples.billing:build', 15, {'one exact receipt'}),
 ]
+
+
+def differs(actual, expected):
+    """The runtime compares canonically (true differs from 1); Python == would
+    equate False with 0, so the gate must use the same bytes to agree with the
+    verdict on which checks failed."""
+    return encode(actual) != encode(expected)
 
 
 def sim_gate(output):
@@ -39,7 +47,7 @@ def sim_gate(output):
             path.write_text(json.dumps(result, indent=2) + '\n')
             assert result['outcome'] == wanted, (name, wanted, result['outcome'])
             checks = result['evidence']['checks']
-            failed = {c['name'] for c in checks if c['actual'] != c['expected']}
+            failed = {c['name'] for c in checks if differs(c['actual'], c['expected'])}
             # Exact pattern: fixed fails nothing, broken fails only its known check.
             assert failed == (broken_fails if broken else set()) and checks, (name, failed)
             assert not result['evidence']['unsupported'], (name, result['evidence']['unsupported'])
@@ -148,6 +156,7 @@ def live_gate(output, tmp):
             delivered = [p for _, p in live_effects(root)][-1]
             if broken:
                 assert delivered == {'id': 'order-7', 'items': []}, delivered
+                assert attempts == [0, 1], attempts
             else:
                 assert attempts == [0, 1] and delivered == {'id': 'order-7', 'items': ['book']}, tasks.effects
             record['broken' if broken else 'fixed'] = {'attempts': attempts, 'delivered': delivered}
