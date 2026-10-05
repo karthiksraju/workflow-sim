@@ -226,6 +226,7 @@ class Engine:
         self.max_real_seconds = max_real_seconds
         self.executions: list[WorkItem] = []
         self.active: list[WorkItem] = []
+        self._budget_freeze: Optional[list] = None
         self.concurrency = concurrency
         self.abandoned: list[WorkItem] = []
         self.unsupported = self.celery.unsupported
@@ -768,6 +769,15 @@ class Engine:
             cands.append((park.when, 2, "timer"))
         return min(cands) if cands else None
 
+    def _freeze_unfinished(self) -> list:
+        """Snapshot unfinished executions at budget detection. Call holding
+        sched.cv (the _wait_until_parked site already does; step-budget sites
+        take it around the call). The snapshot is carried on the exception and
+        retained on the engine so evidence refreshes preserve it."""
+        frozen = [w for w in self.active if not w.retired()]
+        self._budget_freeze = list(frozen)
+        return frozen
+
     def _wait_until_parked(self, real_budget_deadline: float) -> None:
         """Block until every active execution is parked or finished."""
         sched = self.clock.scheduler
@@ -781,11 +791,11 @@ class Engine:
                     break
                 remaining = real_budget_deadline - _real_time.monotonic()
                 if remaining <= 0:
-                    # Freeze unfinished membership atomically with detection:
-                    # still holding sched.cv, before any unwind lets a
-                    # post-expiry completion retire work the verdict must show.
+                    # Freeze atomically with detection: still holding sched.cv,
+                    # before any unwind lets a post-expiry completion retire
+                    # work the verdict must show.
                     exc = _BudgetExceeded("real time budget exhausted while work was running")
-                    exc.interrupted = [w for w in self.active if not w.retired()]
+                    exc.interrupted = self._freeze_unfinished()
                     raise exc
                 sched.cv.wait(timeout=min(0.05, remaining))
         # Armed crashes fire at the execution's first scheduling point.
@@ -963,7 +973,10 @@ class Engine:
             return None
         self._steps += 1
         if self._steps > self.max_steps:
-            raise _BudgetExceeded(f"step budget {self.max_steps} exhausted")
+            with self.clock.scheduler.cv:
+                exc = _BudgetExceeded(f"step budget {self.max_steps} exhausted")
+                exc.interrupted = self._freeze_unfinished()
+            raise exc
         self.clock.advance_to(when, reason=source)
         if source == "item":
             self._run_item(heapq.heappop(self._heap))
@@ -1029,11 +1042,14 @@ class Engine:
         try:
             while self.step() is not None:
                 if self._steps - steps_before > limit:
-                    raise _BudgetExceeded(f"step budget {limit} exhausted")
+                    with self.clock.scheduler.cv:
+                        step_exc = _BudgetExceeded(f"step budget {limit} exhausted")
+                        step_exc.interrupted = self._freeze_unfinished()
+                    raise step_exc
         except _BudgetExceeded as exc:
             stop = f"budget: {exc}"
-            # Same freeze as run_until; step-budget expiry bypasses the wait,
-            # so fall back to a locked read when the exception carries none.
+            # Same freeze as run_until; fall back to a locked read for budget
+            # sources that bypass the wait.
             interrupted = getattr(exc, 'interrupted', None)
             if interrupted is None:
                 with self.clock.scheduler.cv:
@@ -1049,11 +1065,14 @@ class Engine:
         sched = self.clock.scheduler
         with sched.cv:
             # With an override, frozen-at-detection membership is authoritative
-            # for what was unfinished at the stop instant; live unretired work
-            # is unioned in so executions created afterwards (e.g. by assertion
-            # reads during the worker's evidence refresh) stay visible too.
-            # Without one, live state.
-            members = list(in_flight_override) if in_flight_override is not None else []
+            # for what was unfinished at the stop instant. Without one, a
+            # retained budget freeze applies (evidence refreshes pass no
+            # override); otherwise live state. Live unretired work is unioned
+            # in so executions created afterwards (e.g. by assertion reads
+            # during the worker's evidence refresh) stay visible too.
+            retained = (self._budget_freeze if stop.startswith("budget:") else None)
+            base = in_flight_override if in_flight_override is not None else retained
+            members = list(base) if base is not None else []
             seen = {id(w) for w in members}
             members.extend(w for w in self.active
                            if not w.retired() and id(w) not in seen)

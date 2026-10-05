@@ -292,6 +292,37 @@ def test_polling_time_with_zero_rounded_sleeps_fails_closed_under_the_engine(tmp
     assert [j[2] for j in r["jumps"]] == ["run_until"], r
 
 
+def test_budget_freeze_survives_evidence_refresh():
+    """A post-stop completion must not rewrite the verdict: after the budget
+    report shows the poller in flight, letting it retire and refreshing the
+    report exactly like the worker's evidence refresh does must still list it
+    (the budget reason, not PASS/INCOMPLETE arithmetic, decides the outcome).
+    Fails without the detection-time freeze (refresh reads live retired state).
+    """
+    engine = Engine(start=T0, max_real_seconds=2)
+
+    async def poll():
+        loop = asyncio.get_running_loop()
+        end = loop.time() + 1e-3
+        while loop.time() < end:
+            await asyncio.sleep(1e-7)
+
+    with engine:
+        engine.at(T0, "task", "poller", lambda: asyncio_compat.run_coro_sync(poll()))
+        rep = engine.run_until(datetime(2099, 1, 1, 9, 0, 1, tzinfo=timezone.utc))
+    assert rep.stop_reason.startswith("budget: real time budget exhausted"), rep
+    assert [w["label"] for w in rep.in_flight] == ["poller"]
+    # Force the raced-against state: the spinner observes the advanced clock,
+    # completes, and retires before the refresh.
+    deadline = time.monotonic() + 30
+    while not engine.executions[0].retired() and time.monotonic() < deadline:
+        time.sleep(0.05)
+    assert engine.executions[0].retired(), "poller never retired; race not staged"
+    refreshed = engine._report(rep.stop_reason, rep.started_at,
+                               engine._steps - rep.steps)
+    assert [w["label"] for w in refreshed.in_flight] == ["poller"]
+
+
 # --- timeouts and cancellation -------------------------------------------------
 
 def _wait_for(a, b, *, zero=False):
