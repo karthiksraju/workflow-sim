@@ -983,6 +983,7 @@ class Engine:
         real_start = _real_time.monotonic()
         steps_before = self._steps
         stop = "horizon"
+        interrupted = None
         # Driving the scheduler is what makes parks engine-owned (no autojump,
         # hard horizon); a caller that installed only the clock gets that too.
         sched = self.clock.scheduler
@@ -998,11 +999,17 @@ class Engine:
                     break
         except _BudgetExceeded as exc:
             stop = f"budget: {exc}"
+            # Freeze the unfinished set before the horizon advance below: a
+            # still-spinning execution can observe the advanced clock and
+            # complete afterwards, which must not rewrite the verdict.
+            with sched.cv:
+                interrupted = [w for w in self.active if not w.retired()]
         finally:
             if attached:
                 sched.engine = None
         self.clock.advance_to(when, reason="run_until")
-        report = self._report(stop, started, steps_before)
+        report = self._report(stop, started, steps_before,
+                              in_flight_override=interrupted)
         self.reports.append(report)
         return report
 
@@ -1011,6 +1018,7 @@ class Engine:
         started = self.clock.now()
         steps_before = self._steps
         stop = "quiescent"
+        interrupted = None
         limit = max_steps or self.max_steps
         try:
             while self.step() is not None:
@@ -1018,19 +1026,30 @@ class Engine:
                     raise _BudgetExceeded(f"step budget {limit} exhausted")
         except _BudgetExceeded as exc:
             stop = f"budget: {exc}"
-        report = self._report(stop, started, steps_before)
+            # Same freeze as run_until: step budgets expire while work holds
+            # the real-time wait, and no post-stop completion may rewrite it.
+            with self.clock.scheduler.cv:
+                interrupted = [w for w in self.active if not w.retired()]
+        report = self._report(stop, started, steps_before,
+                              in_flight_override=interrupted)
         self.reports.append(report)
         return report
 
-    def _report(self, stop: str, started: datetime, steps_before: int) -> RunReport:
+    def _report(self, stop: str, started: datetime, steps_before: int,
+                in_flight_override=None) -> RunReport:
         self._observe_async_errors()
         sched = self.clock.scheduler
         with sched.cv:
+            # With an override, membership is frozen at the stop instant: a
+            # post-stop completion must not drop an execution that was
+            # unfinished when the budget expired. Without one, live state.
+            members = (in_flight_override if in_flight_override is not None
+                       else [w for w in self.active if not w.retired()])
             in_flight = [{"id": w.id, "kind": w.kind, "label": w.label,
                           "since": w.started_at.isoformat() if w.started_at else None,
                           "deadlines": [p.when.isoformat() if p.when else None for p in sched.parks_for(w)],
                           "blocked_on_external": any(p.when is None for p in sched.parks_for(w))}
-                         for w in self.active if not w.retired()]
+                         for w in members]
         return RunReport(
             stop_reason=stop, started_at=started, ended_at=self.clock.now(),
             steps=self._steps - steps_before, in_flight=in_flight,
