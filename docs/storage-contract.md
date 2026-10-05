@@ -6,15 +6,19 @@ IGNORE`, which SQLite documents as atomic.
 
 ## Provenance
 
-- Engine: CPython 3.12 stdlib `sqlite3`, SQLite 3.53.1 in the tested
-  environment (recorded per run via `sqlite3.sqlite_version`).
+- Engine: CPython 3.12 stdlib `sqlite3` (3.53.1 in the tested environment).
+  The version is written to the store's `meta` table on init and asserted per
+  run through a fresh connection, so the result carries the version it ran
+  against.
 - Semantics: SQLite `UNIQUE` constraint plus `INSERT OR IGNORE` conflict
   handling, per the SQLite `ON CONFLICT` documentation. Values synthetic.
 - Conformance: `tests/test_storage_contract.py` over
   `tests/adapters/storage_conformance.py`. The same store code and delivery
   sequence (seeded older row, commit-then-lost-acknowledgement retry,
   duplicate) run under workflow-sim virtual time and under real execution;
-  both assert the exact receipt rows.
+  both assert the exact receipt rows — read through fresh connections, which
+  see only committed state (verified: disabling autocommit fails all three
+  tests).
 
 ## What the negative control catches
 
