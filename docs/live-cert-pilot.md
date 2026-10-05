@@ -1,8 +1,8 @@
 # Live-cert pilot scope (Phase 0)
 
-Pilot the dual-execution procedure on one property before claiming anything live.
+Pilot the dual-execution procedure on two properties before claiming anything live.
 
-## Property
+## Property 1: Celery retry payload
 
 Celery countdown retry preserves its JSON payload and leaves older deliveries
 intact. Grounded in `src/workflow_sim/examples/celery_retry.py`: the retry path
@@ -12,6 +12,18 @@ uses the real Celery producer/tracer; only the store is synthetic.
   (`[0, 1]`).
 - Broken control: mutating the payload before `self.retry()` must fail
   `delivered content` while `retry lineage` still matches.
+
+## Property 2: billing webhook idempotency
+
+Payment webhook provisioning commits exactly one receipt despite a lost
+acknowledgement and a duplicate webhook. Grounded in
+`src/workflow_sim/examples/billing.py`: event fields follow Stripe's documented
+`invoice.paid` envelope (values synthetic); the receipt store is synthetic.
+
+- Checks: `paid account`, `one exact receipt`, `acknowledgement retried`
+  (attempts `2`), `completion recorded after delivery`.
+- Broken control: a per-attempt idempotency key must fail `one exact receipt`
+  (two duplicate receipts) while the other three checks still match.
 
 ## Procedure (per property)
 
@@ -31,7 +43,7 @@ throwaway Redis 8.10.2 (locally built; differs from CI's recorded version),
 CPython 3.12, Linux. Sim adapter `source_sha256 2963cc8a…`
 (`workflow_sim.examples.celery_retry` at this revision).
 
-## Pilot run (2026-10-02, branch `live-cert/dual-execution-scope`)
+## First-property run (2026-10-02, branch `live-cert/dual-execution-scope`)
 
 ```mermaid
 flowchart LR
@@ -54,8 +66,20 @@ storage, not committed). The repeatable gate for the pilot properties is
 agreement remains `scripts/check_celery_contracts.py`; see
 [confidence](confidence.md).
 
+## Second-property run (2026-10-05, branch `live-cert/billing-dual-execution`)
+
+The live side runs the real `provision()` under ordinary asyncio with
+wall-clock sleeps (~2 s) against a file-snapshotted receipt store.
+
+- Sim fixed → `PASS` (exit 0): all four checks match.
+- Sim broken → `ASSERTION_FAILED` (exit 1): only `one exact receipt` fails.
+- Live fixed → one exact receipt, attempts `2`, plan `paid`,
+  processed `['evt-paid-42']`: matches the sim expectation.
+- Live broken → two duplicate receipts with attempts `2`: the bug manifests
+  live exactly as in the sim, so the correct expectation fails live too.
+
 ## Non-claims
 
-One controlled schedule only; no RabbitMQ, database, provider, or thread-ordering
-claims. Seed and timing bounds from `docs/contracts.md` still apply. Live result
+One controlled schedule per property; no RabbitMQ, database, provider, or
+thread-ordering claims. Seed and timing bounds from `docs/contracts.md` still apply. Live result
 certifies the recorded stack and task revision only.
