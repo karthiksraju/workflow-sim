@@ -113,7 +113,11 @@ source files, interpreter/platform, runtime dependency versions and the
 adapter/seed/duration/step configuration, including normalized `start_at` when
 explicitly supplied (inputs are not copied). The parent also binds the worker
 library hash to its own installed source. The adapter module hash covers
-**only that module**, not its imports, data or external services.
+**only that module**; `closure_sha256`/`closure_files` additionally cover the
+first-party import closure observed after the factory ran (every imported
+`.py` module resolved under `project_dir`, excluding the runtime,
+site/dist-packages and extension modules). Neither covers data or external
+services.
 Record your application's immutable revision and fixture identity alongside results.
 Hashes detect changes; they are not signatures or attestations against hostile code.
 

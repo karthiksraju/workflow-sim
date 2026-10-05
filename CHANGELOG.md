@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Add `closure_sha256`/`closure_files` to adapter provenance: the first-party
+  import closure observed after the adapter factory ran. Additive under result
+  schema 1; `source_sha256` semantics unchanged. Schema, verdicts and parent
+  verification are unchanged from alpha 5.
+
 ## 0.1.0a5 — public onboarding alignment
 
 - Align the installation tag, MIT metadata, uv setup and portable agent skill.
