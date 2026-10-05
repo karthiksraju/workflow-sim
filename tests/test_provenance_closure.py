@@ -3,9 +3,10 @@
 The plausible gap each test closes: a behavior-changing helper edit that
 leaves the adapter module byte-identical must not keep the old identity.
 source_sha256 covers only the adapter module; closure_sha256 covers the
-first-party import closure observed after the factory ran.
+first-party import closure observed at evidence freeze.
 """
 import hashlib
+import shutil
 from pathlib import Path
 
 from workflow_sim import run
@@ -34,10 +35,32 @@ def tag():
     return 'v2'
 """
 
+ADAPTER_IMPORTS = """
+import sys
+from pathlib import Path
+import helper
+sys.path.insert(0, str(Path(__file__).parent / 'fakevenv' / 'site-packages'))
+import vendored
 
-def write_project(root, helper_src):
-    (root / 'adapter.py').write_text(ADAPTER)
+
+def build(ctx):
+    seen = []
+
+    def record():
+        import lazy
+        seen.append([helper.tag(), lazy.tag(), vendored.tag()])
+
+    ctx.at(0, 'record', record)
+    ctx.expect('tags', lambda: seen, [['v1', 'lazy1', 'vendored1']])
+"""
+
+
+def write_project(root, helper_src, adapter_src=ADAPTER):
+    (root / 'adapter.py').write_text(adapter_src)
     (root / 'helper.py').write_text(helper_src)
+    # Bytecode caches key on mtime+size: same-size rapid rewrites could
+    # otherwise execute stale bytes while hashing fresh source.
+    shutil.rmtree(root / '__pycache__', ignore_errors=True)
 
 
 def adapter_identity(tmp_path, helper_src):
@@ -62,6 +85,11 @@ def test_helper_change_moves_closure_not_source(tmp_path):
     assert after['source_sha256'] == before['source_sha256']
     assert after['closure_sha256'] != before['closure_sha256']
     assert after['closure_files']['helper.py'] == hashlib.sha256(HELPER_V2.encode()).hexdigest()
+    # The run really executed v2 bytes, not stale v1 bytecode: the business
+    # check observed the v2 tag literally.
+    again = run('adapter:build', project_dir=tmp_path, duration=5)
+    assert again['outcome'] == 'PASS', again
+    assert again['evidence']['checks'][0]['actual'] == ['v2']
 
 
 def test_closure_excludes_runtime_and_third_party(tmp_path):
@@ -69,6 +97,19 @@ def test_closure_excludes_runtime_and_third_party(tmp_path):
     tops = {name.split('/')[0].split('.')[0] for name in identity['closure_files']}
     assert tops == {'adapter', 'helper'}
     assert 'workflow_sim' not in tops and 'os' not in tops and 'sys' not in tops
+
+
+def test_closure_covers_callback_imports_not_vendored(tmp_path):
+    (tmp_path / 'fakevenv' / 'site-packages').mkdir(parents=True)
+    (tmp_path / 'fakevenv' / 'site-packages' / 'vendored.py').write_text(
+        "def tag():\n    return 'vendored1'\n")
+    (tmp_path / 'lazy.py').write_text("def tag():\n    return 'lazy1'\n")
+    write_project(tmp_path, HELPER_V1, adapter_src=ADAPTER_IMPORTS)
+    result = run('adapter:build', project_dir=tmp_path, duration=5)
+    assert result['outcome'] == 'PASS', result
+    files = result['provenance']['adapter']['closure_files']
+    assert set(files) == {'adapter.py', 'helper.py', 'lazy.py'}
+    assert not any('site-packages' in name or '.venv' in name for name in files)
 
 
 def test_installed_example_has_empty_first_party_closure():

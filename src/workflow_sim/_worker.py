@@ -20,15 +20,15 @@ from .contracts import SCHEMA_VERSION, MAX_RESULT_BYTES, DEFAULT_START_AT, diges
 
 
 def adapter_closure(project):
-    """Hash the adapter's first-party import closure as observed after its
-    factory ran: every imported Python module resolved under project_dir,
-    excluding the workflow_sim runtime itself (covered by library_sha256),
-    anything under site/dist-packages (stdlib, third-party, including a
-    project-local .venv) and extension modules. Additive worker-claimed
-    evidence like source_sha256: it detects changes, it does not attest them.
-    Only source files count: a first-party package contributes every .py file
-    reached under it, because a helper change anywhere inside must move the
-    digest."""
+    """Hash the adapter's first-party import closure as observed when evidence
+    freezes: every imported Python source module resolved under project_dir,
+    including callback-time imports made during execution. Excludes the
+    workflow_sim runtime itself (covered by library_sha256), anything under
+    site/dist-packages (stdlib, third-party, including a project-local .venv)
+    and extension or bytecode-only modules (no source to hash). Additive
+    worker-claimed evidence like source_sha256, which the parent does not
+    recompute: it detects changes, it does not attest them. Dynamic imports
+    with no __file__ and sources outside project_dir stay invisible."""
     root = Path(project).resolve()
     ignored_dirs = {'site-packages', 'dist-packages', '.venv'}
     files = {}
@@ -47,21 +47,6 @@ def adapter_closure(project):
         if ignored_dirs & set(rel.parts):
             continue
         files[rel.as_posix()] = hashlib.sha256(resolved.read_bytes()).hexdigest()
-    return {'closure_sha256': digest(files), 'closure_files': files}
-    root = Path(project).resolve()
-    files = {}
-    for name, mod in sorted(sys.modules.items()):
-        path = getattr(mod, '__file__', None)
-        if not path or not path.endswith('.py'):
-            continue
-        top = name.split('.')[0]
-        if top in ('workflow_sim', '__main__', '__mp_main__'):
-            continue
-        try:
-            rel = Path(path).resolve().relative_to(root)
-        except ValueError:
-            continue
-        files[rel.as_posix()] = hashlib.sha256(Path(path).read_bytes()).hexdigest()
     return {'closure_sha256': digest(files), 'closure_files': files}
 
 
@@ -107,13 +92,15 @@ def execute(request, attempt, project, scratch):
             returned = getattr(module, function_name)(context)
             if returned is not None:
                 raise TypeError('adapter must configure the context and return None')
-            result['provenance']['adapter'].update(adapter_closure(project))
             report = engine.run_until(start + timedelta(seconds=request['duration']))
             checks = context._evaluate()
             # Assertions are adapter code too: incorporate failures or work they
             # create before freezing the evidence (without running it implicitly).
             report = engine._report(report.stop_reason, report.started_at,
                                     engine._steps - report.steps)
+        # Snapshot the closure at freeze time so factory and callback-time
+        # imports are all attributed.
+        result['provenance']['adapter'].update(adapter_closure(project))
         # Include violations from setup, execution, assertions, and teardown.
         evidence = {'report': canonical(asdict(report)), 'checks': checks,
                     'ledger': engine.ledger.records(), 'violations': violations,
