@@ -16,9 +16,13 @@ uses the real Celery producer/tracer; only the store is synthetic.
 ## Property 2: billing webhook idempotency
 
 Payment webhook provisioning commits exactly one receipt despite a lost
-acknowledgement and a duplicate webhook. Grounded in
-`src/workflow_sim/examples/billing.py`: event fields follow Stripe's documented
-`invoice.paid` envelope (values synthetic); the receipt store is synthetic.
+acknowledgement and a duplicate webhook. This is an asyncio comparison over a
+modeled boundary: both sides run the real `provision()` against the same
+synthetic in-memory `Account` (`src/workflow_sim/examples/billing.py`; event
+fields follow Stripe's documented `invoice.paid` envelope, values synthetic).
+The live side compares final modeled state — it does not verify durable
+receipt commits or receiver idempotency, which remain modeled (SQLite grounding
+is a separate workstream).
 
 - Checks: `paid account`, `one exact receipt`, `acknowledgement retried`
   (attempts `2`), `completion recorded after delivery`.
@@ -28,11 +32,15 @@ acknowledgement and a duplicate webhook. Grounded in
 ## Procedure (per property)
 
 1. Sim run: fixed inputs → `PASS`, no pending items or violations.
-2. Same task body against an ephemeral live stack (real prefork worker +
-   throwaway Redis, unique queue, no flush of shared state) → same durable
-   effects as the sim.
-3. Broken control: same assertions reject the mutated-payload variant in both
-   the sim and the live stack.
+2. Same code against a live counterpart with equivalent assertions:
+   - Celery properties: real prefork worker + throwaway Redis (unique queue,
+     no flush of shared state) → same durable effects as the sim.
+   - Asyncio properties: the real coroutine under ordinary asyncio with
+     wall-clock sleeps → same final modeled state as the sim's checks.
+   The live harness reports per-check agreement (not a bare boolean) and the
+   broken variant must fail the same check live as in the sim.
+3. Broken control: equivalent assertions reject the broken variant in both
+   the sim and the live counterpart.
 
 All three are required. Sim-only PASS is not certification.
 
@@ -69,7 +77,9 @@ agreement remains `scripts/check_celery_contracts.py`; see
 ## Second-property run (2026-10-05, branch `live-cert/billing-dual-execution`)
 
 The live side runs the real `provision()` under ordinary asyncio with
-wall-clock sleeps (~2 s) against a file-snapshotted receipt store.
+wall-clock sleeps (~2 s) against the same synthetic `Account`, reporting
+per-check agreement and exiting nonzero on any mismatch (fixed) or on a
+missing duplicate manifestation (broken).
 
 - Sim fixed → `PASS` (exit 0): all four checks match.
 - Sim broken → `ASSERTION_FAILED` (exit 1): only `one exact receipt` fails.
