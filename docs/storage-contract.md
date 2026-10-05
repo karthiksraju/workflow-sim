@@ -30,8 +30,10 @@ retry.
 
 ## Boundary lessons applied
 
-- State must be JSON-shaped: `store.rows()` returns tuples, which the context
-  rejects (`json_value`); the assertion reads `[list(r) for r in ...]`.
+- State must be JSON-shaped and committed: raw `sqlite3` rows are tuples,
+  which the context rejects (`json_value`), so assertions read through
+  `fresh_rows()` — a new connection returning lists, which sees only committed
+  state.
 - Thread affinity: the runtime executes setup, callbacks and assertion reads
   sequentially on different owned threads, so the store shares one connection
   with `check_same_thread=False`. No concurrent writers are claimed.
