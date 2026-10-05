@@ -48,7 +48,9 @@ flowchart LR
   fails live too. The negative control holds on both sides.
 
 Raw results and the pilot-specific harness stay outside the tree (thread
-storage, not committed). The permanent in-repo gate for prefork-vs-sim
+storage, not committed). The repeatable gate for the pilot properties is
+`scripts/check_live_cert.py` (sim + CLI exit codes always; prefork leg when
+`LIVE_CERT_BROKER` is set). The permanent in-repo gate for prefork-vs-sim
 agreement remains `scripts/check_celery_contracts.py`; see
 [confidence](confidence.md).
 

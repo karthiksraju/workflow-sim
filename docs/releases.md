@@ -41,6 +41,9 @@ publication requires owner approval. No PyPI publisher is enabled.
 4. Commit/push, then create and push `v<version>` at that exact commit. In a fresh
    project, execute the README and skill fixed/broken commands against that tag;
    verify its version, license metadata and skill files, not just the checkout.
+   Also run the live-cert gate `uv run --locked python scripts/check_live_cert.py
+   --output <dir>`; set `LIVE_CERT_BROKER` to a throwaway Redis URL to include
+   the prefork leg, otherwise it records an explicit skip.
 5. Dispatch **Draft alpha release** with that tag. Both platform jobs and the
    confidence job must pass on the tagged commit. The workflow promotes the tested
    Linux wheel/sdist, platform reports, example/confidence archives and SHA256SUMS
