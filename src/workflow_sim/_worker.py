@@ -19,6 +19,48 @@ from .contracts import SCHEMA_VERSION, MAX_RESULT_BYTES, DEFAULT_START_AT, diges
 
 
 
+def adapter_closure(project):
+    """Hash the adapter's first-party import closure as observed when evidence
+    freezes: every imported Python source module resolved under project_dir,
+    including callback-time imports made during execution. Excludes the
+    workflow_sim runtime itself (covered by library_sha256), the interpreter's
+    standard library by source location (stdlib/platstdlib roots, so a
+    uv-managed interpreter under project_dir cannot pollute the closure, while
+    first-party files that shadow stdlib names stay attributed), anything
+    under site/dist-packages (third-party, including a project-local .venv),
+    editable-install shims and extension or bytecode-only modules (no source
+    to hash). Additive worker-claimed evidence like source_sha256, which the
+    parent does not recompute: it detects changes, it does not attest them.
+    Dynamic imports with no __file__ and sources outside project_dir stay
+    invisible."""
+    import sysconfig
+    root = Path(project).resolve()
+    ignored_dirs = {'site-packages', 'dist-packages', '.venv'}
+    stdlib_roots = {Path(sysconfig.get_path(kind)).resolve()
+                    for kind in ('stdlib', 'platstdlib')
+                    if sysconfig.get_path(kind)}
+    files = {}
+    for name, mod in sorted(sys.modules.items()):
+        path = getattr(mod, '__file__', None)
+        if not path or not path.endswith('.py'):
+            continue
+        top = name.split('.')[0]
+        if top in ('workflow_sim', '__main__', '__mp_main__') or top.startswith('__editable__'):
+            continue
+        resolved = Path(path).resolve()
+        if any(resolved == stdlib_root or stdlib_root in resolved.parents
+               for stdlib_root in stdlib_roots):
+            continue
+        try:
+            rel = resolved.relative_to(root)
+        except ValueError:
+            continue
+        if ignored_dirs & set(rel.parts):
+            continue
+        files[rel.as_posix()] = hashlib.sha256(resolved.read_bytes()).hexdigest()
+    return {'closure_sha256': digest(files), 'closure_files': files}
+
+
 def guard(violations):
     def deny(kind):
         def blocked(*args, **kwargs):
@@ -67,6 +109,9 @@ def execute(request, attempt, project, scratch):
             # create before freezing the evidence (without running it implicitly).
             report = engine._report(report.stop_reason, report.started_at,
                                     engine._steps - report.steps)
+        # Snapshot the closure at freeze time so factory and callback-time
+        # imports are all attributed.
+        result['provenance']['adapter'].update(adapter_closure(project))
         # Include violations from setup, execution, assertions, and teardown.
         evidence = {'report': canonical(asdict(report)), 'checks': checks,
                     'ledger': engine.ledger.records(), 'violations': violations,
