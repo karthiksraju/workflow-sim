@@ -7,9 +7,12 @@ first-party import closure observed at evidence freeze.
 """
 import hashlib
 import shutil
+import sys
+import types
 from pathlib import Path
 
 from workflow_sim import run
+from workflow_sim._worker import adapter_closure
 
 ADAPTER = """
 import helper
@@ -117,3 +120,30 @@ def test_installed_example_has_empty_first_party_closure():
     assert result['outcome'] == 'PASS', result
     adapter = result['provenance']['adapter']
     assert adapter['closure_files'] == {} and 'source_sha256' in adapter
+
+
+def test_stdlib_named_modules_excluded_even_under_project(tmp_path):
+    """CI installs (uv-managed interpreter under the working dir) resolve the
+    real stdlib beneath project_dir; excluding stdlib by module name keeps it
+    out regardless of path. Fake modules stand in for that layout."""
+    staged = []
+    try:
+        for name, rel in (('os', 'uvpython/os.py'),
+                          ('json', 'uvpython/json.py'),
+                          ('antigravity', 'uvpython/antigravity.py'),
+                          ('helper', 'helper.py')):
+            path = tmp_path / rel
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(f"# stand-in for {name}\n")
+            mod = types.ModuleType(name)
+            mod.__file__ = str(path)
+            staged.append((name, sys.modules.get(name)))
+            sys.modules[name] = mod
+        closure = adapter_closure(str(tmp_path))
+        assert set(closure['closure_files']) == {'helper.py'}
+    finally:
+        for name, previous in staged:
+            if previous is None:
+                del sys.modules[name]
+            else:
+                sys.modules[name] = previous

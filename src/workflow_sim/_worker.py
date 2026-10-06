@@ -31,12 +31,18 @@ def adapter_closure(project):
     with no __file__ and sources outside project_dir stay invisible."""
     root = Path(project).resolve()
     ignored_dirs = {'site-packages', 'dist-packages', '.venv'}
+    stdlib = sys.stdlib_module_names
     files = {}
     for name, mod in sorted(sys.modules.items()):
         path = getattr(mod, '__file__', None)
         if not path or not path.endswith('.py'):
             continue
         top = name.split('.')[0]
+        # Standard library by module name, not path: a uv-managed interpreter
+        # can live under project_dir, which would otherwise attribute all of
+        # the stdlib as first-party. Same for editable-install shims.
+        if top in stdlib or top.startswith('__editable__'):
+            continue
         if top in ('workflow_sim', '__main__', '__mp_main__'):
             continue
         resolved = Path(path).resolve()
