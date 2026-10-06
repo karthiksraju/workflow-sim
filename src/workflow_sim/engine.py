@@ -792,10 +792,12 @@ class Engine:
                 remaining = real_budget_deadline - _real_time.monotonic()
                 if remaining <= 0:
                     # Freeze atomically with detection: still holding sched.cv,
-                    # before any unwind lets a post-expiry completion retire
-                    # work the verdict must show.
+                    # snapshot before constructing (a stall between
+                    # construction and handler must not move membership taken
+                    # at detection).
+                    frozen = self._freeze_unfinished()
                     exc = _BudgetExceeded("real time budget exhausted while work was running")
-                    exc.interrupted = self._freeze_unfinished()
+                    exc.interrupted = frozen
                     raise exc
                 sched.cv.wait(timeout=min(0.05, remaining))
         # Armed crashes fire at the execution's first scheduling point.
@@ -974,8 +976,9 @@ class Engine:
         self._steps += 1
         if self._steps > self.max_steps:
             with self.clock.scheduler.cv:
-                exc = _BudgetExceeded(f"step budget {self.max_steps} exhausted")
-                exc.interrupted = self._freeze_unfinished()
+                frozen = self._freeze_unfinished()
+            exc = _BudgetExceeded(f"step budget {self.max_steps} exhausted")
+            exc.interrupted = frozen
             raise exc
         self.clock.advance_to(when, reason=source)
         if source == "item":
@@ -1011,7 +1014,14 @@ class Engine:
         try:
             while True:
                 if _real_time.monotonic() - real_start > self.max_real_seconds:
-                    raise _BudgetExceeded("real time budget exhausted")
+                    # Snapshot before constructing: a test hook (or a real
+                    # stall) between construction and handler must not move
+                    # membership taken at detection.
+                    with sched.cv:
+                        frozen = self._freeze_unfinished()
+                    outer = _BudgetExceeded("real time budget exhausted")
+                    outer.interrupted = frozen
+                    raise outer
                 ran = self.step(horizon=when)
                 if ran is None:
                     break
@@ -1046,8 +1056,9 @@ class Engine:
             while self.step() is not None:
                 if self._steps - steps_before > limit:
                     with self.clock.scheduler.cv:
-                        step_exc = _BudgetExceeded(f"step budget {limit} exhausted")
-                        step_exc.interrupted = self._freeze_unfinished()
+                        frozen = self._freeze_unfinished()
+                    step_exc = _BudgetExceeded(f"step budget {limit} exhausted")
+                    step_exc.interrupted = frozen
                     raise step_exc
         except _BudgetExceeded as exc:
             stop = f"budget: {exc}"

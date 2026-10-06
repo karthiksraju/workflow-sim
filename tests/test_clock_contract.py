@@ -351,6 +351,73 @@ def test_outer_budget_check_retains_freeze():
     assert [w["label"] for w in refreshed.in_flight] == ["sleeper"]
 
 
+def test_outer_freeze_predates_handler_snapshot():
+    """The outer total-time check must freeze membership at detection, not in
+    the handler: an execution that retires between the raise and the handler's
+    locked read (forced here by holding the raising thread inside a patched
+    exception constructor while the test resolves the waiter) must still be
+    reported. Fails if the raise site carries no snapshot."""
+    import threading
+    import workflow_sim.engine as engine_module
+
+    real_budget = engine_module._BudgetExceeded
+    engine = Engine(start=T0, max_real_seconds=0.2)
+    box, constructions = {}, []
+    raised, proceed = threading.Event(), threading.Event()
+
+    class SignallingBudget(real_budget):
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            constructions.append(args[0] if args else "")
+            raised.set()
+            assert proceed.wait(timeout=30), "test orchestration stalled"
+
+    async def waiter():
+        loop = asyncio.get_running_loop()
+        box["future"] = loop.create_future()
+        box["loop"] = loop
+        await box["future"]
+
+    def burn():
+        time.sleep(0.002)  # real burn: churn must outlast the budget
+
+    outcome = {}
+
+    def drive():
+        with engine:
+            engine.at(T0, "task", "waiter",
+                      lambda: asyncio_compat.run_coro_sync(waiter()))
+            for i in range(500):
+                engine.at(T0, "item", f"churn-{i}", burn)
+            outcome["rep"] = engine.run_until(T0 + timedelta(seconds=7200))
+
+    engine_module._BudgetExceeded = SignallingBudget
+    driver = threading.Thread(target=drive, daemon=True)
+    try:
+        driver.start()
+        assert raised.wait(timeout=30), "budget was never raised"
+        assert constructions == ["real time budget exhausted"], constructions
+        work = engine.executions[0]
+        assert not work.retired(), "waiter retired before the test acted"
+        box["loop"].call_soon_threadsafe(box["future"].set_result, None)
+        deadline = time.monotonic() + 30
+        while not work.retired() and time.monotonic() < deadline:
+            time.sleep(0.05)
+        assert work.retired(), "waiter never retired; race not staged"
+        proceed.set()
+        driver.join(timeout=60)
+        assert not driver.is_alive(), "engine thread did not finish"
+    finally:
+        engine_module._BudgetExceeded = real_budget
+        proceed.set()
+    rep = outcome["rep"]
+    assert rep.stop_reason.startswith("budget: real time budget"), rep
+    assert [w["label"] for w in rep.in_flight] == ["waiter"]
+    refreshed = engine._report(rep.stop_reason, rep.started_at,
+                               engine._steps - rep.steps)
+    assert [w["label"] for w in refreshed.in_flight] == ["waiter"]
+
+
 # --- timeouts and cancellation -------------------------------------------------
 
 def _wait_for(a, b, *, zero=False):
