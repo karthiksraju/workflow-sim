@@ -323,6 +323,34 @@ def test_budget_freeze_survives_evidence_refresh():
     assert [w["label"] for w in refreshed.in_flight] == ["poller"]
 
 
+def test_outer_budget_check_retains_freeze():
+    """The run_until outer total-time check must freeze and retain unfinished
+    membership exactly like the wait path: fast-churning steps past a tiny
+    real budget with a parked sleeper active must still report the sleeper
+    through a later refresh. Fails if the handler does not retain the freeze
+    (refresh reads live state with nothing frozen)."""
+    engine = Engine(start=T0, max_real_seconds=0.2)
+
+    async def sleeper():
+        await asyncio.sleep(3600)
+
+    def burn():
+        time.sleep(0.002)  # real burn on the worker thread: churn must outlast the budget
+
+    with engine:
+        engine.at(T0, "task", "sleeper", lambda: asyncio_compat.run_coro_sync(sleeper()))
+        for i in range(500):
+            engine.at(T0, "item", f"churn-{i}", burn)
+        rep = engine.run_until(T0 + timedelta(seconds=7200))
+    assert rep.stop_reason.startswith("budget: real time budget"), rep
+    assert [w["label"] for w in rep.in_flight] == ["sleeper"]
+    assert engine._budget_freeze is not None, "outer check retained no freeze"
+    assert [w.label for w in engine._budget_freeze] == ["sleeper"]
+    refreshed = engine._report(rep.stop_reason, rep.started_at,
+                               engine._steps - rep.steps)
+    assert [w["label"] for w in refreshed.in_flight] == ["sleeper"]
+
+
 # --- timeouts and cancellation -------------------------------------------------
 
 def _wait_for(a, b, *, zero=False):

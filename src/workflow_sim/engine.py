@@ -1019,10 +1019,13 @@ class Engine:
             stop = f"budget: {exc}"
             # Membership frozen at detection (carried on the exception); fall
             # back to a locked read for budget sources that bypass the wait.
+            # Retained on the engine in all cases so evidence refreshes, which
+            # pass no override, preserve exactly this set.
             interrupted = getattr(exc, 'interrupted', None)
             if interrupted is None:
                 with sched.cv:
                     interrupted = [w for w in self.active if not w.retired()]
+            self._budget_freeze = list(interrupted)
         finally:
             if attached:
                 sched.engine = None
@@ -1049,11 +1052,12 @@ class Engine:
         except _BudgetExceeded as exc:
             stop = f"budget: {exc}"
             # Same freeze as run_until; fall back to a locked read for budget
-            # sources that bypass the wait.
+            # sources that bypass the wait. Retained in all cases for refreshes.
             interrupted = getattr(exc, 'interrupted', None)
             if interrupted is None:
                 with self.clock.scheduler.cv:
                     interrupted = [w for w in self.active if not w.retired()]
+            self._budget_freeze = list(interrupted)
         report = self._report(stop, started, steps_before,
                               in_flight_override=interrupted)
         self.reports.append(report)
