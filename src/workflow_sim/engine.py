@@ -974,9 +974,10 @@ class Engine:
         if horizon is not None and when > horizon:
             return None
         self._steps += 1
-        if self._steps > self.max_steps:
-            with self.clock.scheduler.cv:
-                frozen = self._freeze_unfinished()
+        with self.clock.scheduler.cv:
+            over = self._steps > self.max_steps
+            frozen = self._freeze_unfinished() if over else None
+        if over:
             exc = _BudgetExceeded(f"step budget {self.max_steps} exhausted")
             exc.interrupted = frozen
             raise exc
@@ -1013,12 +1014,13 @@ class Engine:
             sched.engine = self
         try:
             while True:
-                if _real_time.monotonic() - real_start > self.max_real_seconds:
-                    # Snapshot before constructing: a test hook (or a real
-                    # stall) between construction and handler must not move
-                    # membership taken at detection.
-                    with sched.cv:
-                        frozen = self._freeze_unfinished()
+                # The exhaustion check and the snapshot share one critical
+                # section: a completion between a true condition and the freeze
+                # would otherwise retire work the verdict must show.
+                with sched.cv:
+                    over = _real_time.monotonic() - real_start > self.max_real_seconds
+                    frozen = self._freeze_unfinished() if over else None
+                if over:
                     outer = _BudgetExceeded("real time budget exhausted")
                     outer.interrupted = frozen
                     raise outer
@@ -1054,9 +1056,10 @@ class Engine:
         limit = max_steps or self.max_steps
         try:
             while self.step() is not None:
-                if self._steps - steps_before > limit:
-                    with self.clock.scheduler.cv:
-                        frozen = self._freeze_unfinished()
+                with self.clock.scheduler.cv:
+                    over = self._steps - steps_before > limit
+                    frozen = self._freeze_unfinished() if over else None
+                if over:
                     step_exc = _BudgetExceeded(f"step budget {limit} exhausted")
                     step_exc.interrupted = frozen
                     raise step_exc
