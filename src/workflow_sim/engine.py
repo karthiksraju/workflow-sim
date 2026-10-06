@@ -226,6 +226,7 @@ class Engine:
         self.max_real_seconds = max_real_seconds
         self.executions: list[WorkItem] = []
         self.active: list[WorkItem] = []
+        self._budget_freeze: Optional[list] = None
         self.concurrency = concurrency
         self.abandoned: list[WorkItem] = []
         self.unsupported = self.celery.unsupported
@@ -768,6 +769,15 @@ class Engine:
             cands.append((park.when, 2, "timer"))
         return min(cands) if cands else None
 
+    def _freeze_unfinished(self) -> list:
+        """Snapshot unfinished executions at budget detection. Call holding
+        sched.cv (the _wait_until_parked site already does; step-budget sites
+        take it around the call). The snapshot is carried on the exception and
+        retained on the engine so evidence refreshes preserve it."""
+        frozen = [w for w in self.active if not w.retired()]
+        self._budget_freeze = list(frozen)
+        return frozen
+
     def _wait_until_parked(self, real_budget_deadline: float) -> None:
         """Block until every active execution is parked or finished."""
         sched = self.clock.scheduler
@@ -781,7 +791,14 @@ class Engine:
                     break
                 remaining = real_budget_deadline - _real_time.monotonic()
                 if remaining <= 0:
-                    raise _BudgetExceeded("real time budget exhausted while work was running")
+                    # Freeze atomically with detection: still holding sched.cv,
+                    # snapshot before constructing (a stall between
+                    # construction and handler must not move membership taken
+                    # at detection).
+                    frozen = self._freeze_unfinished()
+                    exc = _BudgetExceeded("real time budget exhausted while work was running")
+                    exc.interrupted = frozen
+                    raise exc
                 sched.cv.wait(timeout=min(0.05, remaining))
         # Armed crashes fire at the execution's first scheduling point.
         for w in list(self.active):
@@ -957,8 +974,13 @@ class Engine:
         if horizon is not None and when > horizon:
             return None
         self._steps += 1
-        if self._steps > self.max_steps:
-            raise _BudgetExceeded(f"step budget {self.max_steps} exhausted")
+        with self.clock.scheduler.cv:
+            over = self._steps > self.max_steps
+            frozen = self._freeze_unfinished() if over else None
+        if over:
+            exc = _BudgetExceeded(f"step budget {self.max_steps} exhausted")
+            exc.interrupted = frozen
+            raise exc
         self.clock.advance_to(when, reason=source)
         if source == "item":
             self._run_item(heapq.heappop(self._heap))
@@ -983,6 +1005,7 @@ class Engine:
         real_start = _real_time.monotonic()
         steps_before = self._steps
         stop = "horizon"
+        interrupted = None
         # Driving the scheduler is what makes parks engine-owned (no autojump,
         # hard horizon); a caller that installed only the clock gets that too.
         sched = self.clock.scheduler
@@ -991,18 +1014,36 @@ class Engine:
             sched.engine = self
         try:
             while True:
-                if _real_time.monotonic() - real_start > self.max_real_seconds:
-                    raise _BudgetExceeded("real time budget exhausted")
+                # The exhaustion check and the snapshot share one critical
+                # section: a completion between a true condition and the freeze
+                # would otherwise retire work the verdict must show.
+                with sched.cv:
+                    over = _real_time.monotonic() - real_start > self.max_real_seconds
+                    frozen = self._freeze_unfinished() if over else None
+                if over:
+                    outer = _BudgetExceeded("real time budget exhausted")
+                    outer.interrupted = frozen
+                    raise outer
                 ran = self.step(horizon=when)
                 if ran is None:
                     break
         except _BudgetExceeded as exc:
             stop = f"budget: {exc}"
+            # Membership frozen at detection (carried on the exception); fall
+            # back to a locked read for budget sources that bypass the wait.
+            # Retained on the engine in all cases so evidence refreshes, which
+            # pass no override, preserve exactly this set.
+            interrupted = getattr(exc, 'interrupted', None)
+            if interrupted is None:
+                with sched.cv:
+                    interrupted = [w for w in self.active if not w.retired()]
+            self._budget_freeze = list(interrupted)
         finally:
             if attached:
                 sched.engine = None
         self.clock.advance_to(when, reason="run_until")
-        report = self._report(stop, started, steps_before)
+        report = self._report(stop, started, steps_before,
+                              in_flight_override=interrupted)
         self.reports.append(report)
         return report
 
@@ -1011,26 +1052,53 @@ class Engine:
         started = self.clock.now()
         steps_before = self._steps
         stop = "quiescent"
+        interrupted = None
         limit = max_steps or self.max_steps
         try:
             while self.step() is not None:
-                if self._steps - steps_before > limit:
-                    raise _BudgetExceeded(f"step budget {limit} exhausted")
+                with self.clock.scheduler.cv:
+                    over = self._steps - steps_before > limit
+                    frozen = self._freeze_unfinished() if over else None
+                if over:
+                    step_exc = _BudgetExceeded(f"step budget {limit} exhausted")
+                    step_exc.interrupted = frozen
+                    raise step_exc
         except _BudgetExceeded as exc:
             stop = f"budget: {exc}"
-        report = self._report(stop, started, steps_before)
+            # Same freeze as run_until; fall back to a locked read for budget
+            # sources that bypass the wait. Retained in all cases for refreshes.
+            interrupted = getattr(exc, 'interrupted', None)
+            if interrupted is None:
+                with self.clock.scheduler.cv:
+                    interrupted = [w for w in self.active if not w.retired()]
+            self._budget_freeze = list(interrupted)
+        report = self._report(stop, started, steps_before,
+                              in_flight_override=interrupted)
         self.reports.append(report)
         return report
 
-    def _report(self, stop: str, started: datetime, steps_before: int) -> RunReport:
+    def _report(self, stop: str, started: datetime, steps_before: int,
+                in_flight_override=None) -> RunReport:
         self._observe_async_errors()
         sched = self.clock.scheduler
         with sched.cv:
+            # With an override, frozen-at-detection membership is authoritative
+            # for what was unfinished at the stop instant. Without one, a
+            # retained budget freeze applies (evidence refreshes pass no
+            # override); otherwise live state. Live unretired work is unioned
+            # in so executions created afterwards (e.g. by assertion reads
+            # during the worker's evidence refresh) stay visible too.
+            retained = (self._budget_freeze if stop.startswith("budget:") else None)
+            base = in_flight_override if in_flight_override is not None else retained
+            members = list(base) if base is not None else []
+            seen = {id(w) for w in members}
+            members.extend(w for w in self.active
+                           if not w.retired() and id(w) not in seen)
             in_flight = [{"id": w.id, "kind": w.kind, "label": w.label,
                           "since": w.started_at.isoformat() if w.started_at else None,
                           "deadlines": [p.when.isoformat() if p.when else None for p in sched.parks_for(w)],
                           "blocked_on_external": any(p.when is None for p in sched.parks_for(w))}
-                         for w in self.active if not w.retired()]
+                         for w in members]
         return RunReport(
             stop_reason=stop, started_at=started, ended_at=self.clock.now(),
             steps=self._steps - steps_before, in_flight=in_flight,
