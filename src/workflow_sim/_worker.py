@@ -23,29 +23,34 @@ def adapter_closure(project):
     """Hash the adapter's first-party import closure as observed when evidence
     freezes: every imported Python source module resolved under project_dir,
     including callback-time imports made during execution. Excludes the
-    workflow_sim runtime itself (covered by library_sha256), anything under
-    site/dist-packages (stdlib, third-party, including a project-local .venv)
-    and extension or bytecode-only modules (no source to hash). Additive
-    worker-claimed evidence like source_sha256, which the parent does not
-    recompute: it detects changes, it does not attest them. Dynamic imports
-    with no __file__ and sources outside project_dir stay invisible."""
+    workflow_sim runtime itself (covered by library_sha256), the interpreter's
+    standard library by source location (stdlib/platstdlib roots, so a
+    uv-managed interpreter under project_dir cannot pollute the closure, while
+    first-party files that shadow stdlib names stay attributed), anything
+    under site/dist-packages (third-party, including a project-local .venv),
+    editable-install shims and extension or bytecode-only modules (no source
+    to hash). Additive worker-claimed evidence like source_sha256, which the
+    parent does not recompute: it detects changes, it does not attest them.
+    Dynamic imports with no __file__ and sources outside project_dir stay
+    invisible."""
+    import sysconfig
     root = Path(project).resolve()
     ignored_dirs = {'site-packages', 'dist-packages', '.venv'}
-    stdlib = sys.stdlib_module_names
+    stdlib_roots = {Path(sysconfig.get_path(kind)).resolve()
+                    for kind in ('stdlib', 'platstdlib')
+                    if sysconfig.get_path(kind)}
     files = {}
     for name, mod in sorted(sys.modules.items()):
         path = getattr(mod, '__file__', None)
         if not path or not path.endswith('.py'):
             continue
         top = name.split('.')[0]
-        # Standard library by module name, not path: a uv-managed interpreter
-        # can live under project_dir, which would otherwise attribute all of
-        # the stdlib as first-party. Same for editable-install shims.
-        if top in stdlib or top.startswith('__editable__'):
-            continue
-        if top in ('workflow_sim', '__main__', '__mp_main__'):
+        if top in ('workflow_sim', '__main__', '__mp_main__') or top.startswith('__editable__'):
             continue
         resolved = Path(path).resolve()
+        if any(resolved == stdlib_root or stdlib_root in resolved.parents
+               for stdlib_root in stdlib_roots):
+            continue
         try:
             rel = resolved.relative_to(root)
         except ValueError:

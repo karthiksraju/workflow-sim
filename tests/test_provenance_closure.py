@@ -122,28 +122,58 @@ def test_installed_example_has_empty_first_party_closure():
     assert adapter['closure_files'] == {} and 'source_sha256' in adapter
 
 
-def test_stdlib_named_modules_excluded_even_under_project(tmp_path):
-    """CI installs (uv-managed interpreter under the working dir) resolve the
-    real stdlib beneath project_dir; excluding stdlib by module name keeps it
-    out regardless of path. Fake modules stand in for that layout."""
+def test_stdlib_roots_excluded_by_location(tmp_path):
+    """A uv-managed interpreter beneath project_dir resolves the real stdlib
+    there (the CI failure: 192 stdlib files attributed). Exclusion is by
+    interpreter root location, so it holds regardless of path. Mocked roots
+    stand in for that layout."""
+    import sysconfig
+    from unittest import mock
+    lib = tmp_path / 'uvpython' / 'lib' / 'python3.12'
+    lib.mkdir(parents=True)
+    for name in ('os', 'json', '_sysconfigdata__linux_x86_64-linux-gnu'):
+        (lib / f'{name}.py').write_text(f"# stand-in for stdlib {name}\n")
+    (tmp_path / 'helper.py').write_text("def tag():\n    return 'v1'\n")
+    real_get_path = sysconfig.get_path
     staged = []
     try:
-        for name, rel in (('os', 'uvpython/os.py'),
-                          ('json', 'uvpython/json.py'),
-                          ('antigravity', 'uvpython/antigravity.py'),
-                          ('helper', 'helper.py')):
-            path = tmp_path / rel
-            path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_text(f"# stand-in for {name}\n")
+        for name in ('os', 'json', '_sysconfigdata__linux_x86_64-linux-gnu', 'helper'):
+            filename = f'{name}.py' if name == 'helper' else f'uvpython/lib/python3.12/{name}.py'
             mod = types.ModuleType(name)
-            mod.__file__ = str(path)
+            mod.__file__ = str(tmp_path / filename)
             staged.append((name, sys.modules.get(name)))
             sys.modules[name] = mod
-        closure = adapter_closure(str(tmp_path))
+        with mock.patch.object(sysconfig, 'get_path', side_effect=(
+                lambda kind: str(lib) if kind in ('stdlib', 'platstdlib')
+                else real_get_path(kind))):
+            closure = adapter_closure(str(tmp_path))
         assert set(closure['closure_files']) == {'helper.py'}
     finally:
         for name, previous in staged:
             if previous is None:
-                del sys.modules[name]
+                sys.modules.pop(name, None)
             else:
                 sys.modules[name] = previous
+
+
+def test_first_party_shadow_of_stdlib_name_stays_attributed(tmp_path):
+    """A first-party file that shadows a stdlib name changes behavior and must
+    move the digest: location (outside the interpreter roots), not the name,
+    decides attribution."""
+    (tmp_path / 'antigravity.py').write_text("def tag():\n    return 'v1'\n")
+    staged = (sys.modules.get('antigravity'),)
+    try:
+        mod = types.ModuleType('antigravity')
+        mod.__file__ = str(tmp_path / 'antigravity.py')
+        sys.modules['antigravity'] = mod
+        closure = adapter_closure(str(tmp_path))
+        assert closure['closure_files'] == {
+            'antigravity.py': hashlib.sha256((tmp_path / 'antigravity.py').read_bytes()).hexdigest()}
+        (tmp_path / 'antigravity.py').write_text("def tag():\n    return 'v2-longer'\n")
+        again = adapter_closure(str(tmp_path))
+        assert again['closure_sha256'] != closure['closure_sha256']
+    finally:
+        if staged[0] is None:
+            sys.modules.pop('antigravity', None)
+        else:
+            sys.modules['antigravity'] = staged[0]

@@ -116,8 +116,10 @@ library hash to its own installed source. The adapter module hash covers
 **only that module**; `closure_sha256`/`closure_files` additionally cover the
 first-party import closure observed at evidence freeze (every imported `.py`
 module resolved under `project_dir`, including callback-time imports, and
-excluding the runtime, site/dist-packages and extension modules). Both adapter
-fields are worker-claimed: the parent does not recompute them. Neither covers
+excluding the runtime, the interpreter's stdlib roots by location — so
+first-party files shadowing stdlib names stay attributed — site/dist-packages
+and extension modules). Both adapter fields are worker-claimed: the parent
+does not recompute them. Neither covers
 data, external services, bytecode-only or dynamically loaded modules without
 source, or sources outside `project_dir`.
 Record your application's immutable revision and fixture identity alongside results.
